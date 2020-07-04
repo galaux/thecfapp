@@ -1,0 +1,21 @@
+default:
+  type: 'postgres'
+  host: 'localhost'
+  port: 5432
+  username: 'postgres'
+  password: ''
+  database: 'crossfit'
+  synchronize: true
+  logging: true
+  entities:
+    - 'build/core/**/entities/*.js'
+  # migrations:
+  #   - "src/migration/**/*.ts"
+  # subscribers:
+  #   - "src/subscriber/**/*.ts"
+  # # Only needed when creating entities, migrations and subscribers with the CLI
+  # # https://github.com/typeorm/typeorm/blob/master/docs/using-cli.md
+  # cli:
+  #   entitiesDir: "src/entity"
+  #   migrationsDir: "src/migration"
+  #   subscribersDir: "src/subscriber"

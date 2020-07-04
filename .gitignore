@@ -1,8 +1,9 @@
 *.zip
 .DS_Store
-.codegen.sentinel
 .idea
-.node_modules.sentinel
-dist/
+.idea/
+.vscode/
+build/
 node_modules/
-src/generated/
+temp/
+tmp/

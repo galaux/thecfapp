@@ -1,5 +1,12 @@
+import { userRecordTypeById } from './core/user/api/user-record-type'
+import { Context } from './type-defs'
+
 export default {
   Query: {
-    testMessage: (): string => 'Hello World!',
+    testMessage: (
+      _: any,
+      __: any,
+      context: Context, // TODO
+    ) => userRecordTypeById(context),
   },
 }

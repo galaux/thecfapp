@@ -1,7 +1,7 @@
 .PHONY: clean
 clean:
 	@echo Cleaning up …
-	rm -rf ./dist
+	rm -rf ./build
 
 .PHONY: format
 format:
