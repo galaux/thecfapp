@@ -3,7 +3,6 @@
 .codegen.sentinel
 .idea
 .node_modules.sentinel
-.prettierrc
 dist/
 node_modules/
 src/generated/
