@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/galaux/crossfit-backend.git"
+  },
+  "author": "guillaume@alaux.net",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/galaux/crossfit-backend/issues"
+  },
+  "homepage": "https://github.com/galaux/crossfit-backend#readme"
+}

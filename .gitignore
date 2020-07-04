@@ -1,0 +1,9 @@
+*.zip
+.DS_Store
+.codegen.sentinel
+.idea
+.node_modules.sentinel
+.prettierrc
+built/
+node_modules/
+src/generated/
