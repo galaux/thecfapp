@@ -1,4 +1,4 @@
-import { userRecordTypeById } from './core/user/api/user-record-type'
+import { personalRecordTypeById } from './core/personal-record/api/personal-record-type'
 import { Context } from './type-defs'
 
 export default {
@@ -7,6 +7,6 @@ export default {
       _: any,
       __: any,
       context: Context, // TODO
-    ) => userRecordTypeById(context),
+    ) => personalRecordTypeById(context),
   },
 }

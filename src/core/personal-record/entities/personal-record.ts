@@ -1,16 +1,16 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { UserRecordType } from './user-record-type'
+import { PersonalRecordType } from './personal-record-type'
 import { v4 as uuid } from 'uuid'
 
 @Entity()
-export class UserRecord {
+export class PersonalRecord {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
   @Column()
   name!: string
 
-  @ManyToOne((_) => UserRecordType, 'id')
+  @ManyToOne((_) => PersonalRecordType, 'id')
   type!: string
 
   @Column()
