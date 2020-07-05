@@ -1,6 +1,35 @@
+input CreatePersonalRecordInput {
+  type: ID!
+  value: Int!
+}
+
+input CreatePersonalRecordTypeInput {
+  name: String!
+}
+
+type PersonalRecord {
+  id: ID!
+  type: PersonalRecordType # TODO set as compulsory
+  typeId: ID!
+  value: Int!
+}
+
+type PersonalRecordType {
+  id: ID!
+  name: String!
+}
+
+extend type Mutation {
+  "TODO"
+  createPersonalRecord(input: CreatePersonalRecordInput!): PersonalRecord!
+
+  "TODO"
+  createPersonalRecordType(
+    input: CreatePersonalRecordTypeInput!
+  ): PersonalRecordType!
+}
+
 extend type Query {
-  """
-  Test Message.
-  """
-  testMessage: String!
+  personalRecords: [PersonalRecord!]!
+  personalRecordTypes: [PersonalRecordType!]!
 }

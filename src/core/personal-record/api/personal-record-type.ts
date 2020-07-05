@@ -1,20 +1,45 @@
 import { PersonalRecordType } from '../entities/personal-record-type'
 import { Context } from '../../../types'
+import {
+  PersonalRecordType as GQLRecordType,
+  CreatePersonalRecordTypeInput,
+} from '../../../generated/graphql'
+import { PersonalRecordType as ORMRecordType } from '../entities/personal-record-type'
 
-async function personalRecordTypeById(context: Context): Promise<string> {
-  const { conn } = context
-  console.log('Inserting a new user into the database...')
-  const recordType = new PersonalRecordType({ name: 'haha' })
-  await conn.manager.save(recordType)
-  console.log('Saved a new user with id: ' + recordType.id)
-
-  console.log('Loading users from the database...')
-  const recordTypes = await conn.manager.find(PersonalRecordType)
-  console.log('Loaded users: ', recordTypes)
-
-  console.log('Here you can setup and run express/koa/any other framework.')
-
-  return 'res'
+function personalRecordTypeReducer(entity: ORMRecordType): GQLRecordType {
+  return {
+    id: entity.id,
+    name: entity.name,
+  }
 }
 
-export { personalRecordTypeById }
+async function personalRecordTypeById(
+  { conn }: Context,
+  id: string,
+): Promise<GQLRecordType> {
+  return conn
+    .getRepository(PersonalRecordType)
+    .findOneOrFail(id)
+    .then(personalRecordTypeReducer)
+}
+
+async function personalRecordTypes({
+  conn,
+}: Context): Promise<GQLRecordType[]> {
+  return conn
+    .getRepository(PersonalRecordType)
+    .find()
+    .then((types) => types.map(personalRecordTypeReducer))
+}
+
+async function createPersonalRecordType(
+  context: Context,
+  input: CreatePersonalRecordTypeInput,
+): Promise<GQLRecordType> {
+  return context.conn
+    .getRepository(ORMRecordType)
+    .save(new ORMRecordType({ name: input.name }))
+    .then(personalRecordTypeReducer)
+}
+
+export { createPersonalRecordType, personalRecordTypeById, personalRecordTypes }

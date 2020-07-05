@@ -7,24 +7,19 @@ export class PersonalRecord {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column()
-  name!: string
-
-  @ManyToOne((_) => PersonalRecordType, 'id')
-  type!: string
+  @ManyToOne((_: any) => PersonalRecordType, 'id')
+  type!: string // TODO change name for `typeId`
 
   @Column()
   value!: number
 
   constructor(
     args: {
-      name?: string
       type?: string
       value?: number
     } = {},
   ) {
     this.id = uuid()
-    if (args.name) this.name = args.name
     if (args.type) this.type = args.type
     if (args.value) this.value = args.value
   }
