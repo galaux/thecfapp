@@ -1,4 +1,5 @@
-import { Resolvers } from '../../generated/graphql'
+import { Resolvers } from '~generated/graphql'
+
 import { createUserRecord, userRecords } from './api/user-record'
 import {
   createUserRecordType,

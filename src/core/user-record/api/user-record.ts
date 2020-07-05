@@ -1,5 +1,6 @@
-import { Context } from '../../../types'
-import { CreateUserRecordInput } from '../../../generated/graphql'
+import { Context } from '~types'
+import { CreateUserRecordInput } from '~generated/graphql'
+
 import { ORMUserRecord } from '../entities/user-record'
 
 async function userRecords({ conn }: Context): Promise<ORMUserRecord[]> {

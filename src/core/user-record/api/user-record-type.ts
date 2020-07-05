@@ -1,5 +1,6 @@
-import { Context } from '../../../types'
-import { CreateUserRecordTypeInput } from '../../../generated/graphql'
+import { Context } from '~types'
+import { CreateUserRecordTypeInput } from '~generated/graphql'
+
 import { ORMUserRecordType } from '../entities/user-record-type'
 
 async function userRecordTypeById(
