@@ -1,12 +1,3 @@
-import { personalRecordTypeById } from './core/personal-record/api/personal-record-type'
-import { Context } from './type-defs'
+import { resolvers as personalRecordResolvers } from './core/personal-record'
 
-export default {
-  Query: {
-    testMessage: (
-      _: any,
-      __: any,
-      context: Context, // TODO
-    ) => personalRecordTypeById(context),
-  },
-}
+export default [personalRecordResolvers]

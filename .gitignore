@@ -4,6 +4,8 @@
 .idea/
 .vscode/
 build/
+graphql.schema.json
 node_modules/
+src/generated/graphql.ts
 temp/
 tmp/

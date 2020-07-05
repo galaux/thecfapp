@@ -1,15 +1,7 @@
-import { gql } from 'apollo-server'
-import { Connection } from 'typeorm'
+import { schema as personalRecordSchema } from './core/personal-record'
+import { readFileSync } from 'fs'
 
-export default gql`
-  type Query {
-    """
-    Test Message.
-    """
-    testMessage: String!
-  }
-`
-
-export type Context = {
-  conn: Connection
-}
+export default [
+  readFileSync('src/schema.graphql', 'utf8'),
+  personalRecordSchema,
+]

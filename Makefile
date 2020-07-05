@@ -2,6 +2,12 @@
 clean:
 	@echo Cleaning up …
 	rm -rf ./build
+	rm -rf ./src/generated
+
+.PHONY: codegen
+codegen:
+	@echo Generating Types from GraphQL...
+	yarn codegen
 
 .PHONY: format
 format:

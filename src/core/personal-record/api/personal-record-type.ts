@@ -1,5 +1,5 @@
 import { PersonalRecordType } from '../entities/personal-record-type'
-import { Context } from '../../../type-defs'
+import { Context } from '../../../types'
 
 async function personalRecordTypeById(context: Context): Promise<string> {
   const { conn } = context
