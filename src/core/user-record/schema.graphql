@@ -1,0 +1,32 @@
+input CreateUserRecordInput {
+  typeId: ID!
+  value: Int!
+}
+
+input CreateUserRecordTypeInput {
+  name: String!
+}
+
+type UserRecord {
+  id: ID!
+  type: UserRecordType!
+  value: Int!
+}
+
+type UserRecordType {
+  id: ID!
+  name: String!
+}
+
+extend type Mutation {
+  "TODO"
+  createUserRecord(input: CreateUserRecordInput!): UserRecord!
+
+  "TODO"
+  createUserRecordType(input: CreateUserRecordTypeInput!): UserRecordType!
+}
+
+extend type Query {
+  userRecords: [UserRecord!]!
+  userRecordTypes: [UserRecordType!]!
+}

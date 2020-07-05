@@ -1,7 +1,4 @@
-import { schema as personalRecordSchema } from './core/personal-record'
+import { schema as userRecordSchema } from './core/user-record'
 import { readFileSync } from 'fs'
 
-export default [
-  readFileSync('src/schema.graphql', 'utf8'),
-  personalRecordSchema,
-]
+export default [readFileSync('src/schema.graphql', 'utf8'), userRecordSchema]

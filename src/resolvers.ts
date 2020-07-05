@@ -1,3 +1,3 @@
-import { resolvers as personalRecordResolvers } from './core/personal-record'
+import { resolvers as userRecordResolvers } from './core/user-record'
 
-export default [personalRecordResolvers]
+export default [userRecordResolvers]

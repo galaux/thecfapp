@@ -12,8 +12,8 @@ generates:
       contextType: ../types#Context
       useIndexSignature: true
       mappers:
-        PersonalRecord: ../core/personal-record/entities/personal-record#ORMPersonalRecord
-        PersonalRecordType: ../core/personal-record/entities/personal-record-type#ORMPersonalRecordType
+        UserRecord: ../core/user-record/entities/user-record#ORMUserRecord
+        UserRecordType: ../core/user-record/entities/user-record-type#ORMUserRecordType
   ./graphql.schema.json:
     plugins:
       - 'introspection'

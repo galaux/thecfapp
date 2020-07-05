@@ -5,10 +5,7 @@ import { ContextFunction } from 'apollo-server-core'
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 
 import { Context } from './types'
-import {
-  ORMPersonalRecord,
-  ORMPersonalRecordType,
-} from './core/personal-record'
+import { ORMUserRecord, ORMUserRecordType } from './core/user-record'
 import { appConfig } from './app-config'
 import resolvers from './resolvers'
 import typeDefs from './type-defs'
@@ -23,7 +20,7 @@ function createDBConn(): Promise<Connection> {
     database: 'crossfit',
     synchronize: true,
     logging: true,
-    entities: [ORMPersonalRecord, ORMPersonalRecordType],
+    entities: [ORMUserRecord, ORMUserRecordType],
   })
 }
 

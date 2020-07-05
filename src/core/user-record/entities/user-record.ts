@@ -1,9 +1,9 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { ORMPersonalRecordType } from './personal-record-type'
+import { ORMUserRecordType } from './user-record-type'
 import { v4 as uuid } from 'uuid'
 
 @Entity()
-class PersonalRecord {
+class UserRecord {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -15,8 +15,8 @@ class PersonalRecord {
 
   /* We are never going to use this relation but we declare it here so that
      TypeORM creates the foreign key constraints when generating the schema. */
-  @ManyToOne((_: any) => ORMPersonalRecordType)
-  type?: ORMPersonalRecordType
+  @ManyToOne((_: any) => ORMUserRecordType)
+  type?: ORMUserRecordType
 
   @Column()
   value!: number
@@ -33,4 +33,4 @@ class PersonalRecord {
   }
 }
 
-export { PersonalRecord as ORMPersonalRecord }
+export { UserRecord as ORMUserRecord }
