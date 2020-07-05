@@ -1,14 +1,17 @@
 import 'reflect-metadata'
 import { ApolloServer } from 'apollo-server'
+import { Connection, createConnection } from 'typeorm'
+import { ContextFunction } from 'apollo-server-core'
+import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 
+import { Context } from './types'
+import {
+  ORMPersonalRecord,
+  ORMPersonalRecordType,
+} from './core/personal-record'
 import { appConfig } from './app-config'
 import resolvers from './resolvers'
 import typeDefs from './type-defs'
-import { Context } from './types'
-import { createConnection, Connection } from 'typeorm'
-import { PersonalRecord, PersonalRecordType } from './core/personal-record'
-import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
-import { ContextFunction } from 'apollo-server-core'
 
 function createDBConn(): Promise<Connection> {
   return createConnection(<PostgresConnectionOptions>{
@@ -20,7 +23,7 @@ function createDBConn(): Promise<Connection> {
     database: 'crossfit',
     synchronize: true,
     logging: true,
-    entities: [PersonalRecord, PersonalRecordType],
+    entities: [ORMPersonalRecord, ORMPersonalRecordType],
   })
 }
 

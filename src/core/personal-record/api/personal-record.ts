@@ -1,39 +1,23 @@
 import { Context } from '../../../types'
-import {
-  PersonalRecord as GQLRecord,
-  CreatePersonalRecordInput,
-} from '../../../generated/graphql'
-import { PersonalRecord as ORMRecord } from '../entities/personal-record'
+import { CreatePersonalRecordInput } from '../../../generated/graphql'
+import { ORMPersonalRecord } from '../entities/personal-record'
 
-function personalRecordReducer(entity: ORMRecord): GQLRecord {
-  return {
-    id: entity.id,
-    // type: PersonalRecordType
-    typeId: entity.type, // TODO remove this field
-    value: entity.value,
-  }
-}
-
-async function personalRecords({ conn }: Context): Promise<GQLRecord[]> {
-  return conn
-    .getRepository(ORMRecord)
-    .find()
-    .then((prs) => prs.map(personalRecordReducer))
+async function personalRecords({
+  conn,
+}: Context): Promise<ORMPersonalRecord[]> {
+  return conn.getRepository(ORMPersonalRecord).find()
 }
 
 async function createPersonalRecord(
-  context: Context,
+  { conn }: Context,
   input: CreatePersonalRecordInput,
-): Promise<GQLRecord> {
-  return context.conn
-    .getRepository(ORMRecord)
-    .save(
-      new ORMRecord({
-        type: input.type,
-        value: input.value,
-      }),
-    )
-    .then(personalRecordReducer)
+): Promise<ORMPersonalRecord> {
+  return conn.getRepository(ORMPersonalRecord).save(
+    new ORMPersonalRecord({
+      typeId: input.typeId,
+      value: input.value,
+    }),
+  )
 }
 
 export { createPersonalRecord, personalRecords }

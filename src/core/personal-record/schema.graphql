@@ -1,5 +1,5 @@
 input CreatePersonalRecordInput {
-  type: ID!
+  typeId: ID!
   value: Int!
 }
 
@@ -9,8 +9,7 @@ input CreatePersonalRecordTypeInput {
 
 type PersonalRecord {
   id: ID!
-  type: PersonalRecordType # TODO set as compulsory
-  typeId: ID!
+  type: PersonalRecordType!
   value: Int!
 }
 

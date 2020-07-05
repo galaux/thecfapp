@@ -1,10 +1,10 @@
+import { Resolvers } from '../../generated/graphql'
+import { createPersonalRecord, personalRecords } from './api/personal-record'
 import {
   createPersonalRecordType,
   personalRecordTypeById,
   personalRecordTypes,
 } from './api/personal-record-type'
-import { personalRecords, createPersonalRecord } from './api/personal-record'
-import { Resolvers } from '../../generated/graphql'
 
 export default <Resolvers>{
   Mutation: {

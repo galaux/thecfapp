@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 import { v4 as uuid } from 'uuid'
 
 @Entity()
-export class PersonalRecordType {
+class PersonalRecordType {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
@@ -20,3 +20,5 @@ export class PersonalRecordType {
     if (args.name) this.name = args.name
   }
 }
+
+export { PersonalRecordType as ORMPersonalRecordType }
