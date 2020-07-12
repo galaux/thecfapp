@@ -1,11 +1,12 @@
 *.zip
 .DS_Store
+.env
 .idea
 .idea/
 .vscode/
+api/graphql.schema.json
+api/src/generated/graphql.ts
 build/
-graphql.schema.json
 node_modules/
-src/generated/graphql.ts
 temp/
 tmp/

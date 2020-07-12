@@ -1,12 +1,10 @@
 # crossfit-backend
 
-
 ## dev environment setup
 
 ```
 npm install -g nodemon
 ```
-
 
 ## start the application
 
