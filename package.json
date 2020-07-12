@@ -1,0 +1,28 @@
+{
+  "name": "thecfapp",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "yarn --cwd ./api build && yarn --cwd ./front build",
+    "codegen": "yarn --cwd ./api codegen"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/galaux/crossfit-backend.git"
+  },
+  "contributors": [
+    {
+      "name": "Guillaume Alaux",
+      "email": "guillaume@alaux.net"
+    },
+    {
+      "name": "Ugo Onali",
+      "email": "hello@onali-ugo.fr"
+    }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/galaux/crossfit-backend/issues"
+  },
+  "homepage": "https://github.com/galaux/crossfit-backend#readme"
+}
