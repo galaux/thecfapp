@@ -1,0 +1,1 @@
+web: APOLLO_INTROSPECTION=true APOLLO_PLAYGROUND=true npm start
