@@ -7,20 +7,14 @@ import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConne
 
 import { Context } from './types'
 import { ORMUserRecord, ORMUserRecordType } from './core/user-record'
-import { appConfig } from './app-config'
+import { appConfig, DBConfig } from './app-config'
 import resolvers from './resolvers'
 import typeDefs from './type-defs'
 
-function createDBConn(): Promise<Connection> {
+function createDBConn(dbConfig: DBConfig): Promise<Connection> {
   return createConnection(<PostgresConnectionOptions>{
     type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: '',
-    database: 'crossfit',
-    synchronize: true,
-    logging: true,
+    ...dbConfig,
     entities: [ORMUserRecord, ORMUserRecordType],
   })
 }
@@ -34,7 +28,7 @@ function contextFn(conn: Promise<Connection>): ContextFunction {
 }
 
 const server = new ApolloServer({
-  context: contextFn(createDBConn()),
+  context: contextFn(createDBConn(appConfig.db)),
   introspection: appConfig.apollo.introspection,
   playground: appConfig.apollo.playground,
   resolvers,
