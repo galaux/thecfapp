@@ -1,11 +1,33 @@
-*.zip
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+node_modules
+.pnp
+.pnp.js
+
+# testing
+coverage
+
+# production
+build
+
+# api generated
+api/graphql.schema.json
+api/src/generated/graphql.ts
+
+# misc
 .DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 .idea
-.idea/
-.vscode/
-build/
-graphql.schema.json
-node_modules/
-src/generated/graphql.ts
-temp/
-tmp/
+.tmp
+.vscode
+.zip
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+

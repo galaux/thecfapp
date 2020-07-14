@@ -1,16 +1,22 @@
-# crossfit-backend
+# Crossfit-backend
 
+## Scripts
 
-## dev environment setup
-
-```
-npm install -g nodemon
-```
-
-
-## start the application
+### Launch the front-end
 
 ```
-tsc --watch
-yarn start
+yarn start-front
 ```
+
+### Launch the back-end
+
+Before launching the back-end, you need to build it first
+
+```
+yarn build
+yarn start-api
+```
+
+## To-do
+
+- [] Find a name

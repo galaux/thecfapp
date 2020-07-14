@@ -33,5 +33,5 @@ export const appConfig: AppConfig = {
     synchronize: process.env.DB_SYNCHRONIZE === 'true',
     logging: process.env.DB_LOGGING === 'true',
   },
-  port: process.env.PORT || defaultPort,
+  port: process.env.API_PORT || defaultPort,
 }
