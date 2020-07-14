@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "start-front": "yarn --cwd front start",
-    "start-api": "yarn --cwd api start-watch",
+    "start-api": "yarn --cwd api start",
     "build": "yarn --cwd ./api build && yarn --cwd ./front build",
     "codegen": "yarn --cwd ./api codegen"
   },
