@@ -1,0 +1,24 @@
+"Input to a `Community` record"
+input CreateCommunityInput {
+  name: String!
+}
+
+"Record of a community"
+type Community {
+  id: ID!
+  name: String!
+}
+
+extend type Mutation {
+  """
+  Create a community.
+  """
+  createCommunity(input: CreateCommunityInput!): Community!
+}
+
+extend type Query {
+  """
+  List communities.
+  """
+  communities: [Community!]!
+}

@@ -59,6 +59,7 @@ without trying to serve the front-end static files.
 cd api
 yarn install
 cp .env.example .env
+# Start a local PostgreSQL DB in line with the content of `.env`
 yarn dev
 ```
 

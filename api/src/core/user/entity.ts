@@ -2,13 +2,11 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 import { v4 as uuid } from 'uuid'
 
 @Entity()
-class UserRecordType {
+export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @Column({
-    unique: true,
-  })
+  @Column()
   name!: string
 
   constructor(
@@ -20,5 +18,3 @@ class UserRecordType {
     if (args.name) this.name = args.name
   }
 }
-
-export { UserRecordType as ORMUserRecordType }

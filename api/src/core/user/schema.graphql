@@ -1,0 +1,36 @@
+"Input to a `User` record"
+input CreateUserInput {
+  name: String!
+}
+
+"Input to add a `User` to a `Community`"
+input AddUserToCommunityInput {
+  communityId: ID!
+  userId: ID!
+}
+
+"Record of a user"
+type User {
+  id: ID!
+  communities: [Community!]!
+  name: String!
+}
+
+extend type Mutation {
+  """
+  Create a user.
+  """
+  createUser(input: CreateUserInput!): User!
+
+  """
+  Add a user to a community.
+  """
+  addUserToCommunity(input: AddUserToCommunityInput!): User!
+}
+
+extend type Query {
+  """
+  List users.
+  """
+  users: [User!]!
+}
