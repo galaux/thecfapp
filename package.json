@@ -4,9 +4,10 @@
   "description": "",
   "scripts": {
     "start-front": "yarn --cwd front start",
+    "build-front": "yarn --cwd front build",
     "start-api": "yarn --cwd api start",
-    "build": "yarn --cwd ./api build && yarn --cwd ./front build",
-    "codegen": "yarn --cwd ./api codegen"
+    "build-api": "yarn --cwd api build",
+    "build": "yarn build-api && yarn build-front"
   },
   "repository": {
     "type": "git",
