@@ -5,8 +5,7 @@
   "description": "",
   "scripts": {
     "build": "yarn workspaces run build",
-    "codegen": "yarn workspace api run codegen",
-    "start-api": "yarn workspace api run start",
+    "start-api": "yarn workspace api run dev",
     "start-front": "yarn workspace front run start"
   },
   "repository": {
