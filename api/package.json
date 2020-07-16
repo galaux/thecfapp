@@ -1,13 +1,14 @@
 {
-  "name": "thecfapp-api",
+  "name": "api",
   "version": "1.0.0",
+  "private": true,
   "description": "",
   "main": "build/index.js",
   "scripts": {
     "build": "yarn codegen && tsc",
     "codegen": "graphql-codegen --config codegen.yml",
-    "start": "node build/index.js",
-    "start-watch": "nodemon build/index.js",
+    "start": "node build/index.js &",
+    "dev": "yarn build --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

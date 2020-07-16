@@ -1,1 +1,1 @@
-web: yarn start-api & yarn start-front & wait -n
+web: yarn workspaces run start

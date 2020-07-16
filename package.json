@@ -1,12 +1,12 @@
 {
   "name": "thecfapp",
   "version": "1.0.0",
+  "private": true,
   "description": "",
   "scripts": {
-    "start-front": "yarn --cwd front start",
-    "start-api": "yarn --cwd api start",
-    "build": "yarn --cwd ./api build && yarn --cwd ./front build",
-    "codegen": "yarn --cwd ./api codegen"
+    "build": "yarn workspaces run build",
+    "start-api": "yarn workspace api run dev",
+    "start-front": "yarn workspace front run start"
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,9 @@
   "bugs": {
     "url": "https://github.com/galaux/crossfit-backend/issues"
   },
-  "homepage": "https://github.com/galaux/crossfit-backend#readme"
+  "homepage": "https://github.com/galaux/crossfit-backend#readme",
+  "workspaces": [
+    "api",
+    "front"
+  ]
 }
