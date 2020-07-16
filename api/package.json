@@ -8,7 +8,7 @@
     "build": "yarn codegen && tsc",
     "codegen": "graphql-codegen --config codegen.yml",
     "start": "node build/index.js &",
-    "start-watch": "nodemon build/index.js",
+    "dev": "yarn build --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
