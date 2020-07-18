@@ -1,4 +1,4 @@
-# TheCFApp
+# TheCFApp API
 
 ## dev environment setup
 
