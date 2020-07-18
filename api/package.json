@@ -7,8 +7,8 @@
   "scripts": {
     "build": "yarn codegen && tsc",
     "codegen": "graphql-codegen --config codegen.yml",
-    "start": "node build/index.js",
     "dev": "yarn build && yarn start",
+    "start": "node build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
