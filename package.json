@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/TheCFApp/thecfapp#readme",
   "workspaces": [
-    "api",
-    "front"
+    "./api",
+    "./front"
   ]
 }
