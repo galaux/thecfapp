@@ -5,8 +5,7 @@
   "description": "",
   "scripts": {
     "build": "yarn workspaces run build",
-    "start-api": "yarn workspace api run dev",
-    "start-front": "yarn workspace front run start"
+    "start": "yarn workspace api run start"
   },
   "repository": {
     "type": "git",

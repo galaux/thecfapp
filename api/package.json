@@ -7,8 +7,8 @@
   "scripts": {
     "build": "yarn codegen && tsc",
     "codegen": "graphql-codegen --config codegen.yml",
-    "start": "node build/index.js &",
-    "dev": "yarn build --watch",
+    "start": "node build/index.js",
+    "dev": "yarn build && yarn start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -44,7 +44,6 @@
     "@graphql-codegen/introspection": "1.16.1",
     "@graphql-codegen/typescript": "1.16.1",
     "@graphql-codegen/typescript-resolvers": "1.16.1",
-    "@types/express": "github:types/express",
     "@types/graphql": "^14.5.0",
     "@types/node": "^14.0.14",
     "@types/uuid": "^8.0.0",
@@ -63,6 +62,7 @@
   },
   "dependencies": {
     "apollo-server": "^2.15.1",
+    "apollo-server-express": "^2.16.0",
     "graphql": "^15.2.0",
     "module-alias": "^2.2.2",
     "pg": "^8.2.1",

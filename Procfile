@@ -1,1 +1,1 @@
-web: yarn workspaces run start
+web: yarn start
