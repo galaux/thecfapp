@@ -6,6 +6,7 @@ import { Connection, createConnection } from 'typeorm'
 import { ContextFunction } from 'apollo-server-core'
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
 import express from 'express'
+import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
 
 import { Context } from './types'
 import { ORMUserRecord, ORMUserRecordType } from './core/user-record'
@@ -40,6 +41,7 @@ const server = new ApolloServer({
 const app = express()
 
 server.applyMiddleware({ app })
+app.use('/voyager', voyagerMiddleware({ endpointUrl: '/graphql' }))
 app.use(express.static('../front/build'))
 
 app.listen({ port: appConfig.port }, () =>

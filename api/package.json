@@ -64,6 +64,7 @@
     "apollo-server": "^2.15.1",
     "apollo-server-express": "^2.16.0",
     "graphql": "^15.2.0",
+    "graphql-voyager": "^1.0.0-rc.31",
     "module-alias": "^2.2.2",
     "pg": "^8.2.1",
     "reflect-metadata": "^0.1.13",
