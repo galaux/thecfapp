@@ -13,6 +13,7 @@ export interface AppConfig {
     introspection: boolean
     playground: boolean
   }
+  serveFrontEnd: boolean
   db: DBConfig
   port: number
 }
@@ -22,6 +23,7 @@ export const appConfig: AppConfig = {
     introspection: process.env.APOLLO_INTROSPECTION === 'true',
     playground: process.env.APOLLO_PLAYGROUND === 'true',
   },
+  serveFrontEnd: process.env.SERVE_FRONT_END !== 'false',
   db: {
     host: process.env.DB_HOST!,
     port: parseInt(process.env.DB_PORT!),
