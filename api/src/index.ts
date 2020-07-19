@@ -1,9 +1,12 @@
 import 'module-alias/register'
 import 'reflect-metadata'
-import { ApolloServer } from 'apollo-server'
+
+import { ApolloServer } from 'apollo-server-express'
 import { Connection, createConnection } from 'typeorm'
 import { ContextFunction } from 'apollo-server-core'
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
+import express from 'express'
+import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
 
 import { Context } from './types'
 import { ORMUserRecord, ORMUserRecordType } from './core/user-record'
@@ -35,6 +38,16 @@ const server = new ApolloServer({
   typeDefs,
 })
 
-server
-  .listen(appConfig.port)
-  .then(({ url }) => console.log(`Server ready at ${url}.`))
+const app = express()
+
+server.applyMiddleware({ app })
+app.use('/voyager', voyagerMiddleware({ endpointUrl: '/graphql' }))
+if (appConfig.serveFrontEnd) {
+  app.use(express.static('../front/build'))
+}
+
+app.listen({ port: appConfig.port }, () =>
+  console.log(
+    `🚀 Server ready at http://localhost:${appConfig.port}${server.graphqlPath}`,
+  ),
+)

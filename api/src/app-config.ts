@@ -1,5 +1,3 @@
-const defaultPort = 4000
-
 export interface DBConfig {
   host: string
   port: number
@@ -15,8 +13,9 @@ export interface AppConfig {
     introspection: boolean
     playground: boolean
   }
+  serveFrontEnd: boolean
   db: DBConfig
-  port: number | string
+  port: number
 }
 
 export const appConfig: AppConfig = {
@@ -24,6 +23,7 @@ export const appConfig: AppConfig = {
     introspection: process.env.APOLLO_INTROSPECTION === 'true',
     playground: process.env.APOLLO_PLAYGROUND === 'true',
   },
+  serveFrontEnd: process.env.SERVE_FRONT_END !== 'false',
   db: {
     host: process.env.DB_HOST!,
     port: parseInt(process.env.DB_PORT!),
@@ -33,5 +33,5 @@ export const appConfig: AppConfig = {
     synchronize: process.env.DB_SYNCHRONIZE === 'true',
     logging: process.env.DB_LOGGING === 'true',
   },
-  port: process.env.API_PORT || defaultPort,
+  port: parseInt(process.env.PORT!),
 }

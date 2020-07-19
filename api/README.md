@@ -1,4 +1,4 @@
-# crossfit-backend
+# TheCFApp API
 
 ## dev environment setup
 
