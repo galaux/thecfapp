@@ -1,11 +1,7 @@
 export interface DBConfig {
-  host: string
-  port: number
-  username: string
-  password: string
-  database: string
-  synchronize: boolean
   logging: boolean
+  synchronize: boolean
+  url: string
 }
 
 export interface AppConfig {
@@ -25,13 +21,9 @@ export const appConfig: AppConfig = {
   },
   serveFrontEnd: process.env.SERVE_FRONT_END !== 'false',
   db: {
-    host: process.env.DB_HOST!,
-    port: parseInt(process.env.DB_PORT!),
-    username: process.env.DB_USERNAME!,
-    password: process.env.DB_PASSWORD!,
-    database: process.env.DB_DATABASE!,
-    synchronize: process.env.DB_SYNCHRONIZE === 'true',
-    logging: process.env.DB_LOGGING === 'true',
+    logging: process.env.DATABASE_LOGGING === 'true',
+    synchronize: process.env.DATABASE_SYNCHRONIZE === 'true',
+    url: process.env.DATABASE_URL!,
   },
   port: parseInt(process.env.PORT!),
 }
