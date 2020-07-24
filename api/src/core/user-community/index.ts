@@ -1,0 +1,1 @@
+export { UserCommunity } from './entity'

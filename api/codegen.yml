@@ -12,8 +12,12 @@ generates:
       contextType: ../types#Context
       useIndexSignature: true
       mappers:
-        UserRecord: ../core/user-record/entities/user-record#ORMUserRecord
-        UserRecordType: ../core/user-record/entities/user-record-type#ORMUserRecordType
+        Community: ~core/community/entity#Community
+        Score: ~core/score/entity#Score
+        User: ~core/user/entity#User
+        Wod: ~core/wod/entity#Wod
+        Workout: ~core/workout/entity#Workout
+      mapperTypeSuffix: Entity
   ./graphql.schema.json:
     plugins:
       - 'introspection'

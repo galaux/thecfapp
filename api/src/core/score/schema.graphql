@@ -1,0 +1,36 @@
+"Types of scores"
+enum ScoreType {
+  REPETITIONS
+  TIME_MS
+}
+
+"Input to record the score of a `User` to a `Wod` with a score"
+input CreateScore {
+  type: ScoreType!
+  userId: ID!
+  value: Int!
+  wodId: ID!
+}
+
+"Record of the score of a `User` to a `Wod` with a score"
+type Score {
+  id: ID!
+  type: ScoreType!
+  user: User!
+  value: Int!
+  wod: Wod!
+}
+
+extend type Mutation {
+  """
+  Record a `User` taking part to a `Wod` with a score.
+  """
+  createScore(input: CreateScore!): Score!
+}
+
+extend type Query {
+  """
+  List of scores of `User`s to `Wod`s.
+  """
+  scores: [Score!]!
+}

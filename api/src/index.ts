@@ -5,12 +5,18 @@ import { ApolloServer } from 'apollo-server-express'
 import { Connection, createConnection } from 'typeorm'
 import { ContextFunction } from 'apollo-server-core'
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions'
-import express from 'express'
 import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
+import express from 'express'
 
-import { Context } from './types'
-import { ORMUserRecord, ORMUserRecordType } from './core/user-record'
-import { appConfig, DBConfig } from './app-config'
+import { Community } from '~core/community'
+import { Context } from '~types'
+import { Score } from '~core/score'
+import { User } from '~core/user'
+import { UserCommunity } from '~core/user-community'
+import { Wod } from '~core/wod'
+import { Workout } from '~core/workout'
+
+import { DBConfig, appConfig } from './app-config'
 import resolvers from './resolvers'
 import typeDefs from './type-defs'
 
@@ -18,7 +24,7 @@ function createDBConn(dbConfig: DBConfig): Promise<Connection> {
   return createConnection(<PostgresConnectionOptions>{
     type: 'postgres',
     ...dbConfig,
-    entities: [ORMUserRecord, ORMUserRecordType],
+    entities: [Community, Score, UserCommunity, User, Wod, Workout],
   })
 }
 

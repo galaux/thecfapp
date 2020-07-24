@@ -1,0 +1,26 @@
+"Input to create a `Wod`"
+input CreateWodInput {
+  date: Date!
+  workoutId: ID!
+}
+
+extend type Mutation {
+  """
+  Create a Workout Of the Day record.
+  """
+  createWod(input: CreateWodInput!): Wod!
+}
+
+extend type Query {
+  """
+  List of Workout Of the Day.
+  """
+  wods: [Wod!]!
+}
+
+"Record of a Workout Of the Day"
+type Wod {
+  id: ID!
+  date: Date!
+  workout: Workout!
+}
