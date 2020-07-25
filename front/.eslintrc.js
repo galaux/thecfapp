@@ -32,7 +32,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['*.test.tsx', 'setupTests.ts'],
+      files: ['*.test.tsx', 'setupTests.ts', 'utils/test.tsx'],
       rules: {
         'import/no-extraneous-dependencies': 'off',
       },
