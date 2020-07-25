@@ -30,4 +30,12 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react/prop-types': 'off',
   },
+  overrides: [
+    {
+      files: ['*.test.tsx', 'setupTests.ts'],
+      rules: {
+        'import/no-extraneous-dependencies': 'off',
+      },
+    },
+  ],
 };
