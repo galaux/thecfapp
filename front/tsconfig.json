@@ -16,6 +16,12 @@
     "noEmit": true,
     "jsx": "preserve"
   },
-  "include": ["components", "pages", ".eslintrc.js"],
+  "include": [
+    ".eslintrc.js",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js"
+  ],
   "exclude": ["node_modules", ".next"]
 }
