@@ -17,7 +17,6 @@ module.exports = {
   },
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    debugLevel: true,
     ecmaFeatures: {
       jsx: true,
     },
@@ -28,5 +27,7 @@ module.exports = {
   },
   rules: {
     'prettier/prettier': ['error'],
+    'react/jsx-props-no-spreading': 'off',
+    'react/prop-types': 'off',
   },
 };
