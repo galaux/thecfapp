@@ -60,6 +60,8 @@ cd api
 yarn install
 cp .env.example .env
 # Start a local PostgreSQL DB in line with the content of `.env`
+yarn db:schema:sync
+yarn db:seed:run
 yarn dev
 ```
 

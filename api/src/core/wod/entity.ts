@@ -1,4 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { LocalDate } from '@js-joda/core'
 import { v4 as uuid } from 'uuid'
 
 import { Workout } from '~core/workout'
@@ -9,10 +10,10 @@ export class Wod {
   id: string
 
   @Column({
-    type: 'timestamp with time zone',
+    type: 'date',
     nullable: false,
   })
-  date!: Date
+  date!: LocalDate
 
   @Column({
     name: 'workoutId',
@@ -25,7 +26,7 @@ export class Wod {
 
   constructor(
     args: {
-      date?: Date
+      date?: LocalDate
       workoutId?: string
     } = {},
   ) {

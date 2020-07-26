@@ -7,6 +7,13 @@
   "scripts": {
     "build": "yarn codegen && tsc",
     "codegen": "graphql-codegen --config codegen.yml",
+    "db:schema": "ts-node -r module-alias/register ./node_modules/typeorm/cli.js",
+    "db:schema:drop": "yarn db:schema schema:drop",
+    "db:schema:log": "yarn db:schema schema:log",
+    "db:schema:sync": "yarn db:schema schema:sync",
+    "db:seed": "ts-node --project ./tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js",
+    "db:seed:config": "yarn db:seed config",
+    "db:seed:run": "yarn db:seed seed",
     "dev": "yarn build && node -r dotenv/config build/index.js",
     "start": "node build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -45,6 +52,7 @@
     "@graphql-codegen/introspection": "1.16.1",
     "@graphql-codegen/typescript": "1.16.1",
     "@graphql-codegen/typescript-resolvers": "1.16.1",
+    "@types/faker": "^4.1.12",
     "@types/graphql": "^14.5.0",
     "@types/node": "^14.0.14",
     "@types/uuid": "^8.0.0",
@@ -60,17 +68,21 @@
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",
     "ts-node": "^8.10.2",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^3.9.6"
   },
   "dependencies": {
+    "@js-joda/core": "^3.0.0",
     "apollo-server": "^2.15.1",
     "apollo-server-express": "^2.16.0",
     "graphql": "^15.2.0",
+    "graphql-joda-types": "^2.1.2",
     "graphql-voyager": "^1.0.0-rc.31",
     "module-alias": "^2.2.2",
     "pg": "^8.2.1",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.25",
+    "typeorm-seeding": "^1.6.1",
     "uuid": "^8.2.0"
   }
 }

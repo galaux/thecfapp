@@ -4,11 +4,18 @@ default:
   port: 5432
   username: 'postgres'
   password: ''
-  database: 'crossfit'
+  database: 'thecfapp'
   synchronize: true
   logging: true
-  entities:
-    - 'build/core/**/entities/*.js'
+  entities: # Wants both ts and js files!
+    - 'build/core/**/entity.js'
+    - 'src/core/**/entity.ts'
+  seeds:
+    - 'src/db-seeder.ts'
+    - 'build/db-seeder.js'
+  factories:
+    - 'src/core/**/entity.factory.ts'
+    - 'build/core/**/entity.factory.js'
   # migrations:
   #   - "src/migration/**/*.ts"
   # subscribers:
