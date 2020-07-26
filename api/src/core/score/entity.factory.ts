@@ -2,9 +2,9 @@ import { define } from 'typeorm-seeding'
 import Faker from 'faker'
 
 import { Score } from './entity'
-import { ScoreType } from '~generated/graphql'
-import { User } from '~core/user'
-import { Wod } from '~core/wod'
+import { ScoreType } from '../../generated/graphql'
+import { User } from '../../core/user'
+import { Wod } from '../../core/wod'
 
 type SeedContext = {
   users: User[]

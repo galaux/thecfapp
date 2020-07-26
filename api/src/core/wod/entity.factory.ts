@@ -1,11 +1,10 @@
+import { LocalDate } from '@js-joda/core'
 import { define } from 'typeorm-seeding'
 import Faker from 'faker'
 
-import { Community } from '~core/community'
-import { Workout } from '~core/workout'
-
-import { LocalDate } from '@js-joda/core'
+import { Community } from '../../core/community'
 import { Wod } from './entity'
+import { Workout } from '../../core/workout'
 
 type SeedContext = {
   communities: Community[]

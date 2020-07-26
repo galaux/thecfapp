@@ -1,6 +1,5 @@
-import { Context } from '~types'
-import { CreateWodInput } from '~generated/graphql'
-
+import { Context } from '../../../types'
+import { CreateWodInput } from '../../../generated/graphql'
 import { Wod } from '../entity'
 
 async function createWod(

@@ -1,5 +1,4 @@
-import { Resolvers } from '~generated/graphql'
-
+import { Resolvers } from '../../generated/graphql'
 import { createWorkout } from './api/create'
 import { workouts } from './api/read'
 

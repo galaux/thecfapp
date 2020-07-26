@@ -1,5 +1,4 @@
-import { Context } from '~types'
-
+import { Context } from '../../../types'
 import { Score } from '../entity'
 
 async function scores({ conn }: Context): Promise<Score[]> {

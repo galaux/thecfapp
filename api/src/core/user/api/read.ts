@@ -1,5 +1,4 @@
-import { Context } from '~types'
-
+import { Context } from '../../../types'
 import { User } from '../entity'
 
 async function users({ conn }: Context): Promise<User[]> {

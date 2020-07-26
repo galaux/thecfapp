@@ -1,12 +1,12 @@
 import { Connection } from 'typeorm'
 import { Factory, Seeder } from 'typeorm-seeding'
 
-import { Community } from '~core/community'
-import { Score } from '~core/score'
-import { User } from '~core/user'
-import { UserCommunity } from '~core/user-community'
-import { Wod } from '~core/wod'
-import { Workout } from '~core/workout'
+import { Community } from './core/community'
+import { Score } from './core/score'
+import { User } from './core/user'
+import { UserCommunity } from './core/user-community'
+import { Wod } from './core/wod'
+import { Workout } from './core/workout'
 
 export default class CreateWorkouts implements Seeder {
   public async run(factory: Factory, _: Connection): Promise<any> {

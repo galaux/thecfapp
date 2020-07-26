@@ -1,10 +1,8 @@
-import { Resolvers } from '~generated/graphql'
-
-import { user } from '~core/user'
-import { wodById } from '~core/wod'
-
+import { Resolvers } from '../../generated/graphql'
 import { createScore } from './api/create'
 import { scores } from './api/read'
+import { user } from '../../core/user'
+import { wodById } from '../../core/wod'
 
 export default <Resolvers>{
   Mutation: {

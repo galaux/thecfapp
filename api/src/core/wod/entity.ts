@@ -1,8 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { LocalDate } from '@js-joda/core'
+import { Workout } from '../../core/workout'
 import { v4 as uuid } from 'uuid'
-
-import { Workout } from '~core/workout'
 
 @Entity()
 export class Wod {
