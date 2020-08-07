@@ -1,6 +1,5 @@
-import { Context } from '~types'
-import { CreateUserInput } from '~generated/graphql'
-
+import { Context } from '../../../types'
+import { CreateUserInput } from '../../../generated/graphql'
 import { User } from '../entity'
 
 async function createUser(

@@ -1,7 +1,6 @@
-import { Context } from '~types'
-import { CreateCommunityInput } from '~generated/graphql'
-
 import { Community } from '../entity'
+import { Context } from '../../../types'
+import { CreateCommunityInput } from '../../../generated/graphql'
 
 async function createCommunity(
   { conn }: Context,

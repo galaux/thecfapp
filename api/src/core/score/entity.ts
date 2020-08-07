@@ -1,9 +1,8 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { ScoreType } from '../../generated/graphql'
+import { User } from '../../core/user'
+import { Wod } from '../../core/wod/entity'
 import { v4 as uuid } from 'uuid'
-
-import { ScoreType } from '~generated/graphql'
-import { User } from '~core/user'
-import { Wod } from '~core/wod/entity'
 
 @Entity()
 export class Score {

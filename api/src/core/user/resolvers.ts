@@ -1,7 +1,6 @@
-import { Resolvers } from '~generated/graphql'
-import { communitiesByUserId } from '~core/community'
-
+import { Resolvers } from '../../generated/graphql'
 import { addUserToCommunity } from './api/update'
+import { communitiesByUserId } from '../../core/community'
 import { createUser } from './api/create'
 import { users } from './api/read'
 

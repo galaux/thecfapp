@@ -1,6 +1,5 @@
-import { Context } from '~types'
-import { CreateScore } from '~generated/graphql'
-
+import { Context } from '../../../types'
+import { CreateScore } from '../../../generated/graphql'
 import { Score } from '../entity'
 
 async function createScore(

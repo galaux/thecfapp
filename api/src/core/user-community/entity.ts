@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { Community } from '~core/community'
-import { User } from '~core/user/entity'
+import { Community } from '../community'
+import { User } from '../user/entity'
 import { v4 as uuid } from 'uuid'
 
 // FIXME add constraint to prevent adding a user twice to the same community

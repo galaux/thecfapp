@@ -12,11 +12,11 @@ generates:
       contextType: ../types#Context
       useIndexSignature: true
       mappers:
-        Community: ~core/community/entity#Community
-        Score: ~core/score/entity#Score
-        User: ~core/user/entity#User
-        Wod: ~core/wod/entity#Wod
-        Workout: ~core/workout/entity#Workout
+        Community: ../core/community/entity#Community
+        Score: ../core/score/entity#Score
+        User: ../core/user/entity#User
+        Wod: ../core/wod/entity#Wod
+        Workout: ../core/workout/entity#Workout
       mapperTypeSuffix: Entity
   ./graphql.schema.json:
     plugins:

@@ -1,5 +1,4 @@
-import { Context } from '~types'
-
+import { Context } from '../../../types'
 import { Workout } from '../entity'
 
 async function workout({ conn }: Context, id: string): Promise<Workout> {

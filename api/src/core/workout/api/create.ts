@@ -1,6 +1,5 @@
-import { Context } from '~types'
-import { CreateWorkoutInput } from '~generated/graphql'
-
+import { Context } from '../../../types'
+import { CreateWorkoutInput } from '../../../generated/graphql'
 import { Workout } from '../entity'
 
 async function createWorkout(

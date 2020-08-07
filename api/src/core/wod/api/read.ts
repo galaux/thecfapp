@@ -1,5 +1,4 @@
-import { Context } from '~types'
-
+import { Context } from '../../../types'
 import { Wod } from '../entity'
 
 async function wods({ conn }: Context): Promise<Wod[]> {

@@ -1,7 +1,7 @@
-import { AddUserToCommunityInput } from '~generated/graphql'
-import { Context } from '~types'
+import { AddUserToCommunityInput } from '../../../generated/graphql'
+import { Context } from '../../../types'
 import { User } from '../entity'
-import { UserCommunity } from '~core/user-community'
+import { UserCommunity } from '../../../core/user-community'
 
 async function addUserToCommunity(
   { conn }: Context,

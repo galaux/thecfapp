@@ -1,8 +1,8 @@
 import { define } from 'typeorm-seeding'
 import Faker from 'faker'
 
-import { Community } from '~core/community'
-import { User } from '~core/user/entity'
+import { Community } from '../community'
+import { User } from '../user/entity'
 
 import { UserCommunity } from './entity'
 

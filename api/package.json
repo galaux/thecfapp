@@ -7,14 +7,14 @@
   "scripts": {
     "build": "yarn codegen && tsc",
     "codegen": "graphql-codegen --config codegen.yml",
-    "db:schema": "ts-node -r module-alias/register ./node_modules/typeorm/cli.js",
+    "db:schema": "ts-node ./node_modules/typeorm/cli.js",
     "db:schema:drop": "yarn db:schema schema:drop",
     "db:schema:log": "yarn db:schema schema:log",
     "db:schema:sync": "yarn db:schema schema:sync",
-    "db:seed": "ts-node --project ./tsconfig.json -r tsconfig-paths/register ./node_modules/typeorm-seeding/dist/cli.js",
+    "db:seed": "ts-node ./node_modules/typeorm-seeding/dist/cli.js",
     "db:seed:config": "yarn db:seed config",
     "db:seed:run": "yarn db:seed seed",
-    "dev": "yarn build && node -r dotenv/config build/index.js",
+    "dev": "yarn build && node --require dotenv/config build/index.js",
     "start": "node build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -37,11 +37,6 @@
     "url": "https://github.com/TheCFApp/thecfapp/issues"
   },
   "homepage": "https://github.com/TheCFApp/thecfapp#readme",
-  "_moduleAliases": {
-    "~core": "build/core",
-    "~generated/graphql": "build/generated/graphql",
-    "~types": "build/types"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"
@@ -68,7 +63,6 @@
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1",
     "ts-node": "^8.10.2",
-    "tsconfig-paths": "^3.9.0",
     "typescript": "^3.9.6"
   },
   "dependencies": {
@@ -78,7 +72,6 @@
     "graphql": "^15.2.0",
     "graphql-joda-types": "^2.1.2",
     "graphql-voyager": "^1.0.0-rc.31",
-    "module-alias": "^2.2.2",
     "pg": "^8.2.1",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.25",

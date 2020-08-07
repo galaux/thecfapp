@@ -1,4 +1,3 @@
-import 'module-alias/register'
 import 'reflect-metadata'
 
 import { ApolloServer } from 'apollo-server-express'
@@ -8,15 +7,14 @@ import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConne
 import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
 import express from 'express'
 
-import { Community } from '~core/community'
-import { Context } from '~types'
-import { Score } from '~core/score'
-import { User } from '~core/user'
-import { UserCommunity } from '~core/user-community'
-import { Wod } from '~core/wod'
-import { Workout } from '~core/workout'
-
+import { Community } from './core/community'
+import { Context } from './types'
 import { DBConfig, appConfig } from './app-config'
+import { Score } from './core/score'
+import { User } from './core/user'
+import { UserCommunity } from './core/user-community'
+import { Wod } from './core/wod'
+import { Workout } from './core/workout'
 import resolvers from './resolvers'
 import typeDefs from './type-defs'
 
