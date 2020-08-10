@@ -47,7 +47,7 @@ const app = express()
 server.applyMiddleware({ app })
 app.use('/voyager', voyagerMiddleware({ endpointUrl: '/graphql' }))
 if (appConfig.serveFrontEnd) {
-  app.use(express.static('../front/build'))
+  app.use(express.static('../front/out'))
 }
 
 app.listen({ port: appConfig.port }, () =>
