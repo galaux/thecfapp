@@ -3,7 +3,6 @@ import { AppConfig } from './app-config'
 import { Connection, createConnection } from 'typeorm'
 import { Context } from './types'
 import { ContextFunction } from 'apollo-server-core'
-import { inspect } from 'util'
 import resolvers from './resolvers'
 import typeDefs from './type-defs'
 
