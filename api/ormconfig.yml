@@ -42,3 +42,23 @@ test:
   factories:
     - 'src/core/**/entity.factory.ts'
     - 'build/core/**/entity.factory.js'
+
+# Prod connection
+prod:
+  type: 'postgres'
+  # Get this with `heroku config:get DATABASE_URL -a thecfapp`
+  url: '…'
+  ssl: true
+  extra:
+    ssl:
+      rejectUnauthorized: false
+  logging: true
+  entities: # Wants both ts and js files!
+    - 'build/core/**/entity.js'
+    - 'src/core/**/entity.ts'
+  seeds:
+    - 'src/db-seeder.ts'
+    - 'build/db-seeder.js'
+  factories:
+    - 'src/core/**/entity.factory.ts'
+    - 'build/core/**/entity.factory.js'
