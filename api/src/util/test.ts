@@ -1,5 +1,7 @@
 import { ApolloServerTestClient, createTestClient } from 'apollo-server-testing'
 import { Connection } from 'typeorm'
+import { Context } from '../types'
+import { createLoaders } from './loaders'
 import { createServer } from '../server'
 import {
   setConnectionOptions,
@@ -13,28 +15,30 @@ const dbConnectionBaseName = 'test'
 
 const uuidRe = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/i
 
-async function setupTestConnection(): Promise<Connection> {
+async function setupTestContext(): Promise<Context> {
   /* Instruct typeorm-seeding that once it has loaded the connection options
      (see `useRefreshDatabase` afterwards), it should change the name of the
      connection */
   setConnectionOptions({ name: `${dbConnectionBaseName}-${uuid()}` })
   // Instruct typeorm-seeding to use the options `test` from `ormconfig.yml`
-  const connection = useRefreshDatabase({
+  const conn = await useRefreshDatabase({
     connection: dbConnectionBaseName,
   })
   await useSeeding({ connection: dbConnectionBaseName })
 
-  return connection
+  const loaders = createLoaders(conn, { cache: false })
+
+  return { conn, loaders }
 }
 
 async function setupTestServer(): Promise<ApolloServerTestClient> {
-  const connection = await setupTestConnection()
+  const { conn } = await setupTestContext()
 
-  const server = createServer(testAppConfig, connection)
+  const server = createServer(testAppConfig, conn)
 
   // https://github.com/apollographql/apollo-server/issues/1140
   // https://github.com/apollographql/apollo-server/issues/4376
   return createTestClient(server as any)
 }
 
-export { dbConnectionBaseName, setupTestServer, setupTestConnection, uuidRe }
+export { dbConnectionBaseName, setupTestServer, setupTestContext, uuidRe }
