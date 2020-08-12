@@ -3,6 +3,7 @@ import { Connection } from 'typeorm'
 import { Context } from '../types'
 import { createLoaders } from './loaders'
 import { createServer } from '../server'
+import { readFileSync } from 'fs'
 import {
   setConnectionOptions,
   useRefreshDatabase,
@@ -10,10 +11,18 @@ import {
 } from 'typeorm-seeding'
 import { testAppConfig } from '../app-config'
 import { v4 as uuid } from 'uuid'
+import path from 'path'
 
 const dbConnectionBaseName = 'test'
 
 const uuidRe = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/i
+
+function readOperation(fname: string): string {
+  return readFileSync(
+    path.resolve('./', `../common/operations/${fname}.graphql`),
+    'utf8',
+  )
+}
 
 async function setupTestContext(): Promise<Context> {
   /* Instruct typeorm-seeding that once it has loaded the connection options
@@ -41,4 +50,10 @@ async function setupTestServer(): Promise<ApolloServerTestClient> {
   return createTestClient(server as any)
 }
 
-export { dbConnectionBaseName, setupTestServer, setupTestContext, uuidRe }
+export {
+  dbConnectionBaseName,
+  readOperation,
+  setupTestContext,
+  setupTestServer,
+  uuidRe,
+}
