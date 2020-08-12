@@ -21,6 +21,12 @@ nodemon build/index.js
 yarn start
 ```
 
+## seed the `prod` database
+
+- fill `ormconfig.yml` field `prod.url` with the PG connection URL read from
+  `heroku config:get DATABASE_URL -a thecfapp`
+- run `yarn db:seed:run -c prod`
+
 ## Detail of Yarn scripts
 
 - `build`: build project (generate GraphQL classes and transpile TypeScript)
