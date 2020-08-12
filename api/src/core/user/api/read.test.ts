@@ -1,14 +1,15 @@
 import { Connection } from 'typeorm'
+import { Context } from '../../../types'
 import { User } from '../entity'
 import { factory, tearDownDatabase } from 'typeorm-seeding'
-import { setupTestConnection } from '../../../util/test'
+import { setupTestContext } from '../../../util/test'
 import { users } from '../../user'
 
 describe('read users', () => {
-  let connection: Connection
+  let context: Context
 
   beforeAll(async () => {
-    connection = await setupTestConnection()
+    context = await setupTestContext()
   })
 
   afterAll(async () => {
@@ -17,7 +18,7 @@ describe('read users', () => {
 
   test('returns the list of users', async () => {
     const createdUser = await factory(User)().create()
-    const res = await users({ conn: connection })
+    const res = await users(context)
     expect(res).toEqual([
       {
         id: createdUser.id,

@@ -7,6 +7,7 @@ async function communities({ conn }: Context): Promise<Community[]> {
 }
 
 // TODO rename in `userCommunities`?
+// TODO use dataloader
 async function communitiesByUserId(
   { conn }: Context,
   userId: string,

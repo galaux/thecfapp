@@ -1,12 +1,20 @@
+import { Connection } from 'typeorm'
 import { Context } from '../../../types'
 import { Workout } from '../entity'
 
-async function workout({ conn }: Context, id: string): Promise<Workout> {
-  return conn.getRepository(Workout).findOneOrFail(id)
+async function selectWorkouts(
+  conn: Connection,
+  ids: string[],
+): Promise<Workout[]> {
+  return conn.getRepository(Workout).findByIds(ids)
+}
+
+async function workout({ loaders }: Context, id: string): Promise<Workout> {
+  return loaders.Workout.load(id)
 }
 
 async function workouts({ conn }: Context): Promise<Workout[]> {
   return conn.getRepository(Workout).find()
 }
 
-export { workout, workouts }
+export { selectWorkouts, workout, workouts }

@@ -3,6 +3,7 @@ import { AppConfig } from './app-config'
 import { Connection, createConnection } from 'typeorm'
 import { Context } from './types'
 import { ContextFunction } from 'apollo-server-core'
+import { createLoaders } from './util/loaders'
 import resolvers from './resolvers'
 import typeDefs from './type-defs'
 
@@ -10,6 +11,7 @@ function contextFn(conn: Promise<Connection>): ContextFunction {
   return async function (): Promise<Context> {
     return <Context>{
       conn: await conn,
+      loaders: createLoaders(await conn),
     }
   }
 }
