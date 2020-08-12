@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 import { ScoreType } from '../../generated/graphql'
 import { User } from '../../core/user'
 import { Wod } from '../../core/wod/entity'
@@ -13,24 +19,26 @@ export class Score {
   type!: ScoreType
 
   @Column({
-    name: 'userId',
+    name: 'user_id',
     type: 'uuid',
   })
   userId!: string
 
   @ManyToOne((_: any) => User)
+  @JoinColumn({ name: 'user_id' })
   user?: User
 
   @Column()
   value!: number
 
   @Column({
-    name: 'wodId',
+    name: 'wod_id',
     type: 'uuid',
   })
   wodId!: string
 
   @ManyToOne((_: any) => Wod)
+  @JoinColumn({ name: 'wod_id' })
   wod?: Wod
 
   constructor(

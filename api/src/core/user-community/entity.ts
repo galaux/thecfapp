@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 import { Community } from '../community'
 import { User } from '../user/entity'
 import { v4 as uuid } from 'uuid'
@@ -11,19 +17,21 @@ export class UserCommunity {
   id: string
 
   @ManyToOne((_: any) => User)
+  @JoinColumn({ name: 'user_id' })
   user!: User
 
   @Column({
-    name: 'userId',
+    name: 'user_id',
     type: 'uuid',
   })
   userId!: string
 
   @ManyToOne((_: any) => Community)
+  @JoinColumn({ name: 'community_id' })
   community!: Community
 
   @Column({
-    name: 'communityId',
+    name: 'community_id',
     type: 'uuid',
   })
   communityId!: string
