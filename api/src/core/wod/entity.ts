@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 import { LocalDate } from '@js-joda/core'
 import { Workout } from '../../core/workout'
 import { v4 as uuid } from 'uuid'
@@ -15,12 +21,13 @@ export class Wod {
   date!: LocalDate
 
   @Column({
-    name: 'workoutId',
+    name: 'workout_id',
     type: 'uuid',
   })
   workoutId!: string
 
   @ManyToOne((_: any) => Workout)
+  @JoinColumn({ name: 'workout_id' })
   workout!: Workout
 
   constructor(
