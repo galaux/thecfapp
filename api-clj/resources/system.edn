@@ -1,0 +1,25 @@
+;; Very nice article on how to use config with Integrant
+;; https://www.karimarttila.fi/clojure/2020/09/07/clojure-integrant-exercise.html
+{:thecfapp/handler
+ {:execute-query #ig/ref :thecfapp.graphql/execute-query}
+
+ :thecfapp/http-server
+ {:handler #ig/ref :thecfapp/handler
+  :port #long #or [#env HTTP_PORT 3000]}
+
+ :thecfapp.db/client
+ {:server-type :dev-local
+  :system "cfapp"
+  :storage-dir #profile {:dev "/enc/home/miguel/TheCFApp/sources/thecfapp/api-clj/datomic"
+                         :test :mem}}
+
+ :thecfapp.db/conn
+ {:client #ig/ref :thecfapp.db/client
+  :db-name "domain"}
+
+ :thecfapp.graphql/compiled-schema
+ {}
+
+ :thecfapp.graphql/execute-query
+ {:conn #ig/ref :thecfapp.db/conn
+  :schema #ig/ref :thecfapp.graphql/compiled-schema}}
