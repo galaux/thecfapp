@@ -2,6 +2,7 @@ import { Connection } from 'typeorm'
 import { Loaders } from '../types'
 import { curry } from 'lodash/fp'
 import { groupBy } from 'lodash/fp'
+import { selectCommunitiesByUserIds } from '../core/community'
 import { selectUsers } from '../core/user'
 import { selectWods } from '../core/wod'
 import { selectWorkouts } from '../core/workout'
@@ -38,6 +39,12 @@ async function batchable<Entity extends { id: string }>(
 
 function createLoaders(conn: Connection, options?: object): Loaders {
   return {
+    Community: {
+      byUserId: new DataLoader(
+        async (keys) => selectCommunitiesByUserIds(conn, keys),
+        options,
+      ),
+    },
     User: new DataLoader(
       async (keys) => batchable(curry(selectUsers)(conn), keys),
       options,
