@@ -26,14 +26,13 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   rules: {
-    'import/prefer-default-export': 'off',
     'prettier/prettier': ['error'],
     'react/jsx-props-no-spreading': 'off',
     'react/prop-types': 'off',
   },
   overrides: [
     {
-      files: ['*.test.tsx', 'setupTests.ts', 'utils/test.tsx', '*.stories.tsx'],
+      files: ['*.test.tsx', 'setupTests.ts', 'utils/test.tsx'],
       rules: {
         'import/no-extraneous-dependencies': 'off',
       },
