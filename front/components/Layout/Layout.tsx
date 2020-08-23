@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Head from 'next/head';
 
-const Layout: React.FC = ({ children }) => (
+export const Layout: React.FC = ({ children }) => (
   <>
     <Head>
       <link rel='icon' href='/favicon.ico' />
@@ -11,5 +11,3 @@ const Layout: React.FC = ({ children }) => (
     <main>{children}</main>
   </>
 );
-
-export default Layout;

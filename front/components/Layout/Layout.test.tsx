@@ -1,6 +1,6 @@
 import React from 'react';
-import { render, screen } from '../utils/test';
-import Layout from './Layout';
+import { render, screen } from '../../utils/test';
+import { Layout } from './Layout';
 
 describe('Layout', () => {
   it('renders', () => {
