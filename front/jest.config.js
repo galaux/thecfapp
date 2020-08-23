@@ -13,6 +13,7 @@ module.exports = {
   moduleNameMapper: {
     '\\.(css|less|sass|scss)$': 'identity-obj-proxy',
     '\\.(gif|ttf|eot|svg|png)$': '<rootDir>/test/__mocks__/fileMock.js',
+    'components/(.*)': '<rootDir>/components/$1',
   },
   modulePathIgnorePatterns: ['<rootDir>/utils/test.tsx'],
   setupFilesAfterEnv: ['<rootDir>/config/setupTests.ts'],
