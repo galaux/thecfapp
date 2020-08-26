@@ -2,6 +2,7 @@ import * as React from 'react';
 import Head from 'next/head';
 import { Box } from '@chakra-ui/core';
 
+import { H1 } from 'components/H1/H1';
 import { Topbar } from 'components/Topbar/Topbar';
 
 export const Layout: React.FC = ({ children }) => (
@@ -11,9 +12,13 @@ export const Layout: React.FC = ({ children }) => (
       <title>THECFAPP</title>
     </Head>
 
-    <Box bg='gray.800' color='white'>
+    <Box bg='gray.800' color='white' padding={4}>
       <Topbar />
-      <main>{children}</main>
+
+      <Box as='main' mt={6}>
+        <H1>WOD</H1>
+        {children}
+      </Box>
     </Box>
   </>
 );
