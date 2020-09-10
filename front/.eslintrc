@@ -37,6 +37,12 @@
       "rules": {
         "no-use-before-define": 0
       }
+    },
+    {
+      "files": ["utils/test.tsx", "setupTests.js"],
+      "rules": {
+        "import/no-extraneous-dependencies": 0
+      }
     }
   ],
   "settings": {
