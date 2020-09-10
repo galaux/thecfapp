@@ -12,15 +12,25 @@ jobs:
 
     steps:
       - uses: actions/checkout@v1
+
       - name: Use Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@v1
         with:
           node_version: ${{ matrix.node_version }}
 
-      - name: run CI
+      - name: Install dependencies
         run: |
           yarn --cwd=front
+
+      - name: Eslint/Prettier
+        run: |
           yarn --cwd=front format:check
           yarn --cwd=front lint
+
+      - name: Test
+        run: |
           yarn --cwd=front test
+
+      - name: Build
+        run: |
           yarn --cwd=front build
