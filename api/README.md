@@ -9,6 +9,7 @@ without trying to serve the front-end static files.
 yarn install
 cp .env.example .env
 # Start a local PostgreSQL DB in line with the content of `.env`
+yarn build
 yarn db:schema:sync
 yarn db:seed:run
 tsc --watch # Leave this process run in the term
