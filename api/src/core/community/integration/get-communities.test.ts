@@ -1,7 +1,7 @@
 import { ApolloServerTestClient } from 'apollo-server-testing'
 import { gql } from 'apollo-server-express'
+import { readOperation, setupTestServer, uuidRe } from '../../../util/test'
 import { runSeeder, tearDownDatabase } from 'typeorm-seeding'
-import { setupTestServer, uuidRe } from '../../../util/test'
 import CreateWorkouts from '../../../db-seeder'
 
 describe('get communities', () => {
@@ -17,18 +17,8 @@ describe('get communities', () => {
 
   test('returns the list of communities', async () => {
     await runSeeder(CreateWorkouts)
-
-    const GET_COMMUNITIES = gql`
-      {
-        communities {
-          id
-          name
-        }
-      }
-    `
-
     const { query } = server
-    const res = await query({ query: GET_COMMUNITIES })
+    const res = await query({ query: readOperation('get-communities') })
 
     expect(res.data!.communities!.length).toBeGreaterThan(0)
     expect(res).toEqual(
