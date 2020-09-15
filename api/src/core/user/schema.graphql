@@ -30,6 +30,11 @@ extend type Mutation {
 
 extend type Query {
   """
+  Get the user identified by `ID`.
+  """
+  user(id: ID!): User!
+
+  """
   List users.
   """
   users: [User!]!
