@@ -29,5 +29,8 @@
   "workspaces": [
     "./api",
     "./front"
-  ]
+  ],
+  "engines": {
+    "node": "14.x"
+  }
 }
