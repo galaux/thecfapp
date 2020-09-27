@@ -1,13 +1,16 @@
 import * as React from 'react';
 import { AppProps } from 'next/app';
-import { ChakraProvider, CSSReset } from '@chakra-ui/core';
-import theme from '@chakra-ui/theme';
+import { ApolloProvider } from '@apollo/client';
+import { ChakraProvider } from '@chakra-ui/core';
+
+import { useApollo } from 'utils/apollo';
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => (
-  <ChakraProvider theme={theme}>
-    <CSSReset />
-    <Component {...pageProps} />
-  </ChakraProvider>
+  <ApolloProvider client={useApollo(pageProps.initialApolloState)}>
+    <ChakraProvider resetCSS>
+      <Component {...pageProps} />
+    </ChakraProvider>
+  </ApolloProvider>
 );
 
 export default App;

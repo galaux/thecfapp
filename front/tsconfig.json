@@ -8,6 +8,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
+    "strictNullChecks": false,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
@@ -16,12 +17,6 @@
     "noEmit": true,
     "jsx": "preserve"
   },
-  "include": [
-    ".eslintrc.js",
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js"
-  ],
-  "exclude": ["node_modules", ".next"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js"],
+  "exclude": ["node_modules", ".next", "out"]
 }
