@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { Box } from '@chakra-ui/core';
+import { Box, Heading, Text } from '@chakra-ui/core';
 
-import { H1 } from 'components/H1/H1';
 import { Wod } from 'types/wod.d';
 
 export interface WodSliderItemProps {
@@ -9,9 +8,30 @@ export interface WodSliderItemProps {
 }
 
 export const WodSliderItem: React.FC<WodSliderItemProps> = ({ wod }) => (
-  <Box w='100%' h='100%' bg='gray.700' rounded='md' p={4}>
-    <H1 isFaded subText={wod.desc}>
-      {wod.name}
-    </H1>
+  <Box w='100%' h='100%' bg='_thunder' rounded='md' p={4}>
+    <Box mb={4}>
+      <Heading
+        as='h1'
+        fontSize='1.25rem'
+        fontWeight={400}
+        textTransform='uppercase'
+        color='_gray'
+      >
+        {wod.name}
+      </Heading>
+      <Text mt={1}>{wod.desc}</Text>
+    </Box>
+
+    {wod.movements.map((movement) => (
+      <Box mb={2} key={movement.id}>
+        <Text fontSize='sm'>{movement.name}</Text>
+        <Text fontSize='sm' color='_gray'>
+          {`${movement.reps} reps`}
+          {movement.rx_male &&
+            movement.rx_female &&
+            ` @ ${movement.rx_male}/${movement.rx_female} ${movement.unit}`}
+        </Text>
+      </Box>
+    ))}
   </Box>
 );
