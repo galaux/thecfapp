@@ -13,8 +13,12 @@ export type Context = {
 export type Loaders = {
   Community: {
     byUserId: DataLoader<string, Community[]>
+    byId: DataLoader<string, Community>
   }
   User: DataLoader<string, User>
-  Wod: DataLoader<string, Wod>
+  Wod: {
+    byCommunityId: DataLoader<string, Wod[]>
+    byId: DataLoader<string, Wod>
+  }
   Workout: DataLoader<string, Workout>
 }

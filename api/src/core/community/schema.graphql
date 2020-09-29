@@ -7,6 +7,7 @@ input CreateCommunityInput {
 type Community {
   id: ID!
   name: String!
+  wods: [Wod!]!
 }
 
 extend type Mutation {
