@@ -6,7 +6,12 @@ import { Layout } from 'components/Layout/Layout';
 import { WodSlider } from 'components/WodSlider/WodSlider';
 
 const Home: React.FC = () => {
-  const { loading, data } = useQuery(queries.getUsers);
+  const userId = '46cca0ba-e2f0-4e16-971c-11f38fe4e67a';
+  const { loading, data } = useQuery(queries.getUserById, {
+    variables: {
+      id: userId,
+    },
+  });
 
   console.log('loading', loading);
   console.log('data', data);
