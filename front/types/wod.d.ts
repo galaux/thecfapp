@@ -1,15 +1,8 @@
-export type Movement = {
-  id: string;
-  name: string;
-  reps: string;
-  rx_male?: string;
-  rx_female?: string;
-  unit?: string;
-};
+import { IMovement } from './movement';
 
-export type Wod = {
+export interface IWod {
   id: string;
   name: string;
   desc: string;
-  movements: Movement[];
-};
+  movements: IMovement[];
+}

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { Box, Heading, Text } from '@chakra-ui/core';
 
-import { Wod } from 'types/wod.d';
+import { IWod } from 'types/wod.d';
 
 export interface WodSliderItemProps {
-  wod: Wod;
+  wod: IWod;
 }
 
 export const WodSliderItem: React.FC<WodSliderItemProps> = ({ wod }) => (

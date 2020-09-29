@@ -1,7 +1,7 @@
-import { Community } from './community';
+import { ICommunity } from './community';
 
-export type User = {
+export interface IUser {
   id: string;
   name: string;
-  communities: Community[];
-};
+  communities: ICommunity[];
+}

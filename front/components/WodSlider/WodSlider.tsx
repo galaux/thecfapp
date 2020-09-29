@@ -1,7 +1,7 @@
 import * as React from 'react';
 import SwipeableViews from 'react-swipeable-views';
 
-import { Wod } from 'types/wod';
+import { IWod } from 'types/wod';
 import { WodSliderItem } from './WodSliderItem';
 
 const wods = [
@@ -68,7 +68,7 @@ const wods = [
       },
     ],
   },
-] as Wod[];
+] as IWod[];
 
 export const WodSlider: React.FC = () => (
   <SwipeableViews
