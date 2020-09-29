@@ -9,13 +9,11 @@ import { UserStats } from 'components/UserStats/UserStats';
 import { WodSlider } from 'components/WodSlider/WodSlider';
 
 import { useQuery } from '@apollo/client';
+import { User } from 'types/user';
 
 const Home: React.FC = () => {
-  const userId = '46cca0ba-e2f0-4e16-971c-11f38fe4e67a';
-  const { data } = useQuery(queries.getUserById, {
-    variables: {
-      id: userId,
-    },
+  const { data } = useQuery<{ user: User }>(queries.getUserById, {
+    variables: { id: '46cca0ba-e2f0-4e16-971c-11f38fe4e67a' },
   });
 
   return (
