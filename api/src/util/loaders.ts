@@ -2,9 +2,12 @@ import { Connection } from 'typeorm'
 import { Loaders } from '../types'
 import { curry } from 'lodash/fp'
 import { groupBy } from 'lodash/fp'
-import { selectCommunitiesByUserIds } from '../core/community'
+import {
+  selectCommunitiesByUserIds,
+  selectCommunities,
+} from '../core/community'
 import { selectUsers } from '../core/user'
-import { selectWods } from '../core/wod'
+import { selectWods, selectWodsByCommunityIds } from '../core/wod'
 import { selectWorkouts } from '../core/workout'
 import DataLoader from 'dataloader'
 
@@ -44,15 +47,25 @@ function createLoaders(conn: Connection, options?: object): Loaders {
         async (keys) => selectCommunitiesByUserIds(conn, keys),
         options,
       ),
+      byId: new DataLoader(
+        async (keys) => batchable(curry(selectCommunities)(conn), keys),
+        options,
+      ),
     },
     User: new DataLoader(
       async (keys) => batchable(curry(selectUsers)(conn), keys),
       options,
     ),
-    Wod: new DataLoader(
-      async (keys) => batchable(curry(selectWods)(conn), keys),
-      options,
-    ),
+    Wod: {
+      byCommunityId: new DataLoader(
+        async (keys) => selectWodsByCommunityIds(conn, keys),
+        options,
+      ),
+      byId: new DataLoader(
+        async (keys) => batchable(curry(selectWods)(conn), keys),
+        options,
+      ),
+    },
     Workout: new DataLoader(
       async (keys) => batchable(curry(selectWorkouts)(conn), keys),
       options,

@@ -39,4 +39,21 @@ async function communitiesByUserId(
   return loaders.Community.byUserId.load(userId)
 }
 
-export { communities, communitiesByUserId, selectCommunitiesByUserIds }
+async function selectCommunities(
+  conn: Connection,
+  ids: string[],
+): Promise<Community[]> {
+  return conn.getRepository(Community).findByIds(ids)
+}
+
+async function community({ loaders }: Context, id: string): Promise<Community> {
+  return loaders.Community.byId.load(id)
+}
+
+export {
+  communities,
+  community,
+  communitiesByUserId,
+  selectCommunities,
+  selectCommunitiesByUserIds,
+}

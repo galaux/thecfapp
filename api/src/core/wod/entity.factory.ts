@@ -12,9 +12,11 @@ type SeedContext = {
 }
 
 define(Wod, (faker: typeof Faker, context?: SeedContext) => {
-  const { workouts } = context!
+  const { communities, workouts } = context!
+  const community = communities[Math.floor(Math.random() * communities.length)]
   const workout = workouts[Math.floor(Math.random() * workouts.length)]
   return new Wod({
+    communityId: community.id,
     date: LocalDate.ofYearDay(2020, faker.random.number({ min: 1, max: 365 })),
     workoutId: workout.id,
   })
