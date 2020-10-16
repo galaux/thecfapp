@@ -21,6 +21,7 @@ extend type Query {
 "Record of a Workout Of the Day"
 type Wod {
   id: ID!
+  community: Community!
   date: Date!
   workout: Workout!
 }

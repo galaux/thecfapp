@@ -8,11 +8,22 @@ import {
 import { LocalDate } from '@js-joda/core'
 import { Workout } from '../../core/workout'
 import { v4 as uuid } from 'uuid'
+import { Community } from '../community'
 
 @Entity()
 export class Wod {
   @PrimaryGeneratedColumn('uuid')
   id: string
+
+  @Column({
+    name: 'community_id',
+    type: 'uuid',
+  })
+  communityId!: string
+
+  @ManyToOne((_: any) => Community)
+  @JoinColumn({ name: 'community_id' })
+  community?: Community
 
   @Column({
     type: 'date',
@@ -32,11 +43,13 @@ export class Wod {
 
   constructor(
     args: {
+      communityId?: string
       date?: LocalDate
       workoutId?: string
     } = {},
   ) {
     this.id = uuid()
+    if (args.communityId) this.communityId = args.communityId
     if (args.date) this.date = args.date
     if (args.workoutId) this.workoutId = args.workoutId
   }
