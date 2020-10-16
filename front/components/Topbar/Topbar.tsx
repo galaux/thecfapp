@@ -1,13 +1,27 @@
 import * as React from 'react';
 import { Flex, Heading } from '@chakra-ui/core';
-import { Menu, User } from 'react-feather';
+import * as Icon from 'react-feather';
+
+export const TOPBAR_HEIGHT = '4.5rem';
 
 export const Topbar: React.FC = () => (
-  <Flex justifyContent='space-between'>
-    <Menu />
-    <Heading as='h1' fontSize='lg'>
+  <Flex
+    pos='fixed'
+    top={0}
+    right={0}
+    left={0}
+    justifyContent='space-between'
+    p={6}
+    h={TOPBAR_HEIGHT}
+    color='white'
+    zIndex={10}
+  >
+    <Icon.Menu />
+
+    <Heading as='h1' fontSize='xl'>
       THECFAPP
     </Heading>
-    <User />
+
+    <Icon.User />
   </Flex>
 );
