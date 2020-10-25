@@ -12,8 +12,8 @@ coverage
 build
 
 # api generated
-api/graphql.schema.json
-api/src/generated/graphql.ts
+packages/api/graphql.schema.json
+packages/api/generated/graphql.ts
 
 # misc
 .DS_Store
