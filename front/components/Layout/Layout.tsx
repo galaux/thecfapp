@@ -1,8 +1,14 @@
 import * as React from 'react';
 import Head from 'next/head';
-import { Box } from '@chakra-ui/core';
+import { Box, Grid, Text } from '@chakra-ui/core';
 
-import { Topbar, TOPBAR_HEIGHT } from 'components/Topbar/Topbar';
+import { Topbar } from '.';
+
+const templateAreas = `
+  'Header'
+  'Body'
+  'Footer'
+`;
 
 export const Layout: React.FC = ({ children }) => (
   <>
@@ -11,10 +17,23 @@ export const Layout: React.FC = ({ children }) => (
       <title>THECFAPP</title>
     </Head>
 
-    <Topbar />
+    <Grid
+      h='100vh'
+      templateAreas={templateAreas}
+      templateColumns='1fr'
+      templateRows='auto 1fr auto'
+      bg='_shark'
+      color='white'
+    >
+      <Topbar gridArea='Header' />
 
-    <Box bg='_shark' color='white' minH='100vh' p={6} pt={TOPBAR_HEIGHT}>
-      {children}
-    </Box>
+      <Box gridArea='Body' p={6} overflow='scroll'>
+        {children}
+      </Box>
+
+      <Text gridArea='Footer' fontSize='xs' color='_gray' px={6} py={3}>
+        © 2020 TheCFApp. All rights reserved
+      </Text>
+    </Grid>
   </>
 );

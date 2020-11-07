@@ -1,20 +1,14 @@
 import * as React from 'react';
-import { Flex, Heading } from '@chakra-ui/core';
 import * as Icon from 'react-feather';
+import { Flex, FlexProps, Heading } from '@chakra-ui/core';
 
-export const TOPBAR_HEIGHT = '4.5rem';
-
-export const Topbar: React.FC = () => (
+export const Topbar: React.FC<FlexProps> = (props) => (
   <Flex
-    pos='fixed'
-    top={0}
-    right={0}
-    left={0}
     justifyContent='space-between'
     p={6}
-    h={TOPBAR_HEIGHT}
     color='white'
     zIndex={10}
+    {...props}
   >
     <Icon.Menu />
 

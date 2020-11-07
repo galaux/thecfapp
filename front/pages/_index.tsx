@@ -5,7 +5,7 @@ import { Box, Flex, Heading, Select, Spinner } from '@chakra-ui/core';
 
 import { ErrorState } from 'components/ErrorState/ErrorState';
 import { Layout } from 'components/Layout/Layout';
-import { Topbar } from 'components/Topbar/Topbar';
+import { Topbar } from 'components/Layout/Topbar';
 import { UserStats } from 'components/UserStats/UserStats';
 import { WodSlider } from 'components/WodSlider/WodSlider';
 
