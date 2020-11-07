@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useRouter } from 'next/router';
 import { Button, FormControl, FormLabel, Input, Stack } from '@chakra-ui/core';
 
-import { Layout } from 'components/Layout/Layout';
+import { Body, Header, Layout } from 'components/Layout';
 
 const Signup: React.FC = () => {
   const router = useRouter();
@@ -10,16 +10,20 @@ const Signup: React.FC = () => {
 
   return (
     <Layout>
-      <Stack spacing={4}>
-        <FormControl id='name'>
-          <FormLabel>Name</FormLabel>
-          <Input bg='white' />
-        </FormControl>
+      <Header>Create community</Header>
 
-        <Button onClick={onButtonClick} colorScheme='blue'>
-          Create
-        </Button>
-      </Stack>
+      <Body>
+        <Stack spacing={4}>
+          <FormControl id='name'>
+            <FormLabel>Name</FormLabel>
+            <Input bg='white' />
+          </FormControl>
+
+          <Button onClick={onButtonClick} colorScheme='blue'>
+            Create
+          </Button>
+        </Stack>
+      </Body>
     </Layout>
   );
 };

@@ -1,8 +1,6 @@
 import * as React from 'react';
 import Head from 'next/head';
-import { Box, Grid, Text } from '@chakra-ui/core';
-
-import { Topbar } from '.';
+import { Grid, Text } from '@chakra-ui/core';
 
 const templateAreas = `
   'Header'
@@ -25,11 +23,7 @@ export const Layout: React.FC = ({ children }) => (
       bg='_shark'
       color='white'
     >
-      <Topbar gridArea='Header' />
-
-      <Box gridArea='Body' p={6} overflow='scroll'>
-        {children}
-      </Box>
+      {children}
 
       <Text gridArea='Footer' fontSize='xs' color='_gray' px={6} py={3}>
         © 2020 TheCFApp. All rights reserved
