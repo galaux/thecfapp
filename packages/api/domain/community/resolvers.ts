@@ -6,6 +6,8 @@ import { wodsByCommunityId } from '../wod'
 export default <Resolvers>{
   Community: {
     wods: (community, _, context) => wodsByCommunityId(context, community.id),
+    // Require to resolve the `Address` GraphQL sub-type
+    address: (community) => community,
   },
   Mutation: {
     createCommunity: (_, { input }, context) => createCommunity(context, input),

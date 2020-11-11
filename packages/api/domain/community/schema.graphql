@@ -1,11 +1,24 @@
 "Input to a `Community` record"
 input CreateCommunityInput {
+  city: String
+  country: String
   name: String!
+  street: String
+  zipCode: String
+}
+
+"Record of an address"
+type Address {
+  city: String
+  country: String
+  street: String
+  zipCode: String
 }
 
 "Record of a community"
 type Community {
   id: ID!
+  address: Address
   name: String!
   wods: [Wod!]!
 }

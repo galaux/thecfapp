@@ -2,5 +2,11 @@ query GetCommunities {
   communities {
     id
     name
+    address {
+      city
+      country
+      street
+      zipCode
+    }
   }
 }

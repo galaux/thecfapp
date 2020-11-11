@@ -12,6 +12,7 @@ generates:
       contextType: ../types#Context
       useIndexSignature: true
       mappers:
+        Address: ../domain/community/entity#Community
         Community: ../domain/community/entity#Community
         Score: ../domain/score/entity#Score
         User: ../domain/user/entity#User
