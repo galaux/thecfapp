@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { Box, SimpleGrid, Text } from '@chakra-ui/core';
-import { TOPBAR_HEIGHT } from 'components/Topbar/Topbar';
 
 import { UserStat } from './UserStat';
 
 const bgImg = 'assets/meghan-holmes-buWcS7G1_28-unsplash.jpg';
+
+const TOPBAR_HEIGHT = '4.5rem';
 
 export const UserStats: React.FC = () => (
   <Box

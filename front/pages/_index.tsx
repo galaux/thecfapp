@@ -5,7 +5,6 @@ import { Box, Flex, Heading, Select, Spinner } from '@chakra-ui/core';
 
 import { ErrorState } from 'components/ErrorState/ErrorState';
 import { Layout } from 'components/Layout/Layout';
-import { Topbar } from 'components/Topbar/Topbar';
 import { UserStats } from 'components/UserStats/UserStats';
 import { WodSlider } from 'components/WodSlider/WodSlider';
 
@@ -27,7 +26,6 @@ const Home: React.FC = () => {
         <title>THECFAPP</title>
       </Head>
 
-      <Topbar />
       <UserStats />
 
       <Box p={6}>

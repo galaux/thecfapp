@@ -13,7 +13,7 @@ import {
   Text,
 } from '@chakra-ui/core';
 
-import { Layout } from 'components/Layout/Layout';
+import { Body, Header, Layout } from 'components/Layout';
 import { ErrorState } from 'components/ErrorState/ErrorState';
 
 import { ICommunity } from 'types/community';
@@ -36,40 +36,44 @@ const Dashboard: React.FC = () => {
 
   return (
     <Layout>
-      <Stack spacing={4}>
-        <Text>Dashboard</Text>
+      <Header>Dashboard</Header>
 
-        {loading && <Spinner />}
-        {error && <ErrorState />}
-        {data && (
-          <FormControl id='communities-filter'>
-            <FormLabel>Search community</FormLabel>
-            <Input
-              bg='white'
-              color='_thunder'
-              type='search'
-              onChange={onFilterChange}
-            />
-          </FormControl>
-        )}
+      <Body>
+        <Stack spacing={4}>
+          <Text>Dashboard</Text>
 
-        {communities.map((community) => (
-          <Box key={community.id} bg='_thunder' p={4}>
-            <Text mb={2}>{community.name}</Text>
-            <Button colorScheme='blue' size='sm'>
-              Join
-            </Button>
-          </Box>
-        ))}
+          {loading && <Spinner />}
+          {error && <ErrorState />}
+          {data && (
+            <FormControl id='communities-filter'>
+              <FormLabel>Search community</FormLabel>
+              <Input
+                bg='white'
+                color='_thunder'
+                type='search'
+                onChange={onFilterChange}
+              />
+            </FormControl>
+          )}
 
-        {data && (
-          <Link href='/communities/create'>
-            <a>
-              <Button colorScheme='blue'>Create box</Button>
-            </a>
-          </Link>
-        )}
-      </Stack>
+          {communities.map((community) => (
+            <Box key={community.id} bg='_thunder' p={4}>
+              <Text mb={2}>{community.name}</Text>
+              <Button colorScheme='blue' size='sm'>
+                Join
+              </Button>
+            </Box>
+          ))}
+
+          {data && (
+            <Link href='/communities/create'>
+              <a>
+                <Button colorScheme='blue'>Create box</Button>
+              </a>
+            </Link>
+          )}
+        </Stack>
+      </Body>
     </Layout>
   );
 };
