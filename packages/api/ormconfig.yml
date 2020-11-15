@@ -1,0 +1,64 @@
+# Connection used when using TypeORM CLI
+default:
+  type: 'postgres'
+  host: 'localhost'
+  port: 5432
+  username: 'postgres'
+  password: ''
+  database: 'thecfapp'
+  synchronize: true
+  logging: true
+  entities: # Wants both ts and js files!
+    - 'build/core/**/entity.js'
+    - 'domain/**/entity.ts'
+  seeds:
+    - 'db-seeder.ts'
+    - 'build/db-seeder.js'
+  factories:
+    - 'domain/**/entity.factory.ts'
+    - 'build/core/**/entity.factory.js'
+  # migrations:
+  #   - "src/migration/**/*.ts"
+  # subscribers:
+  #   - "src/subscriber/**/*.ts"
+  # # Only needed when creating entities, migrations and subscribers with the CLI
+  # # https://github.com/typeorm/typeorm/blob/master/docs/using-cli.md
+  # cli:
+  #   entitiesDir: "src/entity"
+  #   migrationsDir: "src/migration"
+  #   subscribersDir: "src/subscriber"
+
+# Connection used for tests
+test:
+  type: 'sqlite'
+  database: ':memory:'
+  # logging: true
+  entities: # Wants both ts and js files!
+    - 'build/domain/**/entity.js'
+    - 'domain/**/entity.ts'
+  seeds:
+    - 'build/db-seeder.js'
+    - 'db-seeder.ts'
+  factories:
+    - 'build/domain/**/entity.factory.js'
+    - 'domain/**/entity.factory.ts'
+
+# Prod connection
+prod:
+  type: 'postgres'
+  # Get this with `heroku config:get DATABASE_URL -a thecfapp`
+  url: '…'
+  ssl: true
+  extra:
+    ssl:
+      rejectUnauthorized: false
+  logging: true
+  entities: # Wants both ts and js files!
+    - 'build/domain/**/entity.js'
+    - 'domain/**/entity.ts'
+  seeds:
+    - 'build/db-seeder.js'
+    - 'db-seeder.ts'
+  factories:
+    - 'build/domain/**/entity.factory.js'
+    - 'domain/**/entity.factory.ts'

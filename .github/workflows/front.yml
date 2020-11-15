@@ -20,17 +20,17 @@ jobs:
 
       - name: Install dependencies
         run: |
-          yarn workspace front install
+          yarn workspace @thecfapp/front install
 
       - name: Eslint/Prettier
         run: |
-          yarn workspace front format:check
-          yarn workspace front lint
+          yarn workspace @thecfapp/front format:check
+          yarn workspace @thecfapp/front lint
 
       - name: Test
         run: |
-          yarn workspace front test
+          yarn workspace @thecfapp/front test
 
       - name: Build
         run: |
-          yarn workspace front build
+          yarn workspace @thecfapp/front build

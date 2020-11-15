@@ -2,10 +2,17 @@
   "name": "thecfapp",
   "version": "1.0.0",
   "private": true,
-  "description": "",
   "scripts": {
     "build": "yarn workspaces run build",
-    "start": "yarn workspace api run start"
+    "codegen": "yarn workspace @thecfapp/api run codegen",
+    "db:schema:drop": "yarn workspace @thecfapp/api run db:schema:drop",
+    "db:schema:log": "yarn workspace @thecfapp/api run db:schema:log",
+    "db:schema:sync": "yarn workspace @thecfapp/api run db:schema:sync",
+    "db:seed:config": "yarn workspace @thecfapp/api run db:seed:config",
+    "db:seed:run": "yarn workspace @thecfapp/api run db:seed:run",
+    "dev": "dotenv yarn workspace @thecfapp/server run dev",
+    "start": "yarn workspace @thecfapp/server run start",
+    "test": "yarn workspaces run test"
   },
   "repository": {
     "type": "git",
@@ -27,10 +34,12 @@
   },
   "homepage": "https://github.com/TheCFApp/thecfapp#readme",
   "workspaces": [
-    "./api",
-    "./front"
+    "packages/*"
   ],
   "engines": {
-    "node": "14.x"
+    "node": "12.x || 14.x"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^4.0.0"
   }
 }
