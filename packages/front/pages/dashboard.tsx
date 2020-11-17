@@ -20,9 +20,8 @@ const Dashboard: React.FC = () => {
     user: IUser;
   }>(queries.getUserWods);
 
-  const onCommunitySelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const onCommunitySelectChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setCurrentCommunityId(e.target.value);
-  };
 
   const currentCommunity =
     data && data.user.communities.find((c) => c.id === currentCommunityId);
@@ -34,9 +33,7 @@ const Dashboard: React.FC = () => {
     }
 
     getWods({
-      variables: {
-        id: currentUser.id,
-      },
+      variables: { id: currentUser.id },
     });
   }, []);
 
