@@ -2,20 +2,11 @@ import * as React from 'react';
 import * as queries from 'api/queries';
 import { useRouter } from 'next/router';
 import { useLazyQuery } from '@apollo/client';
-import Link from 'next/link';
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Spinner,
-  Stack,
-  Text,
-} from '@chakra-ui/core';
+import { Box, Heading, Flex, Select, Spinner } from '@chakra-ui/core';
 
 import { Body, Header, Layout } from 'components/Layout';
 import { ErrorState } from 'components/ErrorState/ErrorState';
+import { WodSlider } from 'components/WodSlider/WodSlider';
 
 import { useCurrentUser } from 'contexts/useCurrentUser';
 import { IUser } from 'types/user';
@@ -23,21 +14,18 @@ import { IUser } from 'types/user';
 const Dashboard: React.FC = () => {
   const router = useRouter();
   const { currentUser } = useCurrentUser();
+  const [currentCommunityId, setCurrentCommunityId] = React.useState('');
 
-  const [getCommunities, { data, error }] = useLazyQuery<{ user: IUser }>(
-    queries.getUserCommunities,
-  );
+  const [getWods, { data, loading, error }] = useLazyQuery<{
+    user: IUser;
+  }>(queries.getUserWods);
 
-  const [filter, setFilter] = React.useState('');
-  const onFilterChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setFilter(e.target.value);
+  const onCommunitySelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCurrentCommunityId(e.target.value);
+  };
 
-  const communities = React.useMemo(() => {
-    if (!data) return [];
-    return data.user.communities.filter((community) =>
-      community.name.toLowerCase().includes(filter.toLowerCase()),
-    );
-  }, [data, filter]);
+  const currentCommunity =
+    data && data.user.communities.find((c) => c.id === currentCommunityId);
 
   React.useEffect(() => {
     if (!currentUser) {
@@ -45,52 +33,52 @@ const Dashboard: React.FC = () => {
       return;
     }
 
-    getCommunities({
+    getWods({
       variables: {
         id: currentUser.id,
       },
     });
   }, []);
 
+  React.useEffect(() => {
+    if (data) setCurrentCommunityId(data.user.communities[0].id);
+  }, [data]);
+
   return (
     <Layout>
       <Header>Dashboard</Header>
 
       <Body>
-        <Stack spacing={4}>
-          {error && <ErrorState />}
+        {error && <ErrorState />}
+        {loading && <Spinner />}
 
-          {data ? (
-            <FormControl id='communities-filter'>
-              <FormLabel>Search community</FormLabel>
-              <Input
-                bg='white'
-                color='_thunder'
-                type='search'
-                onChange={onFilterChange}
-              />
-            </FormControl>
-          ) : (
-            <Spinner />
-          )}
+        {data && (
+          <Flex alignItems='center' mb={4}>
+            <Heading fontSize='lg' flex={1}>
+              WOD
+            </Heading>
 
-          {communities.map((community) => (
-            <Box key={community.id} bg='_thunder' p={4}>
-              <Text mb={2}>{community.name}</Text>
-              <Button colorScheme='blue' size='sm'>
-                Join
-              </Button>
-            </Box>
-          ))}
+            <Select
+              w='auto'
+              border={0}
+              color='_gray'
+              fontSize='md'
+              onChange={onCommunitySelectChange}
+            >
+              {data.user.communities?.map((community) => (
+                <option key={community.id} value={community.id}>
+                  {community.name}
+                </option>
+              ))}
+            </Select>
+          </Flex>
+        )}
 
-          {data && filter !== '' && (
-            <Link href='/communities/create'>
-              <a>
-                <Button colorScheme='blue'>Create box</Button>
-              </a>
-            </Link>
-          )}
-        </Stack>
+        {currentCommunity && (
+          <Box mx={-6}>
+            <WodSlider community={currentCommunity} />
+          </Box>
+        )}
       </Body>
     </Layout>
   );

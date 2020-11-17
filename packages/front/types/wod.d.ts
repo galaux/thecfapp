@@ -1,8 +1,7 @@
-import { IMovement } from './movement';
+import { IWorkout } from './workout.d';
 
 export interface IWod {
   id: string;
   name: string;
-  desc: string;
-  movements: IMovement[];
+  workout: IWorkout;
 }

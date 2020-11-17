@@ -24,3 +24,23 @@ export const getUserCommunities = gql`
     }
   }
 `;
+
+export const getUserWods = gql`
+  query getUserCommunities($id: ID!) {
+    user(id: $id) {
+      id
+      communities {
+        id
+        name
+        wods {
+          id
+          workout {
+            id
+            name
+            description
+          }
+        }
+      }
+    }
+  }
+`;
