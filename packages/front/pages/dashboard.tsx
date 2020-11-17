@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as queries from 'api/queries';
-import { useQuery } from '@apollo/client';
+import { useRouter } from 'next/router';
+import { useLazyQuery } from '@apollo/client';
 import Link from 'next/link';
 import {
   Box,
@@ -16,11 +17,15 @@ import {
 import { Body, Header, Layout } from 'components/Layout';
 import { ErrorState } from 'components/ErrorState/ErrorState';
 
-import { ICommunity } from 'types/community';
+import { useCurrentUser } from 'contexts/useCurrentUser';
+import { IUser } from 'types/user';
 
 const Dashboard: React.FC = () => {
-  const { data, loading, error } = useQuery<{ communities: ICommunity[] }>(
-    queries.getCommunities,
+  const router = useRouter();
+  const { currentUser } = useCurrentUser();
+
+  const [getCommunities, { data, error }] = useLazyQuery<{ user: IUser }>(
+    queries.getUserCommunities,
   );
 
   const [filter, setFilter] = React.useState('');
@@ -29,10 +34,23 @@ const Dashboard: React.FC = () => {
 
   const communities = React.useMemo(() => {
     if (!data) return [];
-    return data.communities.filter((community) =>
+    return data.user.communities.filter((community) =>
       community.name.toLowerCase().includes(filter.toLowerCase()),
     );
   }, [data, filter]);
+
+  React.useEffect(() => {
+    if (!currentUser) {
+      router.push('/');
+      return;
+    }
+
+    getCommunities({
+      variables: {
+        id: currentUser.id,
+      },
+    });
+  }, []);
 
   return (
     <Layout>
@@ -40,11 +58,9 @@ const Dashboard: React.FC = () => {
 
       <Body>
         <Stack spacing={4}>
-          <Text>Dashboard</Text>
-
-          {loading && <Spinner />}
           {error && <ErrorState />}
-          {data && (
+
+          {data ? (
             <FormControl id='communities-filter'>
               <FormLabel>Search community</FormLabel>
               <Input
@@ -54,6 +70,8 @@ const Dashboard: React.FC = () => {
                 onChange={onFilterChange}
               />
             </FormControl>
+          ) : (
+            <Spinner />
           )}
 
           {communities.map((community) => (
@@ -65,7 +83,7 @@ const Dashboard: React.FC = () => {
             </Box>
           ))}
 
-          {data && (
+          {data && filter !== '' && (
             <Link href='/communities/create'>
               <a>
                 <Button colorScheme='blue'>Create box</Button>
