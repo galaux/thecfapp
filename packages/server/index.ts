@@ -5,7 +5,7 @@ import nextServer from '@thecfapp/front'
 import gqlServer from '@thecfapp/api'
 
 // TODO move `AppConfig` to common and use id here
-const { PORT } = process.env
+const { PORT = 4000 } = process.env
 
 async function main() {
   const app = express()
