@@ -5,6 +5,11 @@
   "scripts": {
     "build": "yarn workspaces run build",
     "codegen": "yarn workspace @thecfapp/api run codegen",
+    "db:schema:drop": "yarn workspace @thecfapp/api run db:schema:drop",
+    "db:schema:log": "yarn workspace @thecfapp/api run db:schema:log",
+    "db:schema:sync": "yarn workspace @thecfapp/api run db:schema:sync",
+    "db:seed:config": "yarn workspace @thecfapp/api run db:seed:config",
+    "db:seed:run": "yarn workspace @thecfapp/api run db:seed:run",
     "dev": "dotenv yarn workspace @thecfapp/server run dev",
     "start": "yarn workspace @thecfapp/server run start",
     "test": "yarn workspaces run test"
