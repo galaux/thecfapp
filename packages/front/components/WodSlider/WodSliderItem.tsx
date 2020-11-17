@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Heading, Text } from '@chakra-ui/core';
+import { Box, Button, Heading, Text, VStack } from '@chakra-ui/core';
 
 import { IWorkout } from 'types/workout.d';
 
@@ -9,7 +9,7 @@ interface IWodSliderItem {
 
 export const WodSliderItem: React.FC<IWodSliderItem> = ({ workout }) => (
   <Box w='100%' h='100%' bg='_thunder' rounded='md' p={4}>
-    <Box mb={4}>
+    <VStack spacing={2} align='flex-start'>
       <Heading
         as='h1'
         fontSize='1.25rem'
@@ -20,8 +20,10 @@ export const WodSliderItem: React.FC<IWodSliderItem> = ({ workout }) => (
       >
         {workout.name}
       </Heading>
-      <Text mt={1}>{workout.description}</Text>
-    </Box>
+      <Text>{workout.description}</Text>
+
+      <Button colorScheme='blue'>Add a score</Button>
+    </VStack>
 
     {/* {workout.movements.map((movement) => (
       <Box mb={2} key={movement.id}>
