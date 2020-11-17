@@ -2,19 +2,27 @@ import * as React from 'react';
 import { useRouter } from 'next/router';
 import { Spinner } from '@chakra-ui/core';
 
-import { Layout } from 'components/Layout/Layout';
+import { Body, Header, Layout } from 'components/Layout';
+
+import { useCurrentUser } from 'contexts/useCurrentUser';
 
 const Home: React.FC = () => {
+  const { currentUser } = useCurrentUser();
   const router = useRouter();
-  const { is_login } = router.query;
+  // const { is_login } = router.query;
 
   React.useEffect(() => {
-    router.push(is_login ? '/dashboard' : '/login');
+    if (currentUser) router.push('/dashboard');
+    else router.push('/choose-user');
+    // router.push(is_login ? '/dashboard' : '/login');
   }, []);
 
   return (
     <Layout>
-      <Spinner />
+      <Header />
+      <Body>
+        <Spinner />
+      </Body>
     </Layout>
   );
 };

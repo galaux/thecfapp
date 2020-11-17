@@ -1,7 +1,6 @@
 import { gql } from '@apollo/client';
 
 import getCommunitiesQuery from '../../common/operations/get-communities.graphql';
-import getUsersQuery from '../../common/operations/get-users.graphql';
 import getUserByIdQuery from '../../common/operations/get-user.graphql';
 
 export const getCommunities = gql`
@@ -9,7 +8,16 @@ export const getCommunities = gql`
 `;
 
 export const getUsers = gql`
-  ${getUsersQuery}
+  query getUsers {
+    users {
+      id
+      name
+      communities {
+        id
+        name
+      }
+    }
+  }
 `;
 
 export const getUserById = gql`
