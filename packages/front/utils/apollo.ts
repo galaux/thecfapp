@@ -45,5 +45,5 @@ export const initializeApollo = (
   return _apolloClient;
 };
 
-export const useApollo = (initialState: TInitialState) =>
+export const useApollo = (initialState: TInitialState): TApolloClient =>
   React.useMemo(() => initializeApollo(initialState), [initialState]);
