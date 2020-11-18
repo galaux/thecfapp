@@ -38,7 +38,7 @@ const Dashboard: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
-    if (data) setCurrentCommunityId(data.user.communities[0].id);
+    if (data) setCurrentCommunityId(data.user.communities[0]?.id);
   }, [data]);
 
   return (

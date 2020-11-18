@@ -12,7 +12,7 @@ const Home: React.FC = () => {
   // const { is_login } = router.query;
 
   React.useEffect(() => {
-    if (currentUser) router.push('/dashboard');
+    if (currentUser) router.push(`/users/${currentUser.id}/communities`);
     else router.push('/choose-user');
     // router.push(is_login ? '/dashboard' : '/login');
   }, []);
