@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as Icon from 'react-feather';
 import { Box, Flex, Heading } from '@chakra-ui/core';
 
-const bgImg = 'assets/meghan-holmes-buWcS7G1_28-unsplash.jpg';
+const bgImg = '/assets/meghan-holmes-buWcS7G1_28-unsplash.jpg';
 
 export const Header: React.FC = ({ children }) => (
   <Box
