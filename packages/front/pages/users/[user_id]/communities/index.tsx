@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as queries from 'api/queries';
-import { useRouter } from 'next/router';
+import { ParsedUrlQuery } from 'querystring';
+import { NextRouter, useRouter } from 'next/router';
 import { useLazyQuery } from '@apollo/client';
 import { Box, Heading, Flex, Select, Spinner } from '@chakra-ui/core';
 
@@ -11,14 +12,28 @@ import { WodSlider } from 'components/WodSlider/WodSlider';
 import { useCurrentUser } from 'contexts/useCurrentUser';
 import { IUser } from 'types/user';
 
-const Dashboard: React.FC = () => {
-  const router = useRouter();
-  const { currentUser } = useCurrentUser();
-  const [currentCommunityId, setCurrentCommunityId] = React.useState('');
+interface IRouter extends NextRouter {
+  query: ParsedUrlQuery & {
+    community_id: string;
+    user_id: string;
+  };
+}
 
-  const [getWods, { data, loading, error }] = useLazyQuery<{
-    user: IUser;
-  }>(queries.getUserWods);
+interface IUserCommunities {
+  currentCommunityId?: string;
+}
+
+const UserCommunities: React.FC<IUserCommunities> = () => {
+  const router = useRouter() as IRouter;
+
+  const { currentUser } = useCurrentUser();
+  const [currentCommunityId, setCurrentCommunityId] = React.useState(
+    router.query.community_id,
+  );
+
+  const [getWods, { data, loading, error }] = useLazyQuery<{ user: IUser }>(
+    queries.getUserWods,
+  );
 
   const onCommunitySelectChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setCurrentCommunityId(e.target.value);
@@ -26,24 +41,51 @@ const Dashboard: React.FC = () => {
   const currentCommunity =
     data && data.user.communities.find((c) => c.id === currentCommunityId);
 
+  const updateUrlWithCommunityId = () => {
+    const { route, query } = router;
+
+    // avoid re-renders
+    if (currentCommunityId === query.community_id) return;
+
+    let nextUrl;
+    if (route.includes('[community_id]')) {
+      nextUrl = route
+        .replace('[user_id]', query.user_id)
+        .replace('[community_id]', currentCommunityId);
+    } else {
+      nextUrl = route
+        .replace('[user_id]', query.user_id)
+        .concat(`/${currentCommunityId}`);
+    }
+
+    console.log('ping');
+
+    router.push(nextUrl, undefined, { shallow: true });
+  };
+
+  React.useEffect(() => {
+    if (currentCommunityId) updateUrlWithCommunityId();
+  }, [currentCommunity]);
+
   React.useEffect(() => {
     if (!currentUser) {
       router.push('/');
       return;
     }
 
-    getWods({
-      variables: { id: currentUser.id },
-    });
+    getWods({ variables: { id: currentUser.id } });
   }, []);
 
   React.useEffect(() => {
-    if (data) setCurrentCommunityId(data.user.communities[0]?.id);
+    if (data) {
+      const userFirstCommunity = data.user.communities[0]?.id;
+      setCurrentCommunityId(currentCommunityId || userFirstCommunity);
+    }
   }, [data]);
 
   return (
     <Layout>
-      <Header>Dashboard</Header>
+      <Header>UserCommunities</Header>
 
       <Body>
         {error && <ErrorState />}
@@ -81,4 +123,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default UserCommunities;
