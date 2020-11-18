@@ -1,6 +1,6 @@
 import { Resolvers } from '../../generated/graphql'
 import { createWod } from './api/create'
-import { wods } from './api/read'
+import { wods, wodById } from './api/read'
 import { workout } from '../../domain/workout'
 import { community } from '../community'
 
@@ -10,6 +10,7 @@ export default <Resolvers>{
   },
   Query: {
     wods: (_, __, context) => wods(context),
+    wod: (_, { id }, context) => wodById(context, id),
   },
   Wod: {
     community: (wod, _, context) => community(context, wod.communityId),
