@@ -16,6 +16,11 @@ extend type Query {
   List of Workout Of the Day.
   """
   wods: [Wod!]!
+
+  """
+  Get a Workout Of the Day by its id.
+  """
+  wod(id: ID!): Wod!
 }
 
 "Record of a Workout Of the Day"
