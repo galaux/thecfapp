@@ -58,8 +58,6 @@ const UserCommunities: React.FC<IUserCommunities> = () => {
         .concat(`/${currentCommunityId}`);
     }
 
-    console.log('ping');
-
     router.push(nextUrl, undefined, { shallow: true });
   };
 
