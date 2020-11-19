@@ -3,6 +3,7 @@ import { AppProps } from 'next/app';
 import { ApolloProvider } from '@apollo/client';
 import { ChakraProvider, extendTheme } from '@chakra-ui/core';
 
+import { CurrentUserProvider } from 'contexts/useCurrentUser';
 import { useApollo } from 'utils/apollo';
 
 const colors = {
@@ -16,7 +17,9 @@ const customTheme = extendTheme({ colors });
 const App: React.FC<AppProps> = ({ Component, pageProps }) => (
   <ApolloProvider client={useApollo(pageProps.initialApolloState)}>
     <ChakraProvider theme={customTheme}>
-      <Component {...pageProps} />
+      <CurrentUserProvider>
+        <Component {...pageProps} />
+      </CurrentUserProvider>
     </ChakraProvider>
   </ApolloProvider>
 );
