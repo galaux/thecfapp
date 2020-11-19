@@ -81,7 +81,7 @@ export const WodSlider: React.FC<IWodSlider> = ({ community }) => (
     enableMouseEvents
   >
     {community.wods.map((wod) => (
-      <WodSliderItem key={wod.id} workout={wod.workout} />
+      <WodSliderItem key={wod.id} wod={wod} />
     ))}
   </SwipeableViews>
 );

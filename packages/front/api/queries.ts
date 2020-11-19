@@ -44,3 +44,16 @@ export const getUserWods = gql`
     }
   }
 `;
+
+export const getWod = gql`
+  query getWod($id: ID!) {
+    wod(id: $id) {
+      id
+      date
+      workout {
+        description
+        name
+      }
+    }
+  }
+`;

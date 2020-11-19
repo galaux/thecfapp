@@ -1,31 +1,43 @@
 import * as React from 'react';
+import { useRouter } from 'next/router';
 import { Box, Button, Heading, Text, VStack } from '@chakra-ui/core';
 
-import { IWorkout } from 'types/workout.d';
+import { IWod } from 'types/wod';
 
 interface IWodSliderItem {
-  workout: IWorkout;
+  wod: IWod;
 }
 
-export const WodSliderItem: React.FC<IWodSliderItem> = ({ workout }) => (
-  <Box w='100%' h='100%' bg='_thunder' rounded='md' p={4}>
-    <VStack spacing={2} align='flex-start'>
-      <Heading
-        as='h1'
-        fontSize='1.25rem'
-        fontWeight={400}
-        lineHeight={1.2}
-        textTransform='uppercase'
-        color='_gray'
-      >
-        {workout.name}
-      </Heading>
-      <Text>{workout.description}</Text>
+export const WodSliderItem: React.FC<IWodSliderItem> = ({ wod }) => {
+  const router = useRouter();
+  const { workout } = wod;
 
-      <Button colorScheme='blue'>Add a score</Button>
-    </VStack>
+  const onAddScoreBtnClick = () => {
+    console.log(wod);
+    router.push(`${router.asPath}/wod/${wod.id}/add-score`);
+  };
 
-    {/* {workout.movements.map((movement) => (
+  return (
+    <Box w='100%' h='100%' bg='_thunder' rounded='md' p={4}>
+      <VStack spacing={2} align='flex-start'>
+        <Heading
+          as='h1'
+          fontSize='1.25rem'
+          fontWeight={400}
+          lineHeight={1.2}
+          textTransform='uppercase'
+          color='_gray'
+        >
+          {workout.name}
+        </Heading>
+        <Text>{workout.description}</Text>
+
+        <Button onClick={onAddScoreBtnClick} colorScheme='blue'>
+          Add a score
+        </Button>
+      </VStack>
+
+      {/* {workout.movements.map((movement) => (
       <Box mb={2} key={movement.id}>
         <Text fontSize='sm'>{movement.name}</Text>
         <Text fontSize='sm' color='_gray'>
@@ -36,5 +48,6 @@ export const WodSliderItem: React.FC<IWodSliderItem> = ({ workout }) => (
         </Text>
       </Box>
     ))} */}
-  </Box>
-);
+    </Box>
+  );
+};
