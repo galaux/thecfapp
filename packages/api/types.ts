@@ -4,6 +4,15 @@ import { User } from './domain/user'
 import { Wod } from './domain/wod'
 import { Workout } from './domain/workout'
 import DataLoader from 'dataloader'
+import { ConnectionOptions } from 'typeorm-seeding'
+
+export type AppConfig = {
+  apollo: {
+    introspection: boolean
+    playground: boolean
+  }
+  db?: ConnectionOptions
+}
 
 export type Context = {
   conn: Connection

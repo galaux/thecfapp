@@ -1,0 +1,30 @@
+{
+  "name": "TheCFApp",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "env": {
+    "APOLLO_INTROSPECTION": {
+      "description": "Enable GraphQL introspection (required for Playground)",
+      "value": "true"
+    },
+    "APOLLO_PLAYGROUND": {
+      "description": "Enable Apollo Playground, the graphical GraphQL query editor",
+      "value": "true"
+    },
+    "DATABASE_LOGGING": {
+      "description": "Verbose ORM logging",
+      "value": "true"
+    }
+  },
+  "environments": {
+    "review": {
+      "addons": ["heroku-postgresql:in-dyno"],
+      "scripts": {
+        "postdeploy": "yarn install --production=false && yarn db:schema:sync && yarn db:seed:run"
+      }
+    }
+  }
+}
