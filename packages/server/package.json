@@ -6,6 +6,7 @@
   "scripts": {
     "build": "true",
     "dev": "nodemon index.ts -w ../api",
+    "lint": "eslint . --ext .ts",
     "start": "ts-node index.ts",
     "test": "jest --passWithNoTests"
   },
@@ -18,6 +19,11 @@
   },
   "devDependencies": {
     "@types/node": "^13.11.1",
+    "@typescript-eslint/parser": "^4.8.2",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.5.0",
     "nodemon": "^2.0.3"
   }
 }

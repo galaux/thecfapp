@@ -1,9 +1,10 @@
-import { ConnectionOptions } from 'typeorm-seeding'
 import { AppConfig } from './types'
+import { ConnectionOptions } from 'typeorm-seeding'
 
 const liveDBConfig: ConnectionOptions = {
   name: 'default',
   type: 'postgres',
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   url: process.env.DATABASE_URL!,
   logging: process.env.DATABASE_LOGGING === 'true',
   /* Using entities (classes) directly prevents typeorm-seeding to run and using

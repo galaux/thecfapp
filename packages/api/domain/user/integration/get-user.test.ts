@@ -1,11 +1,11 @@
 import { ApolloServerTestClient } from 'apollo-server-testing'
-import { User } from '../entity'
-import { factory, tearDownDatabase } from 'typeorm-seeding'
-import { readOperation, setupTest } from '../../../test-utils'
-import { UserCommunity } from '../../user-community'
 import { Community } from '../../community'
+import { User } from '../entity'
+import { UserCommunity } from '../../user-community'
 import { Wod } from '../../wod'
 import { Workout } from '../../workout'
+import { factory, tearDownDatabase } from 'typeorm-seeding'
+import { readOperation, setupTest } from '../../../test-utils'
 
 describe('Get users', () => {
   let client: ApolloServerTestClient

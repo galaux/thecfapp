@@ -5,10 +5,10 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm'
+import { Community } from '../community'
 import { LocalDate } from '@js-joda/core'
 import { Workout } from '../../domain/workout'
 import { v4 as uuid } from 'uuid'
-import { Community } from '../community'
 
 @Entity()
 export class Wod {
@@ -21,7 +21,7 @@ export class Wod {
   })
   communityId!: string
 
-  @ManyToOne((_: any) => Community)
+  @ManyToOne(() => Community)
   @JoinColumn({ name: 'community_id' })
   community?: Community
 
@@ -37,7 +37,7 @@ export class Wod {
   })
   workoutId!: string
 
-  @ManyToOne((_: any) => Workout)
+  @ManyToOne(() => Workout)
   @JoinColumn({ name: 'workout_id' })
   workout!: Workout
 

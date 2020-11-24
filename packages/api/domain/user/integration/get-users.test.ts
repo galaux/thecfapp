@@ -19,7 +19,7 @@ describe('Get users', () => {
 
     const res = await client.query({ query: readOperation('get-users') })
 
-    expect(res.data!.users!.length).toBe(5)
+    expect(res.data?.users?.length).toBe(5)
     expect(res).toEqual(
       expect.objectContaining({
         data: {

@@ -9,11 +9,11 @@ import { Wod } from './domain/wod'
 import { Workout } from './domain/workout'
 
 export default class CreateWorkouts implements Seeder {
-  public async run(factory: Factory, _: Connection): Promise<any> {
+  public async run(factory: Factory, _: Connection): Promise<void> {
     const communities = await factory(Community)().createMany(5)
     const users = await factory(User)().createMany(30)
 
-    const usersCommunities = await factory(UserCommunity)({
+    await factory(UserCommunity)({
       communities,
       users,
     }).createMany(30)
@@ -24,7 +24,7 @@ export default class CreateWorkouts implements Seeder {
       workouts,
     }).createMany(30)
 
-    const scores = await factory(Score)({
+    await factory(Score)({
       users,
       wods,
     }).createMany(50)

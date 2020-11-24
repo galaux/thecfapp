@@ -1,8 +1,8 @@
-import express from 'express'
 import { express as voyagerMiddleware } from 'graphql-voyager/middleware'
+import express from 'express'
 
-import nextServer from '@thecfapp/front'
 import gqlServer from '@thecfapp/api'
+import nextServer from '@thecfapp/front'
 
 // TODO move `AppConfig` to common and use id here
 const { PORT = 4000 } = process.env

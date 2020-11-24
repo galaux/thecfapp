@@ -16,7 +16,7 @@ export class UserCommunity {
   @PrimaryGeneratedColumn('uuid')
   id: string
 
-  @ManyToOne((_: any) => User)
+  @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user!: User
 
@@ -26,7 +26,7 @@ export class UserCommunity {
   })
   userId!: string
 
-  @ManyToOne((_: any) => Community)
+  @ManyToOne(() => Community)
   @JoinColumn({ name: 'community_id' })
   community!: Community
 
