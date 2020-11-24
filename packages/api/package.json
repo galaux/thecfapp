@@ -6,14 +6,14 @@
   "scripts": {
     "build": "yarn codegen && yarn tsc",
     "codegen": "yarn graphql-codegen",
-    "db:schema": "ts-node ../../node_modules/typeorm/cli.js",
-    "db:schema:drop": "yarn db:schema schema:drop",
-    "db:schema:log": "yarn db:schema schema:log",
-    "db:schema:sync": "yarn db:schema schema:sync",
-    "db:seed": "ts-node ../../node_modules/typeorm-seeding/dist/cli.js",
-    "db:seed:config": "yarn db:seed config",
-    "db:seed:run": "yarn db:seed seed",
-    "test": "jest"
+    "db:schema:drop": "yarn typeorm schema:drop",
+    "db:schema:log": "yarn typeorm schema:log",
+    "db:schema:sync": "yarn typeorm schema:sync",
+    "db:seed:config": "yarn typeorm-seeding config",
+    "db:seed:run": "yarn typeorm-seeding seed",
+    "test": "jest",
+    "typeorm": "ts-node ../../node_modules/typeorm/cli.js",
+    "typeorm-seeding": "ts-node ../../node_modules/typeorm-seeding/dist/cli.js"
   },
   "husky": {
     "hooks": {

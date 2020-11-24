@@ -18,6 +18,10 @@ const liveDBConfig: ConnectionOptions = {
     'domain/**/entity.factory.ts',
     'build/domain/**/entity.factory.js',
   ],
+  // migrations: ['migration/*.js'],
+  // cli: {
+  //   migrationsDir: 'migrations',
+  // },
   /* FIXME write/update the DB schema based on entities at startup (applies in
      all environments: dev, test, review apps, staging, production). This is
      OK until we have real production data at which point we will need to remove
