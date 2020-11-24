@@ -1,19 +1,18 @@
 import { ConnectionOptions } from 'typeorm-seeding'
 import { AppConfig } from './types'
-import { Community } from './domain/community'
-import { Score } from './domain/score'
-import { User } from './domain/user'
-import { UserCommunity } from './domain/user-community'
-import { Wod } from './domain/wod'
-import { Workout } from './domain/workout'
 
 const liveDBConfig: ConnectionOptions = {
   name: 'default',
   type: 'postgres',
   url: process.env.DATABASE_URL!,
   logging: process.env.DATABASE_LOGGING === 'true',
-  // Using entity paths here prevents the app from starting
-  entities: [Community, Score, User, UserCommunity, Wod, Workout],
+  /* Using entities (classes) directly prevents typeorm-seeding to run and using
+     entity paths without `__dirname` here prevents the app from working
+     https://github.com/typeorm/typeorm/issues/3017 */
+  entities: [
+    __dirname + '/build/domain/**/entity.js',
+    __dirname + '/domain/**/entity.ts',
+  ],
   seeds: ['db-seeder.ts', 'build/db-seeder.js'],
   factories: [
     'domain/**/entity.factory.ts',

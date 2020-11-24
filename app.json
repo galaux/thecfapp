@@ -23,7 +23,7 @@
     "review": {
       "addons": ["heroku-postgresql:in-dyno"],
       "scripts": {
-        "postdeploy": "yarn install --production=false && yarn db:schema:sync && yarn db:seed:run"
+        "postdeploy": "yarn db:schema:sync && yarn db:seed:run"
       }
     }
   }
