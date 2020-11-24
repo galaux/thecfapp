@@ -1,12 +1,12 @@
 import { ApolloServerTestClient } from 'apollo-server-testing'
-import { readOperation, setupTestServer, uuidRe } from '../../../test-utils'
+import { readOperation, setupTest, uuidRe } from '../../../test-utils'
 import { tearDownDatabase } from 'typeorm-seeding'
 
 describe('creating a user', () => {
-  let server: ApolloServerTestClient
+  let client: ApolloServerTestClient
 
   beforeAll(async () => {
-    server = await setupTestServer()
+    client = await setupTest()
   })
 
   afterAll(async () => {
@@ -14,9 +14,7 @@ describe('creating a user', () => {
   })
 
   test('returns the created user', async () => {
-    const { mutate } = server
-
-    const res = await mutate({
+    const res = await client.mutate({
       mutation: readOperation('create-user'),
       variables: { name: 'Billy Bob' },
     })

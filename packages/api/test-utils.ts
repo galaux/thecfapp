@@ -42,7 +42,7 @@ async function setupTestContext(): Promise<Context> {
   return { conn, loaders }
 }
 
-async function setupTestServer(): Promise<ApolloServerTestClient> {
+async function setupTest(): Promise<ApolloServerTestClient> {
   const conn = await setupTestConn()
   const server = createServer(testAppConfig, conn)
   // https://github.com/apollographql/apollo-server/issues/1140
@@ -50,4 +50,4 @@ async function setupTestServer(): Promise<ApolloServerTestClient> {
   return createTestClient(server as any)
 }
 
-export { readOperation, setupTestContext, setupTestServer, uuidRe }
+export { readOperation, setupTestContext, setupTest, uuidRe }

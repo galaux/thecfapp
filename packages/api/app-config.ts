@@ -12,7 +12,7 @@ const liveDBConfig: ConnectionOptions = {
   type: 'postgres',
   url: process.env.DATABASE_URL!,
   logging: process.env.DATABASE_LOGGING === 'true',
-  // Warning: chaning entity paths for entities fails tests
+  // Using entity paths here prevents the app from starting
   entities: [Community, Score, User, UserCommunity, Wod, Workout],
   seeds: ['db-seeder.ts', 'build/db-seeder.js'],
   factories: [

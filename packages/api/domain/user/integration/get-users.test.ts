@@ -1,13 +1,13 @@
 import { ApolloServerTestClient } from 'apollo-server-testing'
 import { User } from '../entity'
 import { factory, tearDownDatabase } from 'typeorm-seeding'
-import { readOperation, setupTestServer } from '../../../test-utils'
+import { readOperation, setupTest } from '../../../test-utils'
 
 describe('Get users', () => {
-  let server: ApolloServerTestClient
+  let client: ApolloServerTestClient
 
   beforeAll(async () => {
-    server = await setupTestServer()
+    client = await setupTest()
   })
 
   afterAll(async () => {
@@ -17,8 +17,7 @@ describe('Get users', () => {
   test('returns the list of users', async () => {
     const createdUsers = await factory(User)().createMany(5)
 
-    const { query } = server
-    const res = await query({ query: readOperation('get-users') })
+    const res = await client.query({ query: readOperation('get-users') })
 
     expect(res.data!.users!.length).toBe(5)
     expect(res).toEqual(

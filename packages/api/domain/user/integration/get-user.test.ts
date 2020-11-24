@@ -1,17 +1,17 @@
 import { ApolloServerTestClient } from 'apollo-server-testing'
 import { User } from '../entity'
 import { factory, tearDownDatabase } from 'typeorm-seeding'
-import { readOperation, setupTestServer } from '../../../test-utils'
+import { readOperation, setupTest } from '../../../test-utils'
 import { UserCommunity } from '../../user-community'
 import { Community } from '../../community'
 import { Wod } from '../../wod'
 import { Workout } from '../../workout'
 
 describe('Get users', () => {
-  let server: ApolloServerTestClient
+  let client: ApolloServerTestClient
 
   beforeAll(async () => {
-    server = await setupTestServer()
+    client = await setupTest()
   })
 
   afterAll(async () => {
@@ -44,8 +44,7 @@ describe('Get users', () => {
       workouts: [workouts[2]],
     }).create()
 
-    const { query } = server
-    const res = await query({
+    const res = await client.query({
       query: readOperation('get-user'),
       variables: { id: createdUser.id },
     })
