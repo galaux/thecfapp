@@ -39,7 +39,7 @@
   "engines": {
     "node": "12.x || 14.x"
   },
-  "devDependencies": {
+  "dependencies": {
     "dotenv-cli": "^4.0.0"
   }
 }
