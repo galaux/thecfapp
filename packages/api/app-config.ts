@@ -18,6 +18,13 @@ const liveDBConfig: ConnectionOptions = {
     'domain/**/entity.factory.ts',
     'build/domain/**/entity.factory.js',
   ],
+  /* FIXME write/update the DB schema based on entities at startup (applies in
+     all environments: dev, test, review apps, staging, production). This is
+     OK until we have real production data at which point we will need to remove
+     this option and setup migrations.
+     Nota: this has nothing to do with the seeder which needs to be manually run
+     except for review apps. */
+  synchronize: true,
 }
 
 const liveAppConfig: AppConfig = {
