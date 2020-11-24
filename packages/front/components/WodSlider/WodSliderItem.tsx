@@ -13,7 +13,6 @@ export const WodSliderItem: React.FC<IWodSliderItem> = ({ wod }) => {
   const { workout } = wod;
 
   const onAddScoreBtnClick = () => {
-    console.log(wod);
     router.push(`${router.asPath}/wod/${wod.id}/add-score`);
   };
 
