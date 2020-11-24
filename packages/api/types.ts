@@ -1,10 +1,10 @@
 import { Community } from './domain/community'
 import { Connection } from 'typeorm'
+import { ConnectionOptions } from 'typeorm-seeding'
 import { User } from './domain/user'
 import { Wod } from './domain/wod'
 import { Workout } from './domain/workout'
 import DataLoader from 'dataloader'
-import { ConnectionOptions } from 'typeorm-seeding'
 
 export type AppConfig = {
   apollo: {

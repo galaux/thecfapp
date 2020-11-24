@@ -2,7 +2,7 @@ import { Resolvers } from '../../generated/graphql'
 import { addUserToCommunity } from './api/update'
 import { communitiesByUserId } from '../../domain/community'
 import { createUser } from './api/create'
-import { users, user } from './api/read'
+import { user, users } from './api/read'
 
 export default <Resolvers>{
   Mutation: {

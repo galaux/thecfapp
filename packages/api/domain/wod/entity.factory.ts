@@ -12,6 +12,7 @@ type SeedContext = {
 }
 
 define(Wod, (faker: typeof Faker, context?: SeedContext) => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { communities, workouts } = context!
   const community = communities[Math.floor(Math.random() * communities.length)]
   const workout = workouts[Math.floor(Math.random() * workouts.length)]

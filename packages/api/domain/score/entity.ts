@@ -24,7 +24,7 @@ export class Score {
   })
   userId!: string
 
-  @ManyToOne((_: any) => User)
+  @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user?: User
 
@@ -37,7 +37,7 @@ export class Score {
   })
   wodId!: string
 
-  @ManyToOne((_: any) => Wod)
+  @ManyToOne(() => Wod)
   @JoinColumn({ name: 'wod_id' })
   wod?: Wod
 

@@ -19,6 +19,7 @@ function contextFn(conn: Promise<Connection>): ContextFunction {
 function createServer(appConfig: AppConfig, conn?: Connection): ApolloServer {
   return new ApolloServer({
     context: contextFn(
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       conn ? Promise.resolve(conn) : createConnection(appConfig.db!),
     ),
     introspection: appConfig.apollo.introspection,

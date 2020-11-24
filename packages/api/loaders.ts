@@ -3,8 +3,8 @@ import { Loaders } from './types'
 import { curry } from 'lodash/fp'
 import { groupBy } from 'lodash/fp'
 import {
-  selectCommunitiesByUserIds,
   selectCommunities,
+  selectCommunitiesByUserIds,
 } from './domain/community'
 import { selectUsers } from './domain/user'
 import { selectWods, selectWodsByCommunityIds } from './domain/wod'
@@ -27,7 +27,7 @@ import DataLoader from 'dataloader'
  * https://github.com/graphql/dataloader#batch-function
  */
 async function batchable<Entity extends { id: string }>(
-  repoFind: (ks: string[]) => Promise<Entity[]>,
+  repoFind: (_: string[]) => Promise<Entity[]>,
   keys: readonly string[],
 ): Promise<(Entity | Error)[]> {
   const entitiesByIds = await repoFind(
@@ -40,7 +40,10 @@ async function batchable<Entity extends { id: string }>(
   )
 }
 
-function createLoaders(conn: Connection, options?: object): Loaders {
+function createLoaders(
+  conn: Connection,
+  options?: Record<string, unknown>,
+): Loaders {
   return {
     Community: {
       byUserId: new DataLoader(

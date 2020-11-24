@@ -1,4 +1,5 @@
 import { ApolloServerTestClient, createTestClient } from 'apollo-server-testing'
+import { Connection } from 'typeorm'
 import { Context } from './types'
 import { createLoaders } from './loaders'
 import { createServer } from './server'
@@ -10,7 +11,6 @@ import {
 } from 'typeorm-seeding'
 import { testAppConfig } from './app-config'
 import path from 'path'
-import { Connection } from 'typeorm'
 
 const uuidRe = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/i
 
@@ -47,6 +47,9 @@ async function setupTest(): Promise<ApolloServerTestClient> {
   const server = createServer(testAppConfig, conn)
   // https://github.com/apollographql/apollo-server/issues/1140
   // https://github.com/apollographql/apollo-server/issues/4376
+  /* FIXME could potentially be fixed by using similar versions between
+     apollo-server and apollo-server-test */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return createTestClient(server as any)
 }
 

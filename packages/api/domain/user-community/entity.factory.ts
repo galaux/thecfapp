@@ -11,7 +11,8 @@ type SeedContext = {
   users: User[]
 }
 
-define(UserCommunity, (faker: typeof Faker, context?: SeedContext) => {
+define(UserCommunity, (_: typeof Faker, context?: SeedContext) => {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const { users, communities } = context!
   const community = communities[Math.floor(Math.random() * communities.length)]
   const user = users[Math.floor(Math.random() * users.length)]

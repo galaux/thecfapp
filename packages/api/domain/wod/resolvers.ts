@@ -1,8 +1,8 @@
 import { Resolvers } from '../../generated/graphql'
-import { createWod } from './api/create'
-import { wods, wodById } from './api/read'
-import { workout } from '../../domain/workout'
 import { community } from '../community'
+import { createWod } from './api/create'
+import { wodById, wods } from './api/read'
+import { workout } from '../../domain/workout'
 
 export default <Resolvers>{
   Mutation: {

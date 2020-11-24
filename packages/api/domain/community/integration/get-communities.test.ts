@@ -18,7 +18,7 @@ describe('get communities', () => {
     await runSeeder(CreateWorkouts)
     const res = await client.query({ query: readOperation('get-communities') })
 
-    expect(res.data!.communities!.length).toBeGreaterThan(0)
+    expect(res.data?.communities?.length).toBeGreaterThan(0)
     expect(res).toEqual(
       expect.objectContaining({
         data: {

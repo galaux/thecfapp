@@ -15,6 +15,7 @@ async function selectCommunitiesByUserIds(
   const userToCommunityMap = new Map<string, Community[]>()
   for (const userCommunity of userCommunityList) {
     if (userToCommunityMap.has(userCommunity.userId)) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       userToCommunityMap
         .get(userCommunity.userId)!
         .push(userCommunity.community)
