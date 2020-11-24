@@ -11,6 +11,7 @@
     "db:seed:config": "dotenv yarn workspace @thecfapp/api run db:seed:config",
     "db:seed:run": "dotenv yarn workspace @thecfapp/api run db:seed:run",
     "dev": "dotenv yarn workspace @thecfapp/server run dev",
+    "lint": "yarn workspaces run lint",
     "start": "yarn workspace @thecfapp/server run start",
     "test": "yarn workspaces run test"
   },
