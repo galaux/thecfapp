@@ -9,10 +9,8 @@ import {
   useSeeding,
 } from 'typeorm-seeding'
 import { testAppConfig } from './app-config'
-import { v4 as uuid } from 'uuid'
 import path from 'path'
-
-const dbConnectionBaseName = 'test'
+import { Connection } from 'typeorm'
 
 const uuidRe = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/i
 
@@ -24,36 +22,32 @@ function readOperation(fname: string): string {
   )
 }
 
-async function setupTestContext(): Promise<Context> {
-  /* Instruct typeorm-seeding that once it has loaded the connection options
-     (see `useRefreshDatabase` afterwards), it should change the name of the
-     connection */
-  setConnectionOptions({ name: `${dbConnectionBaseName}-${uuid()}` })
-  // Instruct typeorm-seeding to use the options `test` from `ormconfig.yml`
-  const conn = await useRefreshDatabase({
-    connection: dbConnectionBaseName,
+async function setupTestConn(): Promise<Connection> {
+  setConnectionOptions({
+    type: 'sqlite',
+    database: ':memory:',
+    // Using entities (classes) here prevents the tests from running
+    entities: ['build/domain/**/entity.js', 'domain/**/entity.ts'],
   })
-  await useSeeding({ connection: dbConnectionBaseName })
+  // Connects to the database, drops it and recreates the schema
+  const conn = await useRefreshDatabase()
+  // Loads all the defined entity factories
+  await useSeeding()
+  return conn
+}
 
+async function setupTestContext(): Promise<Context> {
+  const conn = await setupTestConn()
   const loaders = createLoaders(conn, { cache: false })
-
   return { conn, loaders }
 }
 
-async function setupTestServer(): Promise<ApolloServerTestClient> {
-  const { conn } = await setupTestContext()
-
+async function setupTest(): Promise<ApolloServerTestClient> {
+  const conn = await setupTestConn()
   const server = createServer(testAppConfig, conn)
-
   // https://github.com/apollographql/apollo-server/issues/1140
   // https://github.com/apollographql/apollo-server/issues/4376
   return createTestClient(server as any)
 }
 
-export {
-  dbConnectionBaseName,
-  readOperation,
-  setupTestContext,
-  setupTestServer,
-  uuidRe,
-}
+export { readOperation, setupTestContext, setupTest, uuidRe }

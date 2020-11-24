@@ -1,5 +1,5 @@
 import { ApolloServer } from 'apollo-server-express'
-import { AppConfig } from './app-config'
+import { AppConfig } from './types'
 import { Connection, createConnection } from 'typeorm'
 import { Context } from './types'
 import { ContextFunction } from 'apollo-server-core'
