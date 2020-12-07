@@ -6,6 +6,7 @@ import {
   selectCommunities,
   selectCommunitiesByUserIds,
 } from './domain/community'
+import { selectScoresByUserIds } from './domain/score/api/read'
 import { selectUsers } from './domain/user'
 import { selectWods, selectWodsByCommunityIds } from './domain/wod'
 import { selectWorkouts } from './domain/workout'
@@ -52,6 +53,12 @@ function createLoaders(
       ),
       byId: new DataLoader(
         async (keys) => batchable(curry(selectCommunities)(conn), keys),
+        options,
+      ),
+    },
+    Score: {
+      byUserWodId: new DataLoader(
+        async (keys) => selectScoresByUserIds(conn, keys),
         options,
       ),
     },

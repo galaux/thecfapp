@@ -12,7 +12,6 @@ export default <Resolvers>{
     scores: (_, __, context) => scores(context),
   },
   Score: {
-    type: (score) => score.type,
     user: (score, _, context) => user(context, score.userId),
     value: (score) => score.value,
     wod: (score, _, context) => wodById(context, score.wodId),

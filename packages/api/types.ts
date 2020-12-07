@@ -1,6 +1,7 @@
 import { Community } from './domain/community'
 import { Connection } from 'typeorm'
 import { ConnectionOptions } from 'typeorm-seeding'
+import { Score } from './domain/score'
 import { User } from './domain/user'
 import { Wod } from './domain/wod'
 import { Workout } from './domain/workout'
@@ -19,10 +20,15 @@ export type Context = {
   loaders: Loaders
 }
 
+export type UserWodKey = { userId: string; wodId: string }
+
 export type Loaders = {
   Community: {
     byUserId: DataLoader<string, Community[]>
     byId: DataLoader<string, Community>
+  }
+  Score: {
+    byUserWodId: DataLoader<UserWodKey, Score[]>
   }
   User: DataLoader<string, User>
   Wod: {

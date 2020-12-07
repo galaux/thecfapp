@@ -1,12 +1,5 @@
-"Types of scores"
-enum ScoreType {
-  REPETITIONS
-  TIME_MS
-}
-
 "Input to record the score of a `User` to a `Wod` with a score"
 input CreateScore {
-  type: ScoreType!
   userId: ID!
   value: Int!
   wodId: ID!
@@ -15,7 +8,6 @@ input CreateScore {
 "Record of the score of a `User` to a `Wod` with a score"
 type Score {
   id: ID!
-  type: ScoreType!
   user: User!
   value: Int!
   wod: Wod!
