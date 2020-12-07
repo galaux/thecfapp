@@ -10,6 +10,7 @@ async function createWorkout(
     new Workout({
       description: input.description,
       name: input.name,
+      scoringType: input.scoringType,
     }),
   )
 }

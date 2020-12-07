@@ -8,7 +8,6 @@ async function createScore(
 ): Promise<Score> {
   return conn.getRepository(Score).save(
     new Score({
-      type: input.type,
       userId: input.userId,
       value: input.value,
       wodId: input.wodId,
