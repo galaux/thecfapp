@@ -1,10 +1,8 @@
 import React from 'react'
 import { ChakraProvider, Spinner, extendTheme } from '@chakra-ui/react'
-/* import logo from './logo.svg'; */
 import './App.css'
-/* import { ColorModeSwitcher } from "./ColorModeSwitcher" */
-import AddScorePage from './Score'
-import WodListPage from './Wod'
+import NewScorePage from './NewScore'
+import UserWodsPage from './UserWods'
 import DashboardPage from './Dashboard'
 import UserProfilePage from './UserProfile'
 import { ApolloProvider } from '@apollo/client'
@@ -33,10 +31,10 @@ const App: React.FC<Props> = ({ client }) => {
     <ApolloProvider client={client}>
       <ChakraProvider theme={customTheme}>
         <Router>
-          <AddScorePage path='/add-score/:wodId' />
+          <NewScorePage path='/add-score/:wodId' />
           <DashboardPage path='/' userId={userId} />
           <UserProfilePage path='user-profile' userId={userId} />
-          <WodListPage path='wod-list' userId={userId} />
+          <UserWodsPage path='wod-list' userId={userId} />
         </Router>
       </ChakraProvider>
     </ApolloProvider>

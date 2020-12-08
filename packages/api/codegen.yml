@@ -2,8 +2,13 @@ overwrite: true
 schema:
   - '*.graphql'
   - '**/*.graphql'
-documents: null
 generates:
+  ../mobile/src/types/graphql.ts:
+    documents: '../mobile/src/**/*.graphql'
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
   generated/graphql.ts:
     plugins:
       - 'typescript'

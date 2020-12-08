@@ -1,0 +1,26 @@
+fragment CommunityFields on Community {
+  id
+  name
+}
+
+fragment ScoreFields on Score {
+  id
+  value
+}
+
+fragment UserFields on User {
+  id
+  name
+}
+
+fragment WodFields on Wod {
+  id
+  date
+}
+
+fragment WorkoutFields on Workout {
+  id
+  name
+  description
+  scoringType
+}

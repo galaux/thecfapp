@@ -1,0 +1,15 @@
+fragment CreateScoreScore on Score {
+  ...ScoreFields
+  user {
+    ...UserFields
+  }
+  wod {
+    ...WodFields
+  }
+}
+
+mutation createScore($userId: ID!, $wodId: ID!, $value: Int!) {
+  createScore(input: { value: $value, userId: $userId, wodId: $wodId }) {
+    ...CreateScoreScore
+  }
+}

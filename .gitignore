@@ -11,9 +11,10 @@ coverage
 # production
 build
 
-# api generated
-packages/api/graphql.schema.json
+# Codegen generated
 packages/api/generated/graphql.ts
+packages/api/graphql.schema.json
+packages/mobile/src/types/graphql.ts
 
 # misc
 .DS_Store

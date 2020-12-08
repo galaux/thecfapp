@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { WodList } from './WodList'
-import { IWod, ICommunity } from '../types'
+import { UserCommunitiesCommunityFragment, UserWodsWodFragment } from '../types'
 import { Box, Flex, Select, Heading } from '@chakra-ui/react'
 
 interface Props {
-  communities: ICommunity[]
-  wods: IWod[]
+  communities: UserCommunitiesCommunityFragment[]
+  wods: UserWodsWodFragment[]
 }
 
-export const WodPanel: React.FC<Props> = (props) => {
+export const WodsPanel: React.FC<Props> = (props) => {
   const { communities, wods } = props
 
   const [selectedCommunityId, setSelectedCommunityId] = useState<string | null>(

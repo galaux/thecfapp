@@ -1,5 +1,4 @@
 import React, { FormEvent, useState } from 'react'
-import { IWod } from '../types'
 import {
   Box,
   Button,
@@ -13,47 +12,50 @@ import {
   NumberDecrementStepper,
   Spinner,
 } from '@chakra-ui/react'
-import { useMutation, gql } from '@apollo/client'
-import { CREATE_SCORE } from '../graphql/queries/score'
+import { gql } from '@apollo/client'
 import { userId } from '../apollo-client'
 import { navigate } from '@reach/router'
+import { useCreateScoreMutation, GetWodWodFragment } from '../types'
 
 type Props = {
-  wod: IWod
+  wod: GetWodWodFragment
 }
 
-export const Score: React.FC<Props> = (props) => {
+export const NewScore: React.FC<Props> = (props) => {
   const { wod } = props
 
-  const [value, setValue] = useState<number | null>(null)
+  const [value, setValue] = useState(Number.NaN)
 
   const [
     createScore,
     { loading: mutationLoading, error: mutationError },
-  ] = useMutation(CREATE_SCORE, {
-    update(cache, { data: { createScore } }) {
-      cache.modify({
-        fields: {
-          scores(existingScores = []) {
-            const newScoreRef = cache.writeFragment({
-              data: createScore,
-              fragment: gql`
-                fragment NewScore on Score {
-                  id
-                  user {
+  ] = useCreateScoreMutation({
+    update(cache, { data }) {
+      // TODO handle no data returned as an error
+      if (data) {
+        cache.modify({
+          fields: {
+            scores(existingScores = []) {
+              const newScoreRef = cache.writeFragment({
+                data: data.createScore,
+                fragment: gql`
+                  fragment NewScore on Score {
                     id
+                    user {
+                      id
+                    }
+                    value
+                    wod {
+                      id
+                    }
                   }
-                  value
-                  wod {
-                    id
-                  }
-                }
-              `,
-            })
-            return [...existingScores, newScoreRef]
+                `,
+              })
+              return [...existingScores, newScoreRef]
+            },
           },
-        },
-      })
+        })
+      } // TODO handle case where data is undefined?
     },
   })
 

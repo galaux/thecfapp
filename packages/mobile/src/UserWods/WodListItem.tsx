@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { IWod } from '../types'
 import {
   Box,
   Button,
@@ -10,10 +9,11 @@ import {
   ListItem,
 } from '@chakra-ui/react'
 import { navigate } from '@reach/router'
+import { UserWodsWodFragment } from '../types'
 
 type Props = {
   key: string
-  wod: IWod
+  wod: UserWodsWodFragment
 }
 
 export const WodListItem: React.FC<Props> = (props) => {

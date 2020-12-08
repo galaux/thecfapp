@@ -1,0 +1,23 @@
+fragment UserCommunitiesCommunity on Community {
+  id
+  name
+  wods {
+    id
+    community {
+      id
+    }
+    date
+    scores(userId: $userId) {
+      id
+    }
+    workout {
+      id
+    }
+  }
+}
+
+query UserCommunities($userId: ID!) {
+  userCommunities(userId: $userId) {
+    ...UserCommunitiesCommunity
+  }
+}

@@ -1,0 +1,9 @@
+fragment GetUserUser on User {
+  ...UserFields
+}
+
+query GetUser($userId: ID!) {
+  user(id: $userId) {
+    ...GetUserUser
+  }
+}
