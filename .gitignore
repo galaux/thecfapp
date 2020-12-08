@@ -17,6 +17,7 @@ packages/api/generated/graphql.ts
 
 # misc
 .DS_Store
+.eslintcache
 .env
 .env.local
 .env.development.local

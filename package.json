@@ -19,24 +19,22 @@
     "type": "git",
     "url": "git+ssh://git@github.com/TheCFApp/thecfapp.git"
   },
-  "contributors": [
-    {
-      "name": "Guillaume Alaux",
-      "email": "guillaume@alaux.net"
-    },
-    {
-      "name": "Ugo Onali",
-      "email": "hello@onali-ugo.fr"
-    }
-  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/TheCFApp/thecfapp/issues"
   },
   "homepage": "https://github.com/TheCFApp/thecfapp#readme",
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/api",
+      "packages/mobile",
+      "packages/server"
+    ],
+    "nohoist": [
+      "**/react-scripts",
+      "**/react-scripts/**"
+    ]
+  },
   "engines": {
     "node": "12.x || 14.x"
   },

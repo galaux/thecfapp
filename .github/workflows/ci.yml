@@ -22,9 +22,8 @@ jobs:
         run: |
           yarn install
 
-      - name: Eslint/Prettier
+      - name: Lint
         run: |
-          yarn workspace @thecfapp/front format:check
           yarn lint
 
       - name: Build & Test
