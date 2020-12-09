@@ -1,5 +1,5 @@
 import { Resolvers } from '../../generated/graphql'
-import { communities } from './api/read'
+import { communities, communitiesByUserId } from './api/read'
 import { createCommunity } from './api/create'
 import { wodsByCommunityId } from '../wod'
 
@@ -14,5 +14,7 @@ export default <Resolvers>{
   },
   Query: {
     communities: (_, __, context) => communities(context),
+    userCommunities: (_, { userId }, context) =>
+      communitiesByUserId(context, userId),
   },
 }

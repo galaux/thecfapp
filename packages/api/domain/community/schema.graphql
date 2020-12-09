@@ -32,7 +32,12 @@ extend type Mutation {
 
 extend type Query {
   """
-  List communities.
+  List all communities.
   """
   communities: [Community!]!
+
+  """
+  List all communities a user belongs to.
+  """
+  userCommunities(userId: ID!): [Community!]!
 }
