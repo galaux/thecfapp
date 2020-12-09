@@ -13,9 +13,12 @@ extend type Mutation {
 
 extend type Query {
   """
-  List of Workout Of the Day.
+  Workouts of the Day of the communities the user belongs to.
+
+  TODO Ultimately this should also return the WoDs the user has participated to
+  (DB schema link User-Score)
   """
-  wods: [Wod!]!
+  userWods(userId: ID!): [Wod!]!
 
   """
   Get a Workout Of the Day by its id.

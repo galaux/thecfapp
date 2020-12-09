@@ -1,5 +1,8 @@
+import { Community } from '../../community'
 import { Connection, In } from 'typeorm'
 import { Context } from '../../../types'
+import { User } from '../../user'
+import { UserCommunity } from '../../user-community'
 import { Wod } from '../entity'
 import { groupBy } from 'lodash/fp'
 
@@ -7,8 +10,19 @@ async function selectWods(conn: Connection, ids: string[]): Promise<Wod[]> {
   return conn.getRepository(Wod).findByIds(ids)
 }
 
-async function wods({ conn }: Context): Promise<Wod[]> {
-  return conn.getRepository(Wod).find()
+async function userWods({ conn }: Context, userId: string): Promise<Wod[]> {
+  return conn
+    .getRepository(Wod)
+    .createQueryBuilder('wod')
+    .innerJoin(Community, 'community', 'community.id = wod.community_id')
+    .innerJoin(
+      UserCommunity,
+      'user_community',
+      'user_community.community_id = community.id',
+    )
+    .innerJoin(User, 'user', 'user.id = user_community.user_id')
+    .where('user.id = :userId', { userId })
+    .getMany()
 }
 
 // TODO rename all other functions to follow the pattern `…ById`?
@@ -39,5 +53,5 @@ export {
   selectWodsByCommunityIds,
   wodById,
   wodsByCommunityId,
-  wods,
+  userWods,
 }
