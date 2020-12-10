@@ -1,12 +1,6 @@
 import * as React from 'react'
-import { Link } from '@reach/router'
+import { Text } from '@chakra-ui/react'
 
 export const Dashboard: React.FC = () => {
-  return (
-    <nav>
-      <Link to='/wod-list'>My WoD List</Link>
-      <br />
-      <Link to='/user-profile'>My Profile</Link>
-    </nav>
-  )
+  return <Text>This is the Dashboard TODO</Text>
 }
