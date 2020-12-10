@@ -1,7 +1,7 @@
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
 import React, { useEffect, useState } from 'react'
 
-import getApolloClient from './apollo-client'
+import getApolloClient from './graphql/apollo-client'
 import AppComponent from './App'
 
 export default function App() {

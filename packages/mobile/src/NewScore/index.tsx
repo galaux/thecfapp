@@ -2,7 +2,7 @@ import React from 'react'
 import { Body, Header, Layout } from '../Layout'
 import { NewScore } from './NewScore'
 import { RouteComponentProps, useParams } from '@reach/router'
-import { userId } from '../apollo-client'
+import { userId } from '../graphql/apollo-client'
 import { Spinner } from '@chakra-ui/react'
 import { useGetWodQuery } from '../types'
 

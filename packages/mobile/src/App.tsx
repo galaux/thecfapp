@@ -8,7 +8,7 @@ import UserProfilePage from './UserProfile'
 import { ApolloProvider } from '@apollo/client'
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
 import { Router } from '@reach/router'
-import { userId } from './apollo-client'
+import { userId } from './graphql/apollo-client'
 
 const colors = {
   _gray: '#808080',
