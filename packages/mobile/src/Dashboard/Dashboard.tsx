@@ -4,9 +4,9 @@ import { Link } from '@reach/router'
 export const Dashboard: React.FC = () => {
   return (
     <nav>
-      <Link to='wod-list'>My WoD List</Link>
+      <Link to='/wod-list'>My WoD List</Link>
       <br />
-      <Link to='user-profile'>My Profile</Link>
+      <Link to='/user-profile'>My Profile</Link>
     </nav>
   )
 }

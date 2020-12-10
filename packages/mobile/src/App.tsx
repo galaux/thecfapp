@@ -33,8 +33,8 @@ const App: React.FC<Props> = ({ client }) => {
         <Router>
           <NewScorePage path='/add-score/:wodId' />
           <DashboardPage path='/' userId={userId} />
-          <UserProfilePage path='user-profile' userId={userId} />
-          <UserWodsPage path='wod-list' userId={userId} />
+          <UserProfilePage path='/user-profile' userId={userId} />
+          <UserWodsPage path='/wod-list' userId={userId} />
         </Router>
       </ChakraProvider>
     </ApolloProvider>

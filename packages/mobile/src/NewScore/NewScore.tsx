@@ -72,7 +72,8 @@ export const NewScore: React.FC<Props> = (props) => {
   }
 
   if (mutationLoading) return <Spinner />
-  if (mutationError) return <p>Error {mutationError}</p> // TODO
+  // TODO properly handle error
+  if (mutationError) return <p>Error {mutationError}</p>
 
   return (
     <>
