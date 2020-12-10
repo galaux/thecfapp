@@ -27,21 +27,26 @@ const UserWodsPage: React.FC<Props> = (props: Props) => {
     fetchPolicy: 'cache-and-network',
     variables: { userId },
   })
-  if (loadingWods || loadingCommunities) return <Spinner />
-  if (!dataWods || errorWods || !dataCommunities || errorCommunities)
-    return (
-      <p>
-        Error {errorWods} {errorCommunities}
-      </p>
-    ) // TODO properly handle error
-  const wods = dataWods.userWods
-  const communities = dataCommunities.userCommunities
 
   return (
     <Layout>
       <Header>My WoD list</Header>
       <Body>
-        <WodsPanel communities={communities} wods={wods} />
+        {(loadingWods || loadingCommunities) && <Spinner />}
+        {
+          /* TODO properly handle errors */
+          (errorWods || errorCommunities) && (
+            <p>
+              Error {errorWods} {errorCommunities}
+            </p>
+          )
+        }
+        {dataWods && dataCommunities && (
+          <WodsPanel
+            communities={dataCommunities.userCommunities}
+            wods={dataWods.userWods}
+          />
+        )}
       </Body>
     </Layout>
   )

@@ -16,15 +16,13 @@ const UserProfilePage: React.FC<Props> = (props) => {
     variables: { userId },
   })
 
-  if (loading) return <Spinner />
-  if (!data || error) return <p>Error: {error} </p> // TODO
-  const user = data.user
-
   return (
     <Layout>
       <Header>My Profile</Header>
       <Body>
-        <UserProfile user={user} />
+        {loading && <Spinner />}
+        {error && <p>Error: {error} </p> /* TODO properly handle error */}
+        {data && <UserProfile user={data.user} />}
       </Body>
     </Layout>
   )
