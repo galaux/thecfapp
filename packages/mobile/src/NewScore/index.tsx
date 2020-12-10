@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Body, Header, Layout } from '../Layout'
 import { NewScore } from './NewScore'
 import { RouteComponentProps, useParams } from '@reach/router'
-import { userId } from '../graphql/apollo-client'
 import { Spinner } from '@chakra-ui/react'
 import { useGetWodQuery } from './get-wod.generated'
+import { UserContext } from '../App'
 
 const NewScorePage: React.FC<RouteComponentProps> = () => {
   const { wodId } = useParams()
+  const userId = useContext(UserContext)
 
   const { loading, error, data } = useGetWodQuery({
     fetchPolicy: 'cache-and-network', // FIXME we just want to get the version in cache

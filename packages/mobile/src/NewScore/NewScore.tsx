@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useContext, useState } from 'react'
 import {
   Box,
   Button,
@@ -13,10 +13,10 @@ import {
   Spinner,
 } from '@chakra-ui/react'
 import { gql } from '@apollo/client'
-import { userId } from '../graphql/apollo-client'
 import { navigate } from '@reach/router'
 import { useCreateScoreMutation } from './create-score.generated'
 import { GetWodWodFragment } from './get-wod.generated'
+import { UserContext } from '../App'
 
 type Props = {
   wod: GetWodWodFragment
@@ -24,6 +24,7 @@ type Props = {
 
 export const NewScore: React.FC<Props> = (props) => {
   const { wod } = props
+  const userId = useContext(UserContext)
 
   const [value, setValue] = useState(Number.NaN)
 
