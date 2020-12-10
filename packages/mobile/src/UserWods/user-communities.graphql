@@ -1,23 +1,9 @@
-fragment UserCommunitiesCommunity on Community {
-  id
-  name
-  wods {
-    id
-    community {
-      id
-    }
-    date
-    scores(userId: $userId) {
-      id
-    }
-    workout {
-      id
-    }
-  }
+fragment UserCommunity on Community {
+  ...CommunityFields
 }
 
 query UserCommunities($userId: ID!) {
   userCommunities(userId: $userId) {
-    ...UserCommunitiesCommunity
+    ...UserCommunity
   }
 }

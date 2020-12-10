@@ -2,7 +2,7 @@ import { RouteComponentProps } from '@reach/router'
 import { UserProfile } from './UserProfile'
 import { Spinner } from '@chakra-ui/react'
 import { Body, Header, Layout } from '../Layout'
-import { useGetUserQuery } from '../types'
+import { useGetUserQuery } from './user.generated'
 
 interface Props extends RouteComponentProps {
   userId: string

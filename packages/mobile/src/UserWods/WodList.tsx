@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { WodListItem } from './WodListItem'
 import SwipeableViews from 'react-swipeable-views'
-import { UserWodsWodFragment } from '../types'
+import { UserWodFragment } from './user-wods.generated'
 
 type Props = {
   selectedCommunityId: string | null
-  wods: UserWodsWodFragment[]
+  wods: UserWodFragment[]
 }
 
 export const WodList: React.FC<Props> = (props) => {

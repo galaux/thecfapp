@@ -3,7 +3,8 @@ import { Layout, Header, Body } from '../Layout'
 import { WodsPanel } from './WodsPanel'
 import { RouteComponentProps } from '@reach/router'
 import { Spinner } from '@chakra-ui/react'
-import { useUserWodsQuery, useUserCommunitiesQuery } from '../types'
+import { useUserWodsQuery } from './user-wods.generated'
+import { useUserCommunitiesQuery } from './user-communities.generated'
 
 interface Props extends RouteComponentProps {
   userId: string

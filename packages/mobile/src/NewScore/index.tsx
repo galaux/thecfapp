@@ -4,7 +4,7 @@ import { NewScore } from './NewScore'
 import { RouteComponentProps, useParams } from '@reach/router'
 import { userId } from '../graphql/apollo-client'
 import { Spinner } from '@chakra-ui/react'
-import { useGetWodQuery } from '../types'
+import { useGetWodQuery } from './get-wod.generated'
 
 const NewScorePage: React.FC<RouteComponentProps> = () => {
   const { wodId } = useParams()

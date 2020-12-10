@@ -9,11 +9,11 @@ import {
   ListItem,
 } from '@chakra-ui/react'
 import { navigate } from '@reach/router'
-import { UserWodsWodFragment } from '../types'
+import { UserWodFragment } from './user-wods.generated'
 
 type Props = {
   key: string
-  wod: UserWodsWodFragment
+  wod: UserWodFragment
 }
 
 export const WodListItem: React.FC<Props> = (props) => {

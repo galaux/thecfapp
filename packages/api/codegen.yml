@@ -7,6 +7,13 @@ generates:
     documents: '../mobile/src/**/*.graphql'
     plugins:
       - typescript
+  src/:
+    documents: '../mobile/src/**/*.graphql'
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.tsx
+      baseTypesPath: '../../mobile/src/types/graphql'
+    plugins:
       - typescript-operations
       - typescript-react-apollo
   generated/graphql.ts:

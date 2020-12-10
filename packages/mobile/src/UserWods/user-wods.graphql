@@ -1,7 +1,7 @@
-fragment UserWodsWod on Wod {
+fragment UserWod on Wod {
   ...WodFields
   community {
-    ...CommunityFields
+    id
   }
   scores(userId: $userId) {
     ...ScoreFields
@@ -13,6 +13,6 @@ fragment UserWodsWod on Wod {
 
 query UserWods($userId: ID!) {
   userWods(userId: $userId) {
-    ...UserWodsWod
+    ...UserWod
   }
 }

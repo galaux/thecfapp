@@ -15,7 +15,8 @@ import {
 import { gql } from '@apollo/client'
 import { userId } from '../graphql/apollo-client'
 import { navigate } from '@reach/router'
-import { useCreateScoreMutation, GetWodWodFragment } from '../types'
+import { useCreateScoreMutation } from './create-score.generated'
+import { GetWodWodFragment } from './get-wod.generated'
 
 type Props = {
   wod: GetWodWodFragment
