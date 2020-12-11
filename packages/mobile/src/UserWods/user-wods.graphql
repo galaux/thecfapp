@@ -1,4 +1,4 @@
-fragment UserWod on Wod {
+fragment UserWodsWod on Wod {
   ...WodFields
   community {
     id
@@ -13,6 +13,6 @@ fragment UserWod on Wod {
 
 query UserWods($userId: ID!) {
   userWods(userId: $userId) {
-    ...UserWod
+    ...UserWodsWod
   }
 }

@@ -4,7 +4,6 @@ schema:
   - '**/*.graphql'
 generates:
   ../mobile/src/types/graphql.ts:
-    documents: '../mobile/src/**/*.graphql'
     plugins:
       - typescript
   src/:

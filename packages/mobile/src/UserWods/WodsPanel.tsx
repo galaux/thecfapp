@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { WodList } from './WodList'
 import { UserCommunityFragment } from './user-communities.generated'
-import { UserWodFragment } from './user-wods.generated'
+import { UserWodsWodFragment as Wod } from './user-wods.generated'
 import { Box, Flex, Select, Heading } from '@chakra-ui/react'
 
 interface Props {
   communities: UserCommunityFragment[]
-  wods: UserWodFragment[]
+  wods: Wod[]
 }
 
 export const WodsPanel: React.FC<Props> = (props) => {

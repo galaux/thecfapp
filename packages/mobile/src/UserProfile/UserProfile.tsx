@@ -1,8 +1,8 @@
-import { AUserFragment } from './user.generated'
+import { UserProfileUserFragment as User } from './user.generated'
 import { Text } from '@chakra-ui/react'
 
 interface Props {
-  user: AUserFragment
+  user: User
 }
 
 export const UserProfile: React.FC<Props> = (props) => {

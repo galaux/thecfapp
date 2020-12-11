@@ -12,14 +12,13 @@ import {
   NumberDecrementStepper,
   Spinner,
 } from '@chakra-ui/react'
-import { gql } from '@apollo/client'
 import { navigate } from '@reach/router'
-import { useCreateScoreMutation } from './create-score.generated'
-import { GetWodWodFragment } from './get-wod.generated'
+import { NewScoreFragmentDoc, useCreateScoreMutation } from './create-score.generated'
+import { GetWodWodFragment as Wod } from './get-wod.generated'
 import { UserContext } from '../App'
 
 type Props = {
-  wod: GetWodWodFragment
+  wod: Wod
 }
 
 export const NewScore: React.FC<Props> = (props) => {
@@ -40,24 +39,13 @@ export const NewScore: React.FC<Props> = (props) => {
             scores(existingScores = []) {
               const newScoreRef = cache.writeFragment({
                 data: data.createScore,
-                fragment: gql`
-                  fragment NewScore on Score {
-                    id
-                    user {
-                      id
-                    }
-                    value
-                    wod {
-                      id
-                    }
-                  }
-                `,
+                fragment: NewScoreFragmentDoc,
               })
               return [...existingScores, newScoreRef]
             },
           },
         })
-      } // TODO handle case where data is undefined?
+      }
     },
   })
 

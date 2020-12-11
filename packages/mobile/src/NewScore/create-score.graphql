@@ -1,4 +1,4 @@
-fragment CreateScoreScore on Score {
+fragment NewScore on Score {
   ...ScoreFields
   user {
     ...UserFields
@@ -10,6 +10,6 @@ fragment CreateScoreScore on Score {
 
 mutation createScore($userId: ID!, $wodId: ID!, $value: Int!) {
   createScore(input: { value: $value, userId: $userId, wodId: $wodId }) {
-    ...CreateScoreScore
+    ...NewScore
   }
 }
