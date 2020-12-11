@@ -8,7 +8,11 @@ async function createCommunity(
 ): Promise<Community> {
   return conn.getRepository(Community).save(
     new Community({
+      city: input.city,
+      country: input.country,
       name: input.name,
+      street: input.street,
+      zipCode: input.zipCode,
     }),
   )
 }

@@ -23,10 +23,10 @@ describe('get communities', () => {
       expect.objectContaining({
         data: {
           communities: expect.arrayContaining([
-            {
+            expect.objectContaining({
               id: expect.stringMatching(uuidRe),
               name: expect.any(String),
-            },
+            }),
           ]),
         },
         errors: undefined,
