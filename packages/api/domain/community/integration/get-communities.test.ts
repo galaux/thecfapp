@@ -1,7 +1,7 @@
 import { ApolloServerTestClient } from 'apollo-server-testing'
+import { Community } from '../entity'
+import { factory, tearDownDatabase } from 'typeorm-seeding'
 import { readOperation, setupTest, uuidRe } from '../../../test-utils'
-import { runSeeder, tearDownDatabase } from 'typeorm-seeding'
-import CreateWorkouts from '../../../db-seeder'
 
 describe('get communities', () => {
   let client: ApolloServerTestClient
@@ -15,10 +15,10 @@ describe('get communities', () => {
   })
 
   test('returns the list of communities', async () => {
-    await runSeeder(CreateWorkouts)
+    await factory(Community)().createMany(5)
     const res = await client.query({ query: readOperation('get-communities') })
 
-    expect(res.data?.communities?.length).toBeGreaterThan(0)
+    expect(res.data?.communities?.length).toBe(5)
     expect(res).toEqual(
       expect.objectContaining({
         data: {

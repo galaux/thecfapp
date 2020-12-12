@@ -10,13 +10,12 @@ import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
 import { Router } from '@reach/router'
 import { loggedUserId } from './graphql/state/app'
 
-// Local
 export const API_HOST = 'http://localhost:4000/graphql'
-const userId = '499487df-3e84-4fa8-ad60-c9444dcdf7f5'
-
-// Prod
 // export const API_HOST = 'https://thecfapp.herokuapp.com/graphql'
-// const userId = "366a8963-6f81-4cfb-9a0c-c2c2629bd556"
+
+/* A user with this ID is seeded in the DB at start-up, don't change or sync
+   sync with @thecfapp/api/db/db-seeder value and re-seed the DB */
+const userId = 'df56c5a2-3f0c-459a-b158-d1a999714247'
 
 const colors = {
   _gray: '#808080',
@@ -35,12 +34,8 @@ const App: React.FC<Props> = ({ client }) => {
     return <Spinner />
   }
 
-  if (loggedUserId()) {
-    console.log(':: Reusing previously persisted user session')
-  } else {
-    loggedUserId(userId)
-    console.log(':: Fake user successful logged-in')
-  }
+  // FIXME temporarily hard-coding the logged user ID
+  loggedUserId(userId)
 
   return (
     <ApolloProvider client={client}>

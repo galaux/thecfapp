@@ -11,10 +11,11 @@ export class User {
 
   constructor(
     args: {
+      id?: string
       name?: string
     } = {},
   ) {
-    this.id = uuid()
+    this.id = args.id || uuid()
     if (args.name) this.name = args.name
   }
 }
