@@ -10,9 +10,6 @@ import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
 import { Router } from '@reach/router'
 import { loggedUserId } from './graphql/state/app'
 
-export const API_HOST = 'http://localhost:4000/graphql'
-// export const API_HOST = 'https://thecfapp.herokuapp.com/graphql'
-
 /* A user with this ID is seeded in the DB at start-up, don't change or sync
    sync with @thecfapp/api/db/db-seeder value and re-seed the DB */
 const userId = 'df56c5a2-3f0c-459a-b158-d1a999714247'

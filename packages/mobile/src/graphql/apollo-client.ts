@@ -1,13 +1,12 @@
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 // import { HttpLink } from 'apollo-link-http'
 import { CachePersistor, LocalStorageWrapper } from 'apollo3-cache-persist'
-import { API_HOST } from '../App'
 
 const SCHEMA_VERSION = '1'
 const SCHEMA_VERSION_KEY = 'apollo-schema-version'
 
 const getApolloClient = async () => {
-  const httpLink = new HttpLink({ uri: API_HOST })
+  const httpLink = new HttpLink({ uri: process.env.REACT_APP_PUBLIC_API_URL })
   const cache = new InMemoryCache()
 
   const persistor = new CachePersistor({
