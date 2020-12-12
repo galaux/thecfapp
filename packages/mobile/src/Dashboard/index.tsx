@@ -3,11 +3,7 @@ import { Body, Header, Layout } from '../Layout'
 import { Dashboard } from './Dashboard'
 import { RouteComponentProps } from '@reach/router'
 
-interface Props extends RouteComponentProps {
-  userId: string
-}
-
-const DashboardPage: React.FC<Props> = (props: Props) => {
+const DashboardPage: React.FC<RouteComponentProps> = () => {
   return (
     <Layout>
       <Header>Dashboard</Header>

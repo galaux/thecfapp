@@ -1,4 +1,4 @@
-import React, { FormEvent, useContext, useState } from 'react'
+import React, { FormEvent, useState } from 'react'
 import {
   Box,
   Button,
@@ -15,7 +15,7 @@ import {
 import { navigate } from '@reach/router'
 import { NewScoreFragmentDoc, useCreateScoreMutation } from './create-score.generated'
 import { GetWodWodFragment as Wod } from './get-wod.generated'
-import { UserContext } from '../App'
+import { loggedUserId } from '../graphql/state/app'
 
 type Props = {
   wod: Wod
@@ -23,7 +23,7 @@ type Props = {
 
 export const NewScore: React.FC<Props> = (props) => {
   const { wod } = props
-  const userId = useContext(UserContext)
+  const userId = loggedUserId()
 
   const [value, setValue] = useState(Number.NaN)
 

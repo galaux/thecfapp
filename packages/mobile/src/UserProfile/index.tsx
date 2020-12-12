@@ -3,13 +3,10 @@ import { UserProfile } from './UserProfile'
 import { Spinner } from '@chakra-ui/react'
 import { Body, Header, Layout } from '../Layout'
 import { useGetUserQuery } from './user.generated'
+import { loggedUserId } from '../graphql/state/app'
 
-interface Props extends RouteComponentProps {
-  userId: string
-}
-
-const UserProfilePage: React.FC<Props> = (props) => {
-  const { userId } = props
+const UserProfilePage: React.FC<RouteComponentProps> = () => {
+  const userId = loggedUserId()
 
   const { loading, error, data } = useGetUserQuery({
     fetchPolicy: 'cache-and-network',

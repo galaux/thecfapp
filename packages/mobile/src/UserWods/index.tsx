@@ -5,13 +5,10 @@ import { RouteComponentProps } from '@reach/router'
 import { Spinner } from '@chakra-ui/react'
 import { useUserWodsQuery } from './user-wods.generated'
 import { useUserCommunitiesQuery } from './user-communities.generated'
+import { loggedUserId } from '../graphql/state/app'
 
-interface Props extends RouteComponentProps {
-  userId: string
-}
-
-const UserWodsPage: React.FC<Props> = (props: Props) => {
-  const { userId } = props
+const UserWodsPage: React.FC<RouteComponentProps> = () => {
+  const userId = loggedUserId()
   const {
     loading: loadingWods,
     error: errorWods,

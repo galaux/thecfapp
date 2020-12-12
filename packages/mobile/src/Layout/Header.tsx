@@ -12,13 +12,13 @@ import {
   useDisclosure,
   Text,
 } from '@chakra-ui/react'
-import { UserContext } from '../App'
 import { useGetUserLazyQuery } from './user.generated'
+import { loggedUserId } from '../graphql/state/app'
 
 const bgImg = '/assets/meghan-holmes-buWcS7G1_28-unsplash.jpg'
 
 export const Header: React.FC = ({ children }) => {
-  const userId = React.useContext(UserContext)
+  const userId = loggedUserId()
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
