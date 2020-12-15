@@ -44,29 +44,51 @@ export const Header: React.FC = ({ children }) => {
             <DrawerContent background='_shark' color='white'>
               <DrawerHeader>{data.user.name}</DrawerHeader>
               <DrawerBody>
-                <Text>
-                  <Icon.Home />
-                  Dashboard
-                </Text>
-                <Icon.Box />
-                <Text>My communities</Text>
+                <Flex>
+                  <Icon.Home /> <Text>Dashboard</Text>
+                </Flex>
+
+                <Flex>
+                  <Icon.Box />
+                  <Text>My communities</Text>
+                </Flex>
+
                 <Link to='/wod-list'>
-                  <Icon.Activity />
-                  My WoDs
+                  <Flex>
+                    <Icon.Activity />
+                    My WoDs
+                  </Flex>
                 </Link>
-                <Icon.Search />
-                <Text>Find a community</Text>
-                <Icon.Bell />
-                <Text>Notifications</Text>
+
+                <Link to='/find-community'>
+                  <Flex>
+                    <Icon.Search />
+                    Find a community
+                  </Flex>
+                </Link>
+
+                <Flex>
+                  <Icon.Bell />
+                  <Text>Notifications</Text>
+                </Flex>
+
                 <Link to='/user-profile'>
-                  <Icon.User />
-                  Profile
+                  <Flex>
+                    <Icon.User />
+                    Profile
+                  </Flex>
                 </Link>
-                <Icon.HelpCircle />
-                <Text>Help</Text>
+
+                <Flex>
+                  <Icon.HelpCircle />
+                  <Text>Help</Text>
+                </Flex>
               </DrawerBody>
-              <Icon.Shield />
-              <Text>About Us</Text>
+
+              <Flex>
+                <Icon.Shield />
+                <Text>About Us</Text>
+              </Flex>
               <DrawerFooter></DrawerFooter>
             </DrawerContent>
           </DrawerOverlay>
