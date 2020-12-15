@@ -7,7 +7,7 @@ import {
   InputRightElement,
 } from '@chakra-ui/react'
 import * as Icon from 'react-feather'
-import { CommunityCard } from './CommunityCard'
+import { CommunityList } from './CommunityList'
 import { CommunityForLookupCommunitiesFragment as Community } from './find-community.generated'
 
 interface Props {
@@ -44,14 +44,11 @@ export const FindCommunityPanel: React.FC<Props> = (props: Props) => {
         </InputRightElement>
       </InputGroup>
 
-      {lookedupCommunities.map((community) => (
-        <CommunityCard
-          key={community.id}
-          community={community}
-          joinCommunity={() => joinCommunity(community.id)}
-          leaveCommunity={() => leaveCommunity(community.id)}
-        />
-      ))}
+      <CommunityList
+        communities={lookedupCommunities}
+        joinCommunity={joinCommunity}
+        leaveCommunity={leaveCommunity}
+      />
     </Stack>
   )
 }

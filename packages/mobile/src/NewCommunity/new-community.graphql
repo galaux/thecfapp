@@ -1,0 +1,12 @@
+fragment CommunityOnCreateCommunity on Community {
+  ...CommunityFields
+  address {
+    ...CommunityAddressFields
+  }
+}
+
+mutation CreateCommunity($creatorId: ID!, $input: NewCommunityInput!) {
+  createCommunity(creatorId: $creatorId, input: $input) {
+    ...CommunityOnCreateCommunity
+  }
+}

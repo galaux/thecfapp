@@ -1,29 +1,27 @@
-import {
-  AddUserToCommunityInput,
-  RemoveUserFromCommunityInput,
-} from '../../../generated/graphql'
 import { Context } from '../../../types'
 import { UserCommunity } from '../../../domain/user-community'
 
 async function addUserToCommunity(
   { conn }: Context,
-  input: AddUserToCommunityInput,
+  userId: string,
+  communityId: string,
 ): Promise<void> {
   conn.getRepository(UserCommunity).save(
     new UserCommunity({
-      communityId: input.communityId,
-      userId: input.userId,
+      communityId: communityId,
+      userId: userId,
     }),
   )
 }
 
 async function removeUserFromCommunity(
   { conn }: Context,
-  input: RemoveUserFromCommunityInput,
+  userId: string,
+  communityId: string,
 ): Promise<void> {
   conn.getRepository(UserCommunity).delete({
-    communityId: input.communityId,
-    userId: input.userId,
+    communityId: communityId,
+    userId: userId,
   })
 }
 

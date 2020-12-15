@@ -1,5 +1,5 @@
 "Input to a `Community` record"
-input CreateCommunityInput {
+input NewCommunityInput {
   city: String
   country: String
   name: String!
@@ -26,9 +26,9 @@ type Community {
 
 extend type Mutation {
   """
-  Create a community.
+  Create a community and add its creator as a member.
   """
-  createCommunity(input: CreateCommunityInput!): Community!
+  createCommunity(creatorId: ID!, input: NewCommunityInput!): Community!
 }
 
 extend type Query {

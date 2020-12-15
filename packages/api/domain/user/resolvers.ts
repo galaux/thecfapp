@@ -7,13 +7,21 @@ import { user, users } from './api/read'
 export default <Resolvers>{
   Mutation: {
     createUser: (_, { input }, context) => createUser(context, input),
-    addUserToCommunity: async (_, { input }, context) => {
-      await addUserToCommunity(context, input)
-      return community(context, input.communityId)
+    addUserToCommunity: async (
+      _,
+      { input: { userId, communityId } },
+      context,
+    ) => {
+      await addUserToCommunity(context, userId, communityId)
+      return community(context, communityId)
     },
-    removeUserFromCommunity: async (_, { input }, context) => {
-      await removeUserFromCommunity(context, input)
-      return input.communityId
+    removeUserFromCommunity: async (
+      _,
+      { input: { userId, communityId } },
+      context,
+    ) => {
+      await removeUserFromCommunity(context, userId, communityId)
+      return communityId
     },
   },
   Query: {

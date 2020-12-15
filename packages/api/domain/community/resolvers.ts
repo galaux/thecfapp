@@ -1,5 +1,6 @@
 import { Community } from './entity'
 import { Resolvers } from '../../generated/graphql'
+import { addUserToCommunity } from '../user/api/update'
 import {
   communities,
   communitiesByUserId,
@@ -17,7 +18,11 @@ export default <Resolvers>{
     wods: (community, _, context) => wodsByCommunityId(context, community.id),
   },
   Mutation: {
-    createCommunity: (_, { input }, context) => createCommunity(context, input),
+    createCommunity: async (_, { creatorId, input }, context) => {
+      const newCommunity = await createCommunity(context, input)
+      await addUserToCommunity(context, creatorId, newCommunity.id)
+      return newCommunity
+    },
   },
   Query: {
     communities: (_, __, context) => communities(context),
