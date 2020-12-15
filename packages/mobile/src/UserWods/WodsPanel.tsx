@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { WodList } from './WodList'
+import { WodSwipeList } from '../components/WodSwipeList'
 import { UserCommunityFragment } from './user-communities.generated'
-import { UserWodsWodFragment as Wod } from './user-wods.generated'
+import { WodForWodCardFragment as Wod } from '../components/WodCard'
 import { Box, Flex, Select, Heading } from '@chakra-ui/react'
 
 interface Props {
@@ -47,7 +47,7 @@ export const WodsPanel: React.FC<Props> = (props) => {
         </Select>
       </Flex>
       <Box mx={-6}>
-        <WodList selectedCommunityId={selectedCommunityId} wods={wods} />
+        <WodSwipeList selectedCommunityId={selectedCommunityId} wods={wods} />
       </Box>
     </Box>
   )

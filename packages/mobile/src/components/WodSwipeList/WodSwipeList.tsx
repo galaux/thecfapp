@@ -1,14 +1,13 @@
 import * as React from 'react'
-import { WodListItem } from './WodListItem'
+import { WodCard, WodForWodCardFragment as Wod } from '../WodCard'
 import SwipeableViews from 'react-swipeable-views'
-import { UserWodsWodFragment as Wod } from './user-wods.generated'
 
 type Props = {
   selectedCommunityId: string | null
   wods: Wod[]
 }
 
-export const WodList: React.FC<Props> = (props) => {
+export const WodSwipeList: React.FC<Props> = (props) => {
   const wods =
     props.selectedCommunityId === null
       ? props.wods
@@ -23,7 +22,7 @@ export const WodList: React.FC<Props> = (props) => {
       enableMouseEvents
     >
       {wods.map((wod) => (
-        <WodListItem key={wod.id} wod={wod} />
+        <WodCard key={wod.id} wod={wod} />
       ))}
     </SwipeableViews>
   )

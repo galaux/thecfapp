@@ -1,0 +1,12 @@
+fragment WodForWodCard on Wod {
+  ...WodFields
+  community {
+    id
+  }
+  scores(userId: $userId) {
+    ...ScoreFields
+  }
+  workout {
+    ...WorkoutFields
+  }
+}

@@ -9,14 +9,14 @@ import {
   ListItem,
 } from '@chakra-ui/react'
 import { navigate } from '@reach/router'
-import { UserWodsWodFragment as Wod } from './user-wods.generated'
+import { WodForWodCardFragment as Wod } from './wod-card.generated'
 
 type Props = {
   key: string
   wod: Wod
 }
 
-export const WodListItem: React.FC<Props> = (props) => {
+export const WodCard: React.FC<Props> = (props) => {
   const { wod } = props
 
   const onAddScoreBtnClick = () => navigate(`/add-score/${wod.id}`)
