@@ -19,6 +19,7 @@ type Address {
 type Community {
   id: ID!
   address: Address
+  memberCount: Int!
   name: String!
   wods: [Wod!]!
 }
@@ -35,6 +36,11 @@ extend type Query {
   List all communities.
   """
   communities: [Community!]!
+
+  """
+  Return communities which name matches.
+  """
+  lookupCommunities(name: String!): [Community!]!
 
   """
   List all communities a user belongs to.

@@ -1,5 +1,5 @@
 import { Community } from '../entity'
-import { Connection, In } from 'typeorm'
+import { Connection, ILike, In } from 'typeorm'
 import { Context } from '../../../types'
 import { UserCommunity } from '../../../domain/user-community'
 
@@ -40,6 +40,15 @@ async function communitiesByUserId(
   return loaders.Community.byUserId.load(userId)
 }
 
+async function lookupCommunities(
+  { conn }: Context,
+  name: string,
+): Promise<Community[]> {
+  return conn.getRepository(Community).find({
+    name: ILike(`%${name}%`),
+  })
+}
+
 async function selectCommunities(
   conn: Connection,
   ids: string[],
@@ -51,10 +60,19 @@ async function community({ loaders }: Context, id: string): Promise<Community> {
   return loaders.Community.byId.load(id)
 }
 
+async function memberCount(
+  { conn }: Context,
+  communityId: string,
+): Promise<number> {
+  return conn.getRepository(UserCommunity).count({ communityId })
+}
+
 export {
   communities,
   community,
   communitiesByUserId,
+  lookupCommunities,
+  memberCount,
   selectCommunities,
   selectCommunitiesByUserIds,
 }

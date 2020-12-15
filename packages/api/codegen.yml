@@ -2,6 +2,7 @@ overwrite: true
 schema:
   - '*.graphql'
   - '**/*.graphql'
+  - '../mobile/src/graphql/schema.graphql'
 generates:
   ../mobile/src/types/graphql.ts:
     plugins:

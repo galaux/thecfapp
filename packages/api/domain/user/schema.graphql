@@ -9,6 +9,11 @@ input AddUserToCommunityInput {
   userId: ID!
 }
 
+input RemoveUserFromCommunityInput {
+  communityId: ID!
+  userId: ID!
+}
+
 "Record of a user"
 type User {
   id: ID!
@@ -25,7 +30,12 @@ extend type Mutation {
   """
   Add a user to a community.
   """
-  addUserToCommunity(input: AddUserToCommunityInput!): User!
+  addUserToCommunity(input: AddUserToCommunityInput!): Community!
+
+  """
+  Remove a user from a community.
+  """
+  removeUserFromCommunity(input: RemoveUserFromCommunityInput!): ID!
 }
 
 extend type Query {

@@ -1,3 +1,10 @@
+fragment CommunityAddressFields on Address {
+  city
+  country
+  street
+  zipCode
+}
+
 fragment CommunityFields on Community {
   id
   name
