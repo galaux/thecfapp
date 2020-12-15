@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react'
 import { useGetUserLazyQuery } from './user.generated'
 import { loggedUserId } from '../graphql/state/app'
+import { fetchPolicy } from '../fetch-policy'
 
 const bgImg = '/assets/meghan-holmes-buWcS7G1_28-unsplash.jpg'
 
@@ -26,7 +27,7 @@ export const Header: React.FC = ({ children }) => {
      But this component has no page. Or should we perform the side effect
      in Layout/index.tsx? */
   const [getUser, { loading, error, data }] = useGetUserLazyQuery({
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: fetchPolicy('header-user'),
     variables: { userId },
   })
 

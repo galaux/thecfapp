@@ -6,6 +6,7 @@ import { Spinner } from '@chakra-ui/react'
 import { useUserWodsQuery } from './user-wods.generated'
 import { useUserCommunitiesQuery } from './user-communities.generated'
 import { loggedUserId } from '../graphql/state/app'
+import { fetchPolicy } from '../fetch-policy'
 
 const UserWodsPage: React.FC<RouteComponentProps> = () => {
   const userId = loggedUserId()
@@ -14,7 +15,7 @@ const UserWodsPage: React.FC<RouteComponentProps> = () => {
     error: errorWods,
     data: dataWods,
   } = useUserWodsQuery({
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: fetchPolicy('user-wods-wods'),
     variables: { userId },
   })
   const {
@@ -22,7 +23,7 @@ const UserWodsPage: React.FC<RouteComponentProps> = () => {
     error: errorCommunities,
     data: dataCommunities,
   } = useUserCommunitiesQuery({
-    fetchPolicy: 'cache-and-network',
+    fetchPolicy: fetchPolicy('user-wods-communities'),
     variables: { userId },
   })
 
