@@ -1,0 +1,3 @@
+mutation LeaveCommunity($userId: ID!, $communityId: ID!) {
+  removeUserFromCommunity(input: { userId: $userId, communityId: $communityId })
+}

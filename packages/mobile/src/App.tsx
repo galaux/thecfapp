@@ -9,8 +9,10 @@ import { ApolloProvider } from '@apollo/client'
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
 import { Router } from '@reach/router'
 import { loggedUserId } from './graphql/state/app'
-import FindCommunityPage from './FindCommunity'
-import NewCommunityPage from './NewCommunity'
+import { FindCommunityPage } from './pages/community/find'
+import { NewCommunityPage } from './pages/community/new'
+import { UserCommunitiesPage } from './pages/community/users'
+import { CommunityDetailPage } from './pages/community/detail'
 
 /* A user with this ID is seeded in the DB at start-up, don't change or sync
    sync with @thecfapp/api/db/db-seeder value and re-seed the DB */
@@ -40,10 +42,12 @@ const App: React.FC<Props> = ({ client }) => {
     <ApolloProvider client={client}>
       <ChakraProvider theme={customTheme}>
         <Router>
-          <NewScorePage path='/add-score/:wodId' />
+          <CommunityDetailPage path='/community/:communityId' />
           <DashboardPage path='/' />
           <FindCommunityPage path='/find-community' />
           <NewCommunityPage path='/new-community' />
+          <NewScorePage path='/add-score/:wodId' />
+          <UserCommunitiesPage path='/user-communities' />
           <UserProfilePage path='/user-profile' />
           <UserWodsPage path='/wod-list' />
         </Router>

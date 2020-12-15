@@ -5,7 +5,7 @@ import {
   UserCommunitiesQueryVariables,
   UserCommunitiesQuery,
   UserCommunitiesDocument,
-} from '../FindCommunity/find-community.generated'
+} from '../pages/community'
 import { loggedUserId } from './state/app'
 
 /* https://www.apollographql.com/docs/react/caching/cache-field-behavior/#fieldpolicy-api-reference */

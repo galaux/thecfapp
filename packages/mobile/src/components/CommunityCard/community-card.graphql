@@ -1,0 +1,8 @@
+fragment CommunityCard on Community {
+  ...CommunityFields
+  address {
+    ...CommunityAddressFields
+  }
+  isMember @client
+  memberCount
+}

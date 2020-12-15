@@ -4,7 +4,8 @@ import { addUserToCommunity } from '../user/api/update'
 import {
   communities,
   communitiesByUserId,
-  lookupCommunities,
+  community,
+  findCommunities,
   memberCount,
 } from './api/read'
 import { createCommunity } from './api/create'
@@ -26,8 +27,8 @@ export default <Resolvers>{
   },
   Query: {
     communities: (_, __, context) => communities(context),
-    lookupCommunities: (_, { name }, context) =>
-      lookupCommunities(context, name),
+    community: (_, { id }, context) => community(context, id),
+    findCommunities: (_, { name }, context) => findCommunities(context, name),
     userCommunities: (_, { userId }, context) =>
       communitiesByUserId(context, userId),
   },

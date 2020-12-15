@@ -7,7 +7,7 @@ import {
   FormLabel,
   Input,
 } from '@chakra-ui/react'
-import { NewCommunityInput } from '../types'
+import { NewCommunityInput } from '../../types'
 
 interface Props {
   createCommunity: (input: NewCommunityInput) => void

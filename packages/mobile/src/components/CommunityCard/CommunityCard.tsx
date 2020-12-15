@@ -9,7 +9,8 @@ import {
   Button,
 } from '@chakra-ui/react'
 import * as Icon from 'react-feather'
-import { CommunityForLookupCommunitiesFragment as Community } from './find-community.generated'
+import { CommunityCardFragment as Community } from './community-card.generated'
+import { Link } from '@reach/router'
 
 interface Props {
   community: Community
@@ -20,28 +21,22 @@ interface Props {
 export const CommunityCard: React.FC<Props> = (props) => {
   const { community, joinCommunity, leaveCommunity } = props
 
-  function onClickJoin() {
-    joinCommunity()
-  }
-
-  function onClickLeave() {
-    leaveCommunity()
-  }
-
   return (
     <Box w='100%' h='100%' bg='_thunder' rounded='md' p={4}>
       <VStack spacing={2} align='flex-start'>
         <HStack>
-          <Heading
-            as='h1'
-            fontSize='1.25rem'
-            fontWeight={400}
-            lineHeight={1.2}
-            textTransform='uppercase'
-            color='_gray'
-          >
-            {community.name}
-          </Heading>
+          <Link to={`/community/${community.id}`}>
+            <Heading
+              as='h1'
+              fontSize='1.25rem'
+              fontWeight={400}
+              lineHeight={1.2}
+              textTransform='uppercase'
+              color='_gray'
+            >
+              {community.name}
+            </Heading>
+          </Link>
           <Flex>
             <Icon.Users />
             {community.memberCount}
@@ -53,11 +48,11 @@ export const CommunityCard: React.FC<Props> = (props) => {
         </Text>
         <Text color='white'>{community.address?.country}</Text>
         {community.isMember ? (
-          <Button colorScheme='red' onClick={onClickLeave}>
+          <Button colorScheme='red' onClick={leaveCommunity}>
             Leave
           </Button>
         ) : (
-          <Button colorScheme='blue' onClick={onClickJoin}>
+          <Button colorScheme='blue' onClick={joinCommunity}>
             Join
           </Button>
         )}

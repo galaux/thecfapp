@@ -16,6 +16,8 @@ generates:
     plugins:
       - typescript-operations
       - typescript-react-apollo
+    # config:
+      # nonOptionalTypename: true
   generated/graphql.ts:
     plugins:
       - 'typescript'

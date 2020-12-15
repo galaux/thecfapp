@@ -1,0 +1,5 @@
+query GetCommunity($communityId: ID!, $userId: ID!) {
+  community(id: $communityId) {
+    ...CommunityDetail
+  }
+}

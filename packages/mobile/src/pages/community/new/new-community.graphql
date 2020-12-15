@@ -1,12 +1,13 @@
-fragment CommunityOnCreateCommunity on Community {
+fragment NewCommunity on Community {
   ...CommunityFields
   address {
     ...CommunityAddressFields
   }
+  memberCount
 }
 
 mutation CreateCommunity($creatorId: ID!, $input: NewCommunityInput!) {
   createCommunity(creatorId: $creatorId, input: $input) {
-    ...CommunityOnCreateCommunity
+    ...NewCommunity
   }
 }

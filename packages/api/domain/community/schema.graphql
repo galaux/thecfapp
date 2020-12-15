@@ -38,9 +38,14 @@ extend type Query {
   communities: [Community!]!
 
   """
-  Return communities which name matches.
+  Return said community.
   """
-  lookupCommunities(name: String!): [Community!]!
+  community(id: ID!): Community!
+
+  """
+  Lookup communities by name.
+  """
+  findCommunities(name: String!): [Community!]!
 
   """
   List all communities a user belongs to.

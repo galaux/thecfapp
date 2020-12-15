@@ -1,9 +1,9 @@
-fragment UserCommunity on Community {
+fragment UserWodsCommunity on Community {
   ...CommunityFields
 }
 
 query UserCommunities($userId: ID!) {
   userCommunities(userId: $userId) {
-    ...UserCommunity
+    ...UserWodsCommunity
   }
 }

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { WodSwipeList } from '../components/WodSwipeList'
-import { UserCommunityFragment } from './user-communities.generated'
-import { WodForWodCardFragment as Wod } from '../components/WodCard'
+import { UserWodsCommunityFragment as Community } from './user-communities.generated'
+import { WodForSwipeListFragment as Wod } from '../components/WodSwipeList'
 import { Box, Flex, Select, Heading } from '@chakra-ui/react'
 
 interface Props {
-  communities: UserCommunityFragment[]
+  communities: Community[]
   wods: Wod[]
 }
 

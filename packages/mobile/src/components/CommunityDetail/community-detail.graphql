@@ -1,0 +1,10 @@
+fragment CommunityDetail on Community {
+  ...CommunityFields
+  memberCount
+  address {
+    ...CommunityAddressFields
+  }
+  wods {
+    ...WodForWodCard
+  }
+}

@@ -48,10 +48,12 @@ export const Header: React.FC = ({ children }) => {
                   <Icon.Home /> <Text>Dashboard</Text>
                 </Flex>
 
-                <Flex>
-                  <Icon.Box />
-                  <Text>My communities</Text>
-                </Flex>
+                <Link to='/user-communities'>
+                  <Flex>
+                    <Icon.Box />
+                    <Text>My communities</Text>
+                  </Flex>
+                </Link>
 
                 <Link to='/wod-list'>
                   <Flex>

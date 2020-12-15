@@ -1,5 +1,6 @@
 import * as React from 'react'
-import { WodCard, WodForWodCardFragment as Wod } from '../WodCard'
+import { WodForSwipeListFragment as Wod } from './wod-swipe-list.generated'
+import { WodCard } from '../WodCard'
 import SwipeableViews from 'react-swipeable-views'
 
 type Props = {

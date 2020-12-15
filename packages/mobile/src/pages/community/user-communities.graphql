@@ -1,0 +1,18 @@
+# This fragment MUST NOT request `Community.isMember` because this field
+# is computed locally based on the – previously cached – result of this same
+# `UserCommunities` query. Requesting `isMember` here crashes the app with
+# `Error: already recomputing`. This field is not needed anyway because we are
+# computing the user's communities so the logged user does belong to them.
+fragment UserCommunity on Community {
+  ...CommunityFields
+  address {
+    ...CommunityAddressFields
+  }
+  memberCount
+}
+
+query UserCommunities($userId: ID!) {
+  userCommunities(userId: $userId) {
+    ...UserCommunity
+  }
+}

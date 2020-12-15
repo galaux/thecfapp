@@ -40,7 +40,7 @@ async function communitiesByUserId(
   return loaders.Community.byUserId.load(userId)
 }
 
-async function lookupCommunities(
+async function findCommunities(
   { conn }: Context,
   name: string,
 ): Promise<Community[]> {
@@ -71,7 +71,7 @@ export {
   communities,
   community,
   communitiesByUserId,
-  lookupCommunities,
+  findCommunities,
   memberCount,
   selectCommunities,
   selectCommunitiesByUserIds,
