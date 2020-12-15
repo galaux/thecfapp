@@ -6,16 +6,21 @@ import { Spinner } from '@chakra-ui/react'
 import { useGetWodQuery } from './get-wod.generated'
 import { loggedUserId } from '../graphql/state/app'
 import { fetchPolicy } from '../fetch-policy'
+import { useCreateScoreMutation } from './new-score.generated'
 
 const NewScorePage: React.FC<RouteComponentProps> = () => {
   const { wodId } = useParams()
   const userId = loggedUserId()
 
+  // TODO this `NewScore` could just work on a `wod` passed by the previous page
   const { loading, error, data } = useGetWodQuery({
-    // FIXME we just want to get the version in cache
     fetchPolicy: fetchPolicy('new-score-wod'),
     variables: { wodId, userId },
   })
+
+  /* TODO Instead of requesting all user scores, this mutation could
+     request just the one that got created and write it to the cache */
+  const mutationTupleCreateScore = useCreateScoreMutation()
 
   return (
     <Layout>
@@ -26,7 +31,12 @@ const NewScorePage: React.FC<RouteComponentProps> = () => {
           error && <p>Error {error}</p>
           /* TODO properly handle error */
         }
-        {data && <NewScore wod={data.wod} />}
+        {data && (
+          <NewScore
+            wod={data.wod}
+            mutationTupleCreateScore={mutationTupleCreateScore}
+          />
+        )}
       </Body>
     </Layout>
   )

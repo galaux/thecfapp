@@ -13,41 +13,32 @@ import {
   Spinner,
 } from '@chakra-ui/react'
 import { navigate } from '@reach/router'
-import { NewScoreFragmentDoc, useCreateScoreMutation } from './create-score.generated'
-import { GetWodWodFragment as Wod } from './get-wod.generated'
+import {
+  CreateScoreMutation,
+  CreateScoreMutationVariables,
+  WodForNewScoreFragment as Wod,
+} from './new-score.generated'
 import { loggedUserId } from '../graphql/state/app'
+import { MutationTuple } from '@apollo/client'
 
 type Props = {
   wod: Wod
+  mutationTupleCreateScore: MutationTuple<
+    CreateScoreMutation,
+    CreateScoreMutationVariables
+  >
 }
 
 export const NewScore: React.FC<Props> = (props) => {
-  const { wod } = props
+  const { wod, mutationTupleCreateScore } = props
   const userId = loggedUserId()
-
-  const [value, setValue] = useState(Number.NaN)
-
+  // TODO we could just pass the function and handle loading/error in the page
   const [
     createScore,
     { loading: mutationLoading, error: mutationError },
-  ] = useCreateScoreMutation({
-    update(cache, { data }) {
-      // TODO handle no data returned as an error
-      if (data) {
-        cache.modify({
-          fields: {
-            scores(existingScores = []) {
-              const newScoreRef = cache.writeFragment({
-                data: data.createScore,
-                fragment: NewScoreFragmentDoc,
-              })
-              return [...existingScores, newScoreRef]
-            },
-          },
-        })
-      }
-    },
-  })
+  ] = mutationTupleCreateScore
+
+  const [value, setValue] = useState(Number.NaN)
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()

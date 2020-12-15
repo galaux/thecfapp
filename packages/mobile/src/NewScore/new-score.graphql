@@ -1,0 +1,24 @@
+fragment WodForNewScore on Wod {
+  ...WodFields
+  community {
+    ...CommunityFields
+  }
+  scores(userId: $userId) {
+    ...ScoreFields
+  }
+  workout {
+    ...WorkoutFields
+  }
+}
+
+query GetWod($wodId: ID!, $userId: ID!) {
+  wod(id: $wodId) {
+    ...WodForNewScore
+  }
+}
+
+mutation createScore($userId: ID!, $wodId: ID!, $value: Int!) {
+  createScore(input: { value: $value, userId: $userId, wodId: $wodId }) {
+    ...WodForNewScore
+  }
+}
