@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as Icon from 'react-feather'
-import { Box, Flex, Spinner, Heading } from '@chakra-ui/react'
+import { Avatar, VStack, Box, Flex, Spinner, Heading } from '@chakra-ui/react'
 import { Link } from '@reach/router'
 import {
   Drawer,
@@ -15,6 +15,7 @@ import {
 import { useGetUserLazyQuery } from './user.generated'
 import { loggedUserId } from '../graphql/state/app'
 import { fetchPolicy } from '../fetch-policy'
+import { COPYRIGHT_STR } from '../utils'
 
 const bgImg = '/assets/meghan-holmes-buWcS7G1_28-unsplash.jpg'
 
@@ -41,57 +42,69 @@ export const Header: React.FC = ({ children }) => {
       {data && (
         <Drawer placement='left' onClose={onClose} isOpen={isOpen}>
           <DrawerOverlay>
-            <DrawerContent background='_shark' color='white'>
-              <DrawerHeader>{data.user.name}</DrawerHeader>
-              <DrawerBody>
-                <Flex>
-                  <Icon.Home /> <Text>Dashboard</Text>
-                </Flex>
+            <DrawerContent background='_thunder' color='white'>
+              <DrawerHeader>
+                <VStack>
+                  <Avatar name={data.user.name} />
+                  <Heading textTransform='uppercase'>{data.user.name}</Heading>
+                </VStack>
+              </DrawerHeader>
+              <DrawerBody ml='7%'>
+                <Link to='/'>
+                  <Flex>
+                    <Icon.Home color='gray' size='1.1rem' />{' '}
+                    <Text ml='7%'>Dashboard</Text>
+                  </Flex>
+                </Link>
 
                 <Link to='/user-communities'>
                   <Flex>
-                    <Icon.Box />
-                    <Text>My communities</Text>
+                    <Icon.Box color='gray' size='1.1rem' />
+                    <Text ml='7%'>My communities</Text>
                   </Flex>
                 </Link>
 
                 <Link to='/wod-list'>
                   <Flex>
-                    <Icon.Activity />
-                    My WoDs
+                    <Icon.Activity color='gray' size='1.1rem' />
+                    <Text ml='7%'>My WoDs</Text>
                   </Flex>
                 </Link>
 
                 <Link to='/find-community'>
                   <Flex>
-                    <Icon.Search />
-                    Find a community
+                    <Icon.Search color='gray' size='1.1rem' />
+                    <Text ml='7%'>Find a community</Text>
                   </Flex>
                 </Link>
 
                 <Flex>
-                  <Icon.Bell />
-                  <Text>Notifications</Text>
+                  <Icon.Bell color='gray' size='1.1rem' />
+                  <Text ml='7%'>Notifications</Text>
                 </Flex>
 
                 <Link to='/user-profile'>
                   <Flex>
-                    <Icon.User />
-                    Profile
+                    <Icon.User color='gray' size='1.1rem' />
+                    <Text ml='7%'>Profile</Text>
                   </Flex>
                 </Link>
 
                 <Flex>
-                  <Icon.HelpCircle />
-                  <Text>Help</Text>
+                  <Icon.HelpCircle color='gray' size='1.1rem' />
+                  <Text ml='7%'>Help</Text>
                 </Flex>
               </DrawerBody>
 
               <Flex>
-                <Icon.Shield />
-                <Text>About Us</Text>
+                <Icon.Shield color='gray' size='1.1rem' />
+                <Text ml='7%'>About us</Text>
               </Flex>
-              <DrawerFooter></DrawerFooter>
+              <DrawerFooter borderTopWidth='1px' borderColor='_gray' mx='10%'>
+                <Text gridArea='Footer' fontSize='xs' color='_gray'>
+                  {COPYRIGHT_STR}
+                </Text>
+              </DrawerFooter>
             </DrawerContent>
           </DrawerOverlay>
         </Drawer>

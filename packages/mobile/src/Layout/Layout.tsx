@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Grid, Text, Heading } from '@chakra-ui/react'
+import { COPYRIGHT_STR } from '../utils'
 
 const templateAreas = `
   'Header'
@@ -27,7 +28,7 @@ export const Layout: React.FC = ({ children }) => (
       {children}
 
       <Text gridArea='Footer' fontSize='xs' color='_gray' px={6} py={3}>
-        © 2020 TheCFApp. All rights reserved
+        {COPYRIGHT_STR}
       </Text>
     </Grid>
   </>
