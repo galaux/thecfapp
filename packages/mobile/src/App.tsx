@@ -1,7 +1,7 @@
 import React from 'react'
 import { ChakraProvider, Spinner, extendTheme } from '@chakra-ui/react'
 import './App.css'
-import NewScorePage from './NewScore'
+import { NewScorePage } from './pages/score/new'
 import { UserWodsPage } from './pages/wod/users'
 import { DashboardPage } from './pages/dashboard'
 import { UserProfilePage } from './pages/user/profile'
@@ -46,7 +46,7 @@ const App: React.FC<Props> = ({ client }) => {
           <DashboardPage path='/' />
           <FindCommunityPage path='/find-community' />
           <NewCommunityPage path='/new-community' />
-          <NewScorePage path='/add-score/:wodId' />
+          <NewScorePage path='/new-score' />
           <UserCommunitiesPage path='/user-communities' />
           <UserProfilePage path='/user-profile' />
           <UserWodsPage path='/wod-list' />

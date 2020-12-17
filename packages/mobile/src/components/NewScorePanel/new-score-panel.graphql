@@ -1,0 +1,9 @@
+fragment WodForNewScorePanel on Wod {
+  ...WodFields
+  scores(userId: $userId) {
+    ...ScoreFields
+  }
+  workout {
+    ...WorkoutFields
+  }
+}

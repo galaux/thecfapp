@@ -26,7 +26,9 @@ export const WodCard: React.FC<Props> = (props) => {
   const [show, setShow] = React.useState(false)
   const handleToggle = () => setShow(!show)
 
-  const onAddScoreBtnClick = () => navigate(`/add-score/${wod.id}`)
+  /* FIXME Who should decide where to navigate afterwards?
+     The component or the initial page? */
+  const onAddScoreBtnClick = () => navigate(`/new-score`, { state: wod })
 
   // TODO use enum taken from GraphQL types
   const scoringTypeLabel = (type: string) => {
