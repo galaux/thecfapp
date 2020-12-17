@@ -1,0 +1,14 @@
+fragment AddressForCommunityDetailPanel on Address {
+  ...CommunityAddressFields
+}
+
+fragment CommunityDetailPanel on Community {
+  ...CommunityFields
+  memberCount
+  address {
+    ...AddressForCommunityDetailPanel
+  }
+  wods {
+    ...WodForWodCard
+  }
+}

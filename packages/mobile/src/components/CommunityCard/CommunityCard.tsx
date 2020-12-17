@@ -1,16 +1,8 @@
 import * as React from 'react'
-import {
-  Box,
-  Flex,
-  Text,
-  VStack,
-  HStack,
-  Heading,
-  Button,
-} from '@chakra-ui/react'
-import * as Icon from 'react-feather'
+import { Box, Text, VStack, HStack, Heading, Button } from '@chakra-ui/react'
 import { CommunityCardFragment as Community } from './community-card.generated'
 import { Link } from '@reach/router'
+import { UserCountStamp } from '../UserCountStamp'
 
 interface Props {
   community: Community
@@ -37,10 +29,7 @@ export const CommunityCard: React.FC<Props> = (props) => {
               {community.name}
             </Heading>
           </Link>
-          <Flex>
-            <Icon.Users />
-            {community.memberCount}
-          </Flex>
+          <UserCountStamp count={community.memberCount} />
         </HStack>
         <Text color='white'>{community.address?.street}</Text>
         <Text color='white'>

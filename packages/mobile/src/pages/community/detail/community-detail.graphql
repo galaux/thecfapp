@@ -1,5 +1,12 @@
 query GetCommunity($communityId: ID!, $userId: ID!) {
   community(id: $communityId) {
-    ...CommunityDetail
+    ...CommunityFields
+    memberCount
+    address {
+      ...CommunityAddressFields
+    }
+    wods {
+      ...WodForWodCard
+    }
   }
 }

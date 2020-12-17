@@ -2,7 +2,6 @@ import * as React from 'react'
 import {
   Box,
   Button,
-  Flex,
   Heading,
   Text,
   Collapse,
@@ -13,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { navigate } from '@reach/router'
 import { WodForWodCardFragment as Wod } from './wod-card.generated'
-import * as Icon from 'react-feather'
+import { UserCountStamp } from '../UserCountStamp'
 
 type Props = {
   key: string
@@ -85,16 +84,11 @@ export const WodCard: React.FC<Props> = (props) => {
             {wod.workout.name}
           </Heading>
 
-          <Flex>
-            <Icon.Users />
-            {
-              /* For now these are only the user's score while we want the count
-                of all submitted scores. Setting the `userId` parameter to
-                optional and omitting it in the query should do the trick
-                FIXME display the total count of submitted scores */
-              wod.scores.length
-            }
-          </Flex>
+          {/* For now these are only the user's score while we want the count
+              of all submitted scores. Setting the `userId` parameter to
+              optional and omitting it in the query should do the trick
+              FIXME display the total count of submitted scores */}
+          <UserCountStamp count={wod.scores.length} />
         </HStack>
 
         {maybeCollapse(wod.workout.description)}

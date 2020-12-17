@@ -1,9 +1,11 @@
 import * as React from 'react'
-import { Spinner } from '@chakra-ui/react'
+import { Spinner, Flex, HStack, Heading, Text } from '@chakra-ui/react'
 import { Body, Header, Layout } from '../../Layout'
 import { CommunityDetailFragment as Community } from '../CommunityDetail'
 import { ApolloError } from '@apollo/client'
 import { CommunityDetail } from '../CommunityDetail'
+import { oneLineAddress } from '../../utils'
+import { UserCountStamp } from '../UserCountStamp'
 
 interface Props {
   loading: boolean
@@ -16,7 +18,33 @@ export const CommunityDetailPanel: React.FC<Props> = (props: Props) => {
 
   return (
     <Layout>
-      <Header>Community</Header>
+      <Header>
+        {community && (
+          <>
+            <Heading
+              as='h1'
+              fontSize='1.25rem'
+              fontWeight={400}
+              lineHeight={1.2}
+              textTransform='uppercase'
+            >
+              {community.name}
+            </Heading>
+            <Text fontSize='0.8rem'>{oneLineAddress(community?.address)}</Text>
+            <HStack>
+              <Flex>
+                <Text fontSize='1.4rem'>{community.wods.length}</Text>{' '}
+                <Text fontSize='0.8rem'>
+                  WOD
+                  <br />
+                  PERFORMED
+                </Text>
+              </Flex>
+              <UserCountStamp count={community.memberCount} />
+            </HStack>
+          </>
+        )}
+      </Header>
       <Body>
         {loading && <Spinner />}
         {error && <>error</>}
