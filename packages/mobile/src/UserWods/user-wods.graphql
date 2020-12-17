@@ -1,5 +1,0 @@
-query UserWods($userId: ID!) {
-  userWods(userId: $userId) {
-    ...WodForSwipeList
-  }
-}

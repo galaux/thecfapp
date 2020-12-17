@@ -2,5 +2,6 @@ fragment WodForSwipeList on Wod {
   ...WodForWodCard
   community {
     id
+    name
   }
 }

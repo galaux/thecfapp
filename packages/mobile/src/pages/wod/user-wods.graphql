@@ -1,0 +1,19 @@
+fragment UserWod on Wod {
+  ...WodFields
+  scores(userId: $userId) {
+    ...ScoreFields
+  }
+  workout {
+    ...WorkoutFields
+  }
+  community {
+    id
+    name
+  }
+}
+
+query UserWods($userId: ID!) {
+  userWods(userId: $userId) {
+    ...UserWod
+  }
+}
