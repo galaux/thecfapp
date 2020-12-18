@@ -2,14 +2,11 @@ import { Resolvers } from '../../generated/graphql'
 import { createScore } from './api/create'
 import { scores } from './api/read'
 import { user } from '../../domain/user'
-import { userWods, wodById } from '../../domain/wod'
+import { wodById } from '../../domain/wod'
 
 export default <Resolvers>{
   Mutation: {
-    createScore: async (_, { input }, context) => {
-      await createScore(context, input)
-      return userWods(context, input.userId)
-    },
+    createScore: async (_, { input }, context) => createScore(context, input),
   },
   Query: {
     scores: (_, __, context) => scores(context),

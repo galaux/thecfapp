@@ -8,21 +8,18 @@ fragment WodInput on Wod {
   }
 }
 
-fragment TMPWodForNewScore on Wod {
-  ...WodFields
-  community {
-    ...CommunityFields
-  }
-  scores(userId: $userId) {
-    ...ScoreFields
-  }
-  workout {
-    ...WorkoutFields
-  }
+fragment NewScore on Score {
+  ...ScoreFields
+  # user {
+  #   ...UserFields
+  # }
+  # wod {
+  #   ...WodFields
+  # }
 }
 
 mutation CreateScore($userId: ID!, $wodId: ID!, $value: Int!) {
   createScore(input: { value: $value, userId: $userId, wodId: $wodId }) {
-    ...TMPWodForNewScore
+    ...NewScore
   }
 }

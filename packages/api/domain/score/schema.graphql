@@ -17,7 +17,7 @@ extend type Mutation {
   """
   Record a `User` taking part to a `Wod` with a score.
   """
-  createScore(input: CreateScore!): [Wod!]!
+  createScore(input: CreateScore!): Score!
 }
 
 extend type Query {

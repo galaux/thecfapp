@@ -35,10 +35,6 @@ export const NewScorePanel: React.FC<Props> = (props) => {
     navigate('/wod-list')
   }
 
-  if (createLoading) return <Spinner />
-  // TODO properly handle error
-  if (createError) return <p>Error {createError}</p>
-
   return (
     <Layout>
       <Header>Add Score</Header>
