@@ -3,6 +3,7 @@ import { NewScorePanel } from '../../../components/NewScorePanel'
 import { navigate, RouteComponentProps, useLocation } from '@reach/router'
 import { loggedUserId } from '../../../graphql/state/app'
 import {
+  NewScoreFragment,
   useCreateScoreMutation,
   WodInputFragment as Wod,
 } from './new-score.generated'
@@ -55,6 +56,13 @@ export const NewScorePage: React.FC<RouteComponentProps> = () => {
         userId,
         wodId,
         value,
+      },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        createScore: {
+          __typename: 'Score',
+          value,
+        } as NewScoreFragment,
       },
     })
     navigate('/wod-list')

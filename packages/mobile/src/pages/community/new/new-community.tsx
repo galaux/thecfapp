@@ -21,27 +21,6 @@ export const NewCommunityPage: React.FC<RouteComponentProps> = () => {
     })
   }
 
-  /*
-     const community = {
-     __typename: 'Community',
-     name: input.name,
-     address: {
-     __typename: 'Address',
-     city: input.city,
-     country: input.country,
-     street: input.street,
-     zipCode: input.zipCode,
-     },
-     } as Community // TODO have `nonOptionalTypename: true`?
-     createCommunityRaw({
-     variables: { creatorId: loggedUserId(), input },
-     optimisticResponse: {
-     __typename: 'Mutation',
-     createCommunity: community,
-     },
-     })
-   */
-
   return (
     <NewCommunityPanel
       called={called}
