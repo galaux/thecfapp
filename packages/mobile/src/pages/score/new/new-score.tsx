@@ -1,6 +1,6 @@
 import React from 'react'
 import { NewScorePanel } from '../../../components/NewScorePanel'
-import { RouteComponentProps, useLocation } from '@reach/router'
+import { navigate, RouteComponentProps, useLocation } from '@reach/router'
 import { loggedUserId } from '../../../graphql/state/app'
 import {
   useCreateScoreMutation,
@@ -17,7 +17,7 @@ export const NewScorePage: React.FC<RouteComponentProps> = () => {
   const location = useLocation()
   const state = location.state as Wod
 
-  const [createScore, { loading, error }] = useCreateScoreMutation({
+  const [createScoreRaw, { loading, error }] = useCreateScoreMutation({
     update: (cache, { data }) => {
       if (!data?.createScore) return
       const newScore = data.createScore
@@ -49,18 +49,21 @@ export const NewScorePage: React.FC<RouteComponentProps> = () => {
     },
   })
 
+  function createScore(wodId: string, value: number) {
+    createScoreRaw({
+      variables: {
+        userId,
+        wodId,
+        value,
+      },
+    })
+    navigate('/wod-list')
+  }
+
   return (
     <NewScorePanel
       wod={state}
-      createScore={(wodId, value) =>
-        createScore({
-          variables: {
-            userId,
-            wodId,
-            value,
-          },
-        })
-      }
+      createScore={createScore}
       createLoading={loading}
       createError={error}
     />

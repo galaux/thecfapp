@@ -10,12 +10,6 @@ fragment WodInput on Wod {
 
 fragment NewScore on Score {
   ...ScoreFields
-  # user {
-  #   ...UserFields
-  # }
-  # wod {
-  #   ...WodFields
-  # }
 }
 
 mutation CreateScore($userId: ID!, $wodId: ID!, $value: Int!) {

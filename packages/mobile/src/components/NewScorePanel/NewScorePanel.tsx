@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from 'react'
+import React, { useState } from 'react'
 import {
   Box,
   Button,
@@ -12,7 +12,6 @@ import {
   NumberDecrementStepper,
   Spinner,
 } from '@chakra-ui/react'
-import { navigate } from '@reach/router'
 import { WodForNewScorePanelFragment as Wod } from './new-score-panel.generated'
 import { ApolloError } from '@apollo/client'
 import { Body, Header, Layout } from '../../Layout'
@@ -28,12 +27,6 @@ export const NewScorePanel: React.FC<Props> = (props) => {
   const { wod, createLoading, createError, createScore } = props
 
   const [value, setValue] = useState(Number.NaN)
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    createScore(wod.id, value)
-    navigate('/wod-list')
-  }
 
   return (
     <Layout>
@@ -52,27 +45,29 @@ export const NewScorePanel: React.FC<Props> = (props) => {
               Add my score
             </Heading>
 
-            <form onSubmit={handleSubmit}>
-              <Box bg='_thunder' rounded='md' p={4}>
-                <VStack spacing={4}>
-                  <NumberInput>
-                    <NumberInputField
-                      onChange={(e) => setValue(parseInt(e.target.value))}
-                    />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
+            <Box bg='_thunder' rounded='md' p={4}>
+              <VStack spacing={4}>
+                <NumberInput>
+                  <NumberInputField
+                    onChange={(e) => setValue(parseInt(e.target.value))}
+                  />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
 
-                  <Box w='100%'>
-                    <Button type='submit' colorScheme='blue'>
-                      Add my score
-                    </Button>
-                  </Box>
-                </VStack>
-              </Box>
-            </form>
+                <Box w='100%'>
+                  <Button
+                    type='submit'
+                    colorScheme='blue'
+                    onClick={() => createScore(wod.id, value)}
+                  >
+                    Add my score
+                  </Button>
+                </Box>
+              </VStack>
+            </Box>
           </>
         )}
       </Body>
