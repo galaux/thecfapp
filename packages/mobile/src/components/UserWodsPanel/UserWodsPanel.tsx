@@ -52,7 +52,7 @@ export const UserWodsPanel: React.FC<Props> = (props) => {
                 color='_gray'
                 fontSize='md'
                 placeholder='Select box …'
-                selected={selectedCommunityId}
+                selected={selectedCommunityId} // FIXME or `value`?
                 onChange={(event) =>
                   handleSelectCommunityChange(
                     event.target.value === '' ? null : event.target.value,

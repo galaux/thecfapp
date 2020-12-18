@@ -1,5 +1,6 @@
 "Input to create a `Wod`"
 input CreateWodInput {
+  communityId: ID!
   date: Date!
   workoutId: ID!
 }

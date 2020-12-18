@@ -3,6 +3,8 @@ import { Box, Heading, Flex } from '@chakra-ui/react'
 import { CommunityDetailFragment as Community } from './community-detail.generated'
 import SwipeableViews from 'react-swipeable-views'
 import { WodCard } from '../WodCard'
+import * as Icon from 'react-feather'
+import { Link } from '@reach/router'
 
 interface Props {
   community: Community
@@ -17,6 +19,12 @@ export const CommunityDetail: React.FC<Props> = (props: Props) => {
         <Heading fontSize='lg' flex={1}>
           WODs
         </Heading>
+        <Link to='/new-wod' state={community}>
+          <Flex>
+            New WOD
+            <Icon.PlusCircle />
+          </Flex>
+        </Link>
       </Flex>
       <Box mx={-6}>
         <SwipeableViews

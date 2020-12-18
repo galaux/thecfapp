@@ -13,6 +13,9 @@ import { FindCommunityPage } from './pages/community/find'
 import { NewCommunityPage } from './pages/community/new'
 import { UserCommunitiesPage } from './pages/community/users'
 import { CommunityDetailPage } from './pages/community/detail'
+import { NewWodPage } from './pages/wod/new'
+import 'react-dates/initialize'
+import 'react-dates/lib/css/_datepicker.css'
 
 /* A user with this ID is seeded in the DB at start-up, don't change or sync
    sync with @thecfapp/api/db/db-seeder value and re-seed the DB */
@@ -43,6 +46,7 @@ const App: React.FC<Props> = ({ client }) => {
       <ChakraProvider theme={customTheme}>
         <Router>
           <CommunityDetailPage path='/community/:communityId' />
+          <NewWodPage path='/new-wod' />
           <DashboardPage path='/' />
           <FindCommunityPage path='/find-community' />
           <NewCommunityPage path='/new-community' />
