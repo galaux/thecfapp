@@ -14,7 +14,9 @@ import {
 } from '@chakra-ui/react'
 import { WodForNewScorePanelFragment as Wod } from './new-score-panel.generated'
 import { ApolloError } from '@apollo/client'
-import { Body, Header, Layout } from '../../Layout'
+import { Body } from '../Body'
+import { Header } from '../Header'
+import { Layout } from '../Layout'
 
 type Props = {
   wod: Wod

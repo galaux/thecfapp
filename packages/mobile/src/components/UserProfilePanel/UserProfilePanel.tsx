@@ -1,7 +1,9 @@
 import { UserProfilePanelFragment as User } from './user-profile-panel.generated'
 import { Text } from '@chakra-ui/react'
 import { Spinner } from '@chakra-ui/react'
-import { Body, Header, Layout } from '../../Layout'
+import { Body } from '../Body'
+import { Header } from '../Header'
+import { Layout } from '../Layout'
 import { ApolloError } from '@apollo/client'
 
 interface Props {

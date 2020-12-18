@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Grid, Text, Heading } from '@chakra-ui/react'
-import { COPYRIGHT_STR } from '../utils'
+import { COPYRIGHT_STR } from '../../utils'
 
 const templateAreas = `
   'Header'

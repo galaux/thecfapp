@@ -9,7 +9,9 @@ import {
   VStack,
   Spinner,
 } from '@chakra-ui/react'
-import { Layout, Header, Body } from '../../Layout'
+import { Body } from '../Body'
+import { Header } from '../Header'
+import { Layout } from '../Layout'
 import * as Icon from 'react-feather'
 import { CommunityList } from '../CommunityList'
 import { FoundCommunityFragment as Community } from '../../pages/community'

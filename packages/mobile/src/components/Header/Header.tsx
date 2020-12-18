@@ -13,9 +13,9 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useGetUserLazyQuery } from './user.generated'
-import { loggedUserId } from '../graphql/state/app'
-import { fetchPolicy } from '../fetch-policy'
-import { COPYRIGHT_STR } from '../utils'
+import { loggedUserId } from '../../graphql/state/app'
+import { fetchPolicy } from '../../fetch-policy'
+import { COPYRIGHT_STR } from '../../utils'
 
 const bgImg = '/assets/meghan-holmes-buWcS7G1_28-unsplash.jpg'
 

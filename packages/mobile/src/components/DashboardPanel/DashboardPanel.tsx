@@ -1,5 +1,7 @@
 import * as React from 'react'
-import { Body, Header, Layout } from '../../Layout'
+import { Body } from '../Body'
+import { Header } from '../Header'
+import { Layout } from '../Layout'
 import { Text } from '@chakra-ui/react'
 
 export const DashboardPanel: React.FC = () => {
