@@ -1,6 +1,6 @@
 fragment WodInput on Wod {
   ...WodFields
-  scores(userId: $userId) {
+  scores {
     ...ScoreFields
   }
   workout {

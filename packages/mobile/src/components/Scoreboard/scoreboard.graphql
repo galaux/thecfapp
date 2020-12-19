@@ -1,0 +1,11 @@
+fragment ScoreboardScore on Score {
+  ...ScoreFields
+  user {
+    ...UserFields
+  }
+  ...ScoreWithBelongsToLoggedUserFields
+}
+
+fragment WorkoutForScoreboard on Workout {
+  ...WorkoutFields
+}

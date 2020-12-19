@@ -32,6 +32,6 @@ type Wod {
   id: ID!
   community: Community!
   date: Date!
-  scores(userId: ID!): [Score!]!
+  scores: [Score!]!
   workout: Workout!
 }

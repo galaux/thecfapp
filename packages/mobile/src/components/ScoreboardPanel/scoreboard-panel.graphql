@@ -1,0 +1,13 @@
+fragment WodForScoreboardPanel on Wod {
+  ...WodFields
+  workout {
+    ...WorkoutFields
+  }
+  scores {
+    ...ScoreFields
+    user {
+      ...UserFields
+    }
+    ...ScoreWithBelongsToLoggedUserFields
+  }
+}

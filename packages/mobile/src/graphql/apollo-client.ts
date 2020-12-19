@@ -6,6 +6,10 @@ import {
   UserCommunitiesQuery,
   UserCommunitiesDocument,
 } from '../pages/community'
+import {
+  UserFieldsFragment,
+  UserFieldsFragmentDoc,
+} from './fragment/fields.generated'
 import { loggedUserId } from './state/app'
 
 /* https://www.apollographql.com/docs/react/caching/cache-field-behavior/#fieldpolicy-api-reference */
@@ -34,6 +38,21 @@ const getApolloClient = async () => {
               return userCommunities?.userCommunities
                 .map((c) => c.id)
                 .includes(communityId)
+            },
+          },
+        },
+      },
+      Score: {
+        fields: {
+          belongsToLoggedUser: {
+            read(_, { cache, readField }) {
+              const ownerRef = readField<UserFieldsFragment>('user')
+              if (!ownerRef) return
+              const owner = cache.readFragment({
+                id: cache.identify(ownerRef),
+                fragment: UserFieldsFragmentDoc,
+              }) as UserFieldsFragment
+              return owner.id === loggedUserId()
             },
           },
         },

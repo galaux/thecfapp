@@ -1,31 +1,24 @@
-import { Connection } from 'typeorm'
-import { Context, UserWodKey } from '../../../types'
+import { Connection, In } from 'typeorm'
+import { Context } from '../../../types'
 import { Score } from '../entity'
 import { groupBy } from 'lodash/fp'
 
-async function scores({ conn }: Context): Promise<Score[]> {
-  return conn.getRepository(Score).find()
-}
-
-async function selectScoresByUserIds(
+async function selectScoresByWodIds(
   conn: Connection,
-  userWodIds: readonly UserWodKey[],
+  wodIds: readonly string[],
 ): Promise<Score[][]> {
   const scoresGpByUserWodIds = await conn
     .getRepository(Score)
-    .find({ where: userWodIds.flat() })
-    .then((scores) => groupBy((score) => [score.userId, score.wodId], scores))
-  return userWodIds.map(
-    ({ userId, wodId }) => scoresGpByUserWodIds[`${userId},${wodId}`] ?? [],
-  )
+    .find({ where: { wodId: In(<string[]>wodIds) } })
+    .then((scores) => groupBy((score) => score.wodId, scores))
+  return wodIds.map((wodId) => scoresGpByUserWodIds[wodId] ?? [])
 }
 
-async function userScores(
+async function wodScores(
   { loaders }: Context,
-  userId: string,
   wodId: string,
 ): Promise<Score[]> {
-  return loaders.Score.byUserWodId.load({ userId, wodId })
+  return loaders.Score.byWodId.load(wodId)
 }
 
-export { scores, selectScoresByUserIds, userScores }
+export { selectScoresByWodIds, wodScores }

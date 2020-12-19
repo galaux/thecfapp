@@ -1,7 +1,8 @@
 fragment UserWod on Wod {
   ...WodFields
-  scores(userId: $userId) {
+  scores {
     ...ScoreFields
+    ...ScoreWithBelongsToLoggedUserFields
   }
   workout {
     ...WorkoutFields

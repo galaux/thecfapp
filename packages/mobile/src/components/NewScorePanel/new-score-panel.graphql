@@ -1,6 +1,6 @@
 fragment WodForNewScorePanel on Wod {
   ...WodFields
-  scores(userId: $userId) {
+  scores {
     ...ScoreFields
   }
   workout {

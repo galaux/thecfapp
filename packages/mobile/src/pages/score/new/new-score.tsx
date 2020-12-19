@@ -12,6 +12,7 @@ import {
   UserWodsQuery,
   UserWodsQueryVariables,
 } from '../../wod/user-wods.generated'
+import { Score } from '../../../types'
 
 export const NewScorePage: React.FC<RouteComponentProps> = () => {
   const userId = loggedUserId()
@@ -21,7 +22,10 @@ export const NewScorePage: React.FC<RouteComponentProps> = () => {
   const [createScoreRaw, { loading, error }] = useCreateScoreMutation({
     update: (cache, { data }) => {
       if (!data?.createScore) return
-      const newScore = data.createScore
+      const newScore = {
+        ...data.createScore,
+        belongsToLoggedUser: true,
+      } as Score
       const cacheData = cache.readQuery<UserWodsQuery, UserWodsQueryVariables>({
         query: UserWodsDocument,
         variables: { userId: loggedUserId() },

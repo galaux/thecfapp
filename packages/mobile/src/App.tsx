@@ -16,6 +16,7 @@ import { CommunityDetailPage } from './pages/community/detail'
 import { NewWodPage } from './pages/wod/new'
 import 'react-dates/initialize'
 import 'react-dates/lib/css/_datepicker.css'
+import { ScoreboardPage } from './pages/score/scoreboard'
 
 /* A user with this ID is seeded in the DB at start-up, don't change or sync
    sync with @thecfapp/api/db/db-seeder value and re-seed the DB */
@@ -51,6 +52,7 @@ const App: React.FC<Props> = ({ client }) => {
           <FindCommunityPage path='/find-community' />
           <NewCommunityPage path='/new-community' />
           <NewScorePage path='/new-score' />
+          <ScoreboardPage path='/scoreboard/:wodId' />
           <UserCommunitiesPage path='/user-communities' />
           <UserProfilePage path='/user-profile' />
           <UserWodsPage path='/wod-list' />

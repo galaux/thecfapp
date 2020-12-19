@@ -7,12 +7,11 @@ import {
   Collapse,
   VStack,
   HStack,
-  UnorderedList,
-  ListItem,
 } from '@chakra-ui/react'
 import { navigate } from '@reach/router'
 import { WodForWodCardFragment as Wod } from './wod-card.generated'
 import { UserCountStamp } from '../UserCountStamp'
+import { scoringTypeLabel } from '../../utils'
 
 type Props = {
   key: string
@@ -24,22 +23,6 @@ export const WodCard: React.FC<Props> = (props) => {
 
   const [show, setShow] = React.useState(false)
   const handleToggle = () => setShow(!show)
-
-  /* FIXME Who should decide where to navigate afterwards?
-     The component or the initial page? */
-  const onAddScoreBtnClick = () => navigate(`/new-score`, { state: wod })
-
-  // TODO use enum taken from GraphQL types
-  const scoringTypeLabel = (type: string) => {
-    switch (type) {
-      case 'REPETITIONS': {
-        return 'repetitions'
-      }
-      case 'DURATION_MS': {
-        return 'ms'
-      }
-    }
-  }
 
   function maybeCollapse(text: string) {
     return text.length > 500 ? (
@@ -69,6 +52,8 @@ export const WodCard: React.FC<Props> = (props) => {
     )
   }
 
+  const loggedUserScore = wod.scores?.find((score) => score.belongsToLoggedUser)
+
   return (
     <Box w='100%' h='100%' bg='_thunder' rounded='md' p={4}>
       <VStack spacing={2} align='flex-start'>
@@ -93,19 +78,24 @@ export const WodCard: React.FC<Props> = (props) => {
 
         {maybeCollapse(wod.workout.description)}
 
-        {wod.scores?.length !== 0 && <Text>Scores:</Text>}
-        <UnorderedList pl={6}>
-          {wod.scores.map((score) => (
-            <ListItem key={score.id}>
-              {score.value} {scoringTypeLabel(wod.workout.scoringType)}
-            </ListItem>
-          ))}
-        </UnorderedList>
+        {wod.scores?.length !== 0 && (
+          <>
+            <Text>
+              Your score: {loggedUserScore?.value}{' '}
+              {scoringTypeLabel(wod.workout.scoringType)}
+            </Text>
+          </>
+        )}
 
         {dateLabel(wod)}
 
-        <Button onClick={onAddScoreBtnClick} colorScheme='blue'>
-          Add a score
+        {/* TODO This button could be passed by the parent component which could then
+            decide where it wants user to go next */}
+        <Button
+          onClick={() => navigate(`/scoreboard/${wod.id}`)}
+          colorScheme='blue'
+        >
+          Scoreboard
         </Button>
       </VStack>
     </Box>

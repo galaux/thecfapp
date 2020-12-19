@@ -15,6 +15,14 @@ fragment ScoreFields on Score {
   value
 }
 
+# Fragment of Score fields required to access @client field belongsToLoggedUser
+fragment ScoreWithBelongsToLoggedUserFields on Score {
+  belongsToLoggedUser @client
+  user {
+    id
+  }
+}
+
 fragment UserFields on User {
   id
   name
