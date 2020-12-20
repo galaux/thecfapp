@@ -1,5 +1,5 @@
 "Input to a `Community` record"
-input CreateCommunityInput {
+input NewCommunityInput {
   city: String
   country: String
   name: String!
@@ -19,20 +19,36 @@ type Address {
 type Community {
   id: ID!
   address: Address
+  memberCount: Int!
   name: String!
   wods: [Wod!]!
 }
 
 extend type Mutation {
   """
-  Create a community.
+  Create a community and add its creator as a member.
   """
-  createCommunity(input: CreateCommunityInput!): Community!
+  createCommunity(creatorId: ID!, input: NewCommunityInput!): Community!
 }
 
 extend type Query {
   """
-  List communities.
+  List all communities.
   """
   communities: [Community!]!
+
+  """
+  Return said community.
+  """
+  community(id: ID!): Community!
+
+  """
+  Lookup communities by name.
+  """
+  findCommunities(name: String!): [Community!]!
+
+  """
+  List all communities a user belongs to.
+  """
+  userCommunities(userId: ID!): [Community!]!
 }

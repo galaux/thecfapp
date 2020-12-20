@@ -17,6 +17,10 @@
     "DATABASE_LOGGING": {
       "description": "Verbose ORM logging",
       "value": "true"
+    },
+    "REACT_APP_PUBLIC_API_URL": {
+      "description": "URL of the public GraphQL API",
+      "value": "https://${HEROKU_APP_NAME}.herokuapp.com"
     }
   },
   "environments": {

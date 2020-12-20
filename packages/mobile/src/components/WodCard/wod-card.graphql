@@ -1,0 +1,10 @@
+fragment WodForWodCard on Wod {
+  ...WodFields
+  scores {
+    ...ScoreFields
+    ...ScoreWithBelongsToLoggedUserFields
+  }
+  workout {
+    ...WorkoutFields
+  }
+}

@@ -22,7 +22,7 @@ extend type Mutation {
 
 extend type Query {
   """
-  List of scores of `User`s to `Wod`s.
+  List scores for the given `Wod`.
   """
-  scores: [Score!]!
+  scores(wodId: ID!): [Score!]!
 }

@@ -2,8 +2,22 @@ overwrite: true
 schema:
   - '*.graphql'
   - '**/*.graphql'
-documents: null
+  - '../mobile/src/graphql/schema.graphql'
 generates:
+  ../mobile/src/types/graphql.ts:
+    plugins:
+      - typescript
+  src/:
+    documents: '../mobile/src/**/*.graphql'
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.tsx
+      baseTypesPath: '../../mobile/src/types/graphql'
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo
+    # config:
+      # nonOptionalTypename: true
   generated/graphql.ts:
     plugins:
       - 'typescript'

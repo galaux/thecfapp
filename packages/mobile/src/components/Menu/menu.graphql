@@ -1,0 +1,3 @@
+fragment MenuUser on User {
+  ...UserFields
+}

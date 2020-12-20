@@ -1,14 +1,28 @@
 import { Resolvers } from '../../generated/graphql'
-import { addUserToCommunity } from './api/update'
-import { communitiesByUserId } from '../../domain/community'
+import { addUserToCommunity, removeUserFromCommunity } from './api/update'
+import { communitiesByUserId, community } from '../../domain/community'
 import { createUser } from './api/create'
 import { user, users } from './api/read'
 
 export default <Resolvers>{
   Mutation: {
     createUser: (_, { input }, context) => createUser(context, input),
-    addUserToCommunity: (_, { input }, context) =>
-      addUserToCommunity(context, input),
+    addUserToCommunity: async (
+      _,
+      { input: { userId, communityId } },
+      context,
+    ) => {
+      await addUserToCommunity(context, userId, communityId)
+      return community(context, communityId)
+    },
+    removeUserFromCommunity: async (
+      _,
+      { input: { userId, communityId } },
+      context,
+    ) => {
+      await removeUserFromCommunity(context, userId, communityId)
+      return communityId
+    },
   },
   Query: {
     user: (_, { id }, context) => user(context, id),

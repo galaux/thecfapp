@@ -1,0 +1,27 @@
+fragment WodForCommunityDetail on Wod {
+  ...WodFields
+  scores {
+    ...ScoreFields
+    ...ScoreWithBelongsToLoggedUserFields
+  }
+  workout {
+    ...WorkoutFields
+  }
+}
+
+fragment CommunityForGetCommunity on Community {
+  ...CommunityFields
+  memberCount
+  address {
+    ...CommunityAddressFields
+  }
+  wods {
+    ...WodForCommunityDetail
+  }
+}
+
+query GetCommunity($communityId: ID!) {
+  community(id: $communityId) {
+    ...CommunityForGetCommunity
+  }
+}

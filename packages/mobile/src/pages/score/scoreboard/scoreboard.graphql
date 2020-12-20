@@ -1,0 +1,19 @@
+fragment WodWithScores on Wod {
+  ...WodFields
+  workout {
+    ...WorkoutFields
+  }
+  scores {
+    ...ScoreFields
+    ...ScoreWithBelongsToLoggedUserFields
+    user {
+      ...UserFields
+    }
+  }
+}
+
+query WodWithScores($wodId: ID!) {
+  wod(id: $wodId) {
+    ...WodWithScores
+  }
+}

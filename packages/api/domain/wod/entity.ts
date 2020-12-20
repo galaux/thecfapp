@@ -23,7 +23,7 @@ export class Wod {
 
   @ManyToOne(() => Community)
   @JoinColumn({ name: 'community_id' })
-  community?: Community
+  community!: Community
 
   @Column({
     type: 'date',

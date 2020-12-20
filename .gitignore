@@ -11,12 +11,15 @@ coverage
 # production
 build
 
-# api generated
-packages/api/graphql.schema.json
+# Codegen generated
+*.generated.tsx
 packages/api/generated/graphql.ts
+packages/api/graphql.schema.json
+packages/mobile/src/types/graphql.ts
 
 # misc
 .DS_Store
+.eslintcache
 .env
 .env.local
 .env.development.local
@@ -30,10 +33,3 @@ packages/api/generated/graphql.ts
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# The yarn.lock located at the root of the repository is only here to hint
-# Heroku that Yarn should be used to build and run the project. This file is
-# not used to track dependencies and must thus be left empty otherwise it
-# disturbes Yarn when run on Heroku. Dependencies are tracked by the
-# corresponding yarn.lock files found on workspaces sub-directories.
-yarn.lock

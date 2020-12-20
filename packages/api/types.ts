@@ -28,7 +28,7 @@ export type Loaders = {
     byId: DataLoader<string, Community>
   }
   Score: {
-    byUserWodId: DataLoader<UserWodKey, Score[]>
+    byWodId: DataLoader<string, Score[]>
   }
   User: DataLoader<string, User>
   Wod: {

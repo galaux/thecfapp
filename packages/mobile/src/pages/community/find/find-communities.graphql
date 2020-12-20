@@ -1,0 +1,14 @@
+fragment FoundCommunity on Community {
+  ...CommunityFields
+  address {
+    ...CommunityAddressFields
+  }
+  isMember @client
+  memberCount
+}
+
+query FindCommunities($name: String!) {
+  findCommunities(name: $name) {
+    ...FoundCommunity
+  }
+}

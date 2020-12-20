@@ -6,7 +6,7 @@ import {
   selectCommunities,
   selectCommunitiesByUserIds,
 } from './domain/community'
-import { selectScoresByUserIds } from './domain/score/api/read'
+import { selectScoresByWodIds } from './domain/score/api/read'
 import { selectUsers } from './domain/user'
 import { selectWods, selectWodsByCommunityIds } from './domain/wod'
 import { selectWorkouts } from './domain/workout'
@@ -57,8 +57,8 @@ function createLoaders(
       ),
     },
     Score: {
-      byUserWodId: new DataLoader(
-        async (keys) => selectScoresByUserIds(conn, keys),
+      byWodId: new DataLoader(
+        async (keys) => selectScoresByWodIds(conn, keys),
         options,
       ),
     },

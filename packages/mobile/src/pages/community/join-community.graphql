@@ -1,0 +1,5 @@
+mutation JoinCommunity($userId: ID!, $communityId: ID!) {
+  addUserToCommunity(input: { userId: $userId, communityId: $communityId }) {
+    ...CommunityCard
+  }
+}

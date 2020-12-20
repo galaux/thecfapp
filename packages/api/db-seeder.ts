@@ -28,5 +28,26 @@ export default class CreateWorkouts implements Seeder {
       users,
       wods,
     }).createMany(50)
+
+    // == Logged user
+    const loggedUser = await factory(User)({
+      userId: 'df56c5a2-3f0c-459a-b158-d1a999714247',
+    }).create()
+
+    communities.slice(0, 5).map(
+      async (community) =>
+        await factory(UserCommunity)({
+          communities: [community],
+          users: [loggedUser],
+        }).create(),
+    )
+
+    wods.slice(0, 15).map(
+      async (wod) =>
+        await factory(Score)({
+          users: [loggedUser],
+          wods: [wod],
+        }).create(),
+    )
   }
 }

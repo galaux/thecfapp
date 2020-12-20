@@ -1,0 +1,9 @@
+fragment UserProfile on User {
+  ...UserFields
+}
+
+query GetUser($userId: ID!) {
+  user(id: $userId) {
+    ...UserProfile
+  }
+}
