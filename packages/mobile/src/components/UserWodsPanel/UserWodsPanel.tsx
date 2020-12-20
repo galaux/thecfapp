@@ -8,6 +8,7 @@ import { Layout } from '../Layout'
 import { Spinner } from '@chakra-ui/react'
 import { uniqBy } from 'lodash/fp'
 import { ApolloError } from '@apollo/client'
+import { ErrorOr } from '../ErrorOr'
 
 interface Props {
   loading: boolean
@@ -36,44 +37,42 @@ export const UserWodsPanel: React.FC<Props> = (props) => {
       <Header>My WoD list</Header>
       <Body>
         {loading && <Spinner />}
-        {
-          /* TODO properly handle errors */
-          error && <p>Error {error}</p>
-        }
-        {wods && (
-          <Box>
-            <Flex alignItems='center' mb={4}>
-              <Heading fontSize='lg' flex={1}>
-                WOD
-              </Heading>
-              <Select
-                w='auto'
-                border={0}
-                color='_gray'
-                fontSize='md'
-                placeholder='Select box …'
-                selected={selectedCommunityId} // FIXME or `value`?
-                onChange={(event) =>
-                  handleSelectCommunityChange(
-                    event.target.value === '' ? null : event.target.value,
-                  )
-                }
-              >
-                {communities.map((community) => (
-                  <option key={community.id} value={community.id}>
-                    {community.name}
-                  </option>
-                ))}
-              </Select>
-            </Flex>
-            <Box mx={-6}>
-              <WodSwipeList
-                selectedCommunityId={selectedCommunityId}
-                wods={wods}
-              />
+        <ErrorOr error={error}>
+          {wods && (
+            <Box>
+              <Flex alignItems='center' mb={4}>
+                <Heading fontSize='lg' flex={1}>
+                  WOD
+                </Heading>
+                <Select
+                  w='auto'
+                  border={0}
+                  color='_gray'
+                  fontSize='md'
+                  placeholder='Select box …'
+                  selected={selectedCommunityId} // FIXME or `value`?
+                  onChange={(event) =>
+                    handleSelectCommunityChange(
+                      event.target.value === '' ? null : event.target.value,
+                    )
+                  }
+                >
+                  {communities.map((community) => (
+                    <option key={community.id} value={community.id}>
+                      {community.name}
+                    </option>
+                  ))}
+                </Select>
+              </Flex>
+              <Box mx={-6}>
+                <WodSwipeList
+                  selectedCommunityId={selectedCommunityId}
+                  wods={wods}
+                />
+              </Box>
             </Box>
-          </Box>
-        )}
+          )}
+        </ErrorOr>
       </Body>
     </Layout>
   )
