@@ -1,16 +1,28 @@
 import { RouteComponentProps } from '@reach/router'
+import { useEffect } from 'react'
 import { UserProfilePanel } from '../../../components/UserProfilePanel'
 import { fetchPolicy } from '../../../fetch-policy'
 import { loggedUserId } from '../../../graphql/state/app'
-import { useGetUserQuery } from './user.generated'
+import { useGetUserLazyQuery } from './user.generated'
 
 export const UserProfilePage: React.FC<RouteComponentProps> = () => {
   const userId = loggedUserId()
 
-  const { loading, error, data } = useGetUserQuery({
+  const [getUser, { loading, error, data }] = useGetUserLazyQuery({
     fetchPolicy: fetchPolicy('user-profile-user'),
     variables: { userId },
   })
+
+  let isMounted = true
+  useEffect(() => {
+    if (isMounted) {
+      getUser()
+    }
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      isMounted = false
+    }
+  }, [])
 
   return <UserProfilePanel loading={loading} error={error} user={data?.user} />
 }

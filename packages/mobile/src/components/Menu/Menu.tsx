@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useEffect } from 'react'
 import * as Icon from 'react-feather'
 import { Avatar, VStack, Flex, Spinner, Heading } from '@chakra-ui/react'
 import { Link } from '@reach/router'
@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { COPYRIGHT_STR } from '../../utils'
 import { loggedUserId } from '../../graphql/state/app'
-import { useMenuUserQuery } from '../../pages/user/menu/user-menu.generated'
+import { useMenuUserLazyQuery } from '../../pages/user/menu/user-menu.generated'
 import { fetchPolicy } from '../../fetch-policy'
 
 interface Props {
@@ -27,10 +27,21 @@ export const Menu: React.FC<Props> = (props) => {
   const userId = loggedUserId()
 
   // FIXME Move this side effect out of this component
-  const { loading, error, data } = useMenuUserQuery({
+  const [getMenuUser, { loading, error, data }] = useMenuUserLazyQuery({
     fetchPolicy: fetchPolicy('header-user'),
     variables: { userId },
   })
+
+  let isMounted = true
+  useEffect(() => {
+    if (isMounted) {
+      getMenuUser()
+    }
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      isMounted = false
+    }
+  }, [])
 
   const user = data?.user
 
