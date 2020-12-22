@@ -32,10 +32,10 @@ interface Props {
 
 export const Menu: React.FC<Props> = (props) => {
   const { loading, error, user, menuDisclosure } = props
-  const { onClose, isOpen } = menuDisclosure
+  const { onClose: closeMenu, isOpen } = menuDisclosure
 
   return (
-    <Drawer placement='left' onClose={onClose} isOpen={isOpen}>
+    <Drawer placement='left' onClose={closeMenu} isOpen={isOpen}>
       <DrawerOverlay>
         <DrawerContent background='_thunder' color='white'>
           <DrawerHeader>
@@ -51,28 +51,28 @@ export const Menu: React.FC<Props> = (props) => {
             </LoadingOr>
           </DrawerHeader>
           <DrawerBody ml='7%'>
-            <Link to='/'>
+            <Link onClick={closeMenu} to='/'>
               <Flex>
                 <Icon.Home color='gray' size='1.1rem' />{' '}
                 <Text ml='7%'>Dashboard</Text>
               </Flex>
             </Link>
 
-            <Link to='/user-communities'>
+            <Link onClick={closeMenu} to='/user-communities'>
               <Flex>
                 <Icon.Box color='gray' size='1.1rem' />
                 <Text ml='7%'>My communities</Text>
               </Flex>
             </Link>
 
-            <Link to='/wod-list'>
+            <Link onClick={closeMenu} to='/wod-list'>
               <Flex>
                 <Icon.Activity color='gray' size='1.1rem' />
                 <Text ml='7%'>My WoDs</Text>
               </Flex>
             </Link>
 
-            <Link to='/find-community'>
+            <Link onClick={closeMenu} to='/find-community'>
               <Flex>
                 <Icon.Search color='gray' size='1.1rem' />
                 <Text ml='7%'>Find a community</Text>
@@ -84,7 +84,7 @@ export const Menu: React.FC<Props> = (props) => {
               <Text ml='7%'>Notifications</Text>
             </Flex>
 
-            <Link to='/user-profile'>
+            <Link onClick={closeMenu} to='/user-profile'>
               <Flex>
                 <Icon.User color='gray' size='1.1rem' />
                 <Text ml='7%'>Profile</Text>
