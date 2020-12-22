@@ -1,5 +1,10 @@
-import * as React from 'react'
-import { ChakraProvider, Spinner, extendTheme } from '@chakra-ui/react'
+import React, { createContext } from 'react'
+import {
+  ChakraProvider,
+  extendTheme,
+  useDisclosure,
+  UseDisclosureReturn,
+} from '@chakra-ui/react'
 import './App.css'
 import { NewScorePage } from './pages/score/new'
 import { UserWodsPage } from './pages/wod/users'
@@ -17,6 +22,9 @@ import { NewWodPage } from './pages/wod/new'
 import 'react-dates/initialize'
 import 'react-dates/lib/css/_datepicker.css'
 import { ScoreboardPage } from './pages/score/scoreboard'
+import { Menu } from './components/Menu'
+import { useMenuUserLazyQuery } from './user-menu.generated'
+import { fetchPolicy } from './fetch-policy'
 
 /* A user with this ID is seeded in the DB at start-up, don't change or sync
    sync with @thecfapp/api/db/db-seeder value and re-seed the DB */
@@ -30,33 +38,70 @@ const colors = {
 
 const customTheme = extendTheme({ colors })
 
-type Props = {
-  client: ApolloClient<NormalizedCacheObject> | null
+const defaultUseDisclosureReturn = {
+  isOpen: false,
+  onOpen: () => null,
+  onClose: () => null,
+  onToggle: () => null,
+  isControlled: false,
+  getButtonProps: (_: any) => null,
+  getDisclosureProps: (_: any) => null,
 }
 
-const App: React.FC<Props> = ({ client }) => {
-  if (!client) {
-    return <Spinner />
-  }
+export const MenuContext = createContext<UseDisclosureReturn>(
+  defaultUseDisclosureReturn,
+)
 
+type Props = {
+  client: ApolloClient<NormalizedCacheObject>
+}
+
+const App: React.FC<Props> = (props) => {
   // FIXME temporarily hard-coding the logged user ID
   loggedUserId(userId)
+
+  const { client } = props
+
+  const [
+    getMenuUser,
+    { loading: loadingMenuUser, error: errorMenuUser, data: dataMenuUser },
+  ] = useMenuUserLazyQuery({
+    client,
+    fetchPolicy: fetchPolicy('header-user'),
+    variables: { userId },
+  })
+
+  /* FIXME keep in state what page the user is currently on so that if clicking
+     on the menu item for the page the user already is at, we just close the menu */
+  const menuDisclosure = useDisclosure({
+    onOpen: getMenuUser,
+  })
 
   return (
     <ApolloProvider client={client}>
       <ChakraProvider theme={customTheme}>
-        <Router>
-          <CommunityDetailPage path='/community/:communityId' />
-          <NewWodPage path='/new-wod' />
-          <DashboardPage path='/' />
-          <FindCommunityPage path='/find-community' />
-          <NewCommunityPage path='/new-community' />
-          <NewScorePage path='/new-score' />
-          <ScoreboardPage path='/scoreboard/:wodId' />
-          <UserCommunitiesPage path='/user-communities' />
-          <UserProfilePage path='/user-profile' />
-          <UserWodsPage path='/wod-list' />
-        </Router>
+        <>
+          <Menu
+            loading={loadingMenuUser}
+            error={errorMenuUser}
+            user={dataMenuUser?.user}
+            menuDisclosure={menuDisclosure}
+          />
+          <MenuContext.Provider value={menuDisclosure}>
+            <Router>
+              <CommunityDetailPage path='/community/:communityId' />
+              <NewWodPage path='/new-wod' />
+              <DashboardPage path='/' />
+              <FindCommunityPage path='/find-community' />
+              <NewCommunityPage path='/new-community' />
+              <NewScorePage path='/new-score' />
+              <ScoreboardPage path='/scoreboard/:wodId' />
+              <UserCommunitiesPage path='/user-communities' />
+              <UserProfilePage path='/user-profile' />
+              <UserWodsPage path='/wod-list' />
+            </Router>
+          </MenuContext.Provider>
+        </>
       </ChakraProvider>
     </ApolloProvider>
   )

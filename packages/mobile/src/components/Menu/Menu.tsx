@@ -1,6 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import * as Icon from 'react-feather'
-import { Avatar, VStack, Flex, Spinner, Heading } from '@chakra-ui/react'
+import {
+  Avatar,
+  VStack,
+  Flex,
+  Heading,
+  UseDisclosureReturn,
+} from '@chakra-ui/react'
 import { Link } from '@reach/router'
 import {
   Drawer,
@@ -12,52 +18,37 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { COPYRIGHT_STR } from '../../utils'
-import { loggedUserId } from '../../graphql/state/app'
-import { useMenuUserLazyQuery } from '../../pages/user/menu/user-menu.generated'
-import { fetchPolicy } from '../../fetch-policy'
+import { MenuUserFragment as User } from './menu.generated'
+import { ApolloError } from '@apollo/client'
+import { LoadingOr } from '../LoadingOr'
+import { ErrorOr } from '../ErrorOr'
 
 interface Props {
-  onClose: () => void
-  isOpen: boolean
+  menuDisclosure: UseDisclosureReturn
+  loading: boolean
+  error: ApolloError | undefined
+  user: User | undefined
 }
 
 export const Menu: React.FC<Props> = (props) => {
-  const { onClose, isOpen } = props
-
-  const userId = loggedUserId()
-
-  // FIXME Move this side effect out of this component
-  const [getMenuUser, { loading, error, data }] = useMenuUserLazyQuery({
-    fetchPolicy: fetchPolicy('header-user'),
-    variables: { userId },
-  })
-
-  let isMounted = true
-  useEffect(() => {
-    if (isMounted) {
-      getMenuUser()
-    }
-    return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      isMounted = false
-    }
-  }, [])
-
-  const user = data?.user
+  const { loading, error, user, menuDisclosure } = props
+  const { onClose, isOpen } = menuDisclosure
 
   return (
     <Drawer placement='left' onClose={onClose} isOpen={isOpen}>
       <DrawerOverlay>
         <DrawerContent background='_thunder' color='white'>
           <DrawerHeader>
-            {loading && <Spinner />}
-            {error && <p>{error}</p>}
-            {user && (
-              <VStack>
-                <Avatar name={user.name} />
-                <Heading textTransform='uppercase'>{user.name}</Heading>
-              </VStack>
-            )}
+            <LoadingOr loading={loading}>
+              <ErrorOr error={error}>
+                {user && (
+                  <VStack>
+                    <Avatar name={user.name} />
+                    <Heading textTransform='uppercase'>{user.name}</Heading>
+                  </VStack>
+                )}
+              </ErrorOr>
+            </LoadingOr>
           </DrawerHeader>
           <DrawerBody ml='7%'>
             <Link to='/'>

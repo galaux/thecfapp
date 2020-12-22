@@ -1,23 +1,16 @@
 import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
 import React, { useEffect, useState } from 'react'
+import { Spinner } from '@chakra-ui/react'
 
 import getApolloClient from './graphql/apollo-client'
 import AppComponent from './App'
 
 export default function App() {
-  const [
-    client,
-    setClient,
-  ] = useState<ApolloClient<NormalizedCacheObject> | null>(null)
-  /* const [loading, setLoading] = useState(true) */
+  const [client, setClient] = useState<ApolloClient<NormalizedCacheObject>>()
 
   useEffect(() => {
-    getApolloClient().then((client) => {
-      setClient(client)
-      /* setLoading(false) */
-    })
+    getApolloClient().then((client) => setClient(client))
   }, [])
 
-  /* return <AppComponent client={client} loading={loading} /> */
-  return <AppComponent client={client} />
+  return client ? <AppComponent client={client} /> : <Spinner />
 }
