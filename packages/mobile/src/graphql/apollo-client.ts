@@ -59,7 +59,8 @@ const getApolloClient = async () => {
                 id: cache.identify(ownerRef),
                 fragment: UserFieldsFragmentDoc,
               }) as UserFieldsFragment
-              return owner.id === loggedUserId()
+              // If owner is undefined then it mustn't be the logged user
+              return owner?.id === loggedUserId()
             },
           },
         },
