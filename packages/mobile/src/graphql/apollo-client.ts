@@ -18,7 +18,14 @@ const SCHEMA_VERSION = '1'
 const SCHEMA_VERSION_KEY = 'apollo-schema-version'
 
 const getApolloClient = async () => {
-  const httpLink = new HttpLink({ uri: process.env.REACT_APP_PUBLIC_API_URL })
+  /* This mobile app is served from a web server but it is setup as a
+     Progressive Web Application (PWA) so that its assets are cached on the
+     client's browser. But at run time, the browser still considers it is
+     running JS from the web server's location. For this reason using a
+     relative path to point at the API is telling the client that API is
+     located next to where it got the assets of the application: the remote web
+     server. */
+  const httpLink = new HttpLink({ uri: '/graphql' })
   const cache = new InMemoryCache({
     typePolicies: {
       Community: {
