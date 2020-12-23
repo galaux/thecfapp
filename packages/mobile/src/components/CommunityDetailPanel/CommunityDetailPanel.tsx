@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Spinner, Flex, HStack, Heading, Text } from '@chakra-ui/react'
+import { Flex, HStack, Heading, Text } from '@chakra-ui/react'
 import { Layout } from '../Layout'
 import { Body } from '../Body'
 import { Header } from '../Header'
@@ -8,6 +8,8 @@ import { ApolloError } from '@apollo/client'
 import { CommunityDetail } from '../CommunityDetail'
 import { oneLineAddress } from '../../utils'
 import { UserCountStamp } from '../UserCountStamp'
+import { ErrorOr } from '../ErrorOr'
+import { LoadingOr } from '../LoadingOr'
 
 interface Props {
   loading: boolean
@@ -48,9 +50,11 @@ export const CommunityDetailPanel: React.FC<Props> = (props: Props) => {
         )}
       </Header>
       <Body>
-        {loading && <Spinner />}
-        {error && <>error</>}
-        {community && <CommunityDetail community={community} />}
+        <LoadingOr loading={loading}>
+          <ErrorOr error={error}>
+            {community && <CommunityDetail community={community} />}
+          </ErrorOr>
+        </LoadingOr>
       </Body>
     </Layout>
   )
