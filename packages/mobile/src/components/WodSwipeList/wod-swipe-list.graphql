@@ -1,7 +1,11 @@
+fragment CommunityForSwipeList on Community {
+  id
+  name
+}
+
 fragment WodForSwipeList on Wod {
   ...WodForWodCard
   community {
-    id
-    name
+    ...CommunityForSwipeList
   }
 }
