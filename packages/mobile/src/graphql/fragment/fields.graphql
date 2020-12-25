@@ -10,6 +10,13 @@ fragment CommunityFields on Community {
   name
 }
 
+fragment CommunityWithAddressFields on Community {
+  ...CommunityFields
+  address {
+    ...CommunityAddressFields
+  }
+}
+
 fragment ScoreFields on Score {
   id
   value
