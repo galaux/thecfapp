@@ -1,6 +1,8 @@
 import { range } from 'lodash'
 import faker from 'faker'
 import {
+  CommunityAddressFieldsFragment,
+  CommunityFieldsFragment,
   ScoreFieldsFragment,
   WodFieldsFragment,
   WorkoutFieldsFragment,
@@ -8,7 +10,23 @@ import {
 import { v4 as uuid } from 'uuid'
 import { ScoringType } from './types'
 
-function fakeScoreFieldsFragment(): ScoreFieldsFragment {
+export function fakeCommunityFieldsFragment(): CommunityFieldsFragment {
+  return {
+    id: uuid(),
+    name: faker.random.words(5),
+  }
+}
+
+export function fakeCommunityAddressFieldsFragment(): CommunityAddressFieldsFragment {
+  return {
+    street: faker.address.streetAddress(),
+    zipCode: faker.address.zipCode(),
+    city: faker.address.city(),
+    country: faker.address.country(),
+  }
+}
+
+export function fakeScoreFieldsFragment(): ScoreFieldsFragment {
   return {
     id: uuid(),
     value: faker.random.number({ min: 1, max: 1000 }),
@@ -37,7 +55,7 @@ export type RandomTimesOpts = { min?: number; max?: number; precision?: number }
 
 export function mapRandomTimes<R>(
   f: () => R,
-  opts: RandomTimesOpts = { min: 0, max: 5 },
+  opts: RandomTimesOpts = { min: 1, max: 5 },
 ) {
   return range(faker.random.number(opts)).map(f)
 }
