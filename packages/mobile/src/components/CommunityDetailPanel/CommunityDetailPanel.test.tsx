@@ -4,12 +4,10 @@ import { ApolloError } from '@apollo/client'
 import faker from 'faker'
 import { CommunityForCommunityDetailPanelFragment } from './community-detail-panel.generated'
 import { CommunityDetailPanel } from './CommunityDetailPanel'
-import { mapRandomTimes } from '../../test-utils'
+import { mapRandomTimes, withoutConsoleErrors } from '../../test-utils'
 import { fakeWodForWodCard } from '../WodCard/test-utils'
 
 describe('User WODs panel', () => {
-  const error = new ApolloError({ errorMessage: 'BOOM' })
-
   function fakeCommunityForCommunityDetailPanel(): CommunityForCommunityDetailPanelFragment {
     return {
       id: uuid(),
@@ -41,14 +39,18 @@ describe('User WODs panel', () => {
   })
 
   it('renders errors', () => {
-    render(
-      <CommunityDetailPanel
-        loading={false}
-        error={error}
-        community={community}
-      />,
-    )
-    expect(screen.getByText(/Oups, something went wrong/i)).toBeInTheDocument()
+    withoutConsoleErrors(() => {
+      render(
+        <CommunityDetailPanel
+          loading={false}
+          error={new ApolloError({ errorMessage: 'BOOM' })}
+          community={community}
+        />,
+      )
+      expect(
+        screen.getByText(/Oups, something went wrong/i),
+      ).toBeInTheDocument()
+    })
   })
 
   it('renders the community detail that has no WOD', () => {
@@ -106,7 +108,10 @@ describe('User WODs panel', () => {
     expect(screen.getByText(wod.workout.name)).toBeInTheDocument()
     // TODO number of scores
     expect(
-      screen.getByText(RegExp(wod.workout.description)),
+      screen.getByText(
+        (_: HTMLElement, node: Node) =>
+          node.textContent === wod.workout.description,
+      ),
     ).toBeInTheDocument()
     // TODO Score of logged user (if has one)
     // TODO better check of the date once the UI display is correctly done

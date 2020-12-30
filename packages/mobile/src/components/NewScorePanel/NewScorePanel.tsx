@@ -10,13 +10,14 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
-  Spinner,
 } from '@chakra-ui/react'
 import { WodForNewScorePanelFragment as Wod } from './new-score-panel.generated'
 import { ApolloError } from '@apollo/client'
 import { Body } from '../Body'
 import { Header } from '../Header'
 import { Layout } from '../Layout'
+import { ErrorOr } from '../ErrorOr'
+import { LoadingOr } from '../LoadingOr'
 
 type Props = {
   wod: Wod
@@ -34,44 +35,43 @@ export const NewScorePanel: React.FC<Props> = (props) => {
     <Layout>
       <Header>Add Score</Header>
       <Body>
-        {createLoading && <Spinner />}
-        {
-          createError && <p>Error {createError}</p>
-          /* TODO properly handle error */
-        }
-        {wod && (
-          <>
-            <Text>{wod.workout.description}</Text>
+        <LoadingOr loading={createLoading}>
+          <ErrorOr error={createError}>
+            {wod && (
+              <>
+                <Text>{wod.workout.description}</Text>
 
-            <Heading fontSize='lg' my={6}>
-              Add my score
-            </Heading>
+                <Heading fontSize='lg' my={6}>
+                  Add my score
+                </Heading>
 
-            <Box bg='_thunder' rounded='md' p={4}>
-              <VStack spacing={4}>
-                <NumberInput>
-                  <NumberInputField
-                    onChange={(e) => setValue(parseInt(e.target.value))}
-                  />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
+                <Box bg='_thunder' rounded='md' p={4}>
+                  <VStack spacing={4}>
+                    <NumberInput>
+                      <NumberInputField
+                        onChange={(e) => setValue(parseInt(e.target.value))}
+                      />
+                      <NumberInputStepper>
+                        <NumberIncrementStepper />
+                        <NumberDecrementStepper />
+                      </NumberInputStepper>
+                    </NumberInput>
 
-                <Box w='100%'>
-                  <Button
-                    type='submit'
-                    colorScheme='blue'
-                    onClick={() => createScore(wod.id, value)}
-                  >
-                    Add my score
-                  </Button>
+                    <Box w='100%'>
+                      <Button
+                        type='submit'
+                        colorScheme='blue'
+                        onClick={() => createScore(wod.id, value)}
+                      >
+                        Add my score
+                      </Button>
+                    </Box>
+                  </VStack>
                 </Box>
-              </VStack>
-            </Box>
-          </>
-        )}
+              </>
+            )}
+          </ErrorOr>
+        </LoadingOr>
       </Body>
     </Layout>
   )

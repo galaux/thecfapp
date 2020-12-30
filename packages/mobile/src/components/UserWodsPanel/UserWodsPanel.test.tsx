@@ -7,10 +7,9 @@ import { CommunityForSwipeListFragment as Community } from '../WodSwipeList/wod-
 import { ApolloError } from '@apollo/client'
 import faker from 'faker'
 import { range } from 'lodash'
+import { withoutConsoleErrors } from '../../test-utils'
 
 describe('User WODs panel', () => {
-  const error = new ApolloError({ errorMessage: 'BOOM' })
-
   function fakeWorkout(): Workout {
     return {
       id: uuid(),
@@ -57,8 +56,18 @@ describe('User WODs panel', () => {
   })
 
   it('renders errors', () => {
-    render(<UserWodsPanel loading={false} error={error} wods={wods} />)
-    expect(screen.getByText(/Oups, something went wrong/i)).toBeInTheDocument()
+    withoutConsoleErrors(() => {
+      render(
+        <UserWodsPanel
+          loading={false}
+          error={new ApolloError({ errorMessage: 'BOOM' })}
+          wods={wods}
+        />,
+      )
+      expect(
+        screen.getByText(/Oups, something went wrong/i),
+      ).toBeInTheDocument()
+    })
   })
 
   it('renders the WOD list', () => {
@@ -67,7 +76,12 @@ describe('User WODs panel', () => {
     // SwipeableViews only displays the first element
     const firstWod = wods[0]
     expect(screen.getByText(firstWod.workout.name)).toBeInTheDocument()
-    expect(screen.getByText(firstWod.workout.description)).toBeInTheDocument()
+    expect(
+      screen.getByText(
+        (_: HTMLElement, node: Node) =>
+          node.textContent === firstWod.workout.description,
+      ),
+    ).toBeInTheDocument()
     // TODO better check of the date once the UI display is correctly done
     expect(screen.getByText(/dec/i)).toBeInTheDocument()
   })
