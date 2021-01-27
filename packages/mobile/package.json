@@ -37,6 +37,9 @@
     ]
   },
   "proxy": "http://localhost:4000",
+  "resolutions": {
+    "babel-loader": "8.1.0"
+  },
   "dependencies": {
     "@apollo/client": "^3.3.3",
     "@chakra-ui/react": "^1.0.1",
