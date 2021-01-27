@@ -1,10 +1,18 @@
+fragment ScoreForWodCard on Score {
+  ...ScoreFields
+  ...ScoreWithBelongsToLoggedUserFields
+}
+
+fragment WorkoutForWodCard on Workout {
+  ...WorkoutFields
+}
+
 fragment WodForWodCard on Wod {
   ...WodFields
   scores {
-    ...ScoreFields
-    ...ScoreWithBelongsToLoggedUserFields
+    ...ScoreForWodCard
   }
   workout {
-    ...WorkoutFields
+    ...WorkoutForWodCard
   }
 }

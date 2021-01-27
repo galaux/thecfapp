@@ -1,4 +1,4 @@
-fragment WodForCommunityDetail on Wod {
+fragment WodForGetCommunityDetail on Wod {
   ...WodFields
   scores {
     ...ScoreFields
@@ -16,7 +16,7 @@ fragment CommunityForGetCommunity on Community {
     ...CommunityAddressFields
   }
   wods {
-    ...WodForCommunityDetail
+    ...WodForGetCommunityDetail
   }
 }
 

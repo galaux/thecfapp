@@ -7,16 +7,17 @@ import {
   InputRightElement,
   Text,
   VStack,
-  Spinner,
 } from '@chakra-ui/react'
 import { Body } from '../Body'
 import { Header } from '../Header'
 import { Layout } from '../Layout'
 import * as Icon from 'react-feather'
 import { CommunityList } from '../CommunityList'
-import { FoundCommunityFragment as Community } from '../../pages/community'
+import { CommunityForFindCommunityPanelFragment as Community } from './find-community-panel.generated'
 import { ApolloError } from '@apollo/client'
 import { navigate } from '@reach/router'
+import { ErrorOr } from '../ErrorOr'
+import { LoadingOr } from '../LoadingOr'
 
 interface Props {
   loading: boolean
@@ -58,30 +59,32 @@ export const FindCommunityPanel: React.FC<Props> = (props: Props) => {
     <Layout>
       <Header>Find community</Header>
       <Body>
-        {loading && <Spinner />}
-        {error && <>error</>}
-        <Stack spacing={4}>
-          <InputGroup>
-            <Input
-              placeholder='Search a community'
-              onChange={(e) => setName(e.target.value)}
-            />
-            <InputRightElement>
-              <Button h='1.75rem' size='sm' onClick={onClickFind}>
-                <Icon.Search />
-              </Button>
-            </InputRightElement>
-          </InputGroup>
-          {lookedupCommunities && (
-            <CommunityList
-              communities={lookedupCommunities}
-              joinCommunity={joinCommunity}
-              leaveCommunity={leaveCommunity}
-            >
-              {ifEmpty}
-            </CommunityList>
-          )}
-        </Stack>
+        <LoadingOr loading={loading}>
+          <ErrorOr error={error}>
+            <Stack spacing={4}>
+              <InputGroup>
+                <Input
+                  placeholder='Search a community'
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <InputRightElement>
+                  <Button h='1.75rem' size='sm' onClick={onClickFind}>
+                    <Icon.Search />
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+              {lookedupCommunities && (
+                <CommunityList
+                  communities={lookedupCommunities}
+                  joinCommunity={joinCommunity}
+                  leaveCommunity={leaveCommunity}
+                >
+                  {ifEmpty}
+                </CommunityList>
+              )}
+            </Stack>
+          </ErrorOr>
+        </LoadingOr>
       </Body>
     </Layout>
   )

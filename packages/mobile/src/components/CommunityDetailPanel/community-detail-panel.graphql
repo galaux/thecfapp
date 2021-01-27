@@ -1,13 +1,9 @@
-fragment AddressForCommunityDetailPanel on Address {
-  ...CommunityAddressFields
-}
-
-fragment CommunityDetailPanel on Community {
+fragment CommunityForCommunityDetailPanel on Community {
   ...CommunityFields
-  memberCount
   address {
-    ...AddressForCommunityDetailPanel
+    ...CommunityAddressFields
   }
+  memberCount
   wods {
     ...WodForWodCard
   }
