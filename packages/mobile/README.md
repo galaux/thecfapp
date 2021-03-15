@@ -90,3 +90,43 @@ TODO Later:
 
 - [ ] Manage [local state](https://www.apollographql.com/docs/react/local-state/local-state-management/)
 - [ ] see if we want to handle optimistic response for mutation or maybe leave it for later
+
+## How to decouple components and pages
+
+In order to keep components and pages decoupled, we need to follow this pattern:
+
+```
+                  UserFields
+                  /         \
+                 /           \
+Query GetUserProfile       UserProfilePanelFragment
+Fragment UserProfile
+         |                           |
+         |                           |
+  UserProfilePage             UserProfilePanel
+      (page)                    (component)
+```
+
+File hierarchy:
+
+```
+src
+├── pages/user/profile
+│   ├── user.generated.tsx
+│   ├── user.graphql                  // the query and its result fragment
+│   └── user-profile.tsx              // the code of the page
+└── components/UserProfilePanel
+    ├── user-profile-panel.generated.tsx
+    ├── user-profile-panel.graphql    // the component's fragment
+    └── UserProfilePanel.tsx          // the code of the component
+```
+
+- Page `UserProfilePage` uses GraphQL query `GetUserProfile` which returns a `UserProfile`
+  - these are page related and so live on `src/pages`
+  - `UserProfile` declares a composition of `UserFields` fields
+  - page `UserProfilePage` declares an instance of the component `UserProfilePanel` to which it passes the result of `GetUser` which is a `UserProfile`
+- Component `UserProfilePanel` takes a `UserProfilePanelFragment`
+  - they are component related an so live on `src/components`
+  - `UserProfilePanelFragment` also declares a composition of `UserFields` fields
+
+Page's `UserProfile` and component's `UserProfilePanel` are two **different but compatible** fragments on the same GraphQL _root_ schema element. As TypeScript is dynamic, it is able to see that they are compatible at run time (see their respective generated definitions).
