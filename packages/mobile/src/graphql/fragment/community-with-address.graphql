@@ -1,0 +1,6 @@
+fragment CommunityWithAddressFields on Community {
+  ...CommunityFields
+  address {
+    ...CommunityAddressFields
+  }
+}
