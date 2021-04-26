@@ -16,7 +16,7 @@
   {:fields {:userId {:type (non-null :ID)}
             :communityId {:type (non-null :ID)}}}
   :CreateUserInput
-  {:fields {:name {:type (non-null String)}
+  {:fields {:screenName {:type (non-null String)}
             :email {:type (non-null String)}}}
   :NewCommunityInput
   {:fields {:name {:type (non-null String)}}}}

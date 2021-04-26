@@ -6,7 +6,8 @@
    [integrant.core :as ig]
    [thecfapp.domain.community :as community]
    [thecfapp.domain.user :as user]
-   [thecfapp.test-util :as tutil]))
+   [thecfapp.test-util :as tutil])
+  (:import java.util.UUID))
 
 (def user-a (gen/generate user/user-gen))
 (def user-b (gen/generate user/user-gen))
@@ -16,34 +17,39 @@
                       :communities []})
 (def community-a (gen/generate community/community-gen))
 
-;; (comment add-users
-;;   (let [graphql-q
-;;         "mutation AddUser($screenName: String!, $email: String!) {
-;;            createUser(
-;;              input: {
-;;                screenName: $screenName,
-;;                email: $email
-;;              }
-;;            ) {
-;;              id email screenName
-;;              communities { id name }
-;;            }
-;;          }"
-;;         variables {:screenName (:user/screen-name user-a)
-;;                    :email (:user/email user-a)}
-;;         response ((app) (-> (request :post "/api/graphql")
-;;                             (body (json/write-str {:query graphql-q
-;;                                                    :variables variables}))
-;;                             (content-type "application/graphql")))
-;;         parsed-response (-> response
-;;                             :body
-;;                             (json/read-str :key-fn keyword))]
-;;     (is (= 200 (:status response)))
-;;     (is (empty? (:errors parsed-response)))
-;;     (let [created-user (-> parsed-response :data :createUser)]
-;;       (is (= (dissoc expected-user-a :id)
-;;              (dissoc created-user :id)))
-;;       (is (uuid? (UUID/fromString (:id created-user)))))))
+
+(deftest add-users-not-used-by-mobile
+  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+        graphql-q
+        "mutation AddUser($name: String!, $email: String!) {
+           createUser(
+             input: {
+               screenName: $name,
+               email: $email
+             }
+           ) {
+             id email name
+             communities { id name }
+           }
+         }"
+        variables {:name (:user/screen-name user-a)
+                   :email (:user/email user-a)}
+        gql-query (tutil/test-query graphql-q [] variables)]
+    (let [response (handler gql-query)
+          parsed-response (-> response
+                              :body
+                              (json/read-str :key-fn keyword))
+          expected-user-a {:id (.toString (:user/id user-a))
+                           :name (:user/screen-name user-a)
+                           :email (:user/email user-a)
+                           :communities []}]
+      (is (= 200 (:status response)))
+      (is (empty? (:errors parsed-response)))
+      (let [created-user (-> parsed-response :data :createUser)]
+        (is (= (dissoc expected-user-a :id)
+               (dissoc created-user :id)))
+        (is (uuid? (UUID/fromString (:id created-user))))))
+    (ig/halt! system)))
 
 (deftest list-users-not-used-by-mobile
   (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)]
@@ -79,8 +85,7 @@
                            :name (:user/screen-name user-a)}]
       (is (= 200 (:status response)))
       (is (empty? (:errors parsed-response)))
-      (is (= expected-user-a
-             (-> parsed-response :data :user))))
+      (is (= expected-user-a (-> parsed-response :data :user))))
     (ig/halt! system)))
 
 ;; (deftest test-macro
