@@ -165,3 +165,29 @@
                        (:community/id community-a))]
         (is (= [[:community.privs/member]] privs))))
     (ig/halt! system)))
+
+(deftest leave-community
+  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+        variables {:userId (.toString (:user/id user-a))
+                   :communityId (.toString (:community/id community-a))}
+        gql-query (tutil/test-query :LeaveCommunity [] variables)
+        tx-data [(assoc community-a :db/id "community-a")
+                 (assoc user-a
+                        :db/id "user-a"
+                        :community.privs/member "community-a")]]
+    (tutil/domain-add conn tx-data)
+    (let [privs-before (d/q '[:find (pull ?user [*]) (pull ?community [*])
+                              :where [?user :community.privs/member ?community]]
+                            (d/db conn))
+          response (handler gql-query)
+          parsed-response (-> response
+                              :body
+                              (json/read-str :key-fn keyword))
+          privs-after (d/q '[:find (pull ?user [*]) (pull ?community [*])
+                             :where [?user :community.privs/member ?community]]
+                           (d/db conn))]
+      (is (empty? (:errors parsed-response)))
+      (is (= 200 (:status response)))
+      (is (not (empty? privs-before)))
+      (is (empty? privs-after)))
+    (ig/halt! system)))

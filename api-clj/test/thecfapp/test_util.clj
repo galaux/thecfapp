@@ -57,7 +57,8 @@
      :UserWods "wod/user-wods"
      :WodWithScores "score/scoreboard/scoreboard"
 
-     :JoinCommunity "community/join-community"}))
+     :JoinCommunity "community/join-community"
+     :LeaveCommunity "community/leave-community"}))
 
 (defn query-with-fragments
   [query-or-key fragment-keys]

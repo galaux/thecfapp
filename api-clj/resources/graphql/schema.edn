@@ -19,7 +19,10 @@
   {:fields {:screenName {:type (non-null String)}
             :email {:type (non-null String)}}}
   :NewCommunityInput
-  {:fields {:name {:type (non-null String)}}}}
+  {:fields {:name {:type (non-null String)}}}
+  :RemoveUserFromCommunityInput
+  {:fields {:userId {:type (non-null :ID)}
+            :communityId {:type (non-null :ID)}}}}
 
  :objects
  {:Address
@@ -113,7 +116,6 @@
   :addUserToCommunity {:args {:input {:type (non-null :AddUserToCommunityInput)}}
                        :type :Community
                        :resolve :Mutation/join-community}
-  :leaveCommunity {:args {:userId {:type (non-null :ID)}
-                          :communityId {:type (non-null :ID)}}
-                   :type :Community
-                   :resolve :Mutation/leave-community}}}
+  :removeUserFromCommunity {:args {:input {:type (non-null :RemoveUserFromCommunityInput)}}
+                            :type (non-null :ID)
+                            :resolve :Mutation/leave-community}}}

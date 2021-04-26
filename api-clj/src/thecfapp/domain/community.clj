@@ -205,3 +205,34 @@
       (resolve-as false (anomaly->error result))
       (-> (d/pull db-after '[*] [:community/id (-> args :input :communityId)])
           shape-community))))
+
+;; TODO factorize with join-community-bad-input
+(defn check-leave-community
+  [db user-id community-id]
+  (or (and (-> (d/pull db [:db/id] [:user/id user-id])
+               :db/id
+               nil?)
+           (anomaly ::anomalies/incorrect "User doesn't exist"))
+      (and (-> (d/pull db [:db/id] [:community/id community-id])
+               :db/id
+               nil?)
+           (anomaly ::anomalies/incorrect "Community doesn't exist"))))
+
+(defn leave-community-tx
+  [user-id community-id]
+  [:db/retract
+   [:user/id user-id]
+   :community.privs/member
+   [:community/id community-id]])
+
+(defn leave-community
+   "Returns the communityId (FIXME that doesn't really make sense.
+   Return sthing more meaningful like the user or the community
+   depending on what mobile could need)"
+  [context {:keys [input]} _value]
+  (let [{:keys [communityId userId]} input]
+    (if-let [anom (check-leave-community (d/db (:conn context)) userId communityId)]
+      (resolve-as false (anomaly->error anom))
+      (let [tx-data (leave-community-tx userId communityId)]
+        (d/transact (:conn context) {:tx-data [tx-data]})
+        communityId))))

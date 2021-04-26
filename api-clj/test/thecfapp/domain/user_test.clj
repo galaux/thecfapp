@@ -95,35 +95,3 @@
 ;;     (println "|| " system)
 ;;     (is (= 1
 ;;           1))))
-
-;; (comment leave-community
-;;   (tutil/domain-add db/conn
-;;                     [(assoc community-a :db/id "community-a")
-;;                      (assoc user-a
-;;                        :db/id "user-a"
-;;                        :community.privs/member "community-a")])
-;;   (let [user-id (:user/id user-a)
-;;         community-id (:community/id community-a)
-;;         privs-before (d/q '[:find (pull ?user [*]) (pull ?community [*])
-;;                             :where [?user :community.privs/member ?community]]
-;;                        (d/db db/conn))
-;;         graphql-q
-;;         "mutation LeaveCommunity($userId: ID!, $communityId: ID!) {
-;;            leaveCommunity(userId: $userId, communityId: $communityId) {
-;;              id name
-;;            }
-;;          }"
-;;         variables {:userId (.toString user-id)
-;;                    :communityId (.toString community-id)}
-;;         response ((app) (-> (request :post "/api/graphql")
-;;                             (body (json/write-str {:query graphql-q
-;;                                                    :variables variables}))
-;;                             (content-type "application/graphql")))
-;;         parsed-response (-> response
-;;                             :body
-;;                             (json/read-str :key-fn keyword))
-;;         privs-after (d/q '[:find (pull ?user [*]) (pull ?community [*])
-;;                            :where [?user :community.privs/member ?community]]
-;;                       (d/db db/conn))]
-;;     (is (not (empty? privs-before)))
-;;     (is (empty? privs-after))))

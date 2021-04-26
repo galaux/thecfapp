@@ -19,12 +19,12 @@
 
 ;; (def ^:private add-community-input-spec
 ;;   (s/keys :req-un [:graphql.NewCommunityInput/name]))
- 
+
 (def ^:private resolver-map
   {:Community/wods wod/by-community-id
    :Community/member-count community/member-count
    :Mutation/join-community community/user-join
-   :Mutation/leave-community user/leave-community
+   :Mutation/leave-community community/leave-community
    :Mutation/new-community community/add-community
    :Mutation/new-user user/add-user
    :Query/find-communities community/find-with-name-like
