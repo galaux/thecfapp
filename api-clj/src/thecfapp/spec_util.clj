@@ -1,11 +1,10 @@
 (ns thecfapp.spec-util
   (:require
-    [datomic.client.api :as d]
-    [clojure.spec.alpha :as s]
-    [clojure.string :as str]
-    [clojure.spec.gen.alpha :as gen]
-    [java-time :as java-time]
-    [tupelo.java-time :as t-java-time]))
+   [clojure.spec.alpha :as s]
+   [clojure.spec.gen.alpha :as gen]
+   [clojure.string :as str]
+   [java-time :as java-time]
+   [thecfapp.util :as util]))
 
 (s/def :util/uuid
   (s/with-gen uuid? gen/uuid))
@@ -39,5 +38,5 @@
       (fn [r]
         (-> local-date
             (java-time/plus (java-time/days r))
-            t-java-time/LocalDate->Date))
+            util/LocalDate->Date))
       (s/gen (s/int-in -100 100)))))

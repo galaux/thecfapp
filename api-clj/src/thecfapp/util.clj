@@ -5,6 +5,9 @@
     [clojure.walk :refer [postwalk]]
     [cognitect.anomalies :as anomalies]))
 
+;; Anomaly
+;; =======
+
 (s/def ::anomaly-args
   (s/cat :category keyword?
     :message string?
@@ -28,6 +31,29 @@
   [res]
   (assoc res :message (::anomalies/message res)))
 
+
+;; Date and time
+;; =============
+
+;; Stolen from https://github.com/cloojure/tupelo/blob/master/src/clj/tupelo/java_time.clj
+
+(def zoneid-utc (java.time.ZoneId/of "UTC"))
+
+(defn LocalDate->Instant
+  "Converts a LocalDate to a java.util.Date,
+   using midnight (start of day) and the UTC timezone."
+  [ld]
+  (.toInstant (.atStartOfDay ld zoneid-utc)))
+
+(defn LocalDate->Date
+  "Converts a LocalDate to a java.util.Date,
+   using midnight (start of day) and the UTC timezone."
+  [ld]
+  (java.util.Date/from (LocalDate->Instant ld)))
+
+
+;; Type conversion
+;; ===============
 
 (defn- uppercase-if-enum
   [{:keys [ident] :as all}]
