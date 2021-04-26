@@ -34,16 +34,18 @@
   tupelo/tupelo {:mvn/version "21.04.13"}}
 
  :aliases
- ;; TODO `:dev` should not have "test" but we should have a proper "project/test"
- {:dev {:extra-paths ["dev" "dev-resources" "test"]
-        :extra-deps {ring/ring-devel {:mvn/version "1.9.2"}}}
-  ;; :test requires "dev-resources" because this is where test-utils is located ;; ← old comment
-  :test {:extra-paths ["test" "dev-resources"]
-         :extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}
-                      ring/ring-mock {:mvn/version "0.4.0"}}}
+ {:dev
+  {:extra-paths ["dev" "dev-resources"]
+   :extra-deps {ring/ring-devel {:mvn/version "1.9.2"}}}
 
-  :runner {:extra-deps {com.cognitect/test-runner
-                        {:git/url "https://github.com/cognitect-labs/test-runner"
-                         :sha "b6b3193fcc42659d7e46ecd1884a228993441182"}}
-           :main-opts ["-m" "cognitect.test-runner"
-                       "-d" "test"]}}}
+  :test
+  {:extra-paths ["test" "dev-resources"]
+   :extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}
+                ring/ring-mock {:mvn/version "0.4.0"}}}
+
+  :runner
+  {:extra-deps {com.cognitect/test-runner
+                {:git/url "https://github.com/cognitect-labs/test-runner"
+                 :sha "b6b3193fcc42659d7e46ecd1884a228993441182"}}
+   :main-opts ["-m" "cognitect.test-runner"
+               "-d" "test"]}}}
