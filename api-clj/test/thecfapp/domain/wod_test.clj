@@ -21,7 +21,7 @@
 (def score-a (-> (gen/generate score/score-gen) (assoc :db/id "score-a")))
 (def score-b (-> (gen/generate score/score-gen) (assoc :db/id "score-b")))
 
-(deftest get-wodj
+(deftest get-wod
   (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
         tx-data [user-a
                  (assoc wod-a
