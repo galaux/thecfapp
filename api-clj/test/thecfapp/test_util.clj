@@ -49,14 +49,16 @@
 (def queries
   (load-and-clean-graphql
     queries-dir
-    {:CommunityDetail "community/detail/community-detail"
+    {;; Queries
+     :CommunityDetail "community/detail/community-detail"
      :FindCommunities "community/find/find-communities"
      :GetUser "user/profile/user"
      :ListWorkouts "workout/user-workouts"
      :UserCommunities "community/user-communities"
      :UserWods "wod/user-wods"
      :WodWithScores "score/scoreboard/scoreboard"
-
+     ;; Mutations
+     :CreateCommunity "community/new/new-community"
      :JoinCommunity "community/join-community"
      :LeaveCommunity "community/leave-community"}))
 

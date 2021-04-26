@@ -20,24 +20,29 @@
 (def user-a (-> (gen/generate user/user-gen) (assoc :db/id "user-a")))
 (def user-b (-> (gen/generate user/user-gen) (assoc :db/id "user-b")))
 (def community-a (-> (gen/generate community/community-gen) (assoc :db/id "community-a")))
+(def community-b (-> (gen/generate community/community-gen) (assoc :db/id "community-b")))
+(def community-c (-> (gen/generate community/community-gen) (assoc :db/id "community-c")))
 
 (deftest find-communities
   (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
         gql-query (tutil/test-query :FindCommunities
                                     [:Community :CommunityAddress]
                                     {:name "HAHA"})
-        community (assoc community-a :community/name "HaHa") ;; note case
-        user-a (assoc user-a :community.privs/member [community])
-        user-b (assoc user-b :community.privs/member [community])
+        communities [(assoc community-a :community/name "HaHa Comm A")
+                     (assoc community-b :community/name "Comm B haHA")] ;; note case
+        user-a (assoc user-a :community.privs/member communities)
+        user-b (assoc user-b :community.privs/member communities)
         user-c (gen/generate user/user-gen)
-        expected-community {:id (.toString (:community/id community))
-                            :name (:community/name community)
-                            :address {:street (:community.address/street community)
-                                      :zipCode (:community.address/zip-code community)
-                                      :city (:community.address/city community)
-                                      :country (:community.address/country community)}
-                            :memberCount 2}]
-    (tutil/domain-add conn [user-a user-b user-c])
+        expected-communities (map (fn [community]
+                                    {:id (.toString (:community/id community))
+                                     :name (:community/name community)
+                                     :address {:street (:community.address/street community)
+                                               :zipCode (:community.address/zip-code community)
+                                               :city (:community.address/city community)
+                                               :country (:community.address/country community)}
+                                     :memberCount 2})
+                                  communities)]
+    (tutil/domain-add conn (concat communities [user-a user-b user-c]))
     (let [response (handler gql-query)
           parsed-response (-> response
                               :body
@@ -47,8 +52,8 @@
                           :findCommunities)]
       (is (= 200 (:status response)))
       (is (empty? (:errors parsed-response)))
-      (is (= 1 (count communities)))
-      (is (= expected-community (-> communities first)))
+      (is (= 2 (count communities)))
+      (is (= expected-communities communities))
       (is (uuid? (-> communities first :id UUID/fromString))))
     (ig/halt! system)))
 
@@ -191,3 +196,29 @@
       (is (not (empty? privs-before)))
       (is (empty? privs-after)))
     (ig/halt! system)))
+
+;; (deftest create-community
+;;   (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+;;         variables {}
+;;         gql-query (tutil/test-query :CreateCommunity [] variables)
+;; TODO finish this test (from here on, the code is just a copy/paste the previous test)
+;;         tx-data [(assoc community-a :db/id "community-a")
+;;                  (assoc user-a
+;;                         :db/id "user-a"
+;;                         :community.privs/member "community-a")]]
+;;     (tutil/domain-add conn tx-data)
+;;     (let [privs-before (d/q '[:find (pull ?user [*]) (pull ?community [*])
+;;                               :where [?user :community.privs/member ?community]]
+;;                             (d/db conn))
+;;           response (handler gql-query)
+;;           parsed-response (-> response
+;;                               :body
+;;                               (json/read-str :key-fn keyword))
+;;           privs-after (d/q '[:find (pull ?user [*]) (pull ?community [*])
+;;                              :where [?user :community.privs/member ?community]]
+;;                            (d/db conn))]
+;;       (is (empty? (:errors parsed-response)))
+;;       (is (= 200 (:status response)))
+;;       (is (not (empty? privs-before)))
+;;       (is (empty? privs-after)))
+;;     (ig/halt! system)))

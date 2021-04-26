@@ -112,7 +112,7 @@
               [(clojure.string/includes? ?lower-comm-name ?lower-searched-word)]]
             (d/db conn)
             (str/lower-case name))
-       first
+       flatten
        (map shape-community)))
 
 (defn check-add-community
