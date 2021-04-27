@@ -125,9 +125,13 @@
 
 (defn add-community-tx
   [input]
-  (let [{:keys [name]} input]
-    {:community/id (UUID/randomUUID)
-     :community/name name}))
+  (let [{:keys [name street zipCode city country]} input]
+    (cond-> {:community/id (UUID/randomUUID)
+             :community/name name}
+      street (assoc :community.address/street street)
+      zipCode (assoc :community.address/zip-code zipCode)
+      city (assoc :community.address/city city)
+      country (assoc :community.address/country country))))
 
 ;; TODO check input of this as being spec compliant
 ;; TODO extract full generation of tx

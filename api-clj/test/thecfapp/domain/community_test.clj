@@ -197,28 +197,34 @@
       (is (empty? privs-after)))
     (ig/halt! system)))
 
-;; (deftest create-community
-;;   (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
-;;         variables {}
-;;         gql-query (tutil/test-query :CreateCommunity [] variables)
-;; TODO finish this test (from here on, the code is just a copy/paste the previous test)
-;;         tx-data [(assoc community-a :db/id "community-a")
-;;                  (assoc user-a
-;;                         :db/id "user-a"
-;;                         :community.privs/member "community-a")]]
-;;     (tutil/domain-add conn tx-data)
-;;     (let [privs-before (d/q '[:find (pull ?user [*]) (pull ?community [*])
-;;                               :where [?user :community.privs/member ?community]]
-;;                             (d/db conn))
-;;           response (handler gql-query)
-;;           parsed-response (-> response
-;;                               :body
-;;                               (json/read-str :key-fn keyword))
-;;           privs-after (d/q '[:find (pull ?user [*]) (pull ?community [*])
-;;                              :where [?user :community.privs/member ?community]]
-;;                            (d/db conn))]
-;;       (is (empty? (:errors parsed-response)))
-;;       (is (= 200 (:status response)))
-;;       (is (not (empty? privs-before)))
-;;       (is (empty? privs-after)))
-;;     (ig/halt! system)))
+(deftest create-community
+  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+        fragments [:Community :CommunityAddress]
+        [input-community expected-community]
+        (let [{:community/keys [name] :as community} (gen/generate community/community-gen)
+              {:community.address/keys [city country street zip-code]} community
+              input {:name name
+                     :city city
+                     :country country
+                     :street street
+                     :zipCode zip-code}
+              expected {:name name
+                        :memberCount 1
+                        :address {:city city
+                                  :country country
+                                  :street street
+                                  :zipCode zip-code}}]
+           [input expected])
+        variables {:creatorId (.toString (:user/id user-a))
+                   :input input-community}
+        gql-query (tutil/test-query :CreateCommunity fragments variables)]
+    (tutil/domain-add conn [user-a])
+    (let [response (handler gql-query)
+          parsed-response (-> response
+                              :body
+                              (json/read-str :key-fn keyword))]
+      (is (empty? (:errors parsed-response)))
+      (is (= 200 (:status response)))
+      (is (= expected-community
+             (-> parsed-response :data :createCommunity (dissoc :id)))))
+    (ig/halt! system)))
