@@ -25,7 +25,7 @@
                  non-blank-string-gen
                  (s/gen :util/tld)))))
 
-(def local-date
+(def today
   (java-time/local-date))
 
 ;; Generator for a "local date" (ie "2021-04-17") in the vicinity of the current
@@ -36,7 +36,7 @@
   (s/with-gen inst?
     #(gen/fmap
       (fn [r]
-        (-> local-date
+        (-> today
             (java-time/plus (java-time/days r))
             util/LocalDate->Date))
       (s/gen (s/int-in -100 100)))))
