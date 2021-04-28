@@ -1,9 +1,14 @@
 (ns thecfapp.domain.wod
-  (:require
-    [clojure.spec.alpha :as s]
-    [datomic.client.api :as d]
-    [thecfapp.spec-util :as sutil]
-    [thecfapp.util :refer [anomaly anomaly? camel-case-keys anomaly->error]]))
+  (:require [clojure.spec.alpha :as s]
+            [cognitect.anomalies :as anomalies]
+            [datomic.client.api :as d]
+            [thecfapp.domain.community :as community]
+            [thecfapp.domain.workout :as workout]
+            [thecfapp.spec-util :as sutil]
+            [thecfapp.util :refer [anomaly anomaly->error anomaly? camel-case-keys]]
+            [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
+            [thecfapp.util :refer [anomaly->error]])
+  (:import java.util.UUID))
 
 (s/def :wod/id :util/uuid)
 (s/def :wod/date :util/near-local-date)
@@ -14,6 +19,11 @@
 
 (def wod-gen (s/gen ::wod))
 
+
+(defn shape-wod
+  [{:wod/keys [id date]}]
+  {:id id
+   :date date})
 
 (defn exists?
   [db id]
@@ -70,3 +80,38 @@
   (->> (d/q q-by-community-id (d/db conn) id)
        flatten
        (map camel-case-keys)))
+
+(defn add-wod-tx
+  [community-id workout-id date]
+  {:db/id "new-wod-eid"
+   :wod/id (UUID/randomUUID)
+   :wod/community {:community/id community-id}
+   :wod/workout {:workout/id workout-id}
+   :wod/date date})
+
+(defn check-add-wod
+  [db community-id workout-id]
+  (or (and (not (community/exists? db community-id))
+           (anomaly ::anomalies/incorrect "Community doesn't exist"))
+      (and (not (workout/exists? db workout-id))
+           (anomaly ::anomalies/incorrect "Workout doesn't exist"))))
+
+(defn add-wod*
+  [conn community-id workout-id date]
+  (or (check-add-wod (d/db conn) community-id workout-id)
+      (let [tx-data (add-wod-tx community-id workout-id date)]
+        (d/transact conn {:tx-data [tx-data]}))))
+
+(defn add-wod
+  [context args _value]
+  (let [{:keys [communityId workoutId date]} (:input args)
+        {:keys [db-after tempids] :as res} (add-wod* (:conn context) communityId workoutId date)]
+    (if (anomaly? res)
+      (resolve-as false (anomaly->error res))
+      (->> (get tempids "new-wod-eid")
+           (d/pull db-after '[*]) ;; TODO should we pull * or just a set of date+id?
+           shape-wod))))
+
+;; TODO
+;; Quandary: should "low level" API function pull the :db/id of children so that
+;; they are readily available for the resolver to get them or should they be pulled on demand?

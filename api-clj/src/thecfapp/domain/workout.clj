@@ -67,3 +67,9 @@
   (->> (d/q q-by-user-id (d/db conn) id)
        flatten
        (map camel-case-keys)))
+
+(defn exists?
+  [db id]
+  (-> (d/pull db [:db/id] [:workout/id id])
+      :db/id
+      some?))

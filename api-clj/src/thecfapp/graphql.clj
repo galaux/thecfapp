@@ -28,6 +28,7 @@
    :Mutation/new-community community/add-community
    :Mutation/new-score score/add-score
    :Mutation/new-user user/add-user
+   :Mutation/new-wod wod/add-wod
    :Query/find-communities community/find-with-name-like
    :Query/get-community community/get-community
    :Query/get-user user/get-user

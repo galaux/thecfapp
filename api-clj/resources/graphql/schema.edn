@@ -28,6 +28,10 @@
   {:fields {:userId {:type (non-null :ID)}
             :value {:type (non-null Int)}
             :wodId {:type (non-null :ID)}}}
+  :NewWodInput
+  {:fields {:communityId {:type (non-null :ID)}
+            :date {:type (non-null :Date)}
+            :workoutId {:type (non-null :ID)}}}
   :RemoveUserFromCommunityInput
   {:fields {:userId {:type (non-null :ID)}
             :communityId {:type (non-null :ID)}}}}
@@ -125,6 +129,9 @@
                :args {:input {:type (non-null :CreateUserInput)}}
                :type :User
                :resolve :Mutation/new-user}
+  :createWod {:args {:input {:type (non-null :NewWodInput)}}
+              :type :Wod
+              :resolve :Mutation/new-wod}
   :addUserToCommunity {:args {:input {:type (non-null :AddUserToCommunityInput)}}
                        :type :Community
                        :resolve :Mutation/join-community}

@@ -12,7 +12,10 @@
    [thecfapp.domain.wod :as wod]
    [thecfapp.domain.workout :as workout]
    [thecfapp.graphql :as gql]
-   [thecfapp.test-util :as tutil]))
+   [thecfapp.test-util :as tutil])
+  (:import
+   java.time.LocalDate
+   java.util.UUID))
 
 (def user-a (-> (gen/generate user/user-gen) (assoc :db/id "user-a")))
 (def community-a (gen/generate community/community-gen))
@@ -108,4 +111,23 @@
       (is (empty? (:errors parsed-response)))
       (is (= 200 (:status response)))
       (is (= expected-wods (-> parsed-response :data :userWods))))
+    (ig/halt! system)))
+
+(deftest create-wod
+  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+        variables {:communityId (.toString (:community/id community-a))
+                   :workoutId (.toString (:workout/id workout-a))
+                   :date (.toString (LocalDate/of 2000 12 30))} ;; TODO
+        gql-query (tutil/test-query :CreateWod [:Wod] variables)]
+    (tutil/domain-add conn [community-a workout-a])
+    (let [response (handler gql-query)
+          parsed-response (-> response
+                              :body
+                              (json/read-str :key-fn keyword))
+          actual-wod (-> parsed-response :data :createWod)
+          expected-wod {:date (:date variables)}]
+      (is (empty? (:errors parsed-response)))
+      (is (= 200 (:status response)))
+      (is (= expected-wod (dissoc actual-wod :id)))
+      (is (uuid? (UUID/fromString (:id actual-wod)))))
     (ig/halt! system)))

@@ -60,6 +60,7 @@
      ;; Mutations
      :CreateCommunity "community/new/new-community"
      :CreateScore "score/new/new-score"
+     :CreateWod "wod/new/new-wod"
      :JoinCommunity "community/join-community"
      :LeaveCommunity "community/leave-community"}))
 
