@@ -3,6 +3,7 @@
     [clojure.java.browse :refer [browse-url]]
     [clojure.spec.alpha :as s]
     [clojure.spec.gen.alpha :as gen]
+    [clojure.tools.namespace.repl :refer [set-refresh-dirs]]
     [clojure.walk :as walk]
     [com.walmartlabs.lacinia :as lacinia]
     [datomic.client.api :as d]
@@ -19,10 +20,13 @@
     [thecfapp.test-util :as tutil]
     [clojure.java.io :as io]
     [thecfapp.core :as core])
-
   (:import
     clojure.lang.IPersistentMap
     java.util.UUID))
+
+;; Work around to enable `cider-ns-refresh` to properly reload code in tests.
+;; https://github.com/clojure-emacs/cider/issues/2686#issuecomment-532389499
+(set-refresh-dirs "dev" "src" "test")
 
 ;; (defn simplify
 ;;   "Converts all ordered maps nested within the map into standard hash maps, and
@@ -77,3 +81,4 @@
   ((integrant.repl/set-prep! (constantly dev-config))))
 
 ;; (reload-ig)
+
