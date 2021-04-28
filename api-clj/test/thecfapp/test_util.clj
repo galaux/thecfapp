@@ -59,6 +59,7 @@
      :WodWithScores "score/scoreboard/scoreboard"
      ;; Mutations
      :CreateCommunity "community/new/new-community"
+     :CreateScore "score/new/new-score"
      :JoinCommunity "community/join-community"
      :LeaveCommunity "community/leave-community"}))
 

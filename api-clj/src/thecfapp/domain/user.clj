@@ -71,8 +71,8 @@
            shape-user))))
 
 (defn exists?
-  [conn id]
-  (-> (d/pull (d/db conn) [:db/id] [:user/id id])
+  [db id]
+  (-> (d/pull db [:db/id] [:user/id id])
       :db/id
       some?))
 

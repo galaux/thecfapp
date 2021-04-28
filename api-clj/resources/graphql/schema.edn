@@ -24,6 +24,10 @@
             :zipCode {:type String}
             :city {:type String}
             :country {:type String}}}
+  :NewScoreInput
+  {:fields {:userId {:type (non-null :ID)}
+            :value {:type (non-null Int)}
+            :wodId {:type (non-null :ID)}}}
   :RemoveUserFromCommunityInput
   {:fields {:userId {:type (non-null :ID)}
             :communityId {:type (non-null :ID)}}}}
@@ -114,6 +118,9 @@
                            :input {:type (non-null :NewCommunityInput)}}
                     :type :Community
                     :resolve :Mutation/new-community}
+  :createScore {:args {:input {:type (non-null :NewScoreInput)}}
+                :type :Score
+                :resolve :Mutation/new-score}
   :createUser {:description "Not used by mobile"
                :args {:input {:type (non-null :CreateUserInput)}}
                :type :User

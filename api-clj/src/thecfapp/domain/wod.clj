@@ -15,6 +15,12 @@
 (def wod-gen (s/gen ::wod))
 
 
+(defn exists?
+  [db id]
+  (-> (d/pull db [:db/id] [:wod/id id])
+      :db/id
+      some?))
+
 (defn get-wod*
   [db id]
   (d/pull db '[*] [:wod/id id]))

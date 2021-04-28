@@ -96,8 +96,14 @@
        (map shape-community)))
 
 (defn exists-with-name?
-  [conn name]
-  (-> (d/pull (d/db conn) [:db/id] [:community/name name])
+  [db name]
+  (-> (d/pull db [:db/id] [:community/name name])
+      :db/id
+      some?))
+
+(defn exists?
+  [db id]
+  (-> (d/pull db [:db/id] [:community/id id])
       :db/id
       some?))
 
@@ -116,10 +122,10 @@
        (map shape-community)))
 
 (defn check-add-community
-  [conn community-input creator-id]
-  (or (and (not (user/exists? conn creator-id))
+  [db community-input creator-id]
+  (or (and (not (user/exists? db creator-id))
            (anomaly ::anomalies/incorrect "User doesn't exist"))
-      (and (exists-with-name? conn (:name community-input))
+      (and (exists-with-name? db (:name community-input))
            (anomaly ::anomalies/conflict
                     "A community with this name already exists"))))
 
@@ -138,17 +144,18 @@
 ;; to prevent propagating the GraphQL camelCase naming
 (defn add-community*
   [{:keys [conn]} {:keys [creatorId input]} _value]
-  (or (check-add-community conn input creatorId)
-      (let [community-eid "tmp-community-eid"
-            community (assoc (add-community-tx input)
-                        :db/id community-eid)
-            community-privs (map (fn [priv]
-                                   {:db/id [:user/id creatorId]
-                                    priv {:db/id community-eid}})
-                              all-community-privs)
-            res (d/transact conn {:tx-data (conj community-privs community)})]
-        (->> (get-in res [:tempids community-eid])
-             (d/pull (d/db conn) '[*])))))
+  (let [db (d/db conn)]
+    (or (check-add-community db input creatorId)
+        (let [community-eid "tmp-community-eid"
+              community (assoc (add-community-tx input)
+                          :db/id community-eid)
+              community-privs (map (fn [priv]
+                                     {:db/id [:user/id creatorId]
+                                      priv {:db/id community-eid}})
+                                all-community-privs)
+              res (d/transact conn {:tx-data (conj community-privs community)})]
+          (->> (get-in res [:tempids community-eid])
+               (d/pull (d/db conn) '[*]))))))
 
 (defn add-community
   [context args value]

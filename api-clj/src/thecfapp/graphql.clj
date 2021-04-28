@@ -26,6 +26,7 @@
    :Mutation/join-community community/user-join
    :Mutation/leave-community community/leave-community
    :Mutation/new-community community/add-community
+   :Mutation/new-score score/add-score
    :Mutation/new-user user/add-user
    :Query/find-communities community/find-with-name-like
    :Query/get-community community/get-community
