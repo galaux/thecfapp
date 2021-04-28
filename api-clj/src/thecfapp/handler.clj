@@ -11,6 +11,19 @@
    [reitit.ring.middleware.parameters :as parameters]
    [ring.util.http-response :refer [ok]]))
 
+;; TODO see old lein/luninus project on how to setup a default handler
+;; (def default-handler
+;;   (ring/create-default-handler
+;;    {:not-found
+;;     (constantly {:status 404
+;;                  :body "404 - Page not found"})
+;;     :method-not-allowed
+;;     (constantly {:status 405
+;;                  :body "405 - Not allowed"})
+;;     :not-acceptable
+;;     (constantly {:status 406
+;;                  :body "406 - Not acceptable"})}))
+
 (defn app-routes
   [execute-query]
   (ring/ring-handler
