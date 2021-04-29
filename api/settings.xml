@@ -1,0 +1,27 @@
+<!--
+  This file's sole purpose is to be picked up by the Heroku Clojure build pack.
+  It will NOT be picked up by any other build tool.
+
+  Note: The following values are environment variables setup on Heroku.
+-->
+<settings>
+  <servers>
+
+    <server>
+      <!-- Cognitect Datomic repo for datomic-pro -->
+      <id>my.datomic.com</id>
+      <username>${env.MY_DATOMIC_REPO_USERNAME}</username>
+      <password>${env.MY_DATOMIC_REPO_PASSWORD}</password>
+    </server>
+
+
+    <server>
+      <!-- Cognitect dev-tools creds for dev-local and REBL -->
+      <id>cognitect-dev-tools</id>
+      <username>${env.COGNITECT_DEVTOOLS_REPO_USERNAME}</username>
+      <password>${env.COGNITECT_DEVTOOLS_REPO_PASSWORD}</password>
+    </server>
+
+  </servers>
+
+</settings>

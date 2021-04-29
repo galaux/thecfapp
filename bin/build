@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# This file's sole purpose is to be picked up by the Heroku Clojure build pack
+# in order to be run instead of the upstream Leiningen build script.
+# It still can be run locally to build the project.
+
+set -x
+
+pushd api
+# This requires setting the Clojure CLI version for the Heroku Clojure build
+# pack Clojure version by declaring a CLOJURE_CLI_VERSION environment variable.
+clojure -X:uberjar
+popd
