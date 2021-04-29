@@ -5,7 +5,7 @@
   "cognitect-dev-tools" {:url "https://dev-tools.cognitect.com/maven/releases/"}}
 
  :paths
- ["src" "resources"]
+ ["src/clj" "resources"]
 
  :deps
  {aero/aero {:mvn/version "1.1.6"}
@@ -40,7 +40,7 @@
    :extra-deps {ring/ring-devel {:mvn/version "1.9.2"}}}
 
   :test
-  {:extra-paths ["test" "dev-resources"]
+  {:extra-paths ["test/clj" "dev-resources"]
    :extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}
                 ring/ring-mock {:mvn/version "0.4.0"}}}
 
