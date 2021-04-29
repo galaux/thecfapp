@@ -12,7 +12,8 @@
    [thecfapp.domain.score :as score]
    [thecfapp.domain.user :as user]
    [thecfapp.domain.wod :as wod]
-   [thecfapp.domain.workout :as workout])
+   [thecfapp.domain.workout :as workout]
+   [clojure.tools.logging :as log])
   (:import
    java.text.SimpleDateFormat
    java.util.UUID))

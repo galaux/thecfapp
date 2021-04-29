@@ -1,15 +1,22 @@
 <configuration scan="true" scanPeriod="1 seconds">
 
+  <!-- Note that there is no "dev" logback.xml. This one will be picked up
+       anyway if the REPL is started with the test profile. -->
+
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
       <pattern>%-5level %logger - %msg%n</pattern>
     </encoder>
   </appender>
 
-  <root level="warn">
+  <property name="level" value="info"/>
+
+  <root level="${level}">
     <appender-ref ref="STDOUT"/>
   </root>
 
-  <logger name="thecfapp.db" level="DEBUG"/>
+  <logger name="thecfapp.db" level="${level}"/>
+
+  <logger name="org.eclipse.jetty" level="${level}"/>
 
 </configuration>

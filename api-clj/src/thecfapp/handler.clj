@@ -9,7 +9,8 @@
    [reitit.ring.middleware.multipart :as multipart]
    [reitit.ring.middleware.muuntaja :as muuntaja]
    [reitit.ring.middleware.parameters :as parameters]
-   [ring.util.http-response :refer [ok]]))
+   [ring.util.http-response :refer [ok]]
+   [clojure.tools.logging :as log]))
 
 ;; TODO see old lein/luninus project on how to setup a default handler
 ;; (def default-handler
