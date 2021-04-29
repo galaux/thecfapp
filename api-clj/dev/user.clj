@@ -30,23 +30,6 @@
 ;; https://github.com/clojure-emacs/cider/issues/2686#issuecomment-532389499
 (set-refresh-dirs "dev" "src" "test")
 
-;; (defn simplify
-;;   "Converts all ordered maps nested within the map into standard hash maps, and
-;;    sequences into vectors, which makes for easier constants in the tests, and
-;;    eliminates ordering problems."
-;;   [m]
-;;   (walk/postwalk (fn [node]
-;;                    (cond (instance? IPersistentMap node) (into {} node)
-;;                      (seq? node) (vec node)
-;;                      :else node))
-;;                  m))
-
-;; (defn q
-;;   [query-string]
-;;   (-> (:thecfapp/schema state/system)
-;;       (lacinia/execute query-string nil nil)
-;;       simplify))
-
 (defn bootstrap-db
   []
   (let [conn (-> integrant.repl.state/system :thecfapp.db/conn)]
