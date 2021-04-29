@@ -1,12 +1,12 @@
-(ns thecfapp.domain.score
+(ns cfapp.api.domain.score
   (:require [clojure.spec.alpha :as s]
             [clojure.spec.gen.alpha :as gen]
             [cognitect.anomalies :as anomalies]
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
             [datomic.client.api :as d]
-            [thecfapp.domain.user :as user]
-            [thecfapp.domain.wod :as wod]
-            [thecfapp.util :as util :refer [anomaly anomaly->error anomaly?]])
+            [cfapp.api.domain.user :as user]
+            [cfapp.api.domain.wod :as wod]
+            [cfapp.api.util :as util :refer [anomaly anomaly->error anomaly?]])
   (:import java.util.UUID))
 
 (def one-hour-in-ms

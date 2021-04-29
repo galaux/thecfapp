@@ -1,4 +1,4 @@
-(ns thecfapp.graphql
+(ns cfapp.api.graphql
   (:require
    [clojure.edn :as edn]
    [clojure.java.io :as io]
@@ -8,11 +8,11 @@
     :refer
     [attach-resolvers attach-scalar-transformers]]
    [integrant.core :as ig]
-   [thecfapp.domain.community :as community]
-   [thecfapp.domain.score :as score]
-   [thecfapp.domain.user :as user]
-   [thecfapp.domain.wod :as wod]
-   [thecfapp.domain.workout :as workout]
+   [cfapp.api.domain.community :as community]
+   [cfapp.api.domain.score :as score]
+   [cfapp.api.domain.user :as user]
+   [cfapp.api.domain.wod :as wod]
+   [cfapp.api.domain.workout :as workout]
    [clojure.tools.logging :as log])
   (:import
    java.text.SimpleDateFormat
@@ -82,7 +82,7 @@
    :parse-uuid string->uuid
    :serialize-uuid #(.toString %)})
 
-(defmethod ig/init-key :thecfapp.graphql/compiled-schema
+(defmethod ig/init-key :cfapp.api.graphql/compiled-schema
   [_ _]
   (-> "graphql/schema.edn"
       io/resource
@@ -93,7 +93,7 @@
       (attach-scalar-transformers transformer-map)
       schema/compile))
 
-(defmethod ig/init-key :thecfapp.graphql/execute-query
+(defmethod ig/init-key :cfapp.api.graphql/execute-query
   [_ {:keys [conn schema]}]
   (fn [gql-query]
     (let [{:keys [query variables operationName]} gql-query

@@ -1,4 +1,4 @@
-(ns thecfapp.handler
+(ns cfapp.api.handler
   (:require
    [clojure.data.json :as json]
    [integrant.core :as ig]
@@ -68,7 +68,7 @@
               ;;              rrc/coerce-response-middleware]}})))
               ;;              ;; muuntaja/format-response-middleware]}})))
 
-(defmethod ig/init-key :thecfapp/handler
+(defmethod ig/init-key :cfapp.api/handler
   [_ {:keys [execute-query] :as all}]
   ;; FIXME use site-defaults
 ;; (see ~/TheCFApp/sources/cfapp-back/src/clj/galaux/cfapp_back/middleware.clj:54)

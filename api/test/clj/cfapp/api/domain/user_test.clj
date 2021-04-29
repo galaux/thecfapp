@@ -1,12 +1,12 @@
-(ns thecfapp.domain.user-test
+(ns cfapp.api.domain.user-test
   (:require
    [clojure.data.json :as json]
    [clojure.spec.gen.alpha :as gen]
    [clojure.test :refer [deftest is]]
    [integrant.core :as ig]
-   [thecfapp.domain.community :as community]
-   [thecfapp.domain.user :as user]
-   [thecfapp.test-util :as tutil])
+   [cfapp.api.domain.community :as community]
+   [cfapp.api.domain.user :as user]
+   [cfapp.api.test-util :as tutil])
   (:import java.util.UUID))
 
 (def user-a (gen/generate user/user-gen))
@@ -19,7 +19,7 @@
 
 
 (deftest add-users-not-used-by-mobile
-  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         graphql-q
         "mutation AddUser($name: String!, $email: String!) {
            createUser(
@@ -52,7 +52,7 @@
     (ig/halt! system)))
 
 (deftest list-users-not-used-by-mobile
-  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)]
+  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)]
      (tutil/domain-add conn [user-a])
      (let [graphql-q
            "query ListUsers {
@@ -72,7 +72,7 @@
     (ig/halt! system)))
 
 (deftest get-user
-  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         gql-query (tutil/test-query :GetUser
                                     [:User]
                                     {:userId (.toString (:user/id user-a))})]
@@ -89,9 +89,9 @@
     (ig/halt! system)))
 
 ;; (deftest test-macro
-;;   (tutil/with-system [{:keys [:thecfapp.db/client
-;;                               :thecfapp.db/conn
-;;                               :thecfapp/handler] :as system} (tutil/setup)]
+;;   (tutil/with-system [{:keys [:cfapp.api.db/client
+;;                               :cfapp.api.db/conn
+;;                               :cfapp.api/handler] :as system} (tutil/setup)]
 ;;     (println "|| " system)
 ;;     (is (= 1
 ;;           1))))

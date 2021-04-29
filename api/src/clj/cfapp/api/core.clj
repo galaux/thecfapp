@@ -1,4 +1,4 @@
-(ns thecfapp.core
+(ns cfapp.api.core
   (:require
    [aero.core :as aero]
    [clojure.java.io :as io]

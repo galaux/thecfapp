@@ -1,10 +1,10 @@
-(ns thecfapp.domain.workout
+(ns cfapp.api.domain.workout
   (:require
     [clojure.spec.alpha :as s]
     [clojure.spec.gen.alpha :as gen]
     [datomic.client.api :as d]
-    [thecfapp.spec-util :as sutil]
-    [thecfapp.util :refer [camel-case-keys]]))
+    [cfapp.api.spec-util :as sutil]
+    [cfapp.api.util :refer [camel-case-keys]]))
 
 (s/def :workout/id :util/uuid)
 (s/def :workout/name :util/non-blank-string)

@@ -1,4 +1,4 @@
-(ns thecfapp.db.core
+(ns cfapp.api.db.core
   (:require
    [integrant.core :as ig]
    [clojure.edn :as edn]

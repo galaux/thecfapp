@@ -1,7 +1,7 @@
-(ns thecfapp.test-util-test
+(ns cfapp.api.test-util-test
   (:require
     [clojure.test :refer [deftest is]]
-    [thecfapp.test-util :as sut]))
+    [cfapp.api.test-util :as sut]))
 
 
 (deftest test-osef

@@ -1,10 +1,10 @@
-(ns thecfapp.spec-util
+(ns cfapp.api.spec-util
   (:require
    [clojure.spec.alpha :as s]
    [clojure.spec.gen.alpha :as gen]
    [clojure.string :as str]
    [java-time :as java-time]
-   [thecfapp.util :as util]))
+   [cfapp.api.util :as util]))
 
 (s/def :util/uuid
   (s/with-gen uuid? gen/uuid))

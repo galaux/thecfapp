@@ -1,11 +1,11 @@
-(ns thecfapp.domain.user
+(ns cfapp.api.domain.user
   (:require
    [clojure.spec.alpha :as s]
    [cognitect.anomalies :as anomalies]
    [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
    [datomic.client.api :as d]
-   [thecfapp.spec-util :as sutil]
-   [thecfapp.util :refer [anomaly anomaly->error]])
+   [cfapp.api.spec-util :as sutil]
+   [cfapp.api.util :refer [anomaly anomaly->error]])
   (:import
    (java.util UUID)))
 

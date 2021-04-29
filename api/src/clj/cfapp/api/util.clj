@@ -1,4 +1,4 @@
-(ns thecfapp.util
+(ns cfapp.api.util
   (:require
     [camel-snake-kebab.core :as csk]
     [clojure.spec.alpha :as s]

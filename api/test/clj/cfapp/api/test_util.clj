@@ -1,12 +1,12 @@
-(ns thecfapp.test-util
+(ns cfapp.api.test-util
   (:require
    [clojure.data.json :as json]
    [clojure.string :as s]
    [datomic.client.api :as d]
    [integrant.core :as ig]
    [ring.mock.request :refer [body request]]
-   [thecfapp.core :as core]
-   [thecfapp.db.core :as db])
+   [cfapp.api.core :as core]
+   [cfapp.api.db.core :as db])
   (:import java.util.UUID))
 
 (def ^:private fragments-dir "../packages/mobile/src/graphql/fragment")
@@ -76,16 +76,16 @@
 (defn setup
   []
   (let [test-config (-> (core/app-config :test)
-                        (update-in [:thecfapp.db/conn :db-name]
+                        (update-in [:cfapp.api.db/conn :db-name]
                                    #(str % "-test-" (UUID/randomUUID))))
         _ (ig/load-namespaces test-config)
         keys-to-init (-> test-config
                          keys
                          set
-                         (disj :thecfapp/http-server))
+                         (disj :cfapp.api/http-server))
         test-sys (ig/init test-config keys-to-init)
-        conn (-> test-sys :thecfapp.db/conn)
-        app (-> test-sys :thecfapp/handler)]
+        conn (-> test-sys :cfapp.api.db/conn)
+        app (-> test-sys :cfapp.api/handler)]
     (db/install-schema conn)
     test-sys))
 
@@ -95,7 +95,7 @@
 ;;     `(do
 ;;        (println "<<<<< before" ~system)
 ;;        (let* ~(destructure bindings) ~@body)
-;;        (println ">>> after" (-> ) " // " (-> ~system :thecfapp.db/client))
+;;        (println ">>> after" (-> ) " // " (-> ~system :cfapp.api.db/client))
 ;;        ;; (d/delete-database client {:db-name db-name})
 ;;        (ig/halt! ~system))))
 

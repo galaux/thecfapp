@@ -1,13 +1,13 @@
-(ns thecfapp.domain.wod
+(ns cfapp.api.domain.wod
   (:require [clojure.spec.alpha :as s]
             [cognitect.anomalies :as anomalies]
             [datomic.client.api :as d]
-            [thecfapp.domain.community :as community]
-            [thecfapp.domain.workout :as workout]
-            [thecfapp.spec-util :as sutil]
-            [thecfapp.util :refer [anomaly anomaly->error anomaly? camel-case-keys]]
+            [cfapp.api.domain.community :as community]
+            [cfapp.api.domain.workout :as workout]
+            [cfapp.api.spec-util :as sutil]
+            [cfapp.api.util :refer [anomaly anomaly->error anomaly? camel-case-keys]]
             [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
-            [thecfapp.util :refer [anomaly->error]])
+            [cfapp.api.util :refer [anomaly->error]])
   (:import java.util.UUID))
 
 (s/def :wod/id :util/uuid)

@@ -1,4 +1,4 @@
-(ns thecfapp.domain.community-test
+(ns cfapp.api.domain.community-test
   (:require
    [camel-snake-kebab.core :as csk]
    [clojure.data.json :as json]
@@ -6,14 +6,14 @@
    [clojure.test :refer [deftest is]]
    [datomic.client.api :as d]
    [integrant.core :as ig]
-   [thecfapp.db.core :as db]
-   [thecfapp.domain.community :as community]
-   [thecfapp.domain.score :as score]
-   [thecfapp.domain.user :as user]
-   [thecfapp.domain.wod :as wod]
-   [thecfapp.domain.workout :as workout]
-   [thecfapp.graphql :as gql]
-   [thecfapp.test-util :as tutil])
+   [cfapp.api.db.core :as db]
+   [cfapp.api.domain.community :as community]
+   [cfapp.api.domain.score :as score]
+   [cfapp.api.domain.user :as user]
+   [cfapp.api.domain.wod :as wod]
+   [cfapp.api.domain.workout :as workout]
+   [cfapp.api.graphql :as gql]
+   [cfapp.api.test-util :as tutil])
   (:import
    java.util.UUID))
 
@@ -24,7 +24,7 @@
 (def community-c (-> (gen/generate community/community-gen) (assoc :db/id "community-c")))
 
 (deftest find-communities
-  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         gql-query (tutil/test-query :FindCommunities
                                     [:Community :CommunityAddress]
                                     {:name "HAHA"})
@@ -58,7 +58,7 @@
     (ig/halt! system)))
 
 (deftest get-community
-  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         communities (gen/sample community/community-gen)
         searched-community (-> communities first (assoc :db/id "searched-community"))
         workout-a (-> (gen/generate workout/workout-gen) (assoc :db/id "workout-a"))
@@ -115,7 +115,7 @@
     (ig/halt! system)))
 
 (deftest user-communities
-  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         user-communities (gen/sample community/community-gen 3)
         other-communities (gen/sample community/community-gen 3)
         tx-data (conj other-communities
@@ -144,7 +144,7 @@
     (ig/halt! system)))
 
 (deftest join-community
-  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         variables {:userId (.toString (:user/id user-a))
                    :communityId (.toString (:community/id community-a))}
         gql-query (tutil/test-query :JoinCommunity [:Community] variables)]
@@ -172,7 +172,7 @@
     (ig/halt! system)))
 
 (deftest leave-community
-  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         variables {:userId (.toString (:user/id user-a))
                    :communityId (.toString (:community/id community-a))}
         gql-query (tutil/test-query :LeaveCommunity [] variables)
@@ -198,7 +198,7 @@
     (ig/halt! system)))
 
 (deftest create-community
-  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         fragments [:Community :CommunityAddress]
         [input-community expected-community]
         (let [{:community/keys [name] :as community} (gen/generate community/community-gen)

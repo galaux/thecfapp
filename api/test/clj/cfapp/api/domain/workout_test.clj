@@ -1,16 +1,16 @@
-(ns thecfapp.domain.workout-test
+(ns cfapp.api.domain.workout-test
   (:require
    [camel-snake-kebab.core :as csk]
    [clojure.data.json :as json]
    [clojure.spec.gen.alpha :as gen]
    [clojure.test :refer [deftest is]]
    [integrant.core :as ig]
-   [thecfapp.db.core :as db]
-   [thecfapp.domain.score :as score]
-   [thecfapp.domain.user :as user]
-   [thecfapp.domain.wod :as wod]
-   [thecfapp.domain.workout :as workout]
-   [thecfapp.test-util :as tutil]))
+   [cfapp.api.db.core :as db]
+   [cfapp.api.domain.score :as score]
+   [cfapp.api.domain.user :as user]
+   [cfapp.api.domain.wod :as wod]
+   [cfapp.api.domain.workout :as workout]
+   [cfapp.api.test-util :as tutil]))
 
 (defn make-scores
   [owner]
@@ -23,7 +23,7 @@
        (gen/sample workout/workout-gen 3)))
 
 (deftest user-workout-not-used-by-mobile
-  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         user-a (-> (gen/generate user/user-gen)
                    (assoc :db/id "user-a"))
         user-b (-> (gen/generate user/user-gen)
@@ -56,7 +56,7 @@
 
 
 (deftest list-workouts
-  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         workouts (gen/sample workout/workout-gen 3)
         fragments [:Workout]
         gql-query (tutil/test-query :ListWorkouts fragments)]

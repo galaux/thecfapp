@@ -1,10 +1,10 @@
-(ns thecfapp.db.bootstrap
+(ns cfapp.api.db.bootstrap
   (:require [clojure.spec.alpha :as s]
-            [thecfapp.domain.community :as community]
-            [thecfapp.domain.score :as score]
-            [thecfapp.domain.user :as user]
-            [thecfapp.domain.wod :as wod]
-            [thecfapp.domain.workout :as workout]
+            [cfapp.api.domain.community :as community]
+            [cfapp.api.domain.score :as score]
+            [cfapp.api.domain.user :as user]
+            [cfapp.api.domain.wod :as wod]
+            [cfapp.api.domain.workout :as workout]
             [clojure.spec.gen.alpha :as gen])
   (:import java.util.UUID))
 

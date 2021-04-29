@@ -1,18 +1,18 @@
-(ns thecfapp.domain.wod-test
+(ns cfapp.api.domain.wod-test
   (:require
    [camel-snake-kebab.core :as csk]
    [clojure.data.json :as json]
    [clojure.spec.gen.alpha :as gen]
    [clojure.test :refer [deftest is]]
    [integrant.core :as ig]
-   [thecfapp.db.core :as db]
-   [thecfapp.domain.community :as community]
-   [thecfapp.domain.score :as score]
-   [thecfapp.domain.user :as user]
-   [thecfapp.domain.wod :as wod]
-   [thecfapp.domain.workout :as workout]
-   [thecfapp.graphql :as gql]
-   [thecfapp.test-util :as tutil])
+   [cfapp.api.db.core :as db]
+   [cfapp.api.domain.community :as community]
+   [cfapp.api.domain.score :as score]
+   [cfapp.api.domain.user :as user]
+   [cfapp.api.domain.wod :as wod]
+   [cfapp.api.domain.workout :as workout]
+   [cfapp.api.graphql :as gql]
+   [cfapp.api.test-util :as tutil])
   (:import
    java.time.LocalDate
    java.util.UUID))
@@ -25,7 +25,7 @@
 (def score-b (-> (gen/generate score/score-gen) (assoc :db/id "score-b")))
 
 (deftest get-wod
-  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         tx-data [user-a
                  (assoc wod-a
                         :wod/workout workout-a
@@ -70,7 +70,7 @@
     (ig/halt! system)))
 
 (deftest user-wods
-  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         user-a (assoc user-a :db/id "user-a")
         user-scores (map (fn [score wod]
                            (assoc score
@@ -114,7 +114,7 @@
     (ig/halt! system)))
 
 (deftest create-wod
-  (let [{:keys [:thecfapp.db/conn :thecfapp/handler] :as system} (tutil/setup)
+  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         variables {:communityId (.toString (:community/id community-a))
                    :workoutId (.toString (:workout/id workout-a))
                    :date (.toString (LocalDate/of 2000 12 30))} ;; TODO

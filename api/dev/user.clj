@@ -10,16 +10,16 @@
     [integrant.core :as ig]
     [integrant.repl :refer [clear go halt init prep reset reset-all]]
     [integrant.repl.state :as state]
-    [thecfapp.db.bootstrap :as bootstrap]
-    [thecfapp.db.core :as db]
-    [thecfapp.domain.community :as community]
-    [thecfapp.domain.score :as score]
-    [thecfapp.domain.user :as user]
-    [thecfapp.domain.wod :as wod]
-    [thecfapp.domain.workout :as workout]
-    [thecfapp.test-util :as tutil]
+    [cfapp.api.db.bootstrap :as bootstrap]
+    [cfapp.api.db.core :as db]
+    [cfapp.api.domain.community :as community]
+    [cfapp.api.domain.score :as score]
+    [cfapp.api.domain.user :as user]
+    [cfapp.api.domain.wod :as wod]
+    [cfapp.api.domain.workout :as workout]
+    [cfapp.api.test-util :as tutil]
     [clojure.java.io :as io]
-    [thecfapp.core :as core])
+    [cfapp.api.core :as core])
   (:import
     clojure.lang.IPersistentMap
     java.util.UUID))
@@ -32,14 +32,14 @@
 
 (defn bootstrap-db
   []
-  (let [conn (-> integrant.repl.state/system :thecfapp.db/conn)]
+  (let [conn (-> integrant.repl.state/system :cfapp.api.db/conn)]
     (db/install-schema conn)
     (tutil/domain-add conn (bootstrap/bootstrap-tx)))
   nil);; Don't waste the REPL with output
 
 (defn find-with-attr
   [attr]
-  (let [db (-> integrant.repl.state/system :thecfapp.db/conn d/db)]
+  (let [db (-> integrant.repl.state/system :cfapp.api.db/conn d/db)]
     (d/q '[:find (pull ?e [*])
            :in $ ?attr
            :where [?e ?attr]]
@@ -48,7 +48,7 @@
 
 (defn find-with-attr-and-value
   [attr value]
-  (let [db (-> integrant.repl.state/system :thecfapp.db/conn d/db)]
+  (let [db (-> integrant.repl.state/system :cfapp.api.db/conn d/db)]
     (d/q '[:find (pull ?e [*])
            :in $ ?attr ?value
            :where [?e ?attr ?value]]
