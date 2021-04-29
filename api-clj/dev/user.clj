@@ -24,6 +24,8 @@
     clojure.lang.IPersistentMap
     java.util.UUID))
 
+(add-tap (bound-fn* clojure.pprint/pprint))
+
 ;; Work around to enable `cider-ns-refresh` to properly reload code in tests.
 ;; https://github.com/clojure-emacs/cider/issues/2686#issuecomment-532389499
 (set-refresh-dirs "dev" "src" "test")
