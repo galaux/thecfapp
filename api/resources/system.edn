@@ -12,9 +12,9 @@
   :system #profile {:dev "cfapp-dev"
                     :test "cfapp-test"
                     :prod "cfapp-prod"}
-  :storage-dir #profile {:dev "/enc/home/miguel/TheCFApp/sources/thecfapp/api-clj/datomic"
+  :storage-dir #profile {:dev "/enc/home/miguel/TheCFApp/sources/thecfapp/api/datomic"
                          :test :mem
-                         :prod "/enc/home/miguel/TheCFApp/sources/thecfapp/api-clj/datomic"}}
+                         :prod "/enc/home/miguel/TheCFApp/sources/thecfapp/api/datomic"}}
 
  :thecfapp.db/conn
  {:client #ig/ref :thecfapp.db/client
