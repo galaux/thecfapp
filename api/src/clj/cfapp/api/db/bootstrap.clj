@@ -8,6 +8,8 @@
             [clojure.spec.gen.alpha :as gen])
   (:import java.util.UUID))
 
+(def hard-coded-user-id #uuid "df56c5a2-3f0c-459a-b158-d1a999714247")
+
 (defn- many-to-many-links
   [attr link-count entities-a entities-b]
   (->> (repeatedly (fn []
@@ -42,8 +44,10 @@
                         with-tmp-db-ids)
         scores (-> (gen/sample score/score-gen 300)
                    with-tmp-db-ids)
-        users (-> (better-sample user/user-gen 50)
-                  with-tmp-db-ids)
+        users* (-> (better-sample user/user-gen 50)
+                   with-tmp-db-ids)
+        users (-> (into [] users*)
+                  (update 0 #(assoc % :user/id hard-coded-user-id)))
         wods (-> (better-sample wod/wod-gen 100)
                  with-tmp-db-ids)
         workouts (-> (better-sample workout/workout-gen 100)
