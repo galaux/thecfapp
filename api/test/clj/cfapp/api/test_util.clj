@@ -1,13 +1,13 @@
 (ns cfapp.api.test-util
   (:require
-   [clojure.data.json :as json]
-   [clojure.string :as s]
-   [datomic.client.api :as d]
-   [integrant.core :as ig]
-   [ring.mock.request :refer [body request]]
-   [cfapp.api.core :as core]
-   [cfapp.api.db.core :as db])
-  (:import java.util.UUID))
+    [cfapp.api.core :as core]
+    [clojure.data.json :as json]
+    [clojure.string :as s]
+    [datomic.client.api :as d]
+    [integrant.core :as ig]
+    [ring.mock.request :refer [body request]])
+  (:import
+    java.util.UUID))
 
 (def ^:private fragments-dir "../packages/mobile/src/graphql/fragment")
 (def ^:private queries-dir "../packages/mobile/src/pages")
@@ -82,12 +82,8 @@
         keys-to-init (-> test-config
                          keys
                          set
-                         (disj :cfapp.api/http-server))
-        test-sys (ig/init test-config keys-to-init)
-        conn (-> test-sys :cfapp.api.db/conn)
-        app (-> test-sys :cfapp.api/handler)]
-    (db/install-schema conn)
-    test-sys))
+                         (disj :cfapp.api/http-server))]
+    (ig/init test-config keys-to-init)))
 
 ;; (defmacro with-system
 ;;   [bindings & body]

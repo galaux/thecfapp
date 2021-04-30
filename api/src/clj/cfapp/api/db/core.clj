@@ -31,13 +31,19 @@
   (let [tx-data (remove-db-schema-attrs (get-schema))]
     (d/transact conn {:tx-data tx-data})))
 
+(defn schema-missing?
+  [db]
+  (-> (d/q '[:find ?e :where [?e :db/ident :user/id]] db)
+      first
+      empty?))
+
 (defn show-schema
   "Show currently installed schema"
-  [conn]
+  [db]
   (let [system-ns #{"db" "db.type" "db.install" "db.part"
                     "db.lang" "fressian" "db.unique" "db.excise"
                     "db.cardinality" "db.fn" "db.sys" "db.bootstrap"
-                    "db.alter"}]
+                    "db.alter" "db.attr" "db.entity"}]
     (d/q '[:find ?ident
            :in $ ?system-ns
            :where
@@ -45,8 +51,13 @@
 
            [(namespace ?ident) ?ns]
            [((comp not contains?) ?system-ns ?ns)]]
-         (d/db conn)
+         db
          system-ns)))
+
+(defn db-empty?
+  [db]
+  (-> (d/q '[:find ?user :where [?user :user/id]] db)
+      empty?))
 
 ;; (defn show-transaction
 ;;   "Show all the transaction data

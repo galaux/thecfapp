@@ -18,7 +18,10 @@
                          :prod #join [#env HOME "/datomic"]}}
 
  :cfapp.api.db/conn
- {:client #ig/ref :cfapp.api.db/client
+ {:bootstrap-if-empty? #profile {:dev true
+                                 :test false
+                                 :prod true}
+  :client #ig/ref :cfapp.api.db/client
   :db-name "domain"}
 
  :cfapp.api.graphql/compiled-schema
