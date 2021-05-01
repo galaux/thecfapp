@@ -6,8 +6,12 @@
 
 set -x
 
+pushd packages/mobile
+yarn build
+popd
+
 pushd api
 # This requires setting the Clojure CLI version for the Heroku Clojure build
-# pack Clojure version by declaring a CLOJURE_CLI_VERSION environment variable.
+# pack by declaring a CLOJURE_CLI_VERSION environment variable.
 clojure -X:uberjar
 popd
