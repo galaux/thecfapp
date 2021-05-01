@@ -94,6 +94,8 @@ Visit:
 ## Good to know
 
 - If you need to install a dependency on a workspace, don't `cd` then `yarn
-  install ${dep}` but run `yarn add workspace ${workspace} ${dep}`, this
+  install ${dep}` but run `yarn workspace ${workspace} add ${dep} -W`, this
   ensures said library is installed at the root rather than just the package.
   You might then need to `yarn install` at the root of the project.
+  Example adding a dev dependency:
+  `yarn workspace @thecfapp/mobile add @graphql-codegen/cli -W -D`

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "react-scripts build",
+    "codegen": "yarn graphql-codegen",
     "eject": "react-scripts eject",
     "lint": "eslint src --ext .ts,.tsx",
     "start": "BROWSER=none PORT=3000 react-scripts start",

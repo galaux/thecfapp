@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "yarn workspaces run build",
-    "codegen": "yarn workspace @thecfapp/api run codegen",
+    "codegen": "yarn workspace @thecfapp/mobile run codegen",
     "db:schema:drop": "dotenv yarn workspace @thecfapp/api run db:schema:drop",
     "db:schema:log": "dotenv yarn workspace @thecfapp/api run db:schema:log",
     "db:schema:sync": "dotenv yarn workspace @thecfapp/api run db:schema:sync",

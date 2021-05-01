@@ -9,7 +9,7 @@ import {
 import {
   UserFieldsFragment,
   UserFieldsFragmentDoc,
-} from './fragment/fields.generated'
+} from './fragment/user.generated'
 import { loggedUserId } from './state/app'
 
 /* https://www.apollographql.com/docs/react/caching/cache-field-behavior/#fieldpolicy-api-reference */

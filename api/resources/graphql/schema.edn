@@ -49,14 +49,14 @@
             :address {:type :Address}
             :memberCount {:type (non-null Int)
                           :resolve :Community/member-count}
-            :wods {:type (list :Wod)
+            :wods {:type (non-null (list (non-null :Wod)))
                    :resolve :Community/wods}}}
 
   :User
   {:fields {:id {:type (non-null :ID)}
             :name {:type (non-null String)}
             :email {:type String}
-            :communities {:type (non-null (list :Community))
+            :communities {:type (non-null (list (non-null :Community)))
                           :resolve :User/communities}}}
 
   :Wod
@@ -66,14 +66,14 @@
                         :resolve :Wod/community}
             :workout {:type (non-null :Workout)
                       :resolve :Wod/workout}
-            :scores {:type (list :Score)
+            :scores {:type (non-null (list (non-null :Score)))
                      :resolve :Wod/scores}}}
 
   :Workout
   {:fields {:id {:type (non-null :ID)}
             :name {:type (non-null String)}
-            :description {:type String}
-            :scoringType {:type :ScoringType}}}
+            :description {:type (non-null String)}
+            :scoringType {:type (non-null :ScoringType)}}}
 
   :Score
   {:fields {:id {:type (non-null :ID)}
@@ -85,26 +85,26 @@
 
  :queries
  {:communities {:description "Not used by mobile"
-                :type (non-null (list :Community))
+                :type (non-null (list (non-null :Community)))
                 :resolve :Query/list-communities}
-  :community {:type :Community
-              :args {:id {:type (non-null :ID)}}
+  :community {:args {:id {:type (non-null :ID)}}
+              :type (non-null :Community)
               :resolve :Query/get-community}
   :findCommunities {:args {:name {:type (non-null :String)}}
-                    :type (non-null (list :Community))
+                    :type (non-null (list (non-null :Community)))
                     :resolve :Query/find-communities}
 
   :users {:description "Not used by mobile"
           :type (non-null (list :User))
           :resolve :Query/list-users}
-  :user {:type :User
-         :args {:id {:type (non-null :ID)}}
+  :user {:args {:id {:type (non-null :ID)}}
+         :type (non-null :User)
          :resolve :Query/get-user}
   :userCommunities {:args {:userId {:type (non-null :ID)}}
-                    :type (list :Community)
+                    :type (non-null (list (non-null :Community)))
                     :resolve :Query/user-communities}
-  :userWods {:type (list :Wod) ;; FIXME non-null on list and/or :Wod?
-             :args {:userId {:type (non-null :ID)}}
+  :userWods {:args {:userId {:type (non-null :ID)}}
+             :type (non-null (list (non-null :Wod)))
              :resolve :Query/user-wods}
   :userWorkouts {:description "Not used by mobile"
                  :args {:id {:type (non-null :ID)}}
@@ -112,28 +112,28 @@
                  :resolve :Query/user-workouts}
 
   :wod {:args {:id {:type (non-null :ID)}}
-        :type :Wod
+        :type (non-null :Wod)
         :resolve :Query/get-wod}
-  :workouts {:type (non-null (list :Workout))
+  :workouts {:type (non-null (list (non-null :Workout)))
              :resolve :Query/list-workouts}}
 
  :mutations
  {:createCommunity {:args {:creatorId {:type (non-null :ID)}
                            :input {:type (non-null :NewCommunityInput)}}
-                    :type :Community
+                    :type (non-null :Community)
                     :resolve :Mutation/new-community}
   :createScore {:args {:input {:type (non-null :NewScoreInput)}}
-                :type :Score
+                :type (non-null :Score)
                 :resolve :Mutation/new-score}
   :createUser {:description "Not used by mobile"
                :args {:input {:type (non-null :CreateUserInput)}}
-               :type :User
+               :type (non-null :User)
                :resolve :Mutation/new-user}
   :createWod {:args {:input {:type (non-null :NewWodInput)}}
-              :type :Wod
+              :type (non-null :Wod)
               :resolve :Mutation/new-wod}
   :addUserToCommunity {:args {:input {:type (non-null :AddUserToCommunityInput)}}
-                       :type :Community
+                       :type (non-null :Community)
                        :resolve :Mutation/join-community}
   :removeUserFromCommunity {:args {:input {:type (non-null :RemoveUserFromCommunityInput)}}
                             :type (non-null :ID)

@@ -1,21 +1,21 @@
 (ns cfapp.api.domain.community-test
   (:require
-   [camel-snake-kebab.core :as csk]
-   [clojure.data.json :as json]
-   [clojure.spec.gen.alpha :as gen]
-   [clojure.test :refer [deftest is]]
-   [datomic.client.api :as d]
-   [integrant.core :as ig]
-   [cfapp.api.db.core :as db]
-   [cfapp.api.domain.community :as community]
-   [cfapp.api.domain.score :as score]
-   [cfapp.api.domain.user :as user]
-   [cfapp.api.domain.wod :as wod]
-   [cfapp.api.domain.workout :as workout]
-   [cfapp.api.graphql :as gql]
-   [cfapp.api.test-util :as tutil])
+    [camel-snake-kebab.core :as csk]
+    [clojure.data.json :as json]
+    [clojure.spec.gen.alpha :as gen]
+    [clojure.test :refer [deftest is]]
+    [datomic.client.api :as d]
+    [integrant.core :as ig]
+    [cfapp.api.db.core :as db]
+    [cfapp.api.domain.community :as community]
+    [cfapp.api.domain.score :as score]
+    [cfapp.api.domain.user :as user]
+    [cfapp.api.domain.wod :as wod]
+    [cfapp.api.domain.workout :as workout]
+    [cfapp.api.graphql :as gql]
+    [cfapp.api.test-util :as tutil])
   (:import
-   java.util.UUID))
+    java.util.UUID))
 
 (def user-a (-> (gen/generate user/user-gen) (assoc :db/id "user-a")))
 (def user-b (-> (gen/generate user/user-gen) (assoc :db/id "user-b")))
@@ -145,16 +145,22 @@
 
 (deftest join-community
   (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
+        fragments [:Community :CommunityAddress]
         variables {:userId (.toString (:user/id user-a))
                    :communityId (.toString (:community/id community-a))}
-        gql-query (tutil/test-query :JoinCommunity [:Community] variables)]
+        gql-query (tutil/test-query :JoinCommunity fragments variables)]
     (tutil/domain-add conn [user-a community-a])
     (let [response (handler gql-query)
           parsed-response (-> response
                               :body
                               (json/read-str :key-fn keyword))
           expected-community {:id (.toString (:community/id community-a))
-                              :name (:community/name community-a)}]
+                              :name (:community/name community-a)
+                              :address {:street (:community.address/street community-a)
+                                        :zipCode (:community.address/zip-code community-a)
+                                        :city (:community.address/city community-a)
+                                        :country (:community.address/country community-a)}
+                              :memberCount 1}]
       (is (empty? (:errors parsed-response)))
       (is (= 200 (:status response)))
       (is (= expected-community (-> parsed-response :data :addUserToCommunity)))
@@ -214,7 +220,7 @@
                                   :country country
                                   :street street
                                   :zipCode zip-code}}]
-           [input expected])
+          [input expected])
         variables {:creatorId (.toString (:user/id user-a))
                    :input input-community}
         gql-query (tutil/test-query :CreateCommunity fragments variables)]

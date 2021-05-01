@@ -1,13 +1,3 @@
-#fragment WodInput on Wod {
-#  ...WodFields
-#  scores {
-#    ...ScoreFields
-#  }
-#  workout {
-#    ...WorkoutFields
-#  }
-#}
-
 fragment NewScore on Score {
   ...ScoreFields
 }

@@ -1,5 +1,13 @@
+fragment CommunityForJoinCommunity on Community {
+  ...CommunityFields
+  address {
+    ...CommunityAddressFields
+  }
+  memberCount
+}
+
 mutation JoinCommunity($userId: ID!, $communityId: ID!) {
   addUserToCommunity(input: { userId: $userId, communityId: $communityId }) {
-    ...CommunityFields
+    ...CommunityForJoinCommunity
   }
 }

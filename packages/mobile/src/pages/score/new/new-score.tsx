@@ -2,11 +2,8 @@ import React from 'react'
 import { NewScorePanel } from '../../../components/NewScorePanel'
 import { navigate, RouteComponentProps, useLocation } from '@reach/router'
 import { loggedUserId } from '../../../graphql/state/app'
-import {
-  NewScoreFragment,
-  useCreateScoreMutation,
-  WodInputFragment as Wod,
-} from './new-score.generated'
+import { NewScoreFragment, useCreateScoreMutation } from './new-score.generated'
+import { WodInputFragment as Wod } from './wod-input.generated'
 import {
   UserWodsDocument,
   UserWodsQuery,
@@ -31,7 +28,7 @@ export const NewScorePage: React.FC<RouteComponentProps> = () => {
         variables: { userId: loggedUserId() },
       })
       const currUserWods = cacheData?.userWods
-      const wodForThisScore = currUserWods?.find((wod) => wod.id === state.id)
+      const wodForThisScore = currUserWods?.find((wod) => wod?.id === state.id)
       if (!wodForThisScore) return
       const newWodForThisScore = {
         ...wodForThisScore,
