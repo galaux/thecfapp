@@ -11,8 +11,6 @@ following file hierarchy:
 ├── packages/
 │   ├── api/
 │   │   └── package.json
-│   ├── front/
-│   │   └── package.json
 │   ├── mobile/
 │   │   └── package.json
 │   └── server/
@@ -27,12 +25,10 @@ The _root_ `package.json` declares four Yarn workspaces in `./packages`:
 
 - `api`: a [GraphQL](https://graphql.org/) API exposing domain objects living
   in a SQL database (see See [README.md](./packages/api/README.md))
-- `front`: a Next.js web application targeted at mobiles (see
-  [README.md](./packages/front/README.md))
 - `mobile`: a React mobile [Progressive Web
   Application](https://web.dev/progressive-web-apps/)
 - `server`: a [NodeJS Express](https://expressjs.com/) HTTP server to ship the
-  `api` and either `front` or `mobile`
+  `api` and `mobile`
 
 ## GraphQL domain classes and React Hooks
 
