@@ -1,3 +1,5 @@
+import { createGlobalStyle } from 'styled-components';
+
 export enum Colors {
   primary = 'primary',
   secondary = 'secondary',
@@ -119,3 +121,11 @@ export const heading = {
     },
   },
 };
+
+export const GlobalStyle = createGlobalStyle`
+  body {
+    font-family: 'Aaux Next', sans-serif;
+  }
+`;
+
+export default GlobalStyle;

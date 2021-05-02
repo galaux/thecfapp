@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
-import { HeadingLevel, HeadingProps } from './Heading.types';
+import { HeadingProps } from './Heading.types';
 import { StyledHeading } from './Heading.styled';
-import { responsiveFont, ResponsiveFonts } from '../../mixins/responsiveFont';
 
 const Heading:FC<HeadingProps> = (
   {
