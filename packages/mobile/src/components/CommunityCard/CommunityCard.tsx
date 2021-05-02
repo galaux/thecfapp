@@ -1,8 +1,9 @@
 import * as React from 'react'
-import { Box, Text, VStack, HStack, Heading, Button } from '@chakra-ui/react'
+import { Box, Text, VStack, HStack, Button } from '@chakra-ui/react'
 import { CommunityCardFragment as Community } from './community-card.generated'
 import { Link } from '@reach/router'
 import { UserCountStamp } from '../UserCountStamp'
+import Heading from '../../atoms/Heading';
 
 interface Props {
   community: Community
@@ -18,16 +19,7 @@ export const CommunityCard: React.FC<Props> = (props) => {
       <VStack spacing={2} align='flex-start'>
         <HStack>
           <Link to={`/community/${community.id}`}>
-            <Heading
-              as='h1'
-              fontSize='1.25rem'
-              fontWeight={400}
-              lineHeight={1.2}
-              textTransform='uppercase'
-              color='_gray'
-            >
-              {community.name}
-            </Heading>
+            <Heading level={3}>{community.name}</Heading>
           </Link>
           <UserCountStamp count={community.memberCount} />
         </HStack>

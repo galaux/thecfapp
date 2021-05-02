@@ -1,4 +1,4 @@
-import { EDGESIZE_MAP, SideTypes } from '../types';
+import { BORDER_RADIUS_MAP, EDGESIZE_MAP, SideRadiusTypes, SideTypes } from '../types';
 
 function getSides(prop: SideTypes, cssPropName: 'padding' | 'margin'): string {
   let css = '';
@@ -44,4 +44,45 @@ export function getPadding(padding?: SideTypes) {
 export function getMargin(margin?: SideTypes) {
   if (!margin) return '';
   return getSides(margin, 'margin');
+}
+
+export function getBorderRadius(radius?: SideRadiusTypes): string {
+  if (!radius) return '';
+  let css = '';
+
+  if (typeof radius === 'string') {
+    css += `
+    border-radius: ${radius === '0' ? '0' : BORDER_RADIUS_MAP[radius]};
+    `;
+  } else {
+    if (radius.top) {
+      css += `
+      border-top-left-radius: ${radius.top === '0' ? '0' : BORDER_RADIUS_MAP[radius.top]};
+      border-top-right-radius: ${radius.top === '0' ? '0' : BORDER_RADIUS_MAP[radius.top]};
+      `;
+    }
+
+    if (radius.bottom) {
+      css += `
+      border-bottom-left-radius: ${radius.bottom === '0' ? '0' : BORDER_RADIUS_MAP[radius.bottom]};
+      border-bottom-right-radius: ${radius.bottom === '0' ? '0' : BORDER_RADIUS_MAP[radius.bottom]};
+      `;
+    }
+
+    if (radius.left) {
+      css += `
+      border-top-left-radius: ${radius.left === '0' ? '0' : BORDER_RADIUS_MAP[radius.left]};
+      border-bottom-left-radius: ${radius.left === '0' ? '0' : BORDER_RADIUS_MAP[radius.left]};
+      `;
+    }
+
+    if (radius.right) {
+      css += `
+      border-top-right-radius: ${radius.right === '0' ? '0' : BORDER_RADIUS_MAP[radius.right]};
+      border-bottom-right-radius: ${radius.right === '0' ? '0' : BORDER_RADIUS_MAP[radius.right]};
+      `;
+    }
+  }
+
+  return css;
 }

@@ -55,49 +55,51 @@ export const WodCard: React.FC<Props> = (props) => {
   const loggedUserScore = wod.scores?.find((score) => score.belongsToLoggedUser)
 
   return (
-    <Box w='100%' h='100%' bg='_thunder' rounded='md' p={4}>
-      <VStack spacing={2} align='flex-start'>
-        <HStack>
-          <Heading
-            as='h1'
-            fontSize='1.25rem'
-            fontWeight={400}
-            lineHeight={1.2}
-            textTransform='uppercase'
-            color='_gray'
+    <>
+      <Box w='100%' h='100%' bg='_thunder' rounded='md' p={4}>
+        <VStack spacing={2} align='flex-start'>
+          <HStack>
+            <Heading
+              as='h1'
+              fontSize='1.25rem'
+              fontWeight={400}
+              lineHeight={1.2}
+              textTransform='uppercase'
+              color='_gray'
+            >
+              {wod.workout.name}
+            </Heading>
+
+            {/* For now these are only the user's score while we want the count
+                of all submitted scores. Setting the `userId` parameter to
+                optional and omitting it in the query should do the trick
+                FIXME display the total count of submitted scores */}
+            <UserCountStamp count={wod.scores.length} />
+          </HStack>
+
+          {maybeCollapse(wod.workout.description)}
+
+          {wod.scores?.length !== 0 && (
+            <>
+              <Text>
+                Your score: {loggedUserScore?.value}{' '}
+                {scoringTypeLabel(wod.workout.scoringType)}
+              </Text>
+            </>
+          )}
+
+          {dateLabel(wod)}
+
+          {/* TODO This button could be passed by the parent component which could then
+              decide where it wants user to go next */}
+          <Button
+            onClick={() => navigate(`/scoreboard/${wod.id}`)}
+            colorScheme='blue'
           >
-            {wod.workout.name}
-          </Heading>
-
-          {/* For now these are only the user's score while we want the count
-              of all submitted scores. Setting the `userId` parameter to
-              optional and omitting it in the query should do the trick
-              FIXME display the total count of submitted scores */}
-          <UserCountStamp count={wod.scores.length} />
-        </HStack>
-
-        {maybeCollapse(wod.workout.description)}
-
-        {wod.scores?.length !== 0 && (
-          <>
-            <Text>
-              Your score: {loggedUserScore?.value}{' '}
-              {scoringTypeLabel(wod.workout.scoringType)}
-            </Text>
-          </>
-        )}
-
-        {dateLabel(wod)}
-
-        {/* TODO This button could be passed by the parent component which could then
-            decide where it wants user to go next */}
-        <Button
-          onClick={() => navigate(`/scoreboard/${wod.id}`)}
-          colorScheme='blue'
-        >
-          Scoreboard
-        </Button>
-      </VStack>
-    </Box>
+            Scoreboard
+          </Button>
+        </VStack>
+      </Box>
+    </>
   )
 }

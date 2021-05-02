@@ -25,6 +25,7 @@ import { ScoreboardPage } from './pages/score/scoreboard'
 import { Menu } from './components/Menu'
 import { useMenuUserLazyQuery } from './user-menu.generated'
 import { fetchPolicy } from './fetch-policy'
+import GlobalStyle from './styles/theme';
 
 /* A user with this ID is seeded in the DB at start-up, don't change or sync
    sync with @thecfapp/api/db/db-seeder value and re-seed the DB */
@@ -79,6 +80,7 @@ const App: React.FC<Props> = (props) => {
 
   return (
     <ApolloProvider client={client}>
+    <GlobalStyle/>
       <ChakraProvider theme={customTheme}>
         <>
           <Menu

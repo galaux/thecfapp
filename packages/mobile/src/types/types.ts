@@ -1,4 +1,4 @@
-import { edgeSize } from '../styles/theme';
+import { BorderRadius, borderRadius, Colors, edgeSize } from '../styles/theme';
 
 export enum Size {
   Xxxsmall = 'xxxsmall',
@@ -9,6 +9,21 @@ export enum Size {
   Large = 'large',
   Xlarge = 'xlarge',
   Xxlarge = 'xxlarge',
+}
+
+export type BorderProps = Partial<{
+  color: Colors,
+  width: string,
+  style: string,
+  side: string,
+}>;
+
+export enum BoxShadow {
+  Medium = 'medium',
+  Large = 'large',
+  Down = 'down',
+  NavBar = 'navBar',
+  Reverse= 'reverse',
 }
 
 export type EdgeSizeTypes = {
@@ -30,9 +45,69 @@ export type AllSides = 'vertical' | 'horizontal' | 'right' | 'left' | 'bottom' |
 export enum None { none = '0' }
 export type Sides = Record<AllSides, Size | None>;
 export type SideTypes = Size | None | Partial<Sides>;
+export type SidesRadius = Record<AllSides, BorderRadius | None>;
+export type SideRadiusTypes = BorderRadius | None | Partial<SidesRadius>;
 
 export enum TextAlign {
   Left = 'left',
   Right = 'right',
   Center = 'center',
 }
+
+export enum FontSize {
+  Xxsmall = 'xxsmall',
+  Xsmall = 'xsmall',
+  Small = 'small',
+  Medium = 'medium',
+  Large = 'large',
+}
+
+export enum Directions {
+  row = 'row',
+  column = 'column',
+  rowReverse = 'row-reverse',
+  columnReverse = 'column-reverse',
+}
+
+export type HoverTypes = {
+  background?: Colors;
+};
+
+export enum Justifys {
+  around = 'space-around',
+  between = 'space-between',
+  center = 'center',
+  end = 'flex-end',
+  evenly = 'space-evenly',
+  start = 'flex-start',
+}
+
+export enum Aligns {
+  baseline = 'baseline',
+  center = 'center',
+  end = 'flex-end',
+  start = 'flex-start',
+  stretch = 'stretch',
+}
+
+export enum Overflows {
+  visible = 'visible',
+  hidden = 'hidden',
+}
+
+export enum Positions {
+  relative = 'relative',
+  absolute = 'absolute',
+  fixed = 'fixed',
+}
+
+type BorderRadiusTypes = typeof borderRadius;
+
+export const BORDER_RADIUS_MAP: BorderRadiusTypes = {
+  [BorderRadius.Xsmall]: borderRadius[BorderRadius.Xsmall],
+  [BorderRadius.Small]: borderRadius[BorderRadius.Small],
+  [BorderRadius.Medium]: borderRadius[BorderRadius.Medium],
+  [BorderRadius.Large]: borderRadius[BorderRadius.Large],
+  [BorderRadius.Xlarge]: borderRadius[BorderRadius.Xlarge],
+  [BorderRadius.Round]: borderRadius[BorderRadius.Round],
+};
