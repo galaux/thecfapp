@@ -12,5 +12,5 @@ export default function App() {
     getApolloClient().then((client) => setClient(client))
   }, [])
 
-  return client ? <AppComponent client={client} /> : <Spinner />
+  return client ? <AppComponent client={ client } /> : <Spinner />
 }

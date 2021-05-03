@@ -38,7 +38,7 @@ export const UserCommunitiesPanel: React.FC<Props> = (props) => {
         (·_·)
       </Text>
       <Text>Looks like you don't belong to any community … yet.</Text>
-      <Button colorScheme='blue' onClick={() => navigate('/find-community')}>
+      <Button colorScheme='blue' onClick={ () => navigate('/find-community') }>
         Find a community
       </Button>
     </VStack>
@@ -50,12 +50,12 @@ export const UserCommunitiesPanel: React.FC<Props> = (props) => {
       <Body>
         {loading && <Spinner />}
         {(error || !communities) && <p>Error {error}</p>}
-        <Stack spacing={4}>
+        <Stack spacing={ 4 }>
           {communities && (
             <CommunityList
-              communities={communities.map(userCommunityToCommunityCard)}
-              joinCommunity={noop}
-              leaveCommunity={leaveCommunity}
+              communities={ communities.map(userCommunityToCommunityCard) }
+              joinCommunity={ noop }
+              leaveCommunity={ leaveCommunity }
             >
               {ifEmpty}
             </CommunityList>

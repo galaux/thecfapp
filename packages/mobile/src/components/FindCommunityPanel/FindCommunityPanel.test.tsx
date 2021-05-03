@@ -30,11 +30,11 @@ describe('Find community panel', () => {
   it('renders initial state', () => {
     render(
       <FindCommunityPanel
-        loading={false}
-        lookedupCommunities={undefined}
-        findCommunities={findCommunitiesSpy}
-        joinCommunity={joinCommunitySpy}
-        leaveCommunity={leaveCommunitySpy}
+        loading={ false }
+        lookedupCommunities={ undefined }
+        findCommunities={ findCommunitiesSpy }
+        joinCommunity={ joinCommunitySpy }
+        leaveCommunity={ leaveCommunitySpy }
       />,
     )
     expect(screen.getByRole('textbox')).toBeInTheDocument()
@@ -46,11 +46,11 @@ describe('Find community panel', () => {
   it('performs user query', () => {
     render(
       <FindCommunityPanel
-        loading={false}
-        lookedupCommunities={undefined}
-        findCommunities={findCommunitiesSpy}
-        joinCommunity={joinCommunitySpy}
-        leaveCommunity={leaveCommunitySpy}
+        loading={ false }
+        lookedupCommunities={ undefined }
+        findCommunities={ findCommunitiesSpy }
+        joinCommunity={ joinCommunitySpy }
+        leaveCommunity={ leaveCommunitySpy }
       />,
     )
     const value = faker.random.words(5)
@@ -62,11 +62,11 @@ describe('Find community panel', () => {
   it('displays loading state', () => {
     render(
       <FindCommunityPanel
-        loading={true}
-        lookedupCommunities={undefined}
-        findCommunities={findCommunitiesSpy}
-        joinCommunity={joinCommunitySpy}
-        leaveCommunity={leaveCommunitySpy}
+        loading={ true }
+        lookedupCommunities={ undefined }
+        findCommunities={ findCommunitiesSpy }
+        joinCommunity={ joinCommunitySpy }
+        leaveCommunity={ leaveCommunitySpy }
       />,
     )
     expect(screen.getByText(/loading\.\.\./i)).toBeInTheDocument()
@@ -76,12 +76,12 @@ describe('Find community panel', () => {
     withoutConsoleErrors(() => {
       render(
         <FindCommunityPanel
-          loading={false}
-          error={new ApolloError({ errorMessage: 'BOOM' })}
-          lookedupCommunities={undefined}
-          findCommunities={findCommunitiesSpy}
-          joinCommunity={joinCommunitySpy}
-          leaveCommunity={leaveCommunitySpy}
+          loading={ false }
+          error={ new ApolloError({ errorMessage: 'BOOM' }) }
+          lookedupCommunities={ undefined }
+          findCommunities={ findCommunitiesSpy }
+          joinCommunity={ joinCommunitySpy }
+          leaveCommunity={ leaveCommunitySpy }
         />,
       )
       expect(
@@ -105,12 +105,12 @@ describe('Find community panel', () => {
     )
     render(
       <FindCommunityPanel
-        loading={false}
-        error={undefined}
-        lookedupCommunities={communities}
-        findCommunities={findCommunitiesSpy}
-        joinCommunity={joinCommunitySpy}
-        leaveCommunity={leaveCommunitySpy}
+        loading={ false }
+        error={ undefined }
+        lookedupCommunities={ communities }
+        findCommunities={ findCommunitiesSpy }
+        joinCommunity={ joinCommunitySpy }
+        leaveCommunity={ leaveCommunitySpy }
       />,
     )
     // Has form to submit search
@@ -138,12 +138,12 @@ describe('Find community panel', () => {
   it('displays a "Join" button if user is not a member', () => {
     render(
       <FindCommunityPanel
-        loading={false}
-        error={undefined}
-        lookedupCommunities={[foreignCommunity]}
-        findCommunities={findCommunitiesSpy}
-        joinCommunity={joinCommunitySpy}
-        leaveCommunity={leaveCommunitySpy}
+        loading={ false }
+        error={ undefined }
+        lookedupCommunities={ [foreignCommunity] }
+        findCommunities={ findCommunitiesSpy }
+        joinCommunity={ joinCommunitySpy }
+        leaveCommunity={ leaveCommunitySpy }
       />,
     )
     expect(
@@ -156,12 +156,12 @@ describe('Find community panel', () => {
   it('displays a "Leave" button if user is not a member', () => {
     render(
       <FindCommunityPanel
-        loading={false}
-        error={undefined}
-        lookedupCommunities={[memberCommunity]}
-        findCommunities={findCommunitiesSpy}
-        joinCommunity={joinCommunitySpy}
-        leaveCommunity={leaveCommunitySpy}
+        loading={ false }
+        error={ undefined }
+        lookedupCommunities={ [memberCommunity] }
+        findCommunities={ findCommunitiesSpy }
+        joinCommunity={ joinCommunitySpy }
+        leaveCommunity={ leaveCommunitySpy }
       />,
     )
     expect(
@@ -174,12 +174,12 @@ describe('Find community panel', () => {
   it('display a special message when there are no communities', () => {
     render(
       <FindCommunityPanel
-        loading={false}
-        error={undefined}
-        lookedupCommunities={[]}
-        findCommunities={findCommunitiesSpy}
-        joinCommunity={joinCommunitySpy}
-        leaveCommunity={leaveCommunitySpy}
+        loading={ false }
+        error={ undefined }
+        lookedupCommunities={ [] }
+        findCommunities={ findCommunitiesSpy }
+        joinCommunity={ joinCommunitySpy }
+        leaveCommunity={ leaveCommunitySpy }
       />,
     )
     expect(screen.getByText(/looks like this community doesn't exist yet\./i))
@@ -193,12 +193,12 @@ describe('Find community panel', () => {
   it('removes user from community when clicking on "Leave"', () => {
     render(
       <FindCommunityPanel
-        loading={false}
-        error={undefined}
-        lookedupCommunities={[memberCommunity]}
-        findCommunities={findCommunitiesSpy}
-        joinCommunity={joinCommunitySpy}
-        leaveCommunity={leaveCommunitySpy}
+        loading={ false }
+        error={ undefined }
+        lookedupCommunities={ [memberCommunity] }
+        findCommunities={ findCommunitiesSpy }
+        joinCommunity={ joinCommunitySpy }
+        leaveCommunity={ leaveCommunitySpy }
       />,
     )
     fireEvent.click(screen.getByRole('button', { name: /leave/i }))
@@ -208,12 +208,12 @@ describe('Find community panel', () => {
   it('adds user to community when clicking on "Join"', () => {
     render(
       <FindCommunityPanel
-        loading={false}
-        error={undefined}
-        lookedupCommunities={[foreignCommunity]}
-        findCommunities={findCommunitiesSpy}
-        joinCommunity={joinCommunitySpy}
-        leaveCommunity={leaveCommunitySpy}
+        loading={ false }
+        error={ undefined }
+        lookedupCommunities={ [foreignCommunity] }
+        findCommunities={ findCommunitiesSpy }
+        joinCommunity={ joinCommunitySpy }
+        leaveCommunity={ leaveCommunitySpy }
       />,
     )
     fireEvent.click(screen.getByRole('button', { name: /join/i }))

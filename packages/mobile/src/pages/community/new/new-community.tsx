@@ -23,11 +23,11 @@ export const NewCommunityPage: React.FC<RouteComponentProps> = () => {
 
   return (
     <NewCommunityPanel
-      called={called}
-      loading={loading}
-      error={error}
-      community={data?.createCommunity}
-      createCommunity={createCommunity}
+      called={ called }
+      loading={ loading }
+      error={ error }
+      community={ data?.createCommunity }
+      createCommunity={ createCommunity }
     />
   )
 }

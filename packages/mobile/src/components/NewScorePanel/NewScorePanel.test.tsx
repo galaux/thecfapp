@@ -25,10 +25,10 @@ describe('User WODs panel', () => {
   it('renders the initial panel', () => {
     render(
       <NewScorePanel
-        wod={wod}
-        createScore={createScoreSpy}
-        createLoading={false}
-        createError={undefined}
+        wod={ wod }
+        createScore={ createScoreSpy }
+        createLoading={ false }
+        createError={ undefined }
       />,
     )
 
@@ -55,10 +55,10 @@ describe('User WODs panel', () => {
   it('invokes the create function when button is clicked', () => {
     render(
       <NewScorePanel
-        wod={wod}
-        createScore={createScoreSpy}
-        createLoading={false}
-        createError={undefined}
+        wod={ wod }
+        createScore={ createScoreSpy }
+        createLoading={ false }
+        createError={ undefined }
       />,
     )
     const input = screen.getByRole('spinbutton')
@@ -71,10 +71,10 @@ describe('User WODs panel', () => {
   it('displays the spinner when passed so', () => {
     render(
       <NewScorePanel
-        wod={wod}
-        createScore={createScoreSpy}
-        createLoading={true}
-        createError={undefined}
+        wod={ wod }
+        createScore={ createScoreSpy }
+        createLoading={ true }
+        createError={ undefined }
       />,
     )
     expect(screen.getByText(/loading\.\.\./i)).toBeInTheDocument()
@@ -84,10 +84,10 @@ describe('User WODs panel', () => {
     withoutConsoleErrors(() => {
       render(
         <NewScorePanel
-          wod={wod}
-          createScore={createScoreSpy}
-          createLoading={false}
-          createError={new ApolloError({ errorMessage: 'BOOM' })}
+          wod={ wod }
+          createScore={ createScoreSpy }
+          createLoading={ false }
+          createError={ new ApolloError({ errorMessage: 'BOOM' }) }
         />,
       )
       expect(createScoreSpy).not.toHaveBeenCalled()

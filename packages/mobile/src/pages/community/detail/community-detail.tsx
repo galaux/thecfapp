@@ -15,9 +15,9 @@ export const CommunityDetailPage: React.FC<RouteComponentProps> = () => {
 
   return (
     <CommunityDetailPanel
-      loading={loading}
-      error={error}
-      community={data?.community}
+      loading={ loading }
+      error={ error }
+      community={ data?.community }
     />
   )
 }

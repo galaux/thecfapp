@@ -51,7 +51,7 @@ describe('User WODs panel', () => {
    * }) */
 
   it('renders loading', () => {
-    render(<UserWodsPanel loading={true} error={undefined} wods={wods} />)
+    render(<UserWodsPanel loading={ true } error={ undefined } wods={ wods } />)
     expect(screen.getByText(/loading\.\.\./i)).toBeInTheDocument()
   })
 
@@ -59,9 +59,9 @@ describe('User WODs panel', () => {
     withoutConsoleErrors(() => {
       render(
         <UserWodsPanel
-          loading={false}
-          error={new ApolloError({ errorMessage: 'BOOM' })}
-          wods={wods}
+          loading={ false }
+          error={ new ApolloError({ errorMessage: 'BOOM' }) }
+          wods={ wods }
         />,
       )
       expect(
@@ -71,7 +71,7 @@ describe('User WODs panel', () => {
   })
 
   it('renders the WOD list', () => {
-    render(<UserWodsPanel loading={false} error={undefined} wods={wods} />)
+    render(<UserWodsPanel loading={ false } error={ undefined } wods={ wods } />)
     // TODO check correct number of scores in "score stamp"
     // SwipeableViews only displays the first element
     const firstWod = wods[0]

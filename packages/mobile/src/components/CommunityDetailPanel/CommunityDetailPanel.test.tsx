@@ -16,11 +16,11 @@ describe('User WODs panel', () => {
       address: faker.random.boolean()
         ? undefined
         : {
-            street: faker.address.streetAddress(),
-            zipCode: faker.address.zipCode(),
-            city: faker.address.city(),
-            country: faker.address.country(),
-          },
+          street: faker.address.streetAddress(),
+          zipCode: faker.address.zipCode(),
+          city: faker.address.city(),
+          country: faker.address.country(),
+        },
       wods: mapRandomTimes(fakeWodForWodCard, { min: 1, max: 5 }),
     }
   }
@@ -30,9 +30,9 @@ describe('User WODs panel', () => {
   it('renders loading', () => {
     render(
       <CommunityDetailPanel
-        loading={true}
-        error={undefined}
-        community={community}
+        loading={ true }
+        error={ undefined }
+        community={ community }
       />,
     )
     expect(screen.getByText(/loading\.\.\./i)).toBeInTheDocument()
@@ -42,9 +42,9 @@ describe('User WODs panel', () => {
     withoutConsoleErrors(() => {
       render(
         <CommunityDetailPanel
-          loading={false}
-          error={new ApolloError({ errorMessage: 'BOOM' })}
-          community={community}
+          loading={ false }
+          error={ new ApolloError({ errorMessage: 'BOOM' }) }
+          community={ community }
         />,
       )
       expect(
@@ -58,9 +58,9 @@ describe('User WODs panel', () => {
     communityWithNoWod.wods = []
     render(
       <CommunityDetailPanel
-        loading={false}
-        error={undefined}
-        community={communityWithNoWod}
+        loading={ false }
+        error={ undefined }
+        community={ communityWithNoWod }
       />,
     )
     // Header
@@ -82,9 +82,9 @@ describe('User WODs panel', () => {
   it('renders the community detail', () => {
     render(
       <CommunityDetailPanel
-        loading={false}
-        error={undefined}
-        community={community}
+        loading={ false }
+        error={ undefined }
+        community={ community }
       />,
     )
 

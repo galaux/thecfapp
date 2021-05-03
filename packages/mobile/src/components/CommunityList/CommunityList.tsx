@@ -17,10 +17,10 @@ export const CommunityList: React.FC<PropsWithChildren<Props>> = (props) => {
     <>
       {communities.map((community) => (
         <CommunityCard
-          key={community.id}
-          community={community}
-          joinCommunity={() => joinCommunity(community.id)}
-          leaveCommunity={() => leaveCommunity(community.id)}
+          key={ community.id }
+          community={ community }
+          joinCommunity={ () => joinCommunity(community.id) }
+          leaveCommunity={ () => leaveCommunity(community.id) }
         />
       ))}
     </>

@@ -73,16 +73,16 @@ export const FindCommunityPage: React.FC<RouteComponentProps> = () => {
 
   return (
     <FindCommunityPanel
-      loading={loading}
-      error={error}
-      lookedupCommunities={findData?.findCommunities}
-      findCommunities={(name: string) =>
+      loading={ loading }
+      error={ error }
+      lookedupCommunities={ findData?.findCommunities }
+      findCommunities={ (name: string) =>
         findCommunities({ variables: { name } })
       }
-      joinCommunity={(communityId: string) =>
+      joinCommunity={ (communityId: string) =>
         joinCommunity({ variables: { userId, communityId } })
       }
-      leaveCommunity={(communityId: string) =>
+      leaveCommunity={ (communityId: string) =>
         leaveCommunity({ variables: { userId, communityId } })
       }
     />

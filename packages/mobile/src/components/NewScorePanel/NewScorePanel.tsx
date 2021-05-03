@@ -35,21 +35,21 @@ export const NewScorePanel: React.FC<Props> = (props) => {
     <Layout>
       <Header>Add Score</Header>
       <Body>
-        <LoadingOr loading={createLoading}>
-          <ErrorOr error={createError}>
+        <LoadingOr loading={ createLoading }>
+          <ErrorOr error={ createError }>
             {wod && (
               <>
                 <Text>{wod.workout.description}</Text>
 
-                <Heading fontSize='lg' my={6}>
+                <Heading fontSize='lg' my={ 6 }>
                   Add my score
                 </Heading>
 
-                <Box bg='_thunder' rounded='md' p={4}>
-                  <VStack spacing={4}>
+                <Box bg='_thunder' rounded='md' p={ 4 }>
+                  <VStack spacing={ 4 }>
                     <NumberInput>
                       <NumberInputField
-                        onChange={(e) => setValue(parseInt(e.target.value))}
+                        onChange={ (e) => setValue(parseInt(e.target.value)) }
                       />
                       <NumberInputStepper>
                         <NumberIncrementStepper />
@@ -61,7 +61,7 @@ export const NewScorePanel: React.FC<Props> = (props) => {
                       <Button
                         type='submit'
                         colorScheme='blue'
-                        onClick={() => createScore(wod.id, value)}
+                        onClick={ () => createScore(wod.id, value) }
                       >
                         Add my score
                       </Button>

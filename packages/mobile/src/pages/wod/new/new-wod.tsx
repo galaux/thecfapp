@@ -38,15 +38,15 @@ export const NewWodPage: React.FC<RouteComponentProps> = () => {
 
   return (
     <NewWodPanel
-      loading={communitiesLoading || workoutsLoading || createWodLoading}
-      error={communitiesError ?? workoutsError ?? createWodError}
-      selectedCommunityId={selectedCommunity.id}
-      communities={communitiesData?.userCommunities}
-      workouts={workoutsData?.workouts}
-      createWod={(communityId: string, workoutId: string, date: string) => {
+      loading={ communitiesLoading || workoutsLoading || createWodLoading }
+      error={ communitiesError ?? workoutsError ?? createWodError }
+      selectedCommunityId={ selectedCommunity.id }
+      communities={ communitiesData?.userCommunities }
+      workouts={ workoutsData?.workouts }
+      createWod={ (communityId: string, workoutId: string, date: string) => {
         createWod({ variables: { communityId, workoutId, date } })
         navigate(`/community/${communityId}`)
-      }}
+      } }
     />
   )
 }

@@ -18,14 +18,6 @@ export type BorderProps = Partial<{
   side: string,
 }>;
 
-export enum BoxShadow {
-  Medium = 'medium',
-  Large = 'large',
-  Down = 'down',
-  NavBar = 'navBar',
-  Reverse= 'reverse',
-}
-
 export type EdgeSizeTypes = {
   [k in Size]: string;
 };
@@ -104,6 +96,7 @@ export enum Positions {
 type BorderRadiusTypes = typeof borderRadius;
 
 export const BORDER_RADIUS_MAP: BorderRadiusTypes = {
+  [BorderRadius.Xxsmall]: borderRadius[BorderRadius.Xxsmall],
   [BorderRadius.Xsmall]: borderRadius[BorderRadius.Xsmall],
   [BorderRadius.Small]: borderRadius[BorderRadius.Small],
   [BorderRadius.Medium]: borderRadius[BorderRadius.Medium],

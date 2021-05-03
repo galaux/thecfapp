@@ -24,12 +24,12 @@ type Media = {
 };
 
 export const media: Media = Object.values(Breakpoints).reduce((acc, label) => {
-    /* eslint-disable  @typescript-eslint/no-explicit-any */
-    acc[label] = (first: any, ...args: any[]) => css`
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  acc[label] = (first: any, ...args: any[]) => css`
     @media (min-width: ${mediaBreakpoints[label] / 16}em) {
       ${css(first, ...args)}
     }
   `;
-    return acc;
-  },
+  return acc;
+},
   {} as Media);

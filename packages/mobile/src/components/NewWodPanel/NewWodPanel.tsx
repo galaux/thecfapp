@@ -36,10 +36,10 @@ export const NewWodPanel: React.FC<Props> = (props: Props) => {
         {/* TODO display error if no communities */}
         {communities && communities?.length !== 0 && (
           <NewWod
-            initiallySelectedCommunityId={selectedCommunityId}
-            communities={communities}
-            workouts={workouts}
-            createWod={createWod}
+            initiallySelectedCommunityId={ selectedCommunityId }
+            communities={ communities }
+            workouts={ workouts }
+            createWod={ createWod }
           />
         )}
       </Body>

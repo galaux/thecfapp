@@ -34,7 +34,7 @@ export const NewCommunityPanel: React.FC<Props> = (props: Props) => {
             {error && <>error</>}
           </>
         ) : (
-          <NewCommunity createCommunity={createCommunity} />
+          <NewCommunity createCommunity={ createCommunity } />
         )}
       </Body>
     </Layout>

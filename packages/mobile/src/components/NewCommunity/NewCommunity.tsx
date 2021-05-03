@@ -41,30 +41,30 @@ export const NewCommunity: React.FC<Props> = (props: Props) => {
     <VStack p='2%'>
       <FormControl id='name' isRequired>
         <FormLabel color='_gray'>Community name</FormLabel>
-        <Input onChange={(e) => setName(e.target.value)} />
+        <Input onChange={ (e) => setName(e.target.value) } />
       </FormControl>
       <FormControl pt='5%' id='street'>
         <FormLabel color='_gray'>Street and number</FormLabel>
-        <Input onChange={(e) => setStreet(e.target.value)} />
+        <Input onChange={ (e) => setStreet(e.target.value) } />
       </FormControl>
       <Flex>
         <FormControl width='25%' id='zipcode'>
           <FormLabel color='_gray'>zipcode</FormLabel>
-          <Input onChange={(e) => setZipCode(e.target.value)} />
+          <Input onChange={ (e) => setZipCode(e.target.value) } />
         </FormControl>
         <FormControl pl='5%' width='75%' id='city'>
           <FormLabel color='_gray'>city</FormLabel>
-          <Input onChange={(e) => setCity(e.target.value)} />
+          <Input onChange={ (e) => setCity(e.target.value) } />
         </FormControl>
       </Flex>
       <FormControl id='country'>
         <FormLabel color='_gray'>country</FormLabel>
-        <Input onChange={(e) => setCountry(e.target.value)} />
+        <Input onChange={ (e) => setCountry(e.target.value) } />
       </FormControl>
       <Button
         colorScheme='blue'
-        disabled={!validName(name)}
-        onClick={onClickCreate}
+        disabled={ !validName(name) }
+        onClick={ onClickCreate }
       >
         Create
       </Button>

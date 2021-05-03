@@ -57,11 +57,11 @@ export const NewWod: React.FC<Props> = (props: Props) => {
       <FormControl id='community' isRequired>
         <FormLabel color='_gray'>Community</FormLabel>
         <Select
-          value={communityId}
-          onChange={(e) => setCommunityId(e.target.value)}
+          value={ communityId }
+          onChange={ (e) => setCommunityId(e.target.value) }
         >
           {communities.map((community) => (
-            <option key={community.id} value={community.id}>
+            <option key={ community.id } value={ community.id }>
               {community.name}
             </option>
           ))}
@@ -76,12 +76,12 @@ export const NewWod: React.FC<Props> = (props: Props) => {
             https://github.com/airbnb/react-dates/blob/master/examples/SingleDatePickerWrapper.jsx */}
         <SingleDatePicker
           block
-          date={date}
-          focused={dateFocused}
+          date={ date }
+          focused={ dateFocused }
           id='new-wod-date'
-          isOutsideRange={() => false}
-          onDateChange={(d) => setDate(d)}
-          onFocusChange={({ focused }) => setDateFocused(focused)}
+          isOutsideRange={ () => false }
+          onDateChange={ (d) => setDate(d) }
+          onFocusChange={ ({ focused }) => setDateFocused(focused) }
           orientation='vertical'
           small
         />
@@ -92,11 +92,11 @@ export const NewWod: React.FC<Props> = (props: Props) => {
         <FormLabel color='_gray'>Workout</FormLabel>
         <Select
           placeholder='Select a workout …'
-          value={workoutId}
-          onChange={(e) => setWorkoutId(e.target.value)}
+          value={ workoutId }
+          onChange={ (e) => setWorkoutId(e.target.value) }
         >
           {workouts?.map((workout) => (
-            <option key={workout.id} value={workout.id}>
+            <option key={ workout.id } value={ workout.id }>
               {workout.name}
             </option>
           ))}
@@ -105,8 +105,8 @@ export const NewWod: React.FC<Props> = (props: Props) => {
 
       <Button
         colorScheme='blue'
-        disabled={!Boolean(communityId && date && workoutId)}
-        onClick={onClickCreate}
+        disabled={ !Boolean(communityId && date && workoutId) }
+        onClick={ onClickCreate }
       >
         Create
       </Button>

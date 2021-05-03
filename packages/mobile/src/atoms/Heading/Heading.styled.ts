@@ -10,4 +10,6 @@ export const StyledHeading = styled.h1<HeadingStyledProps>`
   ${({ as }) => getHeadingSize(as!)};
   color: ${({ color = Colors.white }) => colors[color]};
   text-align: ${({ textAlign }) => textAlign};
+  font-weight: ${({ weight }) => weight};
+  letter-spacing: 0.4px;
 `;

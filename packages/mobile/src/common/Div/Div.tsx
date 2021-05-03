@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import {
   Aligns,
   BorderProps,
-  BoxShadow,
   Directions,
   FontSize,
   HoverTypes,
@@ -14,7 +13,7 @@ import {
   SideTypes,
 } from '../../types';
 import { getBorderRadius, getMargin, getPadding } from '../../utils/helpers';
-import { borderWidth, boxShadow, colors, Colors, text } from '../../styles/theme';
+import { borderWidth, BoxShadow, boxShadow, colors, Colors, text } from '../../styles/theme';
 
 export type DivProps = React.ComponentPropsWithoutRef<'div'> & Partial<{
   size: string;
@@ -127,7 +126,7 @@ const StyledDiv = styled.div<StyledDivProps>`
   ${(props) => props.$border && `
     border-style: ${(props.$border.style ? props.$border.style : 'solid')};
     border-width: ${(props.$border.width ? props.$border.width : borderWidth.medium)};
-    border-color: ${(props.$border.color ? colors[props.$border.color] : colors.gray1)};
+    border-color: ${(props.$border.color ? colors[props.$border.color] : colors.gray80)};
   `}
   ${(props) => props.$flex && `
     flex: ${props.$flex};

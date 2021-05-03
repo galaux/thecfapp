@@ -6,12 +6,12 @@ import { Header } from '../Header'
 import { CommunityForCommunityDetailPanelFragment as Community } from './community-detail-panel.generated'
 import { ApolloError } from '@apollo/client'
 import { oneLineAddress } from '../../utils'
-import { UserCountStamp } from '../UserCountStamp'
+import UserCountChip from '../UserCountChip'
 import { ErrorOr } from '../ErrorOr'
 import { LoadingOr } from '../LoadingOr'
 import { Link } from '@reach/router'
 import SwipeableViews from 'react-swipeable-views'
-import { WodCard } from '../WodCard'
+import WodCard from '../WodCard'
 import * as Icon from 'react-feather'
 
 interface Props {
@@ -24,8 +24,8 @@ export const CommunityDetailPanel: React.FC<Props> = (props: Props) => {
   const { loading, error, community } = props
 
   return (
-    <LoadingOr loading={loading}>
-      <ErrorOr error={error}>
+    <LoadingOr loading={ loading }>
+      <ErrorOr error={ error }>
         {community && (
           <Layout>
             <Header>
@@ -33,8 +33,8 @@ export const CommunityDetailPanel: React.FC<Props> = (props: Props) => {
                 <Heading
                   as='h1'
                   fontSize='1.25rem'
-                  fontWeight={400}
-                  lineHeight={1.2}
+                  fontWeight={ 400 }
+                  lineHeight={ 1.2 }
                   textTransform='uppercase'
                 >
                   {community.name}
@@ -51,31 +51,31 @@ export const CommunityDetailPanel: React.FC<Props> = (props: Props) => {
                       PERFORMED
                     </Text>
                   </Flex>
-                  <UserCountStamp count={community.memberCount} />
+                  <UserCountChip count={ community.memberCount } />
                 </HStack>
               </>
             </Header>
             <Body>
               <Box>
-                <Flex alignItems='center' mb={4}>
-                  <Heading fontSize='lg' flex={1}>
+                <Flex alignItems='center' mb={ 4 }>
+                  <Heading fontSize='lg' flex={ 1 }>
                     WODs
                   </Heading>
-                  <Link to='/new-wod' state={community}>
+                  <Link to='/new-wod' state={ community }>
                     <Flex>
                       New WOD
                       <Icon.PlusCircle />
                     </Flex>
                   </Link>
                 </Flex>
-                <Box mx={-6}>
+                <Box mx={ -6 }>
                   <SwipeableViews
-                    style={{ padding: '0 1.5rem' }}
-                    slideStyle={{ paddingRight: '1rem' }}
+                    style={ { padding: '0 1.5rem' } }
+                    slideStyle={ { paddingRight: '1rem' } }
                     enableMouseEvents
                   >
                     {community.wods.map((wod) => (
-                      <WodCard key={wod.id} wod={wod} />
+                      <WodCard key={ wod.id } wod={ wod } />
                     ))}
                   </SwipeableViews>
                 </Box>

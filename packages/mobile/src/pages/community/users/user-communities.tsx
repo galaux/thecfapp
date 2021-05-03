@@ -26,10 +26,10 @@ export const UserCommunitiesPage: React.FC<RouteComponentProps> = () => {
 
   return (
     <UserCommunitiesPanel
-      loading={loadingCommunities}
-      error={errorCommunities ?? leaveError}
-      communities={data?.userCommunities}
-      leaveCommunity={(communityId: string) =>
+      loading={ loadingCommunities }
+      error={ errorCommunities ?? leaveError }
+      communities={ data?.userCommunities }
+      leaveCommunity={ (communityId: string) =>
         leaveCommunity({ variables: { userId, communityId } })
       }
     />

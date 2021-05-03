@@ -14,11 +14,11 @@ export const Header: React.FC = ({ children }) => {
     <Box
       pos='relative'
       bgColor='_thunder'
-      borderBottomLeftRadius={12}
-      borderBottomRightRadius={12}
+      borderBottomLeftRadius={ 12 }
+      borderBottomRightRadius={ 12 }
       overflow='hidden'
-      p={6}
-      _after={{
+      p={ 6 }
+      _after={ {
         content: '""',
         pos: 'absolute',
         top: 0,
@@ -30,19 +30,19 @@ export const Header: React.FC = ({ children }) => {
         bgSize: 'cover',
         opacity: 0.3,
         zIndex: 5,
-      }}
+      } }
     >
       <Flex
         gridArea='Header'
         justifyContent='space-between'
         pos='relative'
-        zIndex={10}
-        mb={6}
+        zIndex={ 10 }
+        mb={ 6 }
       >
-        <Icon.Menu onClick={onOpen} />
+        <Icon.Menu onClick={ onOpen } />
 
         <Link to='/'>
-          <Heading level={1}>
+          <Heading level={ 1 }>
             THECFAPP
           </Heading>
         </Link>

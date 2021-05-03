@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Box, Text, VStack, HStack, Button } from '@chakra-ui/react'
 import { CommunityCardFragment as Community } from './community-card.generated'
 import { Link } from '@reach/router'
-import { UserCountStamp } from '../UserCountStamp'
+import UserCountChip from '../UserCountChip'
 import Heading from '../../atoms/Heading';
 
 interface Props {
@@ -15,13 +15,13 @@ export const CommunityCard: React.FC<Props> = (props) => {
   const { community, joinCommunity, leaveCommunity } = props
 
   return (
-    <Box w='100%' h='100%' bg='_thunder' rounded='md' p={4}>
-      <VStack spacing={2} align='flex-start'>
+    <Box w='100%' h='100%' bg='_thunder' rounded='md' p={ 4 }>
+      <VStack spacing={ 2 } align='flex-start'>
         <HStack>
-          <Link to={`/community/${community.id}`}>
-            <Heading level={3}>{community.name}</Heading>
+          <Link to={ `/community/${community.id}` }>
+            <Heading level={ 3 }>{community.name}</Heading>
           </Link>
-          <UserCountStamp count={community.memberCount} />
+          <UserCountChip count={ community.memberCount } />
         </HStack>
         <Text color='white'>{community.address?.street}</Text>
         <Text color='white'>
@@ -29,11 +29,11 @@ export const CommunityCard: React.FC<Props> = (props) => {
         </Text>
         <Text color='white'>{community.address?.country}</Text>
         {community.isMember ? (
-          <Button colorScheme='red' onClick={leaveCommunity}>
+          <Button colorScheme='red' onClick={ leaveCommunity }>
             Leave
           </Button>
         ) : (
-          <Button colorScheme='blue' onClick={joinCommunity}>
+          <Button colorScheme='blue' onClick={ joinCommunity }>
             Join
           </Button>
         )}

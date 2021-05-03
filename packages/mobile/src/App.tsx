@@ -79,17 +79,17 @@ const App: React.FC<Props> = (props) => {
   })
 
   return (
-    <ApolloProvider client={client}>
-    <GlobalStyle/>
-      <ChakraProvider theme={customTheme}>
+    <ApolloProvider client={ client }>
+      <GlobalStyle/>
+      <ChakraProvider theme={ customTheme }>
         <>
           <Menu
-            loading={loadingMenuUser}
-            error={errorMenuUser}
-            user={dataMenuUser?.user}
-            menuDisclosure={menuDisclosure}
+            loading={ loadingMenuUser }
+            error={ errorMenuUser }
+            user={ dataMenuUser?.user }
+            menuDisclosure={ menuDisclosure }
           />
-          <MenuContext.Provider value={menuDisclosure}>
+          <MenuContext.Provider value={ menuDisclosure }>
             <Router>
               <CommunityDetailPage path='/community/:communityId' />
               <NewWodPage path='/new-wod' />

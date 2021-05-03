@@ -13,5 +13,5 @@ export const ScoreboardPage: React.FC<RouteComponentProps> = () => {
     variables: { wodId },
   })
 
-  return <ScoreboardPanel loading={loading} error={error} wod={data?.wod} />
+  return <ScoreboardPanel loading={ loading } error={ error } wod={ data?.wod } />
 }

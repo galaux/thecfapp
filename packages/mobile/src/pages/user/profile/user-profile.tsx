@@ -24,5 +24,5 @@ export const UserProfilePage: React.FC<RouteComponentProps> = () => {
     }
   }, [])
 
-  return <UserProfilePanel loading={loading} error={error} user={data?.user} />
+  return <UserProfilePanel loading={ loading } error={ error } user={ data?.user } />
 }
