@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { WodForWodCardFragment as Wod } from '../../components/WodCard';
 import Div from '../../common/Div';
-import { Directions } from '../../types';
+import { Aligns, Directions } from '../../types';
 import { Day, Month } from './Date.styled';
 
 type DateProps = {
@@ -9,14 +9,14 @@ type DateProps = {
 }
 
 const Date: FC<DateProps> = ({ wod }) => {
-  // const formatedDate = new Date(wod.date)
-  // const month = formatedDate.toLocaleString('default', { month: 'short' })
-  // const day = formatedDate.getUTCDate()
+  const formatedDate = new window.Date(wod.date)
+  const month = formatedDate.toLocaleString('en-EN', { month: 'short' })
+  const day = formatedDate.getUTCDate()
 
   return (
-    <Div direction={ Directions.column }>
-      <Month>apr</Month>
-      <Day>22</Day>
+    <Div direction={ Directions.column } align={ Aligns.center }>
+      <Month>{month}</Month>
+      <Day>{day}</Day>
     </Div>
   );
 }

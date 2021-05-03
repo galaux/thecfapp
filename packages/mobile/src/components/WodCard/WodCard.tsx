@@ -18,7 +18,6 @@ type WodCardProps = {
 const WodCard: React.FC<WodCardProps> = ({ wod }) => {
   // const loggedUserScore = wod.scores?.find((score) => score.belongsToLoggedUser)
 
-
   return (
     <WodCardWrapper
       pad={ { bottom: Size.Medium, top: Size.Large, horizontal: Size.Medium } }
@@ -36,7 +35,7 @@ const WodCard: React.FC<WodCardProps> = ({ wod }) => {
           FIXME display the total count of submitted scores */}
           <UserCountChip count={ wod.scores.length } />
         </Div>
-        <Heading level={ 6 } weight={ FontWeights.Medium }>{wod.workout.name}</Heading>
+        <Heading level={ 6 } weight={ FontWeights.Medium } margin={ {bottom: Size.Medium} }>{wod.workout.name}</Heading>
         <Workout>{wod.workout.description}</Workout>
       </Div>
       <Div direction={ Directions.row } align={ Aligns.center } justify={ Justifys.between }>

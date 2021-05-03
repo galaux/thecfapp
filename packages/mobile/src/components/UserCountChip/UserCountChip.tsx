@@ -6,7 +6,7 @@ import { Aligns, Directions, Justifys } from '../../types';
 import styled from 'styled-components';
 
 const UserCountChipWrapper = styled(Div)`
-  padding: calc(${edgeSize.xxxsmall}/2) ${edgeSize.xxsmall} 0;
+  padding: ${edgeSize.xxxsmall} ${edgeSize.xxsmall} calc(${edgeSize.xxxsmall}/2);
 `;
 
 const Count = styled.span`
@@ -15,7 +15,6 @@ const Count = styled.span`
   font-weight: ${FontWeights.Medium};
   letter-spacing: 0.4px;
   margin-left: ${edgeSize.xxsmall};
-  padding-top: calc(${edgeSize.xxxsmall}/2);
 `;
 
 export type UserCountChipProps = {

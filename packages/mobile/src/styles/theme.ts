@@ -201,6 +201,8 @@ export const text = {
 export const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Aaux Next', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 `;
 
