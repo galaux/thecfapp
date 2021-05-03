@@ -3,10 +3,11 @@ import { pxToRem } from '../../mixins/pxToRem';
 import { colors, FontWeights } from '../../styles/theme';
 
 export const Month = styled.span`
-  font-size: ${pxToRem(20)}rem;
+  font-size: ${pxToRem(12)}rem;
   line-height: 1.2;
-  color: ${colors.white};
+  color: ${colors.gray50};
   font-weight: ${FontWeights.SemiBold};
+  text-transform: uppercase;
 `;
 
 export const Day = styled.span`

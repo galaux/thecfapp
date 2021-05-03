@@ -18,23 +18,28 @@ type WodCardProps = {
 const WodCard: React.FC<WodCardProps> = ({ wod }) => {
   // const loggedUserScore = wod.scores?.find((score) => score.belongsToLoggedUser)
 
+
   return (
     <WodCardWrapper
       pad={ { bottom: Size.Medium, top: Size.Large, horizontal: Size.Medium } }
       backgroundColor={ Colors.gray80 }
       radius={ BorderRadius.Small }
+      justify={ Justifys.between }
+      direction={ Directions.column }
     >
-      <Div direction={ Directions.row } align={ Aligns.start } margin={ {bottom: Size.Xxsmall} } justify={ Justifys.between }>
-        <Type>Type</Type>
-        {/* For now these are only the user's score while we want the count
+      <Div direction={ Directions.column }>
+        <Div direction={ Directions.row } align={ Aligns.start } margin={ {bottom: Size.Xxsmall} } justify={ Justifys.between }>
+          <Type>Type</Type>
+          {/* For now these are only the user's score while we want the count
           of all submitted scores. Setting the `userId` parameter to
           optional and omitting it in the query should do the trick
           FIXME display the total count of submitted scores */}
-        <UserCountChip count={ wod.scores.length } />
+          <UserCountChip count={ wod.scores.length } />
+        </Div>
+        <Heading level={ 6 } weight={ FontWeights.Medium }>{wod.workout.name}</Heading>
+        <Workout>{wod.workout.description}</Workout>
       </Div>
-      <Heading level={ 6 } weight={ FontWeights.Medium }>{wod.workout.name}</Heading>
-      <Workout>{wod.workout.description}</Workout>
-      <Div>
+      <Div direction={ Directions.row } align={ Aligns.center } justify={ Justifys.between }>
         <Date wod={ wod } />
         <Button
           onClick={ () => navigate(`/scoreboard/${wod.id}`) }

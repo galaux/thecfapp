@@ -7,6 +7,7 @@ export const WodCardWrapper = styled(Div)`
   position: relative;
   overflow: hidden;
   box-shadow: ${boxShadow.card};
+  min-height: ${pxToRem(340)}rem;
   &:before {
     content: '';
     position: absolute;
