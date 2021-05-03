@@ -1,14 +1,15 @@
 import * as React from 'react'
-import { Button } from '@chakra-ui/react'
 import { navigate } from '@reach/router'
 import { WodForWodCardFragment as Wod } from './wod-card.generated'
-import { Aligns, Directions, Justifys, Size } from '../../types';
+import { Aligns, ButtonVariant, Directions, Justifys, Size } from '../../types';
 import { BorderRadius, Colors, FontWeights } from '../../styles/theme';
 import { Type, WodCardWrapper, Workout } from './WodCard.styled';
 import UserCountChip from '../UserCountChip';
 import Div from '../../common/Div';
 import Heading from '../../atoms/Heading';
 import Date from '../../atoms/Date';
+import Button from '../../atoms/Button';
+
 
 type WodCardProps = {
   key: string
@@ -42,7 +43,6 @@ const WodCard: React.FC<WodCardProps> = ({ wod }) => {
         <Date wod={ wod } />
         <Button
           onClick={ () => navigate(`/scoreboard/${wod.id}`) }
-          colorScheme='blue'
         >
             Scoreboard
         </Button>

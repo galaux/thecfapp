@@ -8,6 +8,8 @@ export const Month = styled.span`
   color: ${colors.gray50};
   font-weight: ${FontWeights.SemiBold};
   text-transform: uppercase;
+  margin-bottom: -${pxToRem(2)}rem;;
+  display: block;
 `;
 
 export const Day = styled.span`

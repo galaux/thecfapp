@@ -104,3 +104,14 @@ export const BORDER_RADIUS_MAP: BorderRadiusTypes = {
   [BorderRadius.Xlarge]: borderRadius[BorderRadius.Xlarge],
   [BorderRadius.Round]: borderRadius[BorderRadius.Round],
 };
+
+export enum ButtonType {
+  submit = 'submit',
+  reset = 'reset',
+  button = 'button',
+}
+
+export enum ButtonVariant {
+  Primary = 'primary',
+  Secondary = 'secondary',
+}
