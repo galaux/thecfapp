@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { navigate } from '@reach/router'
 import { WodForWodCardFragment as Wod } from './wod-card.generated'
-import { Aligns, ButtonVariant, Directions, Justifys, Size } from '../../types';
+import { Aligns, Directions, Justifys, Size } from '../../types';
 import { BorderRadius, Colors, FontWeights } from '../../styles/theme';
 import { Type, WodCardWrapper, Workout } from './WodCard.styled';
 import UserCountChip from '../UserCountChip';
