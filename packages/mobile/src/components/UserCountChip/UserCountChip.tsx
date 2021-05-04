@@ -22,7 +22,7 @@ export type UserCountChipProps = {
   color?: Colors;
 }
 
-const UserCountChip: FC<UserCountChipProps> = ({ count, color = Colors.denim }) => (
+const UserCountChip: FC<UserCountChipProps> = ({ count, color = Colors.denimDarken }) => (
   <UserCountChipWrapper
     backgroundColor={ color }
     direction={ Directions.row }

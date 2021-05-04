@@ -7,11 +7,10 @@ import {
 interface Props {
   communities: Community[]
   joinCommunity: (id: string) => void
-  leaveCommunity: (id: string) => void
 }
 
 export const CommunityList: React.FC<PropsWithChildren<Props>> = (props) => {
-  const { communities, joinCommunity, leaveCommunity, children } = props
+  const { communities, joinCommunity, children } = props
 
   return communities.length !== 0 ? (
     <>
@@ -20,7 +19,6 @@ export const CommunityList: React.FC<PropsWithChildren<Props>> = (props) => {
           key={ community.id }
           community={ community }
           joinCommunity={ () => joinCommunity(community.id) }
-          leaveCommunity={ () => leaveCommunity(community.id) }
         />
       ))}
     </>

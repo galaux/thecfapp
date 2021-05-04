@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import {
   Button,
-  Stack,
   InputGroup,
   Input,
   InputRightElement,
@@ -61,28 +60,25 @@ export const FindCommunityPanel: React.FC<Props> = (props: Props) => {
       <Body>
         <LoadingOr loading={ loading }>
           <ErrorOr error={ error }>
-            <Stack spacing={ 4 }>
-              <InputGroup>
-                <Input
-                  placeholder='Search a community'
-                  onChange={ (e) => setName(e.target.value) }
-                />
-                <InputRightElement>
-                  <Button h='1.75rem' size='sm' onClick={ onClickFind }>
-                    <Icon.Search />
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
-              {lookedupCommunities && (
-                <CommunityList
-                  communities={ lookedupCommunities }
-                  joinCommunity={ joinCommunity }
-                  leaveCommunity={ leaveCommunity }
-                >
-                  {ifEmpty}
-                </CommunityList>
-              )}
-            </Stack>
+            <InputGroup>
+              <Input
+                placeholder='Search a community'
+                onChange={ (e) => setName(e.target.value) }
+              />
+              <InputRightElement>
+                <Button h='1.75rem' size='sm' onClick={ onClickFind }>
+                  <Icon.Search />
+                </Button>
+              </InputRightElement>
+            </InputGroup>
+            {lookedupCommunities && (
+              <CommunityList
+                communities={ lookedupCommunities }
+                joinCommunity={ joinCommunity }
+              >
+                {ifEmpty}
+              </CommunityList>
+            )}
           </ErrorOr>
         </LoadingOr>
       </Body>

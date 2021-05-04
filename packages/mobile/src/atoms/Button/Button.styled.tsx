@@ -15,7 +15,7 @@ const StyledCTAButton = styled.button<StyledCTAButtonProps>`
   border-radius: ${borderRadius.small};
   display: flex;
   font-size: ${text.xsmall.size};
-  line-height: ${text.xsmall.height};
+  line-height: 1.3;
   font-family: inherit;
   justify-content: center;
   width: auto;
@@ -25,6 +25,7 @@ const StyledCTAButton = styled.button<StyledCTAButtonProps>`
   transition: all 0.2s ease-in-out;
   font-weight: ${FontWeights.Medium};
   cursor: pointer;
+  letter-spacing: 0.4px;
   &:active { 
     transform: scale(0.95);
   }

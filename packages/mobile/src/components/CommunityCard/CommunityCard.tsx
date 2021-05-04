@@ -1,43 +1,48 @@
-import * as React from 'react'
-import { Box, Text, VStack, HStack, Button } from '@chakra-ui/react'
+import React, { FC } from 'react'
 import { CommunityCardFragment as Community } from './community-card.generated'
-import { Link } from '@reach/router'
+import { Link, useNavigate } from '@reach/router'
 import UserCountChip from '../UserCountChip'
-import Heading from '../../atoms/Heading';
+import { Aligns, ButtonType, Directions, Justifys, Size } from '../../types';
+import Button from '../../atoms/Button';
+import Div from '../../common/Div';
+import Card from '../../atoms/Card';
+import { Address, CommunityName } from './CommunityCard.styled';
 
-interface Props {
+interface CommunityCardProps {
   community: Community
   joinCommunity: () => void
-  leaveCommunity: () => void
 }
 
-export const CommunityCard: React.FC<Props> = (props) => {
-  const { community, joinCommunity, leaveCommunity } = props
+export const CommunityCard: FC<CommunityCardProps> = ({ community, joinCommunity }) => {
+  const navigate = useNavigate()
+
+  const join = () => {
+    joinCommunity();
+    navigate(`/community/${community.id}`)
+  }
 
   return (
-    <Box w='100%' h='100%' bg='_thunder' rounded='md' p={ 4 }>
-      <VStack spacing={ 2 } align='flex-start'>
-        <HStack>
-          <Link to={ `/community/${community.id}` }>
-            <Heading level={ 3 }>{community.name}</Heading>
-          </Link>
+    <Card>
+      <Div direction={ Directions.column }>
+        <Div direction={ Directions.row } align={ Aligns.start } margin={ {bottom: Size.Xxsmall} } justify={ Justifys.between }>
+          <CommunityName>{community.name}</CommunityName>
           <UserCountChip count={ community.memberCount } />
-        </HStack>
-        <Text color='white'>{community.address?.street}</Text>
-        <Text color='white'>
-          {community.address?.zipCode} {community.address?.city}
-        </Text>
-        <Text color='white'>{community.address?.country}</Text>
+        </Div>
+        {community.address ? (
+          <Div direction={ Directions.column } margin={ { bottom: Size.Xxsmall} }>
+            {community.address.street ? <Address>{community.address.street}</Address> : null }
+            {community.address.zipCode || community.address.city ? <Address>{community.address.zipCode} {community.address.city}</Address> : null }
+            {community.address.zipCode ? <Address>{community.address.country}</Address> : null }
+          </Div>
+        ) : null}
+      </Div>
+      <Div justify={ Justifys.end }>
         {community.isMember ? (
-          <Button colorScheme='red' onClick={ leaveCommunity }>
-            Leave
-          </Button>
+          <Link to={ `/community/${community.id}` }>See the community</Link>
         ) : (
-          <Button colorScheme='blue' onClick={ joinCommunity }>
-            Join
-          </Button>
+          <Button type={ ButtonType.button } onClick={ join }>Join</Button>
         )}
-      </VStack>
-    </Box>
+      </Div>
+    </Card>
   )
 }

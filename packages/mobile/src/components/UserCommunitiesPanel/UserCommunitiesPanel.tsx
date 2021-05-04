@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Text, Spinner, Button, VStack, Stack } from '@chakra-ui/react'
+import { Text, Spinner, Button, VStack } from '@chakra-ui/react'
 import { Body } from '../Body'
 import { Header } from '../Header'
 import { Layout } from '../Layout'
@@ -50,17 +50,14 @@ export const UserCommunitiesPanel: React.FC<Props> = (props) => {
       <Body>
         {loading && <Spinner />}
         {(error || !communities) && <p>Error {error}</p>}
-        <Stack spacing={ 4 }>
-          {communities && (
-            <CommunityList
-              communities={ communities.map(userCommunityToCommunityCard) }
-              joinCommunity={ noop }
-              leaveCommunity={ leaveCommunity }
-            >
-              {ifEmpty}
-            </CommunityList>
-          )}
-        </Stack>
+        {communities && (
+          <CommunityList
+            communities={ communities.map(userCommunityToCommunityCard) }
+            joinCommunity={ noop }
+          >
+            {ifEmpty}
+          </CommunityList>
+        )}
       </Body>
     </Layout>
   )

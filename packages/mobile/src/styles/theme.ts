@@ -5,6 +5,7 @@ export enum Colors {
   primary = 'primary',
   secondary = 'secondary',
   denim = 'denim',
+  denimDarken = 'denimDarken',
   gray30 = 'gray30',
   gray50 = 'gray50',
   gray80 = 'gray80',
@@ -17,6 +18,7 @@ export const colors = {
   [Colors.primary]: '#333333',
   [Colors.secondary]: '#333000',
   [Colors.denim]: '#1160D6',
+  [Colors.denimDarken]: '#204582',
   [Colors.gray30]: '#C1BFC1',
   [Colors.gray50]: '#808080',
   [Colors.gray80]: '#2F2A2F',
@@ -178,7 +180,7 @@ export const heading = {
 export const text = {
   xxsmall: {
     size: '.75rem',
-    height: '1.2',
+    height: '1.4',
   },
   xsmall: {
     size: '.875rem',

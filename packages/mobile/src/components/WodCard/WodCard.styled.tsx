@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import Div from '../../common/Div';
-import { boxShadow, colors, edgeSize, FontWeights, text } from '../../styles/theme';
+import { borderRadius, colors, edgeSize, FontWeights, text } from '../../styles/theme';
 import { pxToRem } from '../../mixins/pxToRem';
+import Card from '../../atoms/Card';
 
-export const WodCardWrapper = styled(Div)`
+export const WodCardWrapper = styled(Card)`
   position: relative;
-  overflow: hidden;
-  box-shadow: ${boxShadow.card};
   min-height: ${pxToRem(340)}rem;
+  padding-top: ${edgeSize.large};
   &:before {
     content: '';
     position: absolute;
@@ -30,9 +30,36 @@ export const Type = styled.p`
   padding-right: ${edgeSize.small};
 `;
 
-export const Workout = styled.p`
+export const Workout = styled(Div)`
+  &:not(:last-child) {
+    margin-bottom: ${edgeSize.xsmall};
+  }
+`
+
+export const WorkoutName = styled.p`
   color: ${colors.white};
   font-size: ${text.xsmall.size};
   line-height: ${text.xsmall.height};
-  font-weight: ${FontWeights.Regular};
+  font-weight: ${FontWeights.Medium};
+  letter-spacing: 0.3px;
+  margin-bottom: ${edgeSize.xxxsmall};
 `;
+
+export const WorkoutInfo = styled.p`
+  color: ${colors.gray50};
+  font-size: ${text.xxsmall.size};
+  line-height: ${text.xxsmall.height};
+  font-weight: ${FontWeights.Medium};
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+`;
+
+export const Separator = styled.span`
+  background-color: ${colors.gray50};
+  width: 2px;
+  height: 2px;
+  display: inline-block;
+  margin: 0 ${edgeSize.xxsmall};
+  border-radius: ${borderRadius.round};
+`
