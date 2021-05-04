@@ -24,7 +24,6 @@ interface Props {
   lookedupCommunities: Community[] | undefined
   findCommunities: (name: string) => void
   joinCommunity: (id: string) => void
-  leaveCommunity: (id: string) => void
 }
 
 export const FindCommunityPanel: React.FC<Props> = (props: Props) => {
@@ -34,7 +33,6 @@ export const FindCommunityPanel: React.FC<Props> = (props: Props) => {
     lookedupCommunities,
     findCommunities,
     joinCommunity,
-    leaveCommunity,
   } = props
   const [name, setName] = useState<string | null>(null)
 

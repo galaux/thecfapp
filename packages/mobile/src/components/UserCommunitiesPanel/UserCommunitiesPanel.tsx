@@ -13,7 +13,6 @@ type Props = {
   loading: boolean
   error: ApolloError | undefined
   communities: UserCommunity[] | undefined
-  leaveCommunity: (id: string) => void
 }
 
 /**
@@ -28,7 +27,7 @@ function userCommunityToCommunityCard(c: UserCommunity): CommunityCard {
 }
 
 export const UserCommunitiesPanel: React.FC<Props> = (props) => {
-  const { loading, error, communities, leaveCommunity } = props
+  const { loading, error, communities } = props
 
   const noop = () => null
 
