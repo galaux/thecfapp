@@ -76,12 +76,6 @@ describe('User WODs panel', () => {
     // SwipeableViews only displays the first element
     const firstWod = wods[0]
     expect(screen.getByText(firstWod.workout.name)).toBeInTheDocument()
-    expect(
-      screen.getByText(
-        (_: HTMLElement, node: Node) =>
-          node.textContent === firstWod.workout.description,
-      ),
-    ).toBeInTheDocument()
     // TODO better check of the date once the UI display is correctly done
     expect(screen.getByText(/dec/i)).toBeInTheDocument()
   })

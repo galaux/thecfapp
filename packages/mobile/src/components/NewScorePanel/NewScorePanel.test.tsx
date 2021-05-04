@@ -33,12 +33,6 @@ describe('User WODs panel', () => {
     )
 
     expect(
-      screen.getByText(
-        (_: HTMLElement, node: Node) =>
-          node.textContent === wod.workout.description,
-      ),
-    ).toBeInTheDocument()
-    expect(
       screen.getByRole('heading', {
         name: /add my score/i,
       }),

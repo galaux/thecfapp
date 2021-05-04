@@ -107,12 +107,7 @@ describe('User WODs panel', () => {
     const wod = community.wods[0]
     expect(screen.getByText(wod.workout.name)).toBeInTheDocument()
     // TODO number of scores
-    expect(
-      screen.getByText(
-        (_: HTMLElement, node: Node) =>
-          node.textContent === wod.workout.description,
-      ),
-    ).toBeInTheDocument()
+
     // TODO Score of logged user (if has one)
     // TODO better check of the date once the UI display is correctly done
     expect(screen.getByText(/dec/i)).toBeInTheDocument()

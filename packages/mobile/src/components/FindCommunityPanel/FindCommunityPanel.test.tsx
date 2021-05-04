@@ -13,7 +13,6 @@ import { CommunityForFindCommunityPanelFragment } from './find-community-panel.g
 describe('Find community panel', () => {
   const findCommunitiesSpy = jest.fn()
   const joinCommunitySpy = jest.fn()
-  const leaveCommunitySpy = jest.fn()
 
   beforeEach(() => jest.resetAllMocks)
 
@@ -34,7 +33,6 @@ describe('Find community panel', () => {
         lookedupCommunities={ undefined }
         findCommunities={ findCommunitiesSpy }
         joinCommunity={ joinCommunitySpy }
-        leaveCommunity={ leaveCommunitySpy }
       />,
     )
     expect(screen.getByRole('textbox')).toBeInTheDocument()
@@ -50,7 +48,6 @@ describe('Find community panel', () => {
         lookedupCommunities={ undefined }
         findCommunities={ findCommunitiesSpy }
         joinCommunity={ joinCommunitySpy }
-        leaveCommunity={ leaveCommunitySpy }
       />,
     )
     const value = faker.random.words(5)
@@ -66,7 +63,6 @@ describe('Find community panel', () => {
         lookedupCommunities={ undefined }
         findCommunities={ findCommunitiesSpy }
         joinCommunity={ joinCommunitySpy }
-        leaveCommunity={ leaveCommunitySpy }
       />,
     )
     expect(screen.getByText(/loading\.\.\./i)).toBeInTheDocument()
@@ -81,7 +77,6 @@ describe('Find community panel', () => {
           lookedupCommunities={ undefined }
           findCommunities={ findCommunitiesSpy }
           joinCommunity={ joinCommunitySpy }
-          leaveCommunity={ leaveCommunitySpy }
         />,
       )
       expect(
@@ -110,7 +105,6 @@ describe('Find community panel', () => {
         lookedupCommunities={ communities }
         findCommunities={ findCommunitiesSpy }
         joinCommunity={ joinCommunitySpy }
-        leaveCommunity={ leaveCommunitySpy }
       />,
     )
     // Has form to submit search
@@ -127,10 +121,10 @@ describe('Find community panel', () => {
       )
       if (community.address) {
         const address = communities[0].address
-        expect(screen.getByText(new RegExp(address.street)))
-        expect(screen.getByText(new RegExp(address.zipCode)))
-        expect(screen.getByText(new RegExp(address.city)))
-        expect(screen.getByText(new RegExp(address.country)))
+        expect(screen.getByText(new RegExp(address!.street!!)))
+        expect(screen.getByText(new RegExp(address!.zipCode!!)))
+        expect(screen.getByText(new RegExp(address!.city!!)))
+        expect(screen.getByText(new RegExp(address!.country!!)))
       }
     }
   })
@@ -143,30 +137,11 @@ describe('Find community panel', () => {
         lookedupCommunities={ [foreignCommunity] }
         findCommunities={ findCommunitiesSpy }
         joinCommunity={ joinCommunitySpy }
-        leaveCommunity={ leaveCommunitySpy }
       />,
     )
     expect(
       screen.getByRole('button', {
         name: /join/i,
-      }),
-    )
-  })
-
-  it('displays a "Leave" button if user is not a member', () => {
-    render(
-      <FindCommunityPanel
-        loading={ false }
-        error={ undefined }
-        lookedupCommunities={ [memberCommunity] }
-        findCommunities={ findCommunitiesSpy }
-        joinCommunity={ joinCommunitySpy }
-        leaveCommunity={ leaveCommunitySpy }
-      />,
-    )
-    expect(
-      screen.getByRole('button', {
-        name: /leave/i,
       }),
     )
   })
@@ -179,7 +154,6 @@ describe('Find community panel', () => {
         lookedupCommunities={ [] }
         findCommunities={ findCommunitiesSpy }
         joinCommunity={ joinCommunitySpy }
-        leaveCommunity={ leaveCommunitySpy }
       />,
     )
     expect(screen.getByText(/looks like this community doesn't exist yet\./i))
@@ -190,21 +164,6 @@ describe('Find community panel', () => {
     )
   })
 
-  it('removes user from community when clicking on "Leave"', () => {
-    render(
-      <FindCommunityPanel
-        loading={ false }
-        error={ undefined }
-        lookedupCommunities={ [memberCommunity] }
-        findCommunities={ findCommunitiesSpy }
-        joinCommunity={ joinCommunitySpy }
-        leaveCommunity={ leaveCommunitySpy }
-      />,
-    )
-    fireEvent.click(screen.getByRole('button', { name: /leave/i }))
-    expect(leaveCommunitySpy).toHaveBeenCalled()
-  })
-
   it('adds user to community when clicking on "Join"', () => {
     render(
       <FindCommunityPanel
@@ -213,7 +172,6 @@ describe('Find community panel', () => {
         lookedupCommunities={ [foreignCommunity] }
         findCommunities={ findCommunitiesSpy }
         joinCommunity={ joinCommunitySpy }
-        leaveCommunity={ leaveCommunitySpy }
       />,
     )
     fireEvent.click(screen.getByRole('button', { name: /join/i }))
