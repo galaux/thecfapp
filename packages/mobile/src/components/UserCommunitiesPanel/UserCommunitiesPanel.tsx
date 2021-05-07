@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Text, Spinner, Button, VStack, Stack } from '@chakra-ui/react'
+import { Text, Spinner, Button, VStack } from '@chakra-ui/react'
 import { Body } from '../Body'
 import { Header } from '../Header'
 import { Layout } from '../Layout'
@@ -13,7 +13,6 @@ type Props = {
   loading: boolean
   error: ApolloError | undefined
   communities: UserCommunity[] | undefined
-  leaveCommunity: (id: string) => void
 }
 
 /**
@@ -28,7 +27,7 @@ function userCommunityToCommunityCard(c: UserCommunity): CommunityCard {
 }
 
 export const UserCommunitiesPanel: React.FC<Props> = (props) => {
-  const { loading, error, communities, leaveCommunity } = props
+  const { loading, error, communities } = props
 
   const noop = () => null
 
@@ -38,7 +37,7 @@ export const UserCommunitiesPanel: React.FC<Props> = (props) => {
         (·_·)
       </Text>
       <Text>Looks like you don't belong to any community … yet.</Text>
-      <Button colorScheme='blue' onClick={() => navigate('/find-community')}>
+      <Button colorScheme='blue' onClick={ () => navigate('/find-community') }>
         Find a community
       </Button>
     </VStack>
@@ -50,17 +49,14 @@ export const UserCommunitiesPanel: React.FC<Props> = (props) => {
       <Body>
         {loading && <Spinner />}
         {(error || !communities) && <p>Error {error}</p>}
-        <Stack spacing={4}>
-          {communities && (
-            <CommunityList
-              communities={communities.map(userCommunityToCommunityCard)}
-              joinCommunity={noop}
-              leaveCommunity={leaveCommunity}
-            >
-              {ifEmpty}
-            </CommunityList>
-          )}
-        </Stack>
+        {communities && (
+          <CommunityList
+            communities={ communities.map(userCommunityToCommunityCard) }
+            joinCommunity={ noop }
+          >
+            {ifEmpty}
+          </CommunityList>
+        )}
       </Body>
     </Layout>
   )

@@ -74,10 +74,10 @@ export const NewScorePage: React.FC<RouteComponentProps> = () => {
 
   return (
     <NewScorePanel
-      wod={state}
-      createScore={createScore}
-      createLoading={loading}
-      createError={error}
+      wod={ state }
+      createScore={ createScore }
+      createLoading={ loading }
+      createError={ error }
     />
   )
 }

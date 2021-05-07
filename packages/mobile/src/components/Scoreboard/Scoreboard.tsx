@@ -20,9 +20,9 @@ export const Scoreboard: React.FC<Props> = (props: Props) => {
       <Text>Scoreboard</Text>
       <OrderedList>
         {sortScores(workout.scoringType, scores).map((score) => (
-          <ListItem key={score.id}>
+          <ListItem key={ score.id }>
             <Text
-              as={score.belongsToLoggedUser ? 'b' : undefined}
+              as={ score.belongsToLoggedUser ? 'b' : undefined }
             >{`${score.user.name}: ${score.value} ${scoringType}`}</Text>
           </ListItem>
         ))}

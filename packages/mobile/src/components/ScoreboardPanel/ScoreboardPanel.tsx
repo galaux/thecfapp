@@ -29,7 +29,7 @@ export const ScoreboardPanel: React.FC<Props> = (props: Props) => {
         {error && <>{error}</>}
         {/* TODO display error if no communities */}
         {workout && scores && scores?.length !== 0 && (
-          <Scoreboard scores={scores} workout={workout} />
+          <Scoreboard scores={ scores } workout={ workout } />
         )}
         {scores && scores?.length === 0 && (
           <VStack>
@@ -42,7 +42,7 @@ export const ScoreboardPanel: React.FC<Props> = (props: Props) => {
         {loggedUserHasScore && (
           <Button
             colorScheme='blue'
-            onClick={() => navigate('/new-score', { state: wod })}
+            onClick={ () => navigate('/new-score', { state: wod }) }
           >
             Add yours
           </Button>

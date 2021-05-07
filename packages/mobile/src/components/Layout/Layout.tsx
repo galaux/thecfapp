@@ -19,7 +19,7 @@ export const Layout: React.FC = ({ children }) => (
 
     <Grid
       h='100vh'
-      templateAreas={templateAreas}
+      templateAreas={ templateAreas }
       templateColumns='1fr'
       templateRows='auto 1fr auto'
       bg='_shark'
@@ -27,7 +27,7 @@ export const Layout: React.FC = ({ children }) => (
     >
       {children}
 
-      <Text gridArea='Footer' fontSize='xs' color='_gray' px={6} py={3}>
+      <Text gridArea='Footer' fontSize='xs' color='_gray' px={ 6 } py={ 3 }>
         {COPYRIGHT_STR}
       </Text>
     </Grid>

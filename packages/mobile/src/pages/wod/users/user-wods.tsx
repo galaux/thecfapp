@@ -12,5 +12,5 @@ export const UserWodsPage: React.FC<RouteComponentProps> = () => {
     variables: { userId },
   })
 
-  return <UserWodsPanel loading={loading} error={error} wods={data?.userWods} />
+  return <UserWodsPanel loading={ loading } error={ error } wods={ data?.userWods } />
 }

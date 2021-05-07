@@ -4,13 +4,11 @@ import { loggedUserId } from '../../../graphql/state/app'
 import {
   useJoinCommunityMutation,
   useUserCommunitiesQuery,
-  useLeaveCommunityMutation,
 } from '../../community'
 import { fetchPolicy } from '../../../fetch-policy'
 import { useFindCommunitiesLazyQuery } from './find-communities.generated'
 import {
-  addCommunityToUserCommunitiesCache,
-  removeCommunityFromUserCommunitiesCache,
+  addCommunityToUserCommunitiesCache
 } from '../on-user-communities-mutation'
 
 const ONE_MINUTE_IN_MS = 60 * 1000
@@ -56,34 +54,20 @@ export const FindCommunityPage: React.FC<RouteComponentProps> = () => {
       addCommunityToUserCommunitiesCache(cache, data?.addUserToCommunity),
   })
 
-  const [
-    leaveCommunity,
-    { loading: leaveLoading, error: leaveError },
-  ] = useLeaveCommunityMutation({
-    update: (cache, { data }) =>
-      removeCommunityFromUserCommunitiesCache(
-        cache,
-        data?.removeUserFromCommunity,
-      ),
-  })
-
   const loading =
-    userCommunitiesLoading && findLoading && joinLoading && leaveLoading
-  const error = userCommunitiesError ?? findError ?? joinError ?? leaveError
+    userCommunitiesLoading && findLoading && joinLoading
+  const error = userCommunitiesError ?? findError ?? joinError
 
   return (
     <FindCommunityPanel
-      loading={loading}
-      error={error}
-      lookedupCommunities={findData?.findCommunities}
-      findCommunities={(name: string) =>
+      loading={ loading }
+      error={ error }
+      lookedupCommunities={ findData?.findCommunities }
+      findCommunities={ (name: string) =>
         findCommunities({ variables: { name } })
       }
-      joinCommunity={(communityId: string) =>
+      joinCommunity={ (communityId: string) =>
         joinCommunity({ variables: { userId, communityId } })
-      }
-      leaveCommunity={(communityId: string) =>
-        leaveCommunity({ variables: { userId, communityId } })
       }
     />
   )

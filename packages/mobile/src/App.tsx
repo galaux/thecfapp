@@ -5,7 +5,6 @@ import {
   useDisclosure,
   UseDisclosureReturn,
 } from '@chakra-ui/react'
-import './App.css'
 import { NewScorePage } from './pages/score/new'
 import { UserWodsPage } from './pages/wod/users'
 import { DashboardPage } from './pages/dashboard'
@@ -25,6 +24,8 @@ import { ScoreboardPage } from './pages/score/scoreboard'
 import { Menu } from './components/Menu'
 import { useMenuUserLazyQuery } from './user-menu.generated'
 import { fetchPolicy } from './fetch-policy'
+import GlobalStyle from './styles/theme';
+import FontStyles from './styles/fonts/fontStyles';
 
 /* A user with this ID is seeded in the DB at start-up, don't change or sync
    sync with @thecfapp/api/db/db-seeder value and re-seed the DB */
@@ -78,16 +79,18 @@ const App: React.FC<Props> = (props) => {
   })
 
   return (
-    <ApolloProvider client={client}>
-      <ChakraProvider theme={customTheme}>
+    <ApolloProvider client={ client }>
+      <FontStyles />
+      <GlobalStyle />
+      <ChakraProvider theme={ customTheme }>
         <>
           <Menu
-            loading={loadingMenuUser}
-            error={errorMenuUser}
-            user={dataMenuUser?.user}
-            menuDisclosure={menuDisclosure}
+            loading={ loadingMenuUser }
+            error={ errorMenuUser }
+            user={ dataMenuUser?.user }
+            menuDisclosure={ menuDisclosure }
           />
-          <MenuContext.Provider value={menuDisclosure}>
+          <MenuContext.Provider value={ menuDisclosure }>
             <Router>
               <CommunityDetailPage path='/community/:communityId' />
               <NewWodPage path='/new-wod' />
