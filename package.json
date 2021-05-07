@@ -4,16 +4,7 @@
   "private": true,
   "scripts": {
     "build": "yarn workspaces run build",
-    "codegen": "yarn workspace @thecfapp/mobile run codegen",
-    "db:schema:drop": "dotenv yarn workspace @thecfapp/api run db:schema:drop",
-    "db:schema:log": "dotenv yarn workspace @thecfapp/api run db:schema:log",
-    "db:schema:sync": "dotenv yarn workspace @thecfapp/api run db:schema:sync",
-    "db:seed:config": "dotenv yarn workspace @thecfapp/api run db:seed:config",
-    "db:seed:run": "dotenv yarn workspace @thecfapp/api run db:seed:run",
-    "dev:api": "SERVE_MOBILE=false dotenv yarn workspace @thecfapp/server run dev",
-    "dev:mobile": "dotenv yarn workspace @thecfapp/mobile run start",
     "lint": "yarn workspaces run lint",
-    "start": "yarn workspace @thecfapp/server run start",
     "test": "yarn workspaces run test"
   },
   "repository": {
@@ -27,34 +18,11 @@
   "homepage": "https://github.com/TheCFApp/thecfapp#readme",
   "workspaces": {
     "packages": [
-      "packages/api",
-      "packages/mobile",
-      "packages/server"
+      "packages/mobile"
     ],
     "nohoist": [
       "**/react-scripts",
       "**/react-scripts/**"
     ]
-  },
-  "engines": {
-    "node": "12.x || 14.x"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "packages/**/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write"
-    ]
-  },
-  "dependencies": {
-    "dotenv-cli": "^4.0.0"
-  },
-  "devDependencies": {
-    "husky": "^4.3.5",
-    "lint-staged": "^10.5.3",
-    "prettier": "^2.2.1"
   }
 }

@@ -10,7 +10,8 @@
    [reitit.ring.middleware.muuntaja :as muuntaja]
    [reitit.ring.middleware.parameters :as parameters]
    [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
-   [ring.util.http-response :refer [ok]]))
+   [ring.util.http-response :refer [ok]]
+   [ring.util.response :refer [resource-response]]))
 
 (def api-router-data
   ;; router data affecting all routes
@@ -43,16 +44,35 @@
       json/write-str
       ok))
 
+(def react-app-handler
+  "The React App build comprises a `index.html`, and some static assets. All
+   must obviously be served but with a caveat. As the React App uses
+   a browser-side router, it can generate routes only known by itself
+   and not to the server. If user happens to hit Enter on the browser URL field,
+   the current route will be requested to the server though it may be a browser
+   route. For this reason, any route other than the ones corresponding to a
+   known static asset, should return `index.html`in order to always fall-back
+   to the mobile application."
+  (ring/create-resource-handler
+   {:path "/"
+    ;; Serve all known static resources in `./resources/mobile`
+    :root "mobile"
+    ;; Don't redirect `/` to `/index.html`, we'll handle this with
+    ;; `:not-found-handler` (prevents displaying `/index.html` on the broswer)
+    :index-files []
+    ;; Anything else than a know static file, we return the mobile app
+    :not-found-handler (constantly
+                        (resource-response "index.html"
+                                           {:root "mobile"}))}))
+
 (defn app-routes
   [execute-query]
-  ;; https://github.com/metosin/reitit/blob/master/doc/ring/static.md#external-routes
   (ring/ring-handler
+   ;; Normal handler: the API & al.
    (ring/router
     ["/api/graphql" {:post (partial serve-graphql execute-query)}])
-   (-> (ring/create-file-handler {:path "/"
-                                  :root "../packages/mobile/build"})
-       (wrap-defaults site-defaults))))
-       ;; (ring/create-default-handler))))
+   ;; Default handler: the React App
+   react-app-handler))
 
 ;; TODO see how to properly handle error page (see cfapp-back)
 

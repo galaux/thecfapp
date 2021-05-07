@@ -13,8 +13,6 @@ packages/**/build
 
 # Codegen generated
 *.generated.tsx
-packages/api/generated/graphql.ts
-packages/mobile/graphql.schema.json
 packages/mobile/src/types/graphql.ts
 
 # misc
@@ -35,4 +33,6 @@ yarn-debug.log*
 yarn-error.log*
 
 api/datomic
+api/resources/mobile/index.html
+api/resources/mobile/**/*
 *.jar

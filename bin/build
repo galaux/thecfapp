@@ -2,16 +2,21 @@
 
 # This file's sole purpose is to be picked up by the Heroku Clojure build pack
 # in order to be run instead of the upstream Leiningen build script.
-# It still can be run locally to build the project.
 
+# Exit if any command fails
+set -e
+
+# Show debug
 set -x
 
-pushd packages/mobile
-yarn build
-popd
+SCRIPT_PATH=$(readlink -f "$0")
+BASEDIR=$(dirname $SCRIPT_PATH)
+PROJECT_DIR=$(dirname $BASEDIR)
+
+cp -r $PROJECT_DIR/packages/mobile/build/* $PROJECT_DIR/api/resources/mobile/
 
 pushd api
-# This requires setting the Clojure CLI version for the Heroku Clojure build
-# pack by declaring a CLOJURE_CLI_VERSION environment variable.
+# On Heroku, this requires setting the CLOJURE_CLI_VERSION environment variable
+# for the Clojure build pack to pick it up.
 clojure -X:uberjar
 popd
