@@ -7,7 +7,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint src --ext .ts,.tsx",
     "start": "BROWSER=none PORT=3000 react-scripts start",
-    "test": "react-scripts test --watchAll=false --silent",
+    "test": "true",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
