@@ -17,6 +17,10 @@
     "DATABASE_LOGGING": {
       "description": "Verbose ORM logging",
       "value": "true"
+    },
+    "PGSSLMODE": {
+      "description": "Instruct Heroku not to check certificates for DB",
+      "value": "no-verify"
     }
   },
   "environments": {
