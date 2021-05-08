@@ -1,35 +1,49 @@
 (ns cfapp.api.domain.community
   (:require
+    [cfapp.api.domain.user :as user]
+    [cfapp.api.spec-util :as sutil]
+    [cfapp.api.util :refer [anomaly anomaly->error anomaly?]]
     [clojure.spec.alpha :as s]
     [clojure.spec.gen.alpha :as gen]
     [clojure.string :as str]
     [cognitect.anomalies :as anomalies]
     [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
     [datomic.client.api :as d]
-    [cfapp.api.domain.user :as user]
-    [cfapp.api.util :refer [anomaly anomaly? anomaly->error]]
-    [cfapp.api.spec-util :as sutil])
+    [talltale.core :as fake])
   (:import
-    (java.util UUID)))
+    java.util.UUID))
 
 (s/def :community/id :util/uuid)
-(s/def :community/name
-  (s/with-gen
-    :util/non-blank-string
-    (constantly (gen/fmap #(str "CrossFit " %)
-                          sutil/non-blank-string-gen))))
+(s/def :community/name :util/non-blank-string)
 (s/def :community.address/street string?)
 (s/def :community.address/zip-code string?)
 (s/def :community.address/city string?)
 (s/def :community.address/country string?)
 
+(defn- gen-community
+  []
+  (gen/fmap
+    (fn [{:keys [company-name address]}]
+      (cond->
+        {:community/id (UUID/randomUUID)
+         :community/name (->> [company-name "Crossfit" (:city address)]
+                              shuffle
+                              (str/join " "))}
+        (zero? (rand-int 3)) (assoc :community.address/street (:street address))
+        (zero? (rand-int 3)) (assoc :community.address/city (:city address))
+        (zero? (rand-int 3)) (assoc :community.address/zip-code (:postal-code address))
+        (zero? (rand-int 3)) (assoc :community.address/country "USA")))
+    (fake/company-gen)))
+
 (s/def ::community
-  (s/keys :req [:community/id
-                :community/name]
-    :opt [:community.address/street
-          :community.address/zip-code
-          :community.address/city
-          :community.address/country]))
+  (s/with-gen
+    (s/keys :req [:community/id
+                  :community/name]
+      :opt [:community.address/street
+            :community.address/zip-code
+            :community.address/city
+            :community.address/country])
+    gen-community))
 
 (def community-gen (s/gen ::community))
 
@@ -237,7 +251,7 @@
    [:community/id community-id]])
 
 (defn leave-community
-   "Returns the communityId (FIXME that doesn't really make sense.
+  "Returns the communityId (FIXME that doesn't really make sense.
    Return sthing more meaningful like the user or the community
    depending on what mobile could need)"
   [context {:keys [input]} _value]

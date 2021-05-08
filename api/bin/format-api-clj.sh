@@ -7,7 +7,7 @@
 #   . "$(dirname "$0")/../../api/bin/format-api.sh"
 
 echo "Formatting …"
-git diff --cached --name-status ./api/**/*{clj,edn} \;
+git diff --cached --name-status ./api/**/*{clj,edn} \
   | grep -e '^[MAR]' \
   | while IFS=$'\t' read mode fname; \
     do

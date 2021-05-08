@@ -33,7 +33,8 @@
   ring/ring-core {:mvn/version "1.9.2"}
   ring/ring-defaults {:mvn/version "0.3.2"}
   ring/ring-jetty-adapter {:mvn/version "1.9.2"}
-  ring-webjars/ring-webjars {:mvn/version "0.2.0"}}
+  ring-webjars/ring-webjars {:mvn/version "0.2.0"}
+  talltale/talltale {:mvn/version "0.5.4"}}
 
  :aliases
  {:dev

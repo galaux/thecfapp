@@ -1,10 +1,12 @@
 (ns cfapp.api.spec-util
   (:require
-   [clojure.spec.alpha :as s]
-   [clojure.spec.gen.alpha :as gen]
-   [clojure.string :as str]
-   [java-time :as java-time]
-   [cfapp.api.util :as util]))
+    [cfapp.api.util :as util]
+    [clojure.spec.alpha :as s]
+    [clojure.spec.gen.alpha :as gen]
+    [clojure.string :as str]
+    [java-time :as java-time]
+    [talltale.core :as fake]
+    [datomic.client.api :as d]))
 
 (s/def :util/uuid
   (s/with-gen uuid? gen/uuid))
@@ -40,3 +42,28 @@
             (java-time/plus (java-time/days r))
             util/LocalDate->Date))
       (s/gen (s/int-in -100 100)))))
+
+(def lorem-ipsum-words-gen
+  (let [words (->> (fake/lorem-ipsum)
+                   str/lower-case
+                   (remove #(contains? #{\. \,} %))
+                   (apply str))]
+    (-> words
+        (str/split #" ")
+        set
+        s/gen)))
+
+(defn- gen-lorem-ipsum-text
+  []
+  (gen/fmap
+    (partial str/join " ")
+    (gen/vector lorem-ipsum-words-gen)))
+
+(s/def ::lorem-ipsum-text
+  (s/with-gen
+    string?
+    gen-lorem-ipsum-text))
+
+(def lorem-ipsum-text-gen
+  "Spec generator to produce Lorem Ipsum like texts."
+  (s/gen ::lorem-ipsum-text))

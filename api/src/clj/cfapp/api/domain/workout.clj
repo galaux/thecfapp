@@ -1,10 +1,14 @@
 (ns cfapp.api.domain.workout
   (:require
+    [cfapp.api.spec-util :as sutil]
+    [cfapp.api.util :refer [camel-case-keys]]
     [clojure.spec.alpha :as s]
     [clojure.spec.gen.alpha :as gen]
+    [clojure.string :as str]
     [datomic.client.api :as d]
-    [cfapp.api.spec-util :as sutil]
-    [cfapp.api.util :refer [camel-case-keys]]))
+    [talltale.core :as fake])
+  (:import
+    java.util.UUID))
 
 (s/def :workout/id :util/uuid)
 (s/def :workout/name :util/non-blank-string)
@@ -13,11 +17,28 @@
   #{:workout.scoring-type/duration-ms
     :workout.scoring-type/repetitions})
 
+(defn- gen-workout
+  []
+  (gen/fmap
+    (fn [[words-name description scoring-type]]
+      {:workout/id (UUID/randomUUID)
+       :workout/name (str/join " " words-name)
+       :workout/description description
+       :workout/scoring-type scoring-type})
+    (gen/tuple
+      (gen/vector-distinct sutil/lorem-ipsum-words-gen
+                           {:min-elements 2
+                            :max-elements 5})
+      sutil/lorem-ipsum-text-gen
+      (s/gen :workout/scoring-type))))
+
 (s/def ::workout
-  (s/keys :req [:workout/id
-                :workout/name
-                :workout/description
-                :workout/scoring-type]))
+  (s/with-gen
+    (s/keys :req [:workout/id
+                  :workout/name
+                  :workout/description
+                  :workout/scoring-type])
+    gen-workout))
 
 (def workout-gen (s/gen ::workout))
 

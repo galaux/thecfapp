@@ -1,22 +1,36 @@
 (ns cfapp.api.domain.user
   (:require
-   [clojure.spec.alpha :as s]
-   [cognitect.anomalies :as anomalies]
-   [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
-   [datomic.client.api :as d]
-   [cfapp.api.spec-util :as sutil]
-   [cfapp.api.util :refer [anomaly anomaly->error]])
+    [cfapp.api.spec-util :as sutil]
+    [cfapp.api.util :refer [anomaly anomaly->error]]
+    [clojure.spec.alpha :as s]
+    [clojure.spec.gen.alpha :as gen]
+    [clojure.string :as str]
+    [cognitect.anomalies :as anomalies]
+    [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
+    [datomic.client.api :as d]
+    [talltale.core :as fake])
   (:import
-   (java.util UUID)))
+    java.util.UUID))
 
 (s/def :user/id :util/uuid)
 (s/def :user/screen-name :util/non-blank-string)
 (s/def :user/email :util/email)
 
+(defn- gen-user
+  []
+  (gen/fmap
+    (fn [{:keys [email username]}]
+      {:user/id (UUID/randomUUID)
+       :user/screen-name (str username (rand-int 100))
+       :user/email email})
+    (fake/person-gen)))
+
 (s/def ::user
-  (s/keys :req [:user/id
-                :user/screen-name
-                :user/email]))
+  (s/with-gen
+    (s/keys :req [:user/id
+                  :user/screen-name
+                  :user/email])
+    gen-user))
 
 (def user-gen (s/gen ::user))
 
