@@ -6,7 +6,7 @@
     </encoder>
   </appender>
 
-  <property name="level" value="info"/>
+  <property name="level" value="${LOG_LEVEL}"/>
 
   <root level="${level}">
     <appender-ref ref="STDOUT"/>
