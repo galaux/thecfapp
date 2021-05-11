@@ -1,8 +1,8 @@
-(ns cfapp.api.domain.community
+(ns cfapp.api.db.domain.community
   (:require
-    [cfapp.api.domain.user :as user]
+    [cfapp.api.db.domain.user :as user]
+    [cfapp.api.util :refer [anomaly anomaly->error]]
     [cfapp.api.spec-util :as sutil]
-    [cfapp.api.util :refer [anomaly anomaly->error anomaly?]]
     [clojure.spec.alpha :as s]
     [clojure.spec.gen.alpha :as gen]
     [clojure.string :as str]
@@ -53,61 +53,33 @@
 ;; :community.privs/admin
 ;; :community.privs/owner])
 
-(defn shape-community-address
-  [community]
-  (let [{:community.address/keys [street zip-code city country]} community]
-    {:street street
-     :zipCode zip-code
-     :city city
-     :country country}))
-
-(defn shape-community
-  [community]
-  (let [{:community/keys [id name]} community]
-    {:id id
-     :name name
-     :address (shape-community-address community)}))
-
-(def ^:private find-all-query
-  '[:find (pull ?e pull-expr)
-    :in $ pull-expr
-    :where [?e :community/id]])
-
-(defn get-community
-  [{:keys [conn]} {:keys [id]} _value]
-  (let [res (d/pull (d/db conn) '[*] [:community/id id])]
+(defn by-id
+  [db id]
+  (let [res (d/pull db '[*] [:community/id id])]
     (when (:community/id res)
-      (shape-community res))))
+      res)))
 
-(def q-user-communities
+(def q-by-user-id
   '[:find (pull ?community-eid [*])
     :in $ ?user-id [?community-privs ...]
     :where
     [?user-eid :user/id ?user-id]
     [?user-eid ?community-privs ?community-eid]])
 
-(defn user-communities*
+(defn by-user-id
   [db user-id]
-  (->> (d/q q-user-communities db user-id all-community-privs)
+  (->> (d/q q-by-user-id db user-id all-community-privs)
        flatten))
 
-(defn user->communities
-  [{:keys [conn]} _args {:keys [id]}]
-  (if id
-    (->> (user-communities* (d/db conn) id)
-         (map shape-community))
-    []))
+(def ^:private q-all
+  '[:find (pull ?e pull-expr)
+    :in $ pull-expr
+    :where [?e :community/id]])
 
-(defn user-communities
-  [{:keys [conn]} {:keys [userId]} _value]
-  (->> (user-communities* (d/db conn) userId)
-       (map shape-community)))
-
-(defn list-communities
-  [{:keys [conn]} _args _value]
-  (->> (d/q find-all-query (d/db conn) '[*])
-       flatten
-       (map shape-community)))
+(defn all
+  [db]
+  (->> (d/q q-all db '[*])
+       flatten))
 
 (defn exists-with-name?
   [db name]
@@ -121,21 +93,23 @@
       :db/id
       some?))
 
-(defn find-with-name-like
-  [{:keys [conn]} {:keys [name]} _value]
-  ;; Poor man's full text search
-  (->> (d/q '[:find (pull ?e [*])
-              :in $ ?lower-searched-word
-              :where
-              [?e :community/name ?comm-name]
-              [(clojure.string/lower-case ?comm-name) ?lower-comm-name]
-              [(clojure.string/includes? ?lower-comm-name ?lower-searched-word)]]
-            (d/db conn)
-            (str/lower-case name))
-       flatten
-       (map shape-community)))
+(def ^:private q-find-with-name-like
+  '[:find (pull ?e [*])
+    :in $ ?lower-searched-word
+    :where
+    [?e :community/name ?comm-name]
+    [(clojure.string/lower-case ?comm-name) ?lower-comm-name]
+    [(clojure.string/includes? ?lower-comm-name ?lower-searched-word)]])
 
-(defn check-add-community
+(defn find-with-name-like
+  [db name]
+  ;; Poor man's full text search
+  (->> (d/q q-find-with-name-like
+            db
+            (str/lower-case name))
+       flatten))
+
+(defn- check-create
   [db community-input creator-id]
   (or (and (not (user/exists? db creator-id))
            (anomaly ::anomalies/incorrect "User doesn't exist"))
@@ -143,42 +117,34 @@
            (anomaly ::anomalies/conflict
                     "A community with this name already exists"))))
 
-(defn add-community-tx
-  [input]
-  (let [{:keys [name street zipCode city country]} input]
-    (cond-> {:community/id (UUID/randomUUID)
-             :community/name name}
-      street (assoc :community.address/street street)
-      zipCode (assoc :community.address/zip-code zipCode)
-      city (assoc :community.address/city city)
-      country (assoc :community.address/country country))))
+(defn- create-tx
+  [{:keys [name street zip-code city country]}]
+  (cond-> {:community/id (UUID/randomUUID)
+           :community/name name}
+    street (assoc :community.address/street street)
+    zip-code (assoc :community.address/zip-code zip-code)
+    city (assoc :community.address/city city)
+    country (assoc :community.address/country country)))
 
 ;; TODO check input of this as being spec compliant
 ;; TODO extract full generation of tx
 ;; to prevent propagating the GraphQL camelCase naming
-(defn add-community*
-  [{:keys [conn]} {:keys [creatorId input]} _value]
+(defn create
+  [conn creator-id input]
   (let [db (d/db conn)]
-    (or (check-add-community db input creatorId)
+    (or (check-create db input creator-id)
         (let [community-eid "tmp-community-eid"
-              community (assoc (add-community-tx input)
+              community (assoc (create-tx input)
                           :db/id community-eid)
               community-privs (map (fn [priv]
-                                     {:db/id [:user/id creatorId]
+                                     {:db/id [:user/id creator-id]
                                       priv {:db/id community-eid}})
                                 all-community-privs)
               res (d/transact conn {:tx-data (conj community-privs community)})]
           (->> (get-in res [:tempids community-eid])
                (d/pull (d/db conn) '[*]))))))
 
-(defn add-community
-  [context args value]
-  (let [res (add-community* context args value)]
-    (if (anomaly? res)
-      (resolve-as nil (anomaly->error res))
-      (shape-community res))))
-
-(def q-by-wod-id
+(def ^:private q-by-wod-id
   '[:find (pull ?community [*])
     :in $ ?wod-id
     :where
@@ -186,12 +152,11 @@
     [?wod :wod/community ?community]])
 
 (defn by-wod-id
-  [{:keys [conn]} _args {:keys [id]}]
-  (-> (d/q q-by-wod-id (d/db conn) id)
-      ffirst
-      shape-community))
+  [db id]
+  (-> (d/q q-by-wod-id db id)
+      ffirst))
 
-(def q-member-count
+(def ^:private q-member-count
   '[:find (count ?user)
     :in $ ?community-id
     :where
@@ -199,12 +164,12 @@
     [?user :community.privs/member ?community]])
 
 (defn member-count
-  [{:keys [conn]} _args {:keys [id]}]
-  (-> (d/q q-member-count (d/db conn) id)
-    ffirst
-    (or 0)))
+  [db community-id]
+  (-> (d/q q-member-count db community-id)
+      ffirst
+      (or 0)))
 
-(defn user-join-bad-input
+(defn- user-join-check
   [db user-id community-id]
   (or (and (-> (d/pull db [:db/id] [:user/id user-id])
                :db/id
@@ -214,25 +179,17 @@
                :db/id
                nil?)
            (anomaly ::anomalies/incorrect "Community doesn't exist"))))
-
-(defn- user-join*
-  [conn {:keys [userId communityId]}]
-  (or (user-join-bad-input (d/db conn) userId communityId)
-      (let [tx-data [{:db/id [:user/id userId]
-                      :community.privs/member {:db/id [:community/id
-                                                       communityId]}}]]
-        (d/transact conn {:tx-data tx-data}))))
 
 (defn user-join
-  [context args _value]
-  (let [{:keys [db-after] :as result} (user-join* (:conn context) (:input args))]
-    (if (anomaly? result)
-      (resolve-as false (anomaly->error result))
-      (-> (d/pull db-after '[*] [:community/id (-> args :input :communityId)])
-          shape-community))))
+  [conn {:keys [user-id community-id]}]
+  (or (user-join-check (d/db conn) user-id community-id)
+      (let [tx-data [{:db/id [:user/id user-id]
+                      :community.privs/member {:db/id [:community/id
+                                                       community-id]}}]]
+        (d/transact conn {:tx-data tx-data}))))
 
 ;; TODO factorize with join-community-bad-input
-(defn check-leave-community
+(defn- check-user-leave
   [db user-id community-id]
   (or (and (-> (d/pull db [:db/id] [:user/id user-id])
                :db/id
@@ -243,21 +200,18 @@
                nil?)
            (anomaly ::anomalies/incorrect "Community doesn't exist"))))
 
-(defn leave-community-tx
+(defn- user-leave-tx
   [user-id community-id]
   [:db/retract
    [:user/id user-id]
    :community.privs/member
    [:community/id community-id]])
 
-(defn leave-community
-  "Returns the communityId (FIXME that doesn't really make sense.
-   Return sthing more meaningful like the user or the community
-   depending on what mobile could need)"
-  [context {:keys [input]} _value]
-  (let [{:keys [communityId userId]} input]
-    (if-let [anom (check-leave-community (d/db (:conn context)) userId communityId)]
+(defn user-leave
+  [conn input]
+  (let [{:keys [community-id user-id]} input]
+    (if-let [anom (check-user-leave (d/db conn) user-id community-id)]
       (resolve-as false (anomaly->error anom))
-      (let [tx-data (leave-community-tx userId communityId)]
-        (d/transact (:conn context) {:tx-data [tx-data]})
-        communityId))))
+      (let [tx-data (user-leave-tx user-id community-id)]
+        (d/transact conn {:tx-data [tx-data]})
+        community-id))))

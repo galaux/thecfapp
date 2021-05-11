@@ -1,10 +1,9 @@
-(ns cfapp.api.domain.user
+(ns cfapp.api.db.domain.user
   (:require
     [cfapp.api.spec-util :as sutil]
     [cfapp.api.util :refer [anomaly anomaly->error]]
     [clojure.spec.alpha :as s]
     [clojure.spec.gen.alpha :as gen]
-    [clojure.string :as str]
     [cognitect.anomalies :as anomalies]
     [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
     [datomic.client.api :as d]
@@ -34,24 +33,11 @@
 
 (def user-gen (s/gen ::user))
 
-
-(defn shape-user
-  [{:user/keys [id screen-name email]}]
-  {:id id
-   :name screen-name
-   :email email})
-
-(defn get-user*
+(defn by-id
   [db id]
   (d/pull db '[*] [:user/id id]))
 
-(defn get-user
-  [{:keys [conn]} {:keys [id]} _]
-  (let [res (get-user* (d/db conn) id)]
-    (when (:user/id res)
-      (shape-user res))))
-
-(defn user-with-name-or-email
+(defn with-name-or-email
   [db username email]
   (-> (d/q '[:find ?user
              :in $ ?screen-name ?email
@@ -63,26 +49,24 @@
         db username email)
       ffirst))
 
-(defn add-user-tx
-  [{:keys [screenName email]}]
+(defn- create-tx
+  [{:keys [screen-name email]}]
   {:user/id (UUID/randomUUID)
-   :user/screen-name screenName
+   :user/screen-name screen-name
    :user/email email})
 
-(defn check-add-user
-  [db {:keys [screenName email]}]
-  (and (some? (user-with-name-or-email db screenName email))
+(defn- check-create
+  [db {:keys [screen-name email]}]
+  (and (some? (with-name-or-email db screen-name email))
        (anomaly ::anomalies/incorrect "A user with this name or email already exists")))
 
-(defn add-user
-  [context args _value]
-  (if-let [anom (check-add-user (d/db (:conn context)) (:input args))]
+(defn create
+  [conn input]
+  (if-let [anom (check-create (d/db conn) input)]
     (resolve-as false (anomaly->error anom))
-    (let [tx-data (add-user-tx (:input args))
-          {:keys [db-after]} (d/transact (:conn context) {:tx-data [tx-data]})]
-      (->> (:user/id tx-data)
-           (get-user* db-after)
-           shape-user))))
+    (let [tx-data (create-tx input)
+          {:keys [db-after]} (d/transact conn {:tx-data [tx-data]})]
+      (by-id db-after (:user/id tx-data)))))
 
 (defn exists?
   [db id]
@@ -90,16 +74,15 @@
       :db/id
       some?))
 
-(def ^:private find-all-query
+(def ^:private q-all
   '[:find (pull ?e pull-expr)
     :in $ pull-expr
     :where [?e :user/id]])
 
-(defn list-users
-  [{:keys [conn]} _ _]
-  (->> (d/q find-all-query (d/db conn) '[*])
-       flatten
-       (map shape-user)))
+(defn all
+  [db]
+  (->> (d/q q-all db '[*])
+       flatten))
 
 (def q-by-score-id
   '[:find (pull ?user [*])
@@ -109,8 +92,6 @@
     [?score :score/id ?score-id]])
 
 (defn by-score-id
-  [{:keys [conn]} _args {:keys [id]}]
-  (let [res (d/q q-by-score-id (d/db conn) id)]
-    (->> res
-         ffirst
-         shape-user)))
+  [db score-id]
+  (->> (d/q q-by-score-id db score-id)
+       ffirst))

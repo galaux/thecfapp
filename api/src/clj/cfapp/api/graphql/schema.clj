@@ -1,10 +1,10 @@
 (ns cfapp.api.graphql.schema
   (:require
-    [cfapp.api.domain.community :as community]
-    [cfapp.api.domain.score :as score]
-    [cfapp.api.domain.user :as user]
-    [cfapp.api.domain.wod :as wod]
-    [cfapp.api.domain.workout :as workout]
+    [cfapp.api.graphql.resolvers.community :as community]
+    [cfapp.api.graphql.resolvers.score :as score]
+    [cfapp.api.graphql.resolvers.user :as user]
+    [cfapp.api.graphql.resolvers.wod :as wod]
+    [cfapp.api.graphql.resolvers.workout :as workout]
     [clojure.edn :as edn]
     [clojure.java.io :as io]
     [com.walmartlabs.lacinia.schema :as schema]

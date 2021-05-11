@@ -1,12 +1,12 @@
-(ns cfapp.api.domain.user-test
+(ns cfapp.api.graphql.resolvers.user-test
   (:require
-   [clojure.data.json :as json]
-   [clojure.spec.gen.alpha :as gen]
-   [clojure.test :refer [deftest is]]
-   [integrant.core :as ig]
-   [cfapp.api.domain.community :as community]
-   [cfapp.api.domain.user :as user]
-   [cfapp.api.test-util :as tutil])
+    [clojure.data.json :as json]
+    [clojure.spec.gen.alpha :as gen]
+    [clojure.test :refer [deftest is]]
+    [integrant.core :as ig]
+    [cfapp.api.db.domain.community :as community]
+    [cfapp.api.db.domain.user :as user]
+    [cfapp.api.test-util :as tutil])
   (:import java.util.UUID))
 
 (def user-a (gen/generate user/user-gen))
@@ -53,19 +53,19 @@
 
 (deftest list-users-not-used-by-mobile
   (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)]
-     (tutil/domain-add conn [user-a])
-     (let [graphql-q
-           "query ListUsers {
+    (tutil/domain-add conn [user-a])
+    (let [graphql-q
+          "query ListUsers {
               users {
                 id name email
                 communities { id name }
               }
             }"
-           gql-query (tutil/test-query graphql-q [] nil)
-           response (handler gql-query)
-           parsed-response (-> response
-                               :body
-                               (json/read-str :key-fn keyword))]
+          gql-query (tutil/test-query graphql-q [] nil)
+          response (handler gql-query)
+          parsed-response (-> response
+                              :body
+                              (json/read-str :key-fn keyword))]
       (is (= 200 (:status response)))
       (is (empty? (:errors parsed-response)))
       (is (= [expected-user-a] (-> parsed-response :data :users))))

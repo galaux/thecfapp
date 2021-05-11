@@ -1,12 +1,11 @@
-(ns cfapp.api.domain.workout
+(ns cfapp.api.db.domain.workout
   (:require
     [cfapp.api.spec-util :as sutil]
-    [cfapp.api.util :refer [camel-case-keys]]
+    [cfapp.api.util :refer [ident->enum-value]]
     [clojure.spec.alpha :as s]
     [clojure.spec.gen.alpha :as gen]
     [clojure.string :as str]
-    [datomic.client.api :as d]
-    [talltale.core :as fake])
+    [datomic.client.api :as d])
   (:import
     java.util.UUID))
 
@@ -49,16 +48,15 @@
    :workout/description
    :workout/scoring-type])
 
-(def ^:private find-all-query
+(def ^:private q-all
   '[:find (pull ?e pull-expr)
     :in $ pull-expr
     :where [?e :workout/id]])
 
-(defn list-workouts
-  [{:keys [conn]} _args _value]
-  (->> (d/q find-all-query (d/db conn) base-workout-pull)
-       flatten
-       (map camel-case-keys)))
+(defn all
+  [db]
+  (->> (d/q q-all db base-workout-pull)
+       flatten))
 
 (def q-by-wod-id
   '[:find (pull ?workout [*])
@@ -68,10 +66,9 @@
     [?wod :wod/workout ?workout]])
 
 (defn by-wod-id
-  [{:keys [conn]} _args {:keys [id]}]
-  (-> (d/q q-by-wod-id (d/db conn) id)
-      ffirst
-      camel-case-keys))
+  [db id]
+  (->> (d/q q-by-wod-id db id)
+       ffirst))
 
 (def ^:private q-by-user-id
   '[:find (pull ?workout [*])
@@ -84,10 +81,9 @@
     [?workout :workout/id ?workout-id]])
 
 (defn by-user-id
-  [{:keys [conn]} {:keys [id]} _value]
-  (->> (d/q q-by-user-id (d/db conn) id)
-       flatten
-       (map camel-case-keys)))
+  [db id]
+  (->> (d/q q-by-user-id db id)
+       flatten))
 
 (defn exists?
   [db id]

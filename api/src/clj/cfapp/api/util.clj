@@ -1,9 +1,8 @@
 (ns cfapp.api.util
-  (:require
-    [camel-snake-kebab.core :as csk]
-    [clojure.spec.alpha :as s]
-    [clojure.walk :refer [postwalk]]
-    [cognitect.anomalies :as anomalies]))
+  (:require [camel-snake-kebab.core :as csk]
+            [clojure.spec.alpha :as s]
+            [clojure.walk :refer [postwalk]]
+            [cognitect.anomalies :as anomalies]))
 
 ;; Anomaly
 ;; =======
@@ -55,24 +54,17 @@
 ;; Type conversion
 ;; ===============
 
-(defn- uppercase-if-enum
-  [{:keys [ident] :as all}]
-  (if (keyword? ident)
-    (csk/->SCREAMING_SNAKE_CASE_KEYWORD (name ident))
-    all))
+(defn ident->enum-value
+  [datom]
+  (-> datom
+      :db/ident
+      name
+      csk/->SCREAMING_SNAKE_CASE_KEYWORD))
 
-(defn- camel-case-keys-shallow
-  [m]
-  (->> m
-       (map (fn [[k v]]
-              [(csk/->camelCaseKeyword (name k)) (uppercase-if-enum v)]))
-       (into {})))
 
-(defn camel-case-keys
+(defn kebab-keys
   [m]
-  (postwalk
-    (fn [e]
-      (if (map? e)
-        (camel-case-keys-shallow e)
-        e))
-    m))
+  ;; Heavily inspired from `clojure.walk/stringify-keys`
+  (let [f (fn [[k v]] [(csk/->kebab-case k) v])]
+    ;; only apply to maps
+    (postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) m)))

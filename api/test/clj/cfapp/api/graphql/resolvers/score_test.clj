@@ -1,15 +1,15 @@
-(ns cfapp.api.domain.score-test
+(ns cfapp.api.graphql.resolvers.score-test
   (:require
-   [clojure.data.json :as json]
-   [clojure.spec.gen.alpha :as gen]
-   [clojure.test :refer [deftest is]]
-   [integrant.core :as ig]
-   [cfapp.api.domain.user :as user]
-   [cfapp.api.domain.wod :as wod]
-   [cfapp.api.domain.workout :as workout]
-   [cfapp.api.test-util :as tutil])
+    [clojure.data.json :as json]
+    [clojure.spec.gen.alpha :as gen]
+    [clojure.test :refer [deftest is]]
+    [integrant.core :as ig]
+    [cfapp.api.db.domain.user :as user]
+    [cfapp.api.db.domain.wod :as wod]
+    [cfapp.api.db.domain.workout :as workout]
+    [cfapp.api.test-util :as tutil])
   (:import
-   java.util.UUID))
+    java.util.UUID))
 
 (deftest create-score
   (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
