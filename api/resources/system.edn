@@ -24,9 +24,9 @@
   :client #ig/ref :cfapp.api.db/client
   :db-name "domain"}
 
- :cfapp.api.graphql/compiled-schema
+ :cfapp.api.graphql/schema
  {}
 
  :cfapp.api.graphql/execute-query
  {:conn #ig/ref :cfapp.api.db/conn
-  :schema #ig/ref :cfapp.api.graphql/compiled-schema}}
+  :schema #ig/ref :cfapp.api.graphql/schema}}

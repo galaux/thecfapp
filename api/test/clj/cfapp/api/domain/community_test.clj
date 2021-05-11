@@ -12,7 +12,7 @@
     [cfapp.api.domain.user :as user]
     [cfapp.api.domain.wod :as wod]
     [cfapp.api.domain.workout :as workout]
-    [cfapp.api.graphql :as gql]
+    [cfapp.api.graphql.schema :refer [date-formatter]]
     [cfapp.api.test-util :as tutil])
   (:import
     java.util.UUID))
@@ -94,7 +94,7 @@
                             :scoringType (csk/->SCREAMING_SNAKE_CASE_STRING (:workout/scoring-type workout-a))}
           expected-wods (map (fn [wod]
                                {:id (.toString (:wod/id wod))
-                                :date (.format gql/date-formatter (:wod/date wod))
+                                :date (.format date-formatter (:wod/date wod))
                                 :workout expected-workout
                                 :scores [(let [score (get scores-map (:wod/id wod))]
                                            {:id (.toString (:score/id score))

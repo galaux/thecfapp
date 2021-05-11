@@ -1,21 +1,21 @@
 (ns cfapp.api.domain.wod-test
   (:require
-   [camel-snake-kebab.core :as csk]
-   [clojure.data.json :as json]
-   [clojure.spec.gen.alpha :as gen]
-   [clojure.test :refer [deftest is]]
-   [integrant.core :as ig]
-   [cfapp.api.db.core :as db]
-   [cfapp.api.domain.community :as community]
-   [cfapp.api.domain.score :as score]
-   [cfapp.api.domain.user :as user]
-   [cfapp.api.domain.wod :as wod]
-   [cfapp.api.domain.workout :as workout]
-   [cfapp.api.graphql :as gql]
-   [cfapp.api.test-util :as tutil])
+    [camel-snake-kebab.core :as csk]
+    [clojure.data.json :as json]
+    [clojure.spec.gen.alpha :as gen]
+    [clojure.test :refer [deftest is]]
+    [integrant.core :as ig]
+    [cfapp.api.db.core :as db]
+    [cfapp.api.domain.community :as community]
+    [cfapp.api.domain.score :as score]
+    [cfapp.api.domain.user :as user]
+    [cfapp.api.domain.wod :as wod]
+    [cfapp.api.domain.workout :as workout]
+    [cfapp.api.graphql.schema :refer [date-formatter]]
+    [cfapp.api.test-util :as tutil])
   (:import
-   java.time.LocalDate
-   java.util.UUID))
+    java.time.LocalDate
+    java.util.UUID))
 
 (def user-a (-> (gen/generate user/user-gen) (assoc :db/id "user-a")))
 (def community-a (gen/generate community/community-gen))
@@ -51,7 +51,7 @@
           expected-user {:id (.toString (:user/id user-a))
                          :name (:user/screen-name user-a)}
           expected-wod {:id (.toString (:wod/id wod-a))
-                        :date (.format gql/date-formatter (:wod/date wod-a))
+                        :date (.format date-formatter (:wod/date wod-a))
                         :workout {:id (.toString (:workout/id workout-a))
                                   :name (:workout/name workout-a)
                                   :description (:workout/description workout-a)
@@ -93,20 +93,20 @@
                               :body
                               (json/read-str :key-fn keyword))
           expected-wods (map (fn [db-score]
-                              (let [db-wod (:score/wod db-score)
-                                    db-workout (-> db-wod :wod/workout)
-                                    db-community (-> db-wod :wod/community)]
-                                {:id (.toString (:wod/id db-wod))
-                                 :date (.format gql/date-formatter (:wod/date db-wod))
-                                 :scores [{:id (.toString (:score/id db-score))
-                                           :value (:score/value db-score)
-                                           :user {:id (.toString (:user/id (:score/user db-score)))}}]
-                                 :workout {:id (.toString (:workout/id db-workout))
-                                           :name (:workout/name db-workout)
-                                           :description (:workout/description db-workout)
-                                           :scoringType (csk/->SCREAMING_SNAKE_CASE_STRING (:workout/scoring-type db-workout))}
-                                 :community {:id (.toString (:community/id db-community))
-                                             :name (:community/name db-community)}}))
+                               (let [db-wod (:score/wod db-score)
+                                     db-workout (-> db-wod :wod/workout)
+                                     db-community (-> db-wod :wod/community)]
+                                 {:id (.toString (:wod/id db-wod))
+                                  :date (.format date-formatter (:wod/date db-wod))
+                                  :scores [{:id (.toString (:score/id db-score))
+                                            :value (:score/value db-score)
+                                            :user {:id (.toString (:user/id (:score/user db-score)))}}]
+                                  :workout {:id (.toString (:workout/id db-workout))
+                                            :name (:workout/name db-workout)
+                                            :description (:workout/description db-workout)
+                                            :scoringType (csk/->SCREAMING_SNAKE_CASE_STRING (:workout/scoring-type db-workout))}
+                                  :community {:id (.toString (:community/id db-community))
+                                              :name (:community/name db-community)}}))
                              user-scores)]
       (is (empty? (:errors parsed-response)))
       (is (= 200 (:status response)))

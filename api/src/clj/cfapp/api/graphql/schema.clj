@@ -1,22 +1,20 @@
-(ns cfapp.api.graphql
+(ns cfapp.api.graphql.schema
   (:require
-   [clojure.edn :as edn]
-   [clojure.java.io :as io]
-   [com.walmartlabs.lacinia :as lacinia]
-   [com.walmartlabs.lacinia.schema :as schema]
-   [com.walmartlabs.lacinia.util
-    :refer
-    [attach-resolvers attach-scalar-transformers]]
-   [integrant.core :as ig]
-   [cfapp.api.domain.community :as community]
-   [cfapp.api.domain.score :as score]
-   [cfapp.api.domain.user :as user]
-   [cfapp.api.domain.wod :as wod]
-   [cfapp.api.domain.workout :as workout]
-   [clojure.tools.logging :as log])
+    [cfapp.api.domain.community :as community]
+    [cfapp.api.domain.score :as score]
+    [cfapp.api.domain.user :as user]
+    [cfapp.api.domain.wod :as wod]
+    [cfapp.api.domain.workout :as workout]
+    [clojure.edn :as edn]
+    [clojure.java.io :as io]
+    [com.walmartlabs.lacinia.schema :as schema]
+    [com.walmartlabs.lacinia.util
+     :refer
+     [attach-resolvers attach-scalar-transformers]]
+    [integrant.core :as ig])
   (:import
-   java.text.SimpleDateFormat
-   java.util.UUID))
+    java.text.SimpleDateFormat
+    java.util.UUID))
 
 ;; (def ^:private add-community-input-spec
 ;;   (s/keys :req-un [:graphql.NewCommunityInput/name]))
@@ -82,7 +80,7 @@
    :parse-uuid string->uuid
    :serialize-uuid #(.toString %)})
 
-(defmethod ig/init-key :cfapp.api.graphql/compiled-schema
+(defmethod ig/init-key :cfapp.api.graphql/schema
   [_ _]
   (-> "graphql/schema.edn"
       io/resource
@@ -92,14 +90,3 @@
       ;; TODO use https://github.com/workframers/stillsuit ?
       (attach-scalar-transformers transformer-map)
       schema/compile))
-
-(defmethod ig/init-key :cfapp.api.graphql/execute-query
-  [_ {:keys [conn schema]}]
-  (fn [gql-query]
-    (let [{:keys [query variables operationName]} gql-query
-          context {:conn conn}]
-      (lacinia/execute schema
-                       query
-                       variables
-                       context
-                       {:operation-name operationName}))))
