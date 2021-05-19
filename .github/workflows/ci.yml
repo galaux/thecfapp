@@ -3,8 +3,9 @@ name: CI
 on: [push]
 
 jobs:
-  build:
-    name: Build
+
+  build-mobile:
+    name: Build mobile
     runs-on: ubuntu-18.04
     strategy:
       matrix:
@@ -30,3 +31,60 @@ jobs:
         run: |
           yarn build
           yarn test
+
+  build-api:
+    name: Build API
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Prepare java
+        uses: actions/setup-java@v1
+        with:
+          # Should be kept in sync with ../system.properties
+          java-version: 11
+
+      - name: Install clojure tools
+        uses: DeLaGuardo/setup-clojure@3.3
+        with:
+          # Should be kept in sync with ../app.json
+          cli: 1.10.3.814
+
+      - name: Setup Maven
+        uses: s4u/maven-settings-action@v2.4.0
+        with:
+          servers: |
+            [
+              {
+                "id": "my.datomic.com",
+                "username": "${env.MY_DATOMIC_REPO_USERNAME}",
+                "password": "${env.MY_DATOMIC_REPO_PASSWORD}"
+              },
+              {
+                "id": "cognitect-dev-tools",
+                "username": "${env.COGNITECT_DEVTOOLS_REPO_USERNAME}",
+                "password": "${env.COGNITECT_DEVTOOLS_REPO_PASSWORD}"
+              }
+            ]
+
+      - name: Run tests
+        working-directory: ./api
+        env:
+          MY_DATOMIC_REPO_USERNAME: ${{ secrets.MY_DATOMIC_REPO_USERNAME }}
+          MY_DATOMIC_REPO_PASSWORD: ${{ secrets.MY_DATOMIC_REPO_PASSWORD }}
+          COGNITECT_DEVTOOLS_REPO_USERNAME: ${{ secrets.COGNITECT_DEVTOOLS_REPO_USERNAME }}
+          COGNITECT_DEVTOOLS_REPO_PASSWORD: ${{ secrets.COGNITECT_DEVTOOLS_REPO_PASSWORD }}
+        run: clojure -M:test:runner
+        shell: bash
+
+      - name: Build
+        env:
+          MY_DATOMIC_REPO_USERNAME: ${{ secrets.MY_DATOMIC_REPO_USERNAME }}
+          MY_DATOMIC_REPO_PASSWORD: ${{ secrets.MY_DATOMIC_REPO_PASSWORD }}
+          COGNITECT_DEVTOOLS_REPO_USERNAME: ${{ secrets.COGNITECT_DEVTOOLS_REPO_USERNAME }}
+          COGNITECT_DEVTOOLS_REPO_PASSWORD: ${{ secrets.COGNITECT_DEVTOOLS_REPO_PASSWORD }}
+        working-directory: ./api
+        run: clojure -X:uberjar
+        shell: bash
