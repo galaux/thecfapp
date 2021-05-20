@@ -96,6 +96,7 @@ export enum Positions {
 type BorderRadiusTypes = typeof borderRadius;
 
 export const BORDER_RADIUS_MAP: BorderRadiusTypes = {
+  [BorderRadius.Xxxsmall]: borderRadius[BorderRadius.Xxxsmall],
   [BorderRadius.Xxsmall]: borderRadius[BorderRadius.Xxsmall],
   [BorderRadius.Xsmall]: borderRadius[BorderRadius.Xsmall],
   [BorderRadius.Small]: borderRadius[BorderRadius.Small],
@@ -114,4 +115,13 @@ export enum ButtonType {
 export enum ButtonVariant {
   Primary = 'primary',
   Secondary = 'secondary',
+}
+
+export enum LinkVariant {
+  Default = 'default',
+}
+
+export enum InputType {
+  Text = 'text',
+  Password = 'password',
 }

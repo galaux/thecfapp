@@ -1,5 +1,5 @@
 import React, { FC, MouseEventHandler } from 'react';
-import StyledCTAButton from './Button.styled';
+import { StyledCTAButton } from './Button.styled';
 import { ButtonType, ButtonVariant, SideTypes } from '../../types';
 
 export type ButtonProps = {
@@ -19,17 +19,19 @@ const Button: FC<ButtonProps> = ({
   className,
   type = ButtonType.button,
   margin
-}) => (
-  <StyledCTAButton
-    disabled={ disabled }
-    variant={ variant }
-    onClick={ onClick }
-    className={ className }
-    margin={ margin }
-    type={ type }
-  >
-    {children}
-  </StyledCTAButton>
-);
+}) => {
+  return(
+    <StyledCTAButton
+      disabled={ disabled }
+      $variant={ variant }
+      onClick={ onClick }
+      className={ className }
+      margin={ margin }
+      type={ type }
+    >
+      {children}
+    </StyledCTAButton>
+  );
+}
 
 export default Button;
