@@ -1,16 +1,15 @@
-import { ButtonVariant, SideTypes } from '../../types';
-import styled from 'styled-components';
-import { HTMLProps } from 'react';
+import { ButtonVariant, LinkVariant, SideTypes } from '../../types';
+import styled, { css } from 'styled-components';
 import { borderRadius, borderWidth, colors, edgeSize, FontWeights, text } from '../../styles/theme';
 import { getMargin } from '../../utils/helpers';
 
-type StyledCTAButtonProps = HTMLProps<HTMLButtonElement> & {
+export type StyledCTAButtonProps = {
   disabled?: boolean;
-  variant: ButtonVariant;
+  $variant: ButtonVariant | LinkVariant;
   margin?: SideTypes;
 };
 
-const StyledCTAButton = styled.button<StyledCTAButtonProps>`
+export const buttonCss = css<StyledCTAButtonProps>`
   align-items: center;
   border-radius: ${borderRadius.small};
   display: flex;
@@ -19,34 +18,39 @@ const StyledCTAButton = styled.button<StyledCTAButtonProps>`
   font-family: inherit;
   justify-content: center;
   width: auto;
-  padding: ${edgeSize.xxsmall} ${edgeSize.medium};
+  height: 2rem;
+  padding: 0 ${edgeSize.medium};
   text-align: center;
   text-decoration: none;
   transition: all 0.2s ease-in-out;
   font-weight: ${FontWeights.Medium};
   cursor: pointer;
   letter-spacing: 0.4px;
-  &:active { 
+  &:active {
     transform: scale(0.95);
   }
   &:focus {
     outline: none;
     border: ${borderWidth.large} dashed ${colors.gray80};
   }
+  ${({disabled}) => disabled && `
+    opacity: .7;
+    cursor: auto;
+  `};
   ${(props) => getMargin(props.margin)}
-  ${({variant}) => {
+  ${({$variant}) => {
     switch(true) {
-      case variant === ButtonVariant.Primary:
+      case $variant === ButtonVariant.Primary:
         return `
           background: ${colors.denim};
           border: ${borderWidth.large} solid ${colors.denim};
           color: ${colors.white};
           &:hover { 
-            background: ${colors.denim}; 
-            border-color: ${colors.denim}; 
+            background: ${colors.denimDarken}; 
+            border-color: ${colors.denimDarken}; 
           }
         `
-      case variant === ButtonVariant.Secondary:
+      case $variant === ButtonVariant.Secondary:
       default:
         return `
           background: ${colors.white};
@@ -59,10 +63,8 @@ const StyledCTAButton = styled.button<StyledCTAButtonProps>`
         `
     }
   }}
-  ${(disabled) => disabled && `
-    opacity: .9;
-    cursor: auto;
-  `}
 `;
 
-export default StyledCTAButton;
+export const StyledCTAButton = styled.button`
+  ${buttonCss}
+`;

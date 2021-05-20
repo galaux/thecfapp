@@ -26,6 +26,8 @@ import { useMenuUserLazyQuery } from './user-menu.generated'
 import { fetchPolicy } from './fetch-policy'
 import GlobalStyle from './styles/theme';
 import FontStyles from './styles/fonts/fontStyles';
+import LoginPage from './pages/login';
+import RegisterPage from './pages/register';
 
 /* A user with this ID is seeded in the DB at start-up, don't change or sync
    sync with @thecfapp/api/db/db-seeder value and re-seed the DB */
@@ -102,6 +104,8 @@ const App: React.FC<Props> = (props) => {
               <UserCommunitiesPage path='/user-communities' />
               <UserProfilePage path='/user-profile' />
               <UserWodsPage path='/wod-list' />
+              <LoginPage path='/login'/>
+              <RegisterPage path='/register'/>
             </Router>
           </MenuContext.Provider>
         </>

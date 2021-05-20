@@ -6,8 +6,10 @@ export enum Colors {
   secondary = 'secondary',
   denim = 'denim',
   denimDarken = 'denimDarken',
+  gray10 = 'gray10',
   gray30 = 'gray30',
   gray50 = 'gray50',
+  gray60 = 'gray60',
   gray80 = 'gray80',
   gray90 = 'gray90',
   white = 'white',
@@ -19,8 +21,10 @@ export const colors = {
   [Colors.secondary]: '#333000',
   [Colors.denim]: '#1160D6',
   [Colors.denimDarken]: '#204582',
+  [Colors.gray10]: '#DADADB',
   [Colors.gray30]: '#C1BFC1',
   [Colors.gray50]: '#808080',
+  [Colors.gray60]: '#484848',
   [Colors.gray80]: '#2F2A2F',
   [Colors.gray90]: '#1A151A',
   [Colors.white]: '#FFFFFF',
@@ -42,7 +46,7 @@ export const edgeSize = {
   medium: '1.25rem',
   large: '1.5rem',
   xlarge: '2rem',
-  xxlarge: '3rem',
+  xxlarge: '2.5rem',
 };
 
 export enum FontWeights {
@@ -53,6 +57,7 @@ export enum FontWeights {
 };
 
 export enum BorderRadius {
+  Xxxsmall = 'xxxsmall',
   Xxsmall = 'xxsmall',
   Xsmall = 'xsmall',
   Small = 'small',
@@ -63,6 +68,7 @@ export enum BorderRadius {
 }
 
 export const borderRadius = {
+  [BorderRadius.Xxxsmall]: '.25rem',
   [BorderRadius.Xxsmall]: '.5rem',
   [BorderRadius.Xsmall]: '.625rem',
   [BorderRadius.Small]: '.75rem',
