@@ -65,22 +65,18 @@ they are just pointers to the `./packages/mobile/packages.json` scripts:
 - `lint`: lint the mobile application source code
 - `test`: run the mobile application tests
 
-## Run the project
+## Start the API without serving the mobile app
 
 The API ships an in-memory [Datomic](https://www.datomic.com/) database and
-bootstraps it if empty.
+bootstraps it if empty so no manual task there.
 
 To start the API, install the Java Runtime Environment version 11.0 or greater
 and run:
 
 ```
 cd ./api
-clojure -X:build
 LOG_LEVEL=info \
-  java \
-    -cp cfapp-api.jar \
-    clojure.main \
-    -m cfapp.api.core
+  clojure -M:start-api
 ```
 
 If no stack trace is shown, you can leave the process running and then:

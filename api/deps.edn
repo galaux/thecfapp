@@ -54,6 +54,9 @@
    :exec-args {:aot true
                :jar cfapp-api.jar}}
 
+  :start-api
+  {:main-opts ["-m" "cfapp.api.core"]}
+
   :test
   {:extra-paths ["env/test/resources"]
    :extra-deps {com.cognitect/test-runner
