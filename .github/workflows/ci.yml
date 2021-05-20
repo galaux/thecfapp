@@ -76,7 +76,7 @@ jobs:
           MY_DATOMIC_REPO_PASSWORD: ${{ secrets.MY_DATOMIC_REPO_PASSWORD }}
           COGNITECT_DEVTOOLS_REPO_USERNAME: ${{ secrets.COGNITECT_DEVTOOLS_REPO_USERNAME }}
           COGNITECT_DEVTOOLS_REPO_PASSWORD: ${{ secrets.COGNITECT_DEVTOOLS_REPO_PASSWORD }}
-        run: clojure -M:test:runner
+        run: clojure -M:env/test:test
         shell: bash
 
       - name: Build
@@ -86,5 +86,5 @@ jobs:
           COGNITECT_DEVTOOLS_REPO_USERNAME: ${{ secrets.COGNITECT_DEVTOOLS_REPO_USERNAME }}
           COGNITECT_DEVTOOLS_REPO_PASSWORD: ${{ secrets.COGNITECT_DEVTOOLS_REPO_PASSWORD }}
         working-directory: ./api
-        run: clojure -X:uberjar
+        run: clojure -X:build
         shell: bash

@@ -75,7 +75,7 @@ and run:
 
 ```
 cd ./api
-clojure -X:uberjar
+clojure -X:build
 LOG_LEVEL=info \
   java \
     -cp cfapp-api.jar \
@@ -100,6 +100,31 @@ Visit:
 - the Voyager UI: http://localhost:4000/voyager TODO
 
 See the corresponding README files for detailed info about both sub-projects.
+
+## Build and start
+
+```
+# Build the mobile app assets
+cd ./packages/mobile
+yarn build
+
+# Copy these assets to the API resources folder
+cd ../..
+cp -r ./packages/mobile/build/* ./api/resources/mobile/
+
+# Build the API
+cd ./api
+clojure -X:build
+
+# Run the API that also serves the mobile app:
+LOG_LEVEL=info \
+  java \
+    -cp cfapp-api.jar \
+    clojure.main \
+    -m cfapp.api.core
+
+# Visit http://localhost:3000/
+```
 
 ## To-do
 

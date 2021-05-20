@@ -37,27 +37,26 @@
   talltale/talltale {:mvn/version "0.5.4"}}
 
  :aliases
- {:dev
+ {:env/dev
   {:extra-paths ["env/dev/clj" "env/dev/resources"]
    :extra-deps {ring/ring-devel {:mvn/version "1.9.2"}}}
 
-  :test
+  :env/test
   {:extra-paths ["test/clj"]
    :extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}
                 ring/ring-mock {:mvn/version "0.4.0"}}}
 
-  :runner
+  ;; Start the result with:
+  ;;   java -cp cfapp-api.jar clojure.main -m cfapp.api.core
+  :build
+  {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
+   :exec-fn hf.depstar/uberjar
+   :exec-args {:aot true
+               :jar cfapp-api.jar}}
+
+  :test
   {:extra-paths ["env/test/resources"]
    :extra-deps {com.cognitect/test-runner
                 {:git/url "https://github.com/cognitect-labs/test-runner"
                  :sha "b6b3193fcc42659d7e46ecd1884a228993441182"}}
-   :main-opts ["-m" "cognitect.test-runner"
-               "-d" "test"]}
-
-  ;; Start the result with:
-  ;;   java -cp cfapp-api.jar clojure.main -m cfapp.api.core
-  :uberjar
-  {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
-   :exec-fn hf.depstar/uberjar
-   :exec-args {:aot true
-               :jar cfapp-api.jar}}}}
+   :main-opts ["-m" "cognitect.test-runner"]}}}

@@ -18,5 +18,5 @@ cp -r $PROJECT_DIR/packages/mobile/build/* $PROJECT_DIR/api/resources/mobile/
 pushd api
 # On Heroku, this requires setting the CLOJURE_CLI_VERSION environment variable
 # for the Clojure build pack to pick it up.
-clojure -X:uberjar
+clojure -X:build
 popd
