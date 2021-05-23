@@ -1,0 +1,9 @@
+# Fragment of Score fields required to access @client field belongsToLoggedUser
+fragment ScoreWithBelongsToLoggedUserFields on Score {
+  # FIXME shouldn't this declare `id` and `value`
+  # so that caller wouldn't have to also call `ScoreFields`?
+  belongsToLoggedUser @client
+  user {
+    id
+  }
+}

@@ -9,7 +9,7 @@ import {
 import {
   UserFieldsFragment,
   UserFieldsFragmentDoc,
-} from './fragment/fields.generated'
+} from './fragment/user.generated'
 import { loggedUserId } from './state/app'
 
 /* https://www.apollographql.com/docs/react/caching/cache-field-behavior/#fieldpolicy-api-reference */
@@ -25,7 +25,7 @@ const getApolloClient = async () => {
      relative path to point at the API is telling the client that API is
      located next to where it got the assets of the application: the remote web
      server. */
-  const httpLink = new HttpLink({ uri: '/graphql' })
+  const httpLink = new HttpLink({ uri: '/api/graphql' })
   const cache = new InMemoryCache({
     typePolicies: {
       Community: {

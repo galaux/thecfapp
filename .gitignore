@@ -9,12 +9,10 @@ node_modules
 coverage
 
 # production
-build
+packages/**/build
 
 # Codegen generated
 *.generated.tsx
-packages/api/generated/graphql.ts
-packages/api/graphql.schema.json
 packages/mobile/src/types/graphql.ts
 
 # misc
@@ -33,3 +31,8 @@ packages/mobile/src/types/graphql.ts
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+api/datomic
+api/resources/mobile/index.html
+api/resources/mobile/**/*
+*.jar

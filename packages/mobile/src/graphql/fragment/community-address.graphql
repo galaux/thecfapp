@@ -1,0 +1,6 @@
+fragment CommunityAddressFields on Address {
+  city
+  country
+  street
+  zipCode
+}

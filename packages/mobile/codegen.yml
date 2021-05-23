@@ -1,0 +1,23 @@
+overwrite: true
+schema:
+  # - http://localhost:4000/api/graphql
+  - './graphql.schema.json'
+  - './src/graphql/schema.graphql'
+generates:
+  ./src/types/graphql.ts:
+    plugins:
+      - typescript
+  src/:
+    documents: './src/**/*.graphql'
+    preset: near-operation-file
+    presetConfig:
+      extension: .generated.tsx
+      baseTypesPath: '../src/types/graphql'
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo
+    # config:
+    # nonOptionalTypename: true
+  ./graphql.schema.json:
+    plugins:
+      - 'introspection'

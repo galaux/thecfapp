@@ -1,0 +1,4 @@
+fragment CommunityFields on Community {
+  id
+  name
+}

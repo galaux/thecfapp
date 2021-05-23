@@ -3,32 +3,30 @@
   "buildpacks": [
     {
       "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/clojure"
     }
   ],
   "env": {
-    "APOLLO_INTROSPECTION": {
-      "description": "Enable GraphQL introspection (required for Playground)",
-      "value": "true"
+    "CLOJURE_CLI_VERSION": {
+      "description": "Clojure version for the Heroku build pack to pick up",
+      "value": "1.10.3.814"
     },
-    "APOLLO_PLAYGROUND": {
-      "description": "Enable Apollo Playground, the graphical GraphQL query editor",
-      "value": "true"
+    "MY_DATOMIC_REPO_USERNAME": {
+      "description": "Username for the 'my.datomic.com' repository where to get datomic-pro",
+      "value": "guillaume@alaux.net"
     },
-    "DATABASE_LOGGING": {
-      "description": "Verbose ORM logging",
-      "value": "true"
+    "MY_DATOMIC_REPO_PASSWORD": {
+      "description": "Password for the 'my.datomic.com' repository",
+      "value": "e7d7e7e5-b29a-46c9-b3fd-3cffcc3872a0"
     },
-    "PGSSLMODE": {
-      "description": "Instruct Heroku not to check certificates for DB",
-      "value": "no-verify"
-    }
-  },
-  "environments": {
-    "review": {
-      "addons": ["heroku-postgresql:in-dyno"],
-      "scripts": {
-        "postdeploy": "yarn db:schema:sync && yarn db:seed:run"
-      }
+    "COGNITECT_DEVTOOLS_REPO_USERNAME": {
+      "description": "Username for the 'Cognitect dev-tools' repository where to get dev-loc and REBL",
+      "value": "guillaume@alaux.net"
+    },
+    "COGNITECT_DEVTOOLS_REPO_PASSWORD": {
+      "value": "08A5BFF9C80B2682CF07BA65E2DEE5034FEFB5B4"
     }
   }
 }

@@ -1,0 +1,19 @@
+<configuration>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%-5level %logger - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <property name="level" value="${LOG_LEVEL}"/>
+
+  <root level="${level}">
+    <appender-ref ref="STDOUT"/>
+  </root>
+
+  <logger name="cfapp.api.db" level="${level}"/>
+
+  <logger name="org.eclipse.jetty" level="${level}"/>
+
+</configuration>

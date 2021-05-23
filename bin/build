@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# This file's sole purpose is to be picked up by the Heroku Clojure build pack
+# in order to be run instead of the upstream Leiningen build script.
+
+# Exit if any command fails
+set -e
+
+# Show debug
+set -x
+
+SCRIPT_PATH=$(readlink -f "$0")
+BASEDIR=$(dirname $SCRIPT_PATH)
+PROJECT_DIR=$(dirname $BASEDIR)
+
+cp -r $PROJECT_DIR/packages/mobile/build/* $PROJECT_DIR/api/resources/mobile/
+
+pushd api
+# On Heroku, this requires setting the CLOJURE_CLI_VERSION environment variable
+# for the Clojure build pack to pick it up.
+clojure -X:build
+popd
