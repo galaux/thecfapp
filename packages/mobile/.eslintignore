@@ -1,1 +1,6 @@
-src/**/*.generated.tsx
+!.storybook
+build
+graphql.schema.json
+node_modules
+src/**/*.generated.*
+src/types/graphql.ts
