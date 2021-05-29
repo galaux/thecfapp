@@ -1,5 +1,12 @@
-import styled from 'styled-components';
-import { borderRadius, borderWidth, colors, edgeSize, FontWeights, text } from '../../styles/theme';
+import {
+  borderRadius,
+  borderWidth,
+  colors,
+  edgeSize,
+  FontWeights,
+  text,
+} from '../../styles/theme'
+import styled from 'styled-components'
 
 export const InputStyled = styled.input`
   width: 100%;
@@ -21,7 +28,7 @@ export const InputStyled = styled.input`
   &::-webkit-outer-spin-button,
   &::-webkit-inner-spin-button {
     -webkit-appearance: none;
-    margin: 0
+    margin: 0;
   }
   &:disabled {
     opacity: 0.7;
@@ -30,4 +37,4 @@ export const InputStyled = styled.input`
   &:focus {
     border-color: ${colors.denim};
   }
-`;
+`

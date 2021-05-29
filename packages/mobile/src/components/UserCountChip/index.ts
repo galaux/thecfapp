@@ -1,1 +1,1 @@
-export {default} from './UserCountChip'
+export { default } from './UserCountChip'

@@ -1,13 +1,13 @@
-import * as React from 'react'
+import { NewCommunityFragment as Community } from '../../pages/community/new'
+import { NewCommunityInput } from '../../types'
 import { Body } from '../Body'
 import { Header } from '../Header'
 import { Layout } from '../Layout'
-import { Spinner } from '@chakra-ui/react'
-import { NewCommunityInput } from '../../types'
-import { ApolloError } from '@apollo/client'
 import { NewCommunity } from '../NewCommunity'
-import { NewCommunityFragment as Community } from '../../pages/community/new'
+import { ApolloError } from '@apollo/client'
+import { Spinner } from '@chakra-ui/react'
 import { navigate } from '@reach/router'
+import * as React from 'react'
 
 interface Props {
   called: boolean
@@ -34,7 +34,7 @@ export const NewCommunityPanel: React.FC<Props> = (props: Props) => {
             {error && <>error</>}
           </>
         ) : (
-          <NewCommunity createCommunity={ createCommunity } />
+          <NewCommunity createCommunity={createCommunity} />
         )}
       </Body>
     </Layout>

@@ -1,4 +1,11 @@
-import React, { useState } from 'react'
+import { Body } from '../Body'
+import { CommunityList } from '../CommunityList'
+import { ErrorOr } from '../ErrorOr'
+import { Header } from '../Header'
+import { Layout } from '../Layout'
+import { LoadingOr } from '../LoadingOr'
+import { CommunityForFindCommunityPanelFragment as Community } from './find-community-panel.generated'
+import { ApolloError } from '@apollo/client'
 import {
   Button,
   InputGroup,
@@ -7,16 +14,9 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react'
-import { Body } from '../Body'
-import { Header } from '../Header'
-import { Layout } from '../Layout'
-import * as Icon from 'react-feather'
-import { CommunityList } from '../CommunityList'
-import { CommunityForFindCommunityPanelFragment as Community } from './find-community-panel.generated'
-import { ApolloError } from '@apollo/client'
 import { navigate } from '@reach/router'
-import { ErrorOr } from '../ErrorOr'
-import { LoadingOr } from '../LoadingOr'
+import React, { useState } from 'react'
+import * as Icon from 'react-feather'
 
 interface Props {
   loading: boolean
@@ -46,7 +46,7 @@ export const FindCommunityPanel: React.FC<Props> = (props: Props) => {
         (·_·)
       </Text>
       <Text>Looks like this community doesn't exist yet.</Text>
-      <Button colorScheme='blue' onClick={ () => navigate('/new-community') }>
+      <Button colorScheme='blue' onClick={() => navigate('/new-community')}>
         Create your community
       </Button>
     </VStack>
@@ -56,23 +56,23 @@ export const FindCommunityPanel: React.FC<Props> = (props: Props) => {
     <Layout>
       <Header>Find community</Header>
       <Body>
-        <LoadingOr loading={ loading }>
-          <ErrorOr error={ error }>
+        <LoadingOr loading={loading}>
+          <ErrorOr error={error}>
             <InputGroup>
               <Input
                 placeholder='Search a community'
-                onChange={ (e) => setName(e.target.value) }
+                onChange={(e) => setName(e.target.value)}
               />
               <InputRightElement>
-                <Button h='1.75rem' size='sm' onClick={ onClickFind }>
+                <Button h='1.75rem' size='sm' onClick={onClickFind}>
                   <Icon.Search />
                 </Button>
               </InputRightElement>
             </InputGroup>
             {lookedupCommunities && (
               <CommunityList
-                communities={ lookedupCommunities }
-                joinCommunity={ joinCommunity }
+                communities={lookedupCommunities}
+                joinCommunity={joinCommunity}
               >
                 {ifEmpty}
               </CommunityList>

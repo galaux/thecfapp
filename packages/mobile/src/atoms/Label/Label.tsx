@@ -1,8 +1,8 @@
-import React, { FC } from 'react';
-import styled from 'styled-components';
-import { colors, edgeSize, text } from '../../styles/theme';
+import { colors, edgeSize, text } from '../../styles/theme'
+import React, { FC } from 'react'
+import styled from 'styled-components'
 
-const LabelWrapper = styled.label<{$disabled:boolean}>`
+const LabelWrapper = styled.label<{ $disabled: boolean }>`
   margin-bottom: ${edgeSize.xxsmall};
   font-size: ${text.xsmall.size};
   line-height: ${text.xsmall.height};
@@ -11,16 +11,23 @@ const LabelWrapper = styled.label<{$disabled:boolean}>`
   flex-flow: row nowrap;
   align-items: center;
   cursor: ${({ $disabled }) => ($disabled ? 'default' : 'pointer')};
-`;
+`
 
 export type LabelProps = {
-  htmlFor: string;
-  className?: string;
-  disabled?: boolean;
-};
+  htmlFor: string
+  className?: string
+  disabled?: boolean
+}
 
-const Label: FC<LabelProps> = ({ htmlFor, children, disabled = false, className }) => (
-  <LabelWrapper className={ className } htmlFor={ htmlFor } $disabled={ disabled }>{children}</LabelWrapper>
-);
+const Label: FC<LabelProps> = ({
+  htmlFor,
+  children,
+  disabled = false,
+  className,
+}) => (
+  <LabelWrapper className={className} htmlFor={htmlFor} $disabled={disabled}>
+    {children}
+  </LabelWrapper>
+)
 
-export default Label;
+export default Label

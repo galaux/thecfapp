@@ -3,7 +3,9 @@ fragment NewWod on Wod {
 }
 
 mutation CreateWod($communityId: ID!, $workoutId: ID!, $date: Date!) {
-  createWod(input: {communityId: $communityId, workoutId: $workoutId, date: $date}) {
+  createWod(
+    input: { communityId: $communityId, workoutId: $workoutId, date: $date }
+  ) {
     ...NewWod
   }
 }

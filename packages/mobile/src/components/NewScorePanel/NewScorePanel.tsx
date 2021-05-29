@@ -1,4 +1,10 @@
-import React, { useState } from 'react'
+import { Body } from '../Body'
+import { ErrorOr } from '../ErrorOr'
+import { Header } from '../Header'
+import { Layout } from '../Layout'
+import { LoadingOr } from '../LoadingOr'
+import { WodForNewScorePanelFragment as Wod } from './new-score-panel.generated'
+import { ApolloError } from '@apollo/client'
 import {
   Box,
   Button,
@@ -11,13 +17,7 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
 } from '@chakra-ui/react'
-import { WodForNewScorePanelFragment as Wod } from './new-score-panel.generated'
-import { ApolloError } from '@apollo/client'
-import { Body } from '../Body'
-import { Header } from '../Header'
-import { Layout } from '../Layout'
-import { ErrorOr } from '../ErrorOr'
-import { LoadingOr } from '../LoadingOr'
+import React, { useState } from 'react'
 
 type Props = {
   wod: Wod
@@ -35,21 +35,21 @@ export const NewScorePanel: React.FC<Props> = (props) => {
     <Layout>
       <Header>Add Score</Header>
       <Body>
-        <LoadingOr loading={ createLoading }>
-          <ErrorOr error={ createError }>
+        <LoadingOr loading={createLoading}>
+          <ErrorOr error={createError}>
             {wod && (
               <>
                 <Text>{wod.workout.description}</Text>
 
-                <Heading fontSize='lg' my={ 6 }>
+                <Heading fontSize='lg' my={6}>
                   Add my score
                 </Heading>
 
-                <Box bg='_thunder' rounded='md' p={ 4 }>
-                  <VStack spacing={ 4 }>
+                <Box bg='_thunder' rounded='md' p={4}>
+                  <VStack spacing={4}>
                     <NumberInput>
                       <NumberInputField
-                        onChange={ (e) => setValue(parseInt(e.target.value)) }
+                        onChange={(e) => setValue(parseInt(e.target.value))}
                       />
                       <NumberInputStepper>
                         <NumberIncrementStepper />
@@ -61,7 +61,7 @@ export const NewScorePanel: React.FC<Props> = (props) => {
                       <Button
                         type='submit'
                         colorScheme='blue'
-                        onClick={ () => createScore(wod.id, value) }
+                        onClick={() => createScore(wod.id, value)}
                       >
                         Add my score
                       </Button>

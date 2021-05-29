@@ -1,4 +1,4 @@
-import { BorderRadius, borderRadius, Colors, edgeSize } from '../styles/theme';
+import { BorderRadius, borderRadius, Colors, edgeSize } from '../styles/theme'
 
 export enum Size {
   Xxxsmall = 'xxxsmall',
@@ -12,15 +12,15 @@ export enum Size {
 }
 
 export type BorderProps = Partial<{
-  color: Colors,
-  width: string,
-  style: string,
-  side: string,
-}>;
+  color: Colors
+  width: string
+  style: string
+  side: string
+}>
 
 export type EdgeSizeTypes = {
-  [k in Size]: string;
-};
+  [k in Size]: string
+}
 
 export const EDGESIZE_MAP: EdgeSizeTypes = {
   [Size.Xxxsmall]: edgeSize[Size.Xxxsmall],
@@ -31,14 +31,22 @@ export const EDGESIZE_MAP: EdgeSizeTypes = {
   [Size.Large]: edgeSize[Size.Large],
   [Size.Xlarge]: edgeSize[Size.Xlarge],
   [Size.Xxlarge]: edgeSize[Size.Xxlarge],
-};
+}
 
-export type AllSides = 'vertical' | 'horizontal' | 'right' | 'left' | 'bottom' | 'top';
-export enum None { none = '0' }
-export type Sides = Record<AllSides, Size | None>;
-export type SideTypes = Size | None | Partial<Sides>;
-export type SidesRadius = Record<AllSides, BorderRadius | None>;
-export type SideRadiusTypes = BorderRadius | None | Partial<SidesRadius>;
+export type AllSides =
+  | 'vertical'
+  | 'horizontal'
+  | 'right'
+  | 'left'
+  | 'bottom'
+  | 'top'
+export enum None {
+  none = '0',
+}
+export type Sides = Record<AllSides, Size | None>
+export type SideTypes = Size | None | Partial<Sides>
+export type SidesRadius = Record<AllSides, BorderRadius | None>
+export type SideRadiusTypes = BorderRadius | None | Partial<SidesRadius>
 
 export enum TextAlign {
   Left = 'left',
@@ -62,8 +70,8 @@ export enum Directions {
 }
 
 export type HoverTypes = {
-  background?: Colors;
-};
+  background?: Colors
+}
 
 export enum Justifys {
   around = 'space-around',
@@ -93,7 +101,7 @@ export enum Positions {
   fixed = 'fixed',
 }
 
-type BorderRadiusTypes = typeof borderRadius;
+type BorderRadiusTypes = typeof borderRadius
 
 export const BORDER_RADIUS_MAP: BorderRadiusTypes = {
   [BorderRadius.Xxxsmall]: borderRadius[BorderRadius.Xxxsmall],
@@ -104,7 +112,7 @@ export const BORDER_RADIUS_MAP: BorderRadiusTypes = {
   [BorderRadius.Large]: borderRadius[BorderRadius.Large],
   [BorderRadius.Xlarge]: borderRadius[BorderRadius.Xlarge],
   [BorderRadius.Round]: borderRadius[BorderRadius.Round],
-};
+}
 
 export enum ButtonType {
   submit = 'submit',

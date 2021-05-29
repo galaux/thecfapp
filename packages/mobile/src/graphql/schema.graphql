@@ -4,7 +4,6 @@ schema. It is used to declare client-side only fields that are computed locally
 rather than being requested to the GraphQL server.
 https://graphql-code-generator.com/docs/integrations/apollo-local-state
 """
-
 type Score {
   belongsToLoggedUser: Boolean!
 }

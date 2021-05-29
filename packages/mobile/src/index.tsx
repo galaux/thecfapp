@@ -1,8 +1,8 @@
+import App from './Container'
+import reportWebVitals from './reportWebVitals'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './Container'
-import * as serviceWorkerRegistration from './serviceWorkerRegistration'
-import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
   <React.StrictMode>

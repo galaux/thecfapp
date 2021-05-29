@@ -1,8 +1,15 @@
 {
-  "extends": "react-app",
+  "extends": ["react-app", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
   "rules": {
-    "semi": ["off", "never"],
-    "react/jsx-curly-spacing": ["error", { "when": "always" }],
-    "indent": ["error", 2, { "SwitchCase": 1 }]
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "trailingComma": "all",
+        "arrowParens": "always"
+      }
+    ],
+    "semi": ["off", "never"]
   }
 }

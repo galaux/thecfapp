@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { colors, edgeSize, FontWeights, text } from '../../styles/theme';
+import { colors, edgeSize, FontWeights, text } from '../../styles/theme'
+import styled from 'styled-components'
 
 export const CommunityName = styled.h3`
   text-transform: uppercase;
@@ -15,6 +15,6 @@ export const Address = styled.p`
   font-size: ${text.xxsmall.size};
   line-height: ${text.xxsmall.height};
   color: ${colors.gray30};
-  letter-spacing: .4px;
+  letter-spacing: 0.4px;
   font-weight: ${FontWeights.Medium};
 `

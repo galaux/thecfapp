@@ -1,6 +1,6 @@
-import * as React from 'react'
-import { WodForSwipeListFragment as Wod } from './wod-swipe-list.generated'
 import WodCard from '../WodCard'
+import { WodForSwipeListFragment as Wod } from './wod-swipe-list.generated'
+import * as React from 'react'
 import SwipeableViews from 'react-swipeable-views'
 
 type Props = {
@@ -13,17 +13,17 @@ export const WodSwipeList: React.FC<Props> = (props) => {
     props.selectedCommunityId === null
       ? props.wods
       : props.wods.filter(
-        (wod) => wod.community.id === props.selectedCommunityId,
-      )
+          (wod) => wod.community.id === props.selectedCommunityId,
+        )
 
   return (
     <SwipeableViews
-      style={ { padding: '0 1.5rem' } }
-      slideStyle={ { paddingRight: '1rem' } }
+      style={{ padding: '0 1.5rem' }}
+      slideStyle={{ paddingRight: '1rem' }}
       enableMouseEvents
     >
       {wods.map((wod) => (
-        <WodCard key={ wod.id } wod={ wod } />
+        <WodCard key={wod.id} wod={wod} />
       ))}
     </SwipeableViews>
   )

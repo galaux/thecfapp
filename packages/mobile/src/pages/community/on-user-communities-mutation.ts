@@ -1,10 +1,10 @@
+import { loggedUserId } from '../../graphql/state/app'
 import {
   UserCommunitiesDocument,
   UserCommunitiesQuery,
   UserCommunitiesQueryVariables,
   UserCommunityFragment,
 } from './user-communities.generated'
-import { loggedUserId } from '../../graphql/state/app'
 import { ApolloCache } from '@apollo/client'
 
 /* Watch out when crafting new cache data: be sure to include all fields

@@ -1,23 +1,23 @@
-import React, { FC } from 'react';
-import { Directions, Justifys, Size } from '../../types';
-import { BorderRadius, Colors } from '../../styles/theme';
-import { CardWrapper } from './Card.styled';
+import { BorderRadius, Colors } from '../../styles/theme'
+import { Directions, Justifys, Size } from '../../types'
+import { CardWrapper } from './Card.styled'
+import React, { FC } from 'react'
 
 export type CardProps = {
-  className?: string;
+  className?: string
 }
 
-const Card: FC<CardProps> = ({children, className}) => (
+const Card: FC<CardProps> = ({ children, className }) => (
   <CardWrapper
-    className={ className }
-    pad={ Size.Medium }
-    backgroundColor={ Colors.gray80 }
-    radius={ BorderRadius.Small }
-    justify={ Justifys.between }
-    direction={ Directions.column }
+    className={className}
+    pad={Size.Medium}
+    backgroundColor={Colors.gray80}
+    radius={BorderRadius.Small}
+    justify={Justifys.between}
+    direction={Directions.column}
   >
     {children}
   </CardWrapper>
-);
+)
 
-export default Card;
+export default Card

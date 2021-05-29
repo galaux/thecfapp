@@ -1,8 +1,8 @@
-import { RouteComponentProps, useParams } from '@reach/router'
-import React from 'react'
 import { ScoreboardPanel } from '../../../components/ScoreboardPanel'
 import { fetchPolicy } from '../../../fetch-policy'
 import { useWodWithScoresQuery } from './scoreboard.generated'
+import { RouteComponentProps, useParams } from '@reach/router'
+import React from 'react'
 
 export const ScoreboardPage: React.FC<RouteComponentProps> = () => {
   const props = useParams()
@@ -13,5 +13,5 @@ export const ScoreboardPage: React.FC<RouteComponentProps> = () => {
     variables: { wodId },
   })
 
-  return <ScoreboardPanel loading={ loading } error={ error } wod={ data?.wod } />
+  return <ScoreboardPanel loading={loading} error={error} wod={data?.wod} />
 }

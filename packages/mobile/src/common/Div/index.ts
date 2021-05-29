@@ -1,2 +1,2 @@
-export { default } from './Div';
-export * from './Div';
+export { default } from './Div'
+export * from './Div'

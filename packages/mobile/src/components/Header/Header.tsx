@@ -1,9 +1,9 @@
-import * as React from 'react'
-import * as Icon from 'react-feather'
+import { MenuContext } from '../../App'
+import Heading from '../../atoms/Heading'
 import { Box, Flex } from '@chakra-ui/react'
 import { Link } from '@reach/router'
-import { MenuContext } from '../../App'
-import Heading from '../../atoms/Heading';
+import * as React from 'react'
+import * as Icon from 'react-feather'
 
 const bgImg = '/assets/meghan-holmes-buWcS7G1_28-unsplash.jpg'
 
@@ -14,11 +14,11 @@ export const Header: React.FC = ({ children }) => {
     <Box
       pos='relative'
       bgColor='_thunder'
-      borderBottomLeftRadius={ 12 }
-      borderBottomRightRadius={ 12 }
+      borderBottomLeftRadius={12}
+      borderBottomRightRadius={12}
       overflow='hidden'
-      p={ 6 }
-      _after={ {
+      p={6}
+      _after={{
         content: '""',
         pos: 'absolute',
         top: 0,
@@ -30,21 +30,19 @@ export const Header: React.FC = ({ children }) => {
         bgSize: 'cover',
         opacity: 0.3,
         zIndex: 5,
-      } }
+      }}
     >
       <Flex
         gridArea='Header'
         justifyContent='space-between'
         pos='relative'
-        zIndex={ 10 }
-        mb={ 6 }
+        zIndex={10}
+        mb={6}
       >
-        <Icon.Menu onClick={ onOpen } />
+        <Icon.Menu onClick={onOpen} />
 
         <Link to='/'>
-          <Heading level={ 1 }>
-            THECFAPP
-          </Heading>
+          <Heading level={1}>THECFAPP</Heading>
         </Link>
 
         <Link to='/user-profile'>

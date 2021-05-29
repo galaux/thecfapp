@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import { hexToRgb } from '../mixins/hexToRgb';
+import { hexToRgb } from '../mixins/hexToRgb'
+import { createGlobalStyle } from 'styled-components'
 
 export enum Colors {
   primary = 'primary',
@@ -29,14 +29,14 @@ export const colors = {
   [Colors.gray90]: '#1A151A',
   [Colors.white]: '#FFFFFF',
   [Colors.boxShadow]: '#FFFFFF',
-};
+}
 
 export const font = {
   family: 'Aaux Next, serif',
   color: 'white',
   weight: 300,
   defaultSize: 16,
-};
+}
 
 export const edgeSize = {
   xxxsmall: '0.25rem',
@@ -47,14 +47,14 @@ export const edgeSize = {
   large: '1.5rem',
   xlarge: '2rem',
   xxlarge: '2.5rem',
-};
+}
 
 export enum FontWeights {
   Regular = 400,
   Medium = 500,
   SemiBold = 600,
   Bold = 700,
-};
+}
 
 export enum BorderRadius {
   Xxxsmall = 'xxxsmall',
@@ -76,7 +76,7 @@ export const borderRadius = {
   [BorderRadius.Large]: '2rem',
   [BorderRadius.Xlarge]: '3rem',
   [BorderRadius.Round]: '50%',
-};
+}
 
 export enum BorderWidth {
   Medium = 'medium',
@@ -86,7 +86,7 @@ export enum BorderWidth {
 export const borderWidth = {
   [BorderWidth.Medium]: '1px',
   [BorderWidth.Large]: '2px',
-};
+}
 
 export enum BoxShadow {
   Card = 'card',
@@ -94,7 +94,7 @@ export enum BoxShadow {
 
 export const boxShadow = {
   [BoxShadow.Card]: `0px 4px 8px rgba(${hexToRgb(colors.gray90)},0.12)`,
-};
+}
 
 export const heading = {
   level: {
@@ -181,7 +181,7 @@ export const heading = {
       },
     },
   },
-};
+}
 
 export const text = {
   xxsmall: {
@@ -204,7 +204,7 @@ export const text = {
     size: '1.5rem',
     height: '1.6',
   },
-};
+}
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -212,6 +212,6 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-`;
+`
 
-export default GlobalStyle;
+export default GlobalStyle

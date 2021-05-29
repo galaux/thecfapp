@@ -1,12 +1,12 @@
-import { createGlobalStyle } from 'styled-components';
-import AauxNextRgWoff from './aauxnext-rg-webfont.woff';
-import AauxNextRgWoff2 from './aauxnext-rg-webfont.woff2';
-import AauxNextMdWoff from './aauxnext-md-webfont.woff';
-import AauxNextMdWoff2 from './aauxnext-md-webfont.woff2';
-import AauxNextSmWoff from './aauxnext-bd-webfont.woff';
-import AauxNextSmWoff2 from './aauxnext-bd-webfont.woff2';
-import AauxNextBdWoff from './aauxnext-bd-webfont.woff';
-import AauxNextBdWoff2 from './aauxnext-bd-webfont.woff2';
+import AauxNextSmWoff from './aauxnext-bd-webfont.woff'
+import AauxNextBdWoff from './aauxnext-bd-webfont.woff'
+import AauxNextSmWoff2 from './aauxnext-bd-webfont.woff2'
+import AauxNextBdWoff2 from './aauxnext-bd-webfont.woff2'
+import AauxNextMdWoff from './aauxnext-md-webfont.woff'
+import AauxNextMdWoff2 from './aauxnext-md-webfont.woff2'
+import AauxNextRgWoff from './aauxnext-rg-webfont.woff'
+import AauxNextRgWoff2 from './aauxnext-rg-webfont.woff2'
+import { createGlobalStyle } from 'styled-components'
 
 const FontStyles = createGlobalStyle`
   @font-face {
@@ -40,6 +40,6 @@ const FontStyles = createGlobalStyle`
     font-weight: 700;
     font-style: normal;
   }
-`;
+`
 
-export default FontStyles;
+export default FontStyles

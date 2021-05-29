@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
-import { WodSwipeList } from '../WodSwipeList'
-import { UserWodPanelFragment as Wod } from './user-wod-panel.generated'
-import { Box, Flex, Select, Heading } from '@chakra-ui/react'
 import { Body } from '../Body'
+import { ErrorOr } from '../ErrorOr'
 import { Header } from '../Header'
 import { Layout } from '../Layout'
-import { uniqBy } from 'lodash/fp'
-import { ApolloError } from '@apollo/client'
-import { ErrorOr } from '../ErrorOr'
 import { LoadingOr } from '../LoadingOr'
+import { WodSwipeList } from '../WodSwipeList'
+import { UserWodPanelFragment as Wod } from './user-wod-panel.generated'
+import { ApolloError } from '@apollo/client'
+import { Box, Flex, Select, Heading } from '@chakra-ui/react'
+import { uniqBy } from 'lodash/fp'
+import React, { useState } from 'react'
 
 interface Props {
   loading: boolean
@@ -19,9 +19,8 @@ interface Props {
 export const UserWodsPanel: React.FC<Props> = (props) => {
   const { loading, error, wods } = props
 
-  const [selectedCommunityId, setSelectedCommunityId] = useState<string | null>(
-    null,
-  )
+  const [selectedCommunityId, setSelectedCommunityId] =
+    useState<string | null>(null)
 
   const communities = uniqBy(
     'id',
@@ -36,38 +35,38 @@ export const UserWodsPanel: React.FC<Props> = (props) => {
     <Layout>
       <Header>My WoD list</Header>
       <Body>
-        <LoadingOr loading={ loading }>
-          <ErrorOr error={ error }>
+        <LoadingOr loading={loading}>
+          <ErrorOr error={error}>
             {wods && (
               <Box>
-                <Flex alignItems='center' mb={ 4 }>
-                  <Heading fontSize='lg' flex={ 1 }>
+                <Flex alignItems='center' mb={4}>
+                  <Heading fontSize='lg' flex={1}>
                     WOD
                   </Heading>
                   <Select
                     w='auto'
-                    border={ 0 }
+                    border={0}
                     color='_gray'
                     fontSize='md'
                     placeholder='Select box …'
-                    selected={ selectedCommunityId } // FIXME or `value`?
-                    onChange={ (event) =>
+                    selected={selectedCommunityId} // FIXME or `value`?
+                    onChange={(event) =>
                       handleSelectCommunityChange(
                         event.target.value === '' ? null : event.target.value,
                       )
                     }
                   >
                     {communities.map((community) => (
-                      <option key={ community.id } value={ community.id }>
+                      <option key={community.id} value={community.id}>
                         {community.name}
                       </option>
                     ))}
                   </Select>
                 </Flex>
-                <Box mx={ -6 }>
+                <Box mx={-6}>
                   <WodSwipeList
-                    selectedCommunityId={ selectedCommunityId }
-                    wods={ wods }
+                    selectedCommunityId={selectedCommunityId}
+                    wods={wods}
                   />
                 </Box>
               </Box>

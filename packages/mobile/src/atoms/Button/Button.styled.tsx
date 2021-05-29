@@ -1,13 +1,20 @@
-import { ButtonVariant, LinkVariant, SideTypes } from '../../types';
-import styled, { css } from 'styled-components';
-import { borderRadius, borderWidth, colors, edgeSize, FontWeights, text } from '../../styles/theme';
-import { getMargin } from '../../utils/helpers';
+import {
+  borderRadius,
+  borderWidth,
+  colors,
+  edgeSize,
+  FontWeights,
+  text,
+} from '../../styles/theme'
+import { ButtonVariant, LinkVariant, SideTypes } from '../../types'
+import { getMargin } from '../../utils/helpers'
+import styled, { css } from 'styled-components'
 
 export type StyledCTAButtonProps = {
-  disabled?: boolean;
-  $variant: ButtonVariant | LinkVariant;
-  margin?: SideTypes;
-};
+  disabled?: boolean
+  $variant: ButtonVariant | LinkVariant
+  margin?: SideTypes
+}
 
 export const buttonCss = css<StyledCTAButtonProps>`
   align-items: center;
@@ -33,13 +40,15 @@ export const buttonCss = css<StyledCTAButtonProps>`
     outline: none;
     border: ${borderWidth.large} dashed ${colors.gray80};
   }
-  ${({disabled}) => disabled && `
+  ${({ disabled }) =>
+    disabled &&
+    `
     opacity: .7;
     cursor: auto;
   `};
   ${(props) => getMargin(props.margin)}
-  ${({$variant}) => {
-    switch(true) {
+  ${({ $variant }) => {
+    switch (true) {
       case $variant === ButtonVariant.Primary:
         return `
           background: ${colors.denim};
@@ -63,8 +72,8 @@ export const buttonCss = css<StyledCTAButtonProps>`
         `
     }
   }}
-`;
+`
 
 export const StyledCTAButton = styled.button`
   ${buttonCss}
-`;
+`
