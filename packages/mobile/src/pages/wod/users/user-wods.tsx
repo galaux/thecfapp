@@ -1,9 +1,9 @@
-import React from 'react'
 import { UserWodsPanel } from '../../../components/UserWodsPanel'
-import { RouteComponentProps } from '@reach/router'
 import { fetchPolicy } from '../../../fetch-policy'
 import { loggedUserId } from '../../../graphql/state/app'
 import { useUserWodsQuery } from '../user-wods.generated'
+import { RouteComponentProps } from '@reach/router'
+import React from 'react'
 
 export const UserWodsPage: React.FC<RouteComponentProps> = () => {
   const userId = loggedUserId()
@@ -12,5 +12,5 @@ export const UserWodsPage: React.FC<RouteComponentProps> = () => {
     variables: { userId },
   })
 
-  return <UserWodsPanel loading={ loading } error={ error } wods={ data?.userWods } />
+  return <UserWodsPanel loading={loading} error={error} wods={data?.userWods} />
 }

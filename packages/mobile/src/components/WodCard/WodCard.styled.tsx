@@ -1,8 +1,14 @@
-import styled from 'styled-components';
-import Div from '../../common/Div';
-import { borderRadius, colors, edgeSize, FontWeights, text } from '../../styles/theme';
-import { pxToRem } from '../../mixins/pxToRem';
-import Card from '../../atoms/Card';
+import Card from '../../atoms/Card'
+import Div from '../../common/Div'
+import { pxToRem } from '../../mixins/pxToRem'
+import {
+  borderRadius,
+  colors,
+  edgeSize,
+  FontWeights,
+  text,
+} from '../../styles/theme'
+import styled from 'styled-components'
 
 export const WodCardWrapper = styled(Card)`
   position: relative;
@@ -18,7 +24,7 @@ export const WodCardWrapper = styled(Card)`
     height: ${pxToRem(8)}rem;
     background-color: ${colors.denim};
   }
-`;
+`
 
 export const Type = styled.p`
   color: ${colors.gray50};
@@ -28,7 +34,7 @@ export const Type = styled.p`
   text-transform: uppercase;
   letter-spacing: 3.6px;
   padding-right: ${edgeSize.small};
-`;
+`
 
 export const Workout = styled(Div)`
   &:not(:last-child) {
@@ -43,7 +49,7 @@ export const WorkoutName = styled.p`
   font-weight: ${FontWeights.Medium};
   letter-spacing: 0.3px;
   margin-bottom: ${edgeSize.xxxsmall};
-`;
+`
 
 export const WorkoutInfo = styled.p`
   color: ${colors.gray50};
@@ -53,7 +59,7 @@ export const WorkoutInfo = styled.p`
   letter-spacing: 0.3px;
   display: flex;
   align-items: center;
-`;
+`
 
 export const Separator = styled.span`
   background-color: ${colors.gray50};

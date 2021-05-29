@@ -1,8 +1,8 @@
-import * as React from 'react'
-import { RouteComponentProps, useParams } from '@reach/router'
-import { useGetCommunityQuery } from './community-detail.generated'
 import { CommunityDetailPanel } from '../../../components/CommunityDetailPanel'
 import { fetchPolicy } from '../../../fetch-policy'
+import { useGetCommunityQuery } from './community-detail.generated'
+import { RouteComponentProps, useParams } from '@reach/router'
+import * as React from 'react'
 
 export const CommunityDetailPage: React.FC<RouteComponentProps> = () => {
   const props = useParams()
@@ -15,9 +15,9 @@ export const CommunityDetailPage: React.FC<RouteComponentProps> = () => {
 
   return (
     <CommunityDetailPanel
-      loading={ loading }
-      error={ error }
-      community={ data?.community }
+      loading={loading}
+      error={error}
+      community={data?.community}
     />
   )
 }

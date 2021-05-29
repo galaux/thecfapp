@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { getMargin, getPadding } from '../../utils/helpers';
-import { HeadingStyledProps } from './Heading.types';
-import { getHeadingSize } from './Heading.utils';
-import { colors, Colors } from '../../styles/theme';
+import { colors, Colors } from '../../styles/theme'
+import { getMargin, getPadding } from '../../utils/helpers'
+import { HeadingStyledProps } from './Heading.types'
+import { getHeadingSize } from './Heading.utils'
+import styled from 'styled-components'
 
 export const StyledHeading = styled.h1<HeadingStyledProps>`
   ${({ margin }) => getMargin(margin)};
@@ -12,4 +12,4 @@ export const StyledHeading = styled.h1<HeadingStyledProps>`
   text-align: ${({ textAlign }) => textAlign};
   font-weight: ${({ weight }) => weight};
   letter-spacing: 0.4px;
-`;
+`

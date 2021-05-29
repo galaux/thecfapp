@@ -1,5 +1,5 @@
-import FontStyles from '../src/styles/fonts/fontStyles';
-import GlobalStyle from '../src/styles/theme';
+import FontStyles from '../src/styles/fonts/fontStyles'
+import GlobalStyle from '../src/styles/theme'
 
 export const decorators = [
   (Story) => (
@@ -8,8 +8,8 @@ export const decorators = [
       <GlobalStyle />
       <Story />
     </>
-  )
-];
+  ),
+]
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },

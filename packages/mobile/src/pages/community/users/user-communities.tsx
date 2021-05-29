@@ -1,8 +1,8 @@
-import React from 'react'
-import { RouteComponentProps } from '@reach/router'
 import { UserCommunitiesPanel } from '../../../components/UserCommunitiesPanel'
-import { useUserCommunitiesQuery } from '../user-communities.generated'
 import { loggedUserId } from '../../../graphql/state/app'
+import { useUserCommunitiesQuery } from '../user-communities.generated'
+import { RouteComponentProps } from '@reach/router'
+import React from 'react'
 
 export const UserCommunitiesPage: React.FC<RouteComponentProps> = () => {
   const userId = loggedUserId()
@@ -16,9 +16,9 @@ export const UserCommunitiesPage: React.FC<RouteComponentProps> = () => {
 
   return (
     <UserCommunitiesPanel
-      loading={ loadingCommunities }
-      error={ errorCommunities }
-      communities={ data?.userCommunities }
+      loading={loadingCommunities}
+      error={errorCommunities}
+      communities={data?.userCommunities}
     />
   )
 }

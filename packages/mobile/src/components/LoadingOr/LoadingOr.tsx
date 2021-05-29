@@ -1,5 +1,5 @@
-import React, { PropsWithChildren } from 'react'
 import { Spinner } from '@chakra-ui/react'
+import React, { PropsWithChildren } from 'react'
 
 interface Props {
   loading: boolean

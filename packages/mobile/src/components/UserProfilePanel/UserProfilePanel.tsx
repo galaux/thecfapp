@@ -1,10 +1,10 @@
-import { UserProfilePanelFragment as User } from './user-profile-panel.generated'
-import { Text } from '@chakra-ui/react'
-import { Spinner } from '@chakra-ui/react'
 import { Body } from '../Body'
 import { Header } from '../Header'
 import { Layout } from '../Layout'
+import { UserProfilePanelFragment as User } from './user-profile-panel.generated'
 import { ApolloError } from '@apollo/client'
+import { Text } from '@chakra-ui/react'
+import { Spinner } from '@chakra-ui/react'
 
 interface Props {
   loading: boolean

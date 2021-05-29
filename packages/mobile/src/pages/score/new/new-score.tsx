@@ -1,15 +1,15 @@
-import React from 'react'
 import { NewScorePanel } from '../../../components/NewScorePanel'
-import { navigate, RouteComponentProps, useLocation } from '@reach/router'
 import { loggedUserId } from '../../../graphql/state/app'
-import { NewScoreFragment, useCreateScoreMutation } from './new-score.generated'
-import { WodInputFragment as Wod } from './wod-input.generated'
+import { Score } from '../../../types'
 import {
   UserWodsDocument,
   UserWodsQuery,
   UserWodsQueryVariables,
 } from '../../wod/user-wods.generated'
-import { Score } from '../../../types'
+import { NewScoreFragment, useCreateScoreMutation } from './new-score.generated'
+import { WodInputFragment as Wod } from './wod-input.generated'
+import { navigate, RouteComponentProps, useLocation } from '@reach/router'
+import React from 'react'
 
 export const NewScorePage: React.FC<RouteComponentProps> = () => {
   const userId = loggedUserId()
@@ -71,10 +71,10 @@ export const NewScorePage: React.FC<RouteComponentProps> = () => {
 
   return (
     <NewScorePanel
-      wod={ state }
-      createScore={ createScore }
-      createLoading={ loading }
-      createError={ error }
+      wod={state}
+      createScore={createScore}
+      createLoading={loading}
+      createError={error}
     />
   )
 }

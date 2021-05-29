@@ -1,6 +1,3 @@
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
-// import { HttpLink } from 'apollo-link-http'
-import { CachePersistor, LocalStorageWrapper } from 'apollo3-cache-persist'
 import {
   UserCommunitiesQueryVariables,
   UserCommunitiesQuery,
@@ -11,6 +8,9 @@ import {
   UserFieldsFragmentDoc,
 } from './fragment/user.generated'
 import { loggedUserId } from './state/app'
+import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
+// import { HttpLink } from 'apollo-link-http'
+import { CachePersistor, LocalStorageWrapper } from 'apollo3-cache-persist'
 
 /* https://www.apollographql.com/docs/react/caching/cache-field-behavior/#fieldpolicy-api-reference */
 

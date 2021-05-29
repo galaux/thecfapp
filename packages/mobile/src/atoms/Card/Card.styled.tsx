@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import Div from '../../common/Div';
-import { boxShadow, edgeSize } from '../../styles/theme';
+import Div from '../../common/Div'
+import { boxShadow, edgeSize } from '../../styles/theme'
+import styled from 'styled-components'
 
 export const CardWrapper = styled(Div)`
   overflow: hidden;

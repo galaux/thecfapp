@@ -1,9 +1,9 @@
-import { RouteComponentProps } from '@reach/router'
-import { useEffect } from 'react'
 import { UserProfilePanel } from '../../../components/UserProfilePanel'
 import { fetchPolicy } from '../../../fetch-policy'
 import { loggedUserId } from '../../../graphql/state/app'
 import { useGetUserLazyQuery } from './user.generated'
+import { RouteComponentProps } from '@reach/router'
+import { useEffect } from 'react'
 
 export const UserProfilePage: React.FC<RouteComponentProps> = () => {
   const userId = loggedUserId()
@@ -24,5 +24,5 @@ export const UserProfilePage: React.FC<RouteComponentProps> = () => {
     }
   }, [])
 
-  return <UserProfilePanel loading={ loading } error={ error } user={ data?.user } />
+  return <UserProfilePanel loading={loading} error={error} user={data?.user} />
 }

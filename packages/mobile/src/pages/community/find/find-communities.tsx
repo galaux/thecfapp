@@ -1,15 +1,13 @@
-import { RouteComponentProps } from '@reach/router'
 import { FindCommunityPanel } from '../../../components/FindCommunityPanel'
+import { fetchPolicy } from '../../../fetch-policy'
 import { loggedUserId } from '../../../graphql/state/app'
 import {
   useJoinCommunityMutation,
   useUserCommunitiesQuery,
 } from '../../community'
-import { fetchPolicy } from '../../../fetch-policy'
+import { addCommunityToUserCommunitiesCache } from '../on-user-communities-mutation'
 import { useFindCommunitiesLazyQuery } from './find-communities.generated'
-import {
-  addCommunityToUserCommunitiesCache
-} from '../on-user-communities-mutation'
+import { RouteComponentProps } from '@reach/router'
 
 const ONE_MINUTE_IN_MS = 60 * 1000
 
@@ -46,27 +44,24 @@ export const FindCommunityPage: React.FC<RouteComponentProps> = () => {
     fetchPolicy: fetchPolicy('find-communities-find', ONE_MINUTE_IN_MS),
   })
 
-  const [
-    joinCommunity,
-    { loading: joinLoading, error: joinError },
-  ] = useJoinCommunityMutation({
-    update: (cache, { data }) =>
-      addCommunityToUserCommunitiesCache(cache, data?.addUserToCommunity),
-  })
+  const [joinCommunity, { loading: joinLoading, error: joinError }] =
+    useJoinCommunityMutation({
+      update: (cache, { data }) =>
+        addCommunityToUserCommunitiesCache(cache, data?.addUserToCommunity),
+    })
 
-  const loading =
-    userCommunitiesLoading && findLoading && joinLoading
+  const loading = userCommunitiesLoading && findLoading && joinLoading
   const error = userCommunitiesError ?? findError ?? joinError
 
   return (
     <FindCommunityPanel
-      loading={ loading }
-      error={ error }
-      lookedupCommunities={ findData?.findCommunities }
-      findCommunities={ (name: string) =>
+      loading={loading}
+      error={error}
+      lookedupCommunities={findData?.findCommunities}
+      findCommunities={(name: string) =>
         findCommunities({ variables: { name } })
       }
-      joinCommunity={ (communityId: string) =>
+      joinCommunity={(communityId: string) =>
         joinCommunity({ variables: { userId, communityId } })
       }
     />

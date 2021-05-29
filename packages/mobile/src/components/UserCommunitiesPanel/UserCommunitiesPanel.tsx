@@ -1,13 +1,13 @@
-import * as React from 'react'
-import { Text, Spinner, Button, VStack } from '@chakra-ui/react'
+import { UserCommunityFragment as UserCommunity } from '../../pages/community'
 import { Body } from '../Body'
+import { CommunityCardFragment as CommunityCard } from '../CommunityCard'
+import { CommunityList } from '../CommunityList'
 import { Header } from '../Header'
 import { Layout } from '../Layout'
 import { ApolloError } from '@apollo/client'
-import { CommunityList } from '../CommunityList'
+import { Text, Spinner, Button, VStack } from '@chakra-ui/react'
 import { navigate } from '@reach/router'
-import { CommunityCardFragment as CommunityCard } from '../CommunityCard'
-import { UserCommunityFragment as UserCommunity } from '../../pages/community'
+import * as React from 'react'
 
 type Props = {
   loading: boolean
@@ -37,7 +37,7 @@ export const UserCommunitiesPanel: React.FC<Props> = (props) => {
         (·_·)
       </Text>
       <Text>Looks like you don't belong to any community … yet.</Text>
-      <Button colorScheme='blue' onClick={ () => navigate('/find-community') }>
+      <Button colorScheme='blue' onClick={() => navigate('/find-community')}>
         Find a community
       </Button>
     </VStack>
@@ -51,8 +51,8 @@ export const UserCommunitiesPanel: React.FC<Props> = (props) => {
         {(error || !communities) && <p>Error {error}</p>}
         {communities && (
           <CommunityList
-            communities={ communities.map(userCommunityToCommunityCard) }
-            joinCommunity={ noop }
+            communities={communities.map(userCommunityToCommunityCard)}
+            joinCommunity={noop}
           >
             {ifEmpty}
           </CommunityList>

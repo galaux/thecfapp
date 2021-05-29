@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
-import { WodForWodCardFragment as Wod } from '../../components/WodCard';
-import Div from '../../common/Div';
-import { Aligns, Directions } from '../../types';
-import { Day, Month } from './Date.styled';
+import Div from '../../common/Div'
+import { WodForWodCardFragment as Wod } from '../../components/WodCard'
+import { Aligns, Directions } from '../../types'
+import { Day, Month } from './Date.styled'
+import React, { FC } from 'react'
 
 type DateProps = {
-  wod: Wod;
+  wod: Wod
 }
 
 const Date: FC<DateProps> = ({ wod }) => {
@@ -14,11 +14,11 @@ const Date: FC<DateProps> = ({ wod }) => {
   const day = formatedDate.getUTCDate()
 
   return (
-    <Div direction={ Directions.column } align={ Aligns.center }>
+    <Div direction={Directions.column} align={Aligns.center}>
       <Month>{month}</Month>
       <Day>{day}</Day>
     </Div>
-  );
+  )
 }
 
-export default Date;
+export default Date

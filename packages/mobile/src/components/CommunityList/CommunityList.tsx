@@ -1,8 +1,8 @@
-import React, { PropsWithChildren } from 'react'
 import {
   CommunityCard,
   CommunityCardFragment as Community,
 } from '../CommunityCard'
+import React, { PropsWithChildren } from 'react'
 
 interface Props {
   communities: Community[]
@@ -16,9 +16,9 @@ export const CommunityList: React.FC<PropsWithChildren<Props>> = (props) => {
     <>
       {communities.map((community) => (
         <CommunityCard
-          key={ community.id }
-          community={ community }
-          joinCommunity={ () => joinCommunity(community.id) }
+          key={community.id}
+          community={community}
+          joinCommunity={() => joinCommunity(community.id)}
         />
       ))}
     </>

@@ -1,10 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Meta, Story } from '@storybook/react';
-import React from 'react';
-import { TextAlign } from '../../types';
-import { Colors } from '../../styles/theme';
-import { HeadingProps } from './Heading.types';
-import Heading from './Heading';
+import { Colors } from '../../styles/theme'
+import { TextAlign } from '../../types'
+import Heading from './Heading'
+import { HeadingProps } from './Heading.types'
+import { Meta, Story } from '@storybook/react'
+import React from 'react'
 
 export default {
   title: 'atoms/Heading',
@@ -35,12 +35,12 @@ export default {
       defaultValue: {},
     },
   },
-} as Meta;
+} as Meta
 
 const Template: Story<HeadingProps> = (props) => (
-  <Heading { ...props }>Heading</Heading>
-);
+  <Heading {...props}>Heading</Heading>
+)
 
-export const Basic = Template.bind({});
+export const Basic = Template.bind({})
 
-Basic.args = {};
+Basic.args = {}

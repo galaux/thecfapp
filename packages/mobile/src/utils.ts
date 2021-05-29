@@ -1,6 +1,6 @@
-import { sortBy } from 'lodash/fp'
-import { Address } from './types'
 import { ScoreFieldsFragment } from './graphql/fragment/score.generated'
+import { Address } from './types'
+import { sortBy } from 'lodash/fp'
 
 export const COPYRIGHT_STR = '© 2020 TheCFApp. All rights reserved'
 
