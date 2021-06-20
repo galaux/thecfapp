@@ -92,8 +92,8 @@ yarn start
 Visit:
 
 - the `mobile` application in dev mode: http://localhost:3000/
-- the GraphiQL UI: http://localhost:4000/graphql FIXME
-- the Voyager UI: http://localhost:4000/voyager TODO
+- the GraphiQL UI: http://localhost:4000/graphiql
+- the Voyager UI: http://localhost:4000/voyager
 
 See the corresponding README files for detailed info about both sub-projects.
 

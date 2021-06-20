@@ -11,7 +11,8 @@
    [reitit.ring.middleware.parameters :as parameters]
    [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
    [ring.util.http-response :refer [ok]]
-   [ring.util.response :refer [resource-response]]))
+   [ring.util.response :refer [resource-response]]
+   [ring-graphql-ui.core :refer [wrap-graphiql wrap-voyager]]))
 
 (def api-router-data
   ;; router data affecting all routes
@@ -67,12 +68,15 @@
 
 (defn app-routes
   [execute-query]
-  (ring/ring-handler
-   ;; Normal handler: the API & al.
-   (ring/router
-    ["/api/graphql" {:post (partial serve-graphql execute-query)}])
-   ;; Default handler: the React App
-   react-app-handler))
+  (-> (ring/ring-handler
+       ;; Regular handler: API & al.
+       (ring/router
+        ["/api/graphql" {:post (partial serve-graphql execute-query)}])
+       ;; Default handler: our React App
+       react-app-handler)
+      ;; Suplementary regular endpoints: GraphQL dev apps
+      (wrap-graphiql {:endpoint "/api/graphql"})
+      (wrap-voyager {:endpoint "/api/graphql"})))
 
 ;; TODO see how to properly handle error page (see cfapp-back)
 
