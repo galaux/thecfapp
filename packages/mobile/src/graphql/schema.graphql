@@ -7,7 +7,3 @@ https://graphql-code-generator.com/docs/integrations/apollo-local-state
 type Score {
   belongsToLoggedUser: Boolean!
 }
-
-type Community {
-  isMember: Boolean!
-}

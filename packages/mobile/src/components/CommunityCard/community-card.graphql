@@ -3,6 +3,6 @@ fragment CommunityCard on Community {
   address {
     ...CommunityAddressFields
   }
-  isMember @client
+  isMember(userId: $userId)
   memberCount
 }

@@ -1,9 +1,4 @@
 import {
-  UserCommunitiesQueryVariables,
-  UserCommunitiesQuery,
-  UserCommunitiesDocument,
-} from '../pages/community'
-import {
   UserFieldsFragment,
   UserFieldsFragmentDoc,
 } from './fragment/user.generated'
@@ -28,27 +23,6 @@ const getApolloClient = async () => {
   const httpLink = new HttpLink({ uri: '/api/graphql' })
   const cache = new InMemoryCache({
     typePolicies: {
-      Community: {
-        fields: {
-          isMember: {
-            read(_, { cache, readField }) {
-              const communityId = readField<string>('id')
-              // This can't happen but is required by the compiler
-              if (!communityId) return false
-              const userCommunities = cache.readQuery<
-                UserCommunitiesQuery,
-                UserCommunitiesQueryVariables
-              >({
-                query: UserCommunitiesDocument,
-                variables: { userId: loggedUserId() },
-              })
-              return userCommunities?.userCommunities
-                .map((c) => c.id)
-                .includes(communityId)
-            },
-          },
-        },
-      },
       Score: {
         fields: {
           belongsToLoggedUser: {

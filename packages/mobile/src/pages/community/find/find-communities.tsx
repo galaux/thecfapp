@@ -59,7 +59,7 @@ export const FindCommunityPage: React.FC<RouteComponentProps> = () => {
       error={error}
       lookedupCommunities={findData?.findCommunities}
       findCommunities={(name: string) =>
-        findCommunities({ variables: { name } })
+        findCommunities({ variables: { name, userId } })
       }
       joinCommunity={(communityId: string) =>
         joinCommunity({ variables: { userId, communityId } })

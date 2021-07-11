@@ -1,10 +1,9 @@
 (ns cfapp.api.graphql.resolvers.community
   (:require
     [cfapp.api.db.domain.community :as community]
-    [cfapp.api.util :refer [anomaly->error anomaly?]]
+    [cfapp.api.util :refer [anomaly->error anomaly? kebab-keys]]
     [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
-    [datomic.client.api :as d]
-    [cfapp.api.util :refer [kebab-keys]]))
+    [datomic.client.api :as d]))
 
 (defn shape-community-address
   [community]
@@ -63,6 +62,10 @@
 (defn member-count
   [{:keys [conn]} _args {:keys [id]}]
   (community/member-count (d/db conn) id))
+
+(defn member?
+  [{:keys [conn]} args community]
+  (community/member? (d/db conn) (:id community) (:userId args)))
 
 (defn user-join
   [{:keys [conn]} {:keys [input]} _value]
