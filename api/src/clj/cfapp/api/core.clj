@@ -1,4 +1,5 @@
 (ns cfapp.api.core
+  (:gen-class)
   (:require
    [aero.core :as aero]
    [clojure.java.io :as io]

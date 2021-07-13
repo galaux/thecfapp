@@ -113,11 +113,7 @@ cd ./api
 clojure -X:build
 
 # Run the API that also serves the mobile app:
-LOG_LEVEL=info \
-  java \
-    -cp cfapp-api.jar \
-    clojure.main \
-    -m cfapp.api.core
+LOG_LEVEL=info java -jar cfapp-api.jar
 
 # Visit http://localhost:3000/
 ```
