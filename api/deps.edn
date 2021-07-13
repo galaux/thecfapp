@@ -53,6 +53,7 @@
   {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
    :exec-fn hf.depstar/uberjar
    :exec-args {:aot true
+               :compile-ns :all
                :jar cfapp-api.jar}}
 
   :start-api
