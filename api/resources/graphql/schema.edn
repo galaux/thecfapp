@@ -47,6 +47,9 @@
   {:fields {:id {:type (non-null :ID)}
             :name {:type (non-null String)}
             :address {:type :Address}
+            :isMember {:type (non-null :Boolean)
+                       :resolve :Community/member?
+                       :args {:userId {:type (non-null :ID)}}}
             :memberCount {:type (non-null Int)
                           :resolve :Community/member-count}
             :wods {:type (non-null (list (non-null :Wod)))

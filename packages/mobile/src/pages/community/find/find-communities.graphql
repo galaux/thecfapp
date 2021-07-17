@@ -3,11 +3,11 @@ fragment FoundCommunity on Community {
   address {
     ...CommunityAddressFields
   }
-  isMember @client
+  isMember(userId: $userId)
   memberCount
 }
 
-query FindCommunities($name: String!) {
+query FindCommunities($name: String!, $userId: ID!) {
   findCommunities(name: $name) {
     ...FoundCommunity
   }

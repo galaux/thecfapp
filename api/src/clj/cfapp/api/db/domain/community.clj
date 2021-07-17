@@ -169,6 +169,20 @@
       ffirst
       (or 0)))
 
+(def ^:private q-member?
+  '[:find ?user
+    :in $ ?community-id ?user-id
+    :where
+    [?user :user/id ?user-id]
+    [?user :community.privs/member ?community]
+    [?community :community/id ?community-id]])
+
+(defn member?
+  [db community-id user-id]
+  (-> (d/q q-member? db community-id user-id)
+      seq
+      boolean))
+
 (defn- user-join-check
   [db user-id community-id]
   (or (and (-> (d/pull db [:db/id] [:user/id user-id])

@@ -22,6 +22,7 @@
 (def ^:private resolver-map
   {:Community/wods wod/by-community-id
    :Community/member-count community/member-count
+   :Community/member? community/member?
    :Mutation/join-community community/user-join
    :Mutation/leave-community community/leave-community
    :Mutation/new-community community/add-community

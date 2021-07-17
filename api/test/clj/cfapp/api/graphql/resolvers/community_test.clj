@@ -6,7 +6,6 @@
     [clojure.test :refer [deftest is]]
     [datomic.client.api :as d]
     [integrant.core :as ig]
-    [cfapp.api.db.core :as db]
     [cfapp.api.db.domain.community :as community]
     [cfapp.api.db.domain.score :as score]
     [cfapp.api.db.domain.user :as user]
@@ -19,6 +18,7 @@
 
 (def user-a (-> (gen/generate user/user-gen) (assoc :db/id "user-a")))
 (def user-b (-> (gen/generate user/user-gen) (assoc :db/id "user-b")))
+(def user-c (-> (gen/generate user/user-gen) (assoc :db/id "user-c")))
 (def community-a (-> (gen/generate community/community-gen) (assoc :db/id "community-a")))
 (def community-b (-> (gen/generate community/community-gen) (assoc :db/id "community-b")))
 (def community-c (-> (gen/generate community/community-gen) (assoc :db/id "community-c")))
@@ -27,22 +27,26 @@
   (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         gql-query (tutil/test-query :FindCommunities
                                     [:Community :CommunityAddress]
-                                    {:name "HAHA"})
-        communities [(assoc community-a :community/name "HaHa Comm A")
-                     (assoc community-b :community/name "Comm B haHA")] ;; note case
-        user-a (assoc user-a :community.privs/member communities)
-        user-b (assoc user-b :community.privs/member communities)
-        user-c (gen/generate user/user-gen)
-        expected-communities (map (fn [community]
-                                    {:id (.toString (:community/id community))
-                                     :name (:community/name community)
-                                     :address {:street (:community.address/street community)
-                                               :zipCode (:community.address/zip-code community)
-                                               :city (:community.address/city community)
-                                               :country (:community.address/country community)}
+                                    {:name "crossfit"
+                                     :userId (str (:user/id user-a))})
+        community-a (assoc community-a :community/name "crossfit Comm A")
+        community-b (assoc community-b :community/name "Comm B CrOSsFit")
+        community-c (assoc community-c :community/name "should not be returned")
+        user-a (assoc user-a :community.privs/member [community-a])
+        user-b (assoc user-b :community.privs/member [community-a community-b community-c])
+        user-c (assoc user-c :community.privs/member [community-b])
+        input-comm->expected-comm (fn [community]
+                                    {:id          (.toString (:community/id community))
+                                     :name        (:community/name community)
+                                     :address     {:street  (:community.address/street community)
+                                                   :zipCode (:community.address/zip-code community)
+                                                   :city    (:community.address/city community)
+                                                   :country (:community.address/country community)}
+                                     :isMember    (= (:db/id community) "community-a")
                                      :memberCount 2})
-                                  communities)]
-    (tutil/domain-add conn (concat communities [user-a user-b user-c]))
+        expected-communities (map input-comm->expected-comm [community-a community-b])]
+    (tutil/domain-add conn (concat [community-a community-b community-c]
+                                 [user-a user-b user-c]))
     (let [response (handler gql-query)
           parsed-response (-> response
                               :body
