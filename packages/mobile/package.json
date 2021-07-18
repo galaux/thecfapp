@@ -10,7 +10,7 @@
     "format-check": "prettier . --check",
     "lint": "eslint . --ext .ts,.tsx --fix",
     "lint-check": "eslint . --ext .ts,.tsx",
-    "start": "BROWSER=none PORT=3000 react-scripts start",
+    "start": "BROWSER=none PORT=3000 REACT_APP_JWT_DOMAIN='cfapp-dev.eu.auth0.com' REACT_APP_JWT_CLIENT_ID='V8B2VcnW1Jk0FJXUs5uVk7yqp4z4G2qB' react-scripts start",
     "test": "true",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
@@ -47,6 +47,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.3",
+    "@auth0/auth0-react": "^1.6.0",
     "@chakra-ui/react": "^1.0.1",
     "@emotion/react": "^11.1.1",
     "@emotion/styled": "^11.0.0",

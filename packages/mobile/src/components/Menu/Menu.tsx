@@ -3,6 +3,7 @@ import { ErrorOr } from '../ErrorOr'
 import { LoadingOr } from '../LoadingOr'
 import { MenuUserFragment as User } from './menu.generated'
 import { ApolloError } from '@apollo/client'
+import { Auth0Context } from '@auth0/auth0-react'
 import {
   Avatar,
   VStack,
@@ -20,7 +21,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { Link } from '@reach/router'
-import React from 'react'
+import React, { useContext } from 'react'
 import * as Icon from 'react-feather'
 
 interface Props {
@@ -33,6 +34,7 @@ interface Props {
 export const Menu: React.FC<Props> = (props) => {
   const { loading, error, user, menuDisclosure } = props
   const { onClose: closeMenu, isOpen } = menuDisclosure
+  const { logout } = useContext(Auth0Context)
 
   return (
     <Drawer placement='left' onClose={closeMenu} isOpen={isOpen}>
@@ -88,6 +90,13 @@ export const Menu: React.FC<Props> = (props) => {
               <Flex>
                 <Icon.User color='gray' size='1.1rem' />
                 <Text ml='7%'>Profile</Text>
+              </Flex>
+            </Link>
+
+            <Link onClick={() => logout()} to='/'>
+              <Flex>
+                <Icon.LogOut color='gray' size='1.1rem' />
+                <Text ml='7%'>Logout</Text>
               </Flex>
             </Link>
 

@@ -1,25 +1,27 @@
 import { NewWodPanel } from '../../../components/NewWodPanel'
 import { fetchPolicy } from '../../../fetch-policy'
-import { loggedUserId } from '../../../graphql/state/app'
+import { extUserToInternalId } from '../../../utils'
 import { useUserCommunitiesQuery } from '../../community'
 import { UserCommunityFragment as Community } from '../../community'
 import { useUserWorkoutsQuery } from '../../workout/user-workouts.generated'
 import { useCreateWodMutation } from './new-wod.generated'
+import { Auth0Context } from '@auth0/auth0-react'
 import { navigate, RouteComponentProps, useLocation } from '@reach/router'
-import React from 'react'
+import React, { useContext } from 'react'
 
 export const NewWodPage: React.FC<RouteComponentProps> = () => {
   const location = useLocation()
   const selectedCommunity = location.state as Community
 
-  const userId = loggedUserId()
+  const { user: extUser } = useContext(Auth0Context)
+  const loggedUserId = extUserToInternalId(extUser)
 
   const {
     loading: communitiesLoading,
     error: communitiesError,
     data: communitiesData,
   } = useUserCommunitiesQuery({
-    variables: { userId },
+    variables: { userId: loggedUserId },
     fetchPolicy: fetchPolicy('user-communities'),
   })
 

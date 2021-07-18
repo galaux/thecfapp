@@ -1,4 +1,3 @@
-import { loggedUserId } from '../../graphql/state/app'
 import {
   UserCommunitiesDocument,
   UserCommunitiesQuery,
@@ -19,6 +18,7 @@ import { ApolloCache } from '@apollo/client'
 
 export function addCommunityToUserCommunitiesCache<T>(
   cache: ApolloCache<T>,
+  loggedUserId: string,
   newCommunity: UserCommunityFragment | undefined,
 ) {
   if (!newCommunity) return
@@ -27,7 +27,7 @@ export function addCommunityToUserCommunitiesCache<T>(
     UserCommunitiesQueryVariables
   >({
     query: UserCommunitiesDocument,
-    variables: { userId: loggedUserId() },
+    variables: { userId: loggedUserId },
   })
   if (!cacheData) return
   const newCacheData = {
@@ -36,13 +36,14 @@ export function addCommunityToUserCommunitiesCache<T>(
   }
   cache.writeQuery<UserCommunitiesQuery, UserCommunitiesQueryVariables>({
     query: UserCommunitiesDocument,
-    variables: { userId: loggedUserId() },
+    variables: { userId: loggedUserId },
     data: newCacheData,
   })
 }
 
 export function removeCommunityFromUserCommunitiesCache<T>(
   cache: ApolloCache<T>,
+  loggedUserId: string,
   communityId: string | undefined,
 ) {
   if (!communityId) return
@@ -51,7 +52,7 @@ export function removeCommunityFromUserCommunitiesCache<T>(
     UserCommunitiesQueryVariables
   >({
     query: UserCommunitiesDocument,
-    variables: { userId: loggedUserId() },
+    variables: { userId: loggedUserId },
   })
   if (!cacheData) return
   const newCacheData = {
@@ -62,7 +63,7 @@ export function removeCommunityFromUserCommunitiesCache<T>(
   }
   cache.writeQuery<UserCommunitiesQuery, UserCommunitiesQueryVariables>({
     query: UserCommunitiesDocument,
-    variables: { userId: loggedUserId() },
+    variables: { userId: loggedUserId },
     data: newCacheData,
   })
 }

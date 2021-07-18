@@ -2,8 +2,10 @@ import {
   UserFieldsFragment,
   UserFieldsFragmentDoc,
 } from './fragment/user.generated'
-import { loggedUserId } from './state/app'
+import { __loggedUserId } from './state/app'
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
+import { IdToken } from '@auth0/auth0-react'
 // import { HttpLink } from 'apollo-link-http'
 import { CachePersistor, LocalStorageWrapper } from 'apollo3-cache-persist'
 
@@ -12,7 +14,17 @@ import { CachePersistor, LocalStorageWrapper } from 'apollo3-cache-persist'
 const SCHEMA_VERSION = '1'
 const SCHEMA_VERSION_KEY = 'apollo-schema-version'
 
-const getApolloClient = async () => {
+const getApolloClient = async (getToken: () => Promise<IdToken>) => {
+  const authLink = setContext(async (_, { headers }) => {
+    const token = (await getToken()).__raw
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : '',
+      },
+    }
+  })
+
   /* This mobile app is served from a web server but it is setup as a
      Progressive Web Application (PWA) so that its assets are cached on the
      client's browser. But at run time, the browser still considers it is
@@ -34,7 +46,7 @@ const getApolloClient = async () => {
                 fragment: UserFieldsFragmentDoc,
               }) as UserFieldsFragment
               // If owner is undefined then it mustn't be the logged user
-              return owner?.id === loggedUserId()
+              return owner?.id === __loggedUserId()
             },
           },
         },
@@ -57,7 +69,7 @@ const getApolloClient = async () => {
   }
 
   return new ApolloClient({
-    link: httpLink,
+    link: authLink.concat(httpLink),
     cache,
     /* Directly mutating cache values is a bad pattern that is discouraged
        by Apollo developers. One can still modify values inside the cache

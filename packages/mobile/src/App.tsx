@@ -1,4 +1,5 @@
-import { loggedUserId, noUserLoggedIn } from './graphql/state/app'
+import getApolloClient from './graphql/apollo-client'
+import { __loggedUserId } from './graphql/state/app'
 import { CommunityDetailPage } from './pages/community/detail'
 import { FindCommunityPage } from './pages/community/find'
 import { NewCommunityPage } from './pages/community/new'
@@ -14,17 +15,19 @@ import { NewWodPage } from './pages/wod/new'
 import { UserWodsPage } from './pages/wod/users'
 import FontStyles from './styles/fonts/fontStyles'
 import GlobalStyle from './styles/theme'
-import { ApolloClient, NormalizedCacheObject } from '@apollo/client'
-import { ApolloProvider } from '@apollo/client'
+import { extUserToInternalId } from './utils'
+import {
+  ApolloClient,
+  ApolloProvider,
+  NormalizedCacheObject,
+} from '@apollo/client'
+import { Auth0Context } from '@auth0/auth0-react'
 import { ChakraProvider, extendTheme } from '@chakra-ui/react'
+import { Spinner } from '@chakra-ui/react'
 import { Router } from '@reach/router'
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import 'react-dates/initialize'
 import 'react-dates/lib/css/_datepicker.css'
-
-/* A user with this ID is seeded in the DB at start-up, don't change or sync
-   sync with @thecfapp/api/db/db-seeder value and re-seed the DB */
-const defaultUserId = 'df56c5a2-3f0c-459a-b158-d1a999714247'
 
 const colors = {
   _gray: '#808080',
@@ -34,21 +37,48 @@ const colors = {
 
 const customTheme = extendTheme({ colors })
 
-type Props = {
-  client: ApolloClient<NormalizedCacheObject>
-}
+const App: React.FC = () => {
+  const {
+    getIdTokenClaims,
+    isLoading,
+    isAuthenticated,
+    error,
+    user,
+    loginWithRedirect,
+  } = useContext(Auth0Context)
+  const [gqlClient, setGqlClient] =
+    useState<ApolloClient<NormalizedCacheObject> | undefined>(undefined)
 
-const App: React.FC<Props> = (props) => {
-  const { client } = props
+  useEffect(() => {
+    const logUser = async () => {
+      if (!isAuthenticated && !isLoading) {
+        await loginWithRedirect()
+      }
+      if (isAuthenticated && !gqlClient) {
+        const theClient = await getApolloClient(getIdTokenClaims)
+        setGqlClient(theClient)
+      }
+    }
+    logUser()
+  })
 
-  loggedUserId(defaultUserId)
-
-  if (noUserLoggedIn()) {
-    return <LoginPage />
+  if (isLoading || !gqlClient) {
+    return <Spinner />
   }
 
+  if (error) {
+    return <p>{error}</p>
+  }
+
+  if (!user?.sub) {
+    return <p>Error: bad external user</p>
+  }
+
+  // FIXME Get rid of the last piece of code to use `__loggedUserId`
+  __loggedUserId(extUserToInternalId(user))
+
   return (
-    <ApolloProvider client={client}>
+    <ApolloProvider client={gqlClient}>
       <FontStyles />
       <GlobalStyle />
       <ChakraProvider theme={customTheme}>

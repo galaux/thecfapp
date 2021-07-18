@@ -1,13 +1,15 @@
 import { FindCommunityPanel } from '../../../components/FindCommunityPanel'
 import { fetchPolicy } from '../../../fetch-policy'
-import { loggedUserId } from '../../../graphql/state/app'
+import { extUserToInternalId } from '../../../utils'
 import {
   useJoinCommunityMutation,
   useUserCommunitiesQuery,
 } from '../../community'
 import { addCommunityToUserCommunitiesCache } from '../on-user-communities-mutation'
 import { useFindCommunitiesLazyQuery } from './find-communities.generated'
+import { Auth0Context } from '@auth0/auth0-react'
 import { RouteComponentProps } from '@reach/router'
+import { useContext } from 'react'
 
 const ONE_MINUTE_IN_MS = 60 * 1000
 
@@ -24,7 +26,8 @@ const ONE_MINUTE_IN_MS = 60 * 1000
    When user clicks on "join" or "leave", we run the corresponding mutation
    and update the result of the "user communities" query in the cache. */
 export const FindCommunityPage: React.FC<RouteComponentProps> = () => {
-  const userId = loggedUserId()
+  const { user: extUser } = useContext(Auth0Context)
+  const loggedUserId = extUserToInternalId(extUser)
 
   const {
     loading: userCommunitiesLoading,
@@ -33,7 +36,7 @@ export const FindCommunityPage: React.FC<RouteComponentProps> = () => {
        result is cached so that the `typePolicy` that computes `isMember` can
        pick it up */
   } = useUserCommunitiesQuery({
-    variables: { userId },
+    variables: { userId: loggedUserId },
     fetchPolicy: fetchPolicy('user-communities'),
   })
 
@@ -47,7 +50,11 @@ export const FindCommunityPage: React.FC<RouteComponentProps> = () => {
   const [joinCommunity, { loading: joinLoading, error: joinError }] =
     useJoinCommunityMutation({
       update: (cache, { data }) =>
-        addCommunityToUserCommunitiesCache(cache, data?.addUserToCommunity),
+        addCommunityToUserCommunitiesCache(
+          cache,
+          loggedUserId,
+          data?.addUserToCommunity,
+        ),
     })
 
   const loading = userCommunitiesLoading && findLoading && joinLoading
@@ -59,10 +66,10 @@ export const FindCommunityPage: React.FC<RouteComponentProps> = () => {
       error={error}
       lookedupCommunities={findData?.findCommunities}
       findCommunities={(name: string) =>
-        findCommunities({ variables: { name, userId } })
+        findCommunities({ variables: { name, userId: loggedUserId } })
       }
       joinCommunity={(communityId: string) =>
-        joinCommunity({ variables: { userId, communityId } })
+        joinCommunity({ variables: { userId: loggedUserId, communityId } })
       }
     />
   )

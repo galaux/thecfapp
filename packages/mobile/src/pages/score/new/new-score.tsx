@@ -1,6 +1,6 @@
 import { NewScorePanel } from '../../../components/NewScorePanel'
-import { loggedUserId } from '../../../graphql/state/app'
 import { Score } from '../../../types'
+import { extUserToInternalId } from '../../../utils'
 import {
   UserWodsDocument,
   UserWodsQuery,
@@ -8,11 +8,13 @@ import {
 } from '../../wod/user-wods.generated'
 import { NewScoreFragment, useCreateScoreMutation } from './new-score.generated'
 import { WodInputFragment as Wod } from './wod-input.generated'
+import { Auth0Context } from '@auth0/auth0-react'
 import { navigate, RouteComponentProps, useLocation } from '@reach/router'
-import React from 'react'
+import React, { useContext } from 'react'
 
 export const NewScorePage: React.FC<RouteComponentProps> = () => {
-  const userId = loggedUserId()
+  const { user: extUser } = useContext(Auth0Context)
+  const loggedUserId = extUserToInternalId(extUser)
   const location = useLocation()
   const state = location.state as Wod
 
@@ -25,7 +27,7 @@ export const NewScorePage: React.FC<RouteComponentProps> = () => {
       } as Score
       const cacheData = cache.readQuery<UserWodsQuery, UserWodsQueryVariables>({
         query: UserWodsDocument,
-        variables: { userId: loggedUserId() },
+        variables: { userId: loggedUserId },
       })
       const currUserWods = cacheData?.userWods
       const wodForThisScore = currUserWods?.find((wod) => wod?.id === state.id)
@@ -45,7 +47,7 @@ export const NewScorePage: React.FC<RouteComponentProps> = () => {
       }
       cache.writeQuery<UserWodsQuery, UserWodsQueryVariables>({
         query: UserWodsDocument,
-        variables: { userId: loggedUserId() },
+        variables: { userId: loggedUserId },
         data: newCachedData,
       })
     },
@@ -54,7 +56,7 @@ export const NewScorePage: React.FC<RouteComponentProps> = () => {
   function createScore(wodId: string, value: number) {
     createScoreRaw({
       variables: {
-        userId,
+        userId: loggedUserId,
         wodId,
         value,
       },
