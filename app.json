@@ -27,6 +27,9 @@
     },
     "COGNITECT_DEVTOOLS_REPO_PASSWORD": {
       "value": "08A5BFF9C80B2682CF07BA65E2DEE5034FEFB5B4"
+    },
+    "LOG_LEVEL": {
+      "value": "info"
     }
   }
 }
