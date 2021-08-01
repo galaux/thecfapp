@@ -1,14 +1,12 @@
 (ns cfapp.api.db.bootstrap
-  (:require [cfapp.api.db.domain.community :as community]
-            [cfapp.api.db.domain.score :as score]
-            [cfapp.api.db.domain.user :as user]
-            [cfapp.api.db.domain.wod :as wod]
-            [cfapp.api.db.domain.workout :as workout]
-            [clojure.java.io :as io]
-            [clojure.spec.gen.alpha :as gen])
+  (:require
+   [cfapp.api.db.domain.community :as community]
+   [cfapp.api.db.domain.score :as score]
+   [cfapp.api.db.domain.user :as user]
+   [cfapp.api.db.domain.wod :as wod]
+   [cfapp.api.db.domain.workout :as workout]
+   [clojure.spec.gen.alpha :as gen])
   (:import java.util.UUID))
-
-(def hard-coded-user-id #uuid "df56c5a2-3f0c-459a-b158-d1a999714247")
 
 (defn- many-to-many-links
   [attr link-count entities-a entities-b]
@@ -38,16 +36,32 @@
   (->> (gen/sample generator (+ gen-count 50))
        (drop 50)))
 
+(def know-user-email "g%s+cfapp@alaux.net")
+
+(def known-user-ids
+  [#uuid "8c99beba-12da-44c8-aeb2-e44f82ca27cd"
+   #uuid "b6b37b12-db24-41c5-ab52-4740dcc3ba0f"
+   #uuid "e43f5c9e-1c7b-45e4-906a-25c52dbd2600"
+   #uuid "c49d942d-b00c-45aa-8ec5-2c1931b8a006"])
+
+(defn gen-known-users
+  "Generate users with known IDs and emails"
+  []
+  (map-indexed (fn [i base-user]
+                (assoc base-user
+                       :user/id (nth known-user-ids i)
+                       :user/email (format know-user-email i)))
+    (better-sample user/user-gen (count known-user-ids))))
+
 (defn bootstrap-tx
   []
   (let [communities (-> (better-sample community/community-gen 10)
                         with-tmp-db-ids)
         scores (-> (gen/sample score/score-gen 300)
                    with-tmp-db-ids)
-        users* (-> (better-sample user/user-gen 50)
-                   with-tmp-db-ids)
-        users (-> (into [] users*)
-                  (update 0 #(assoc % :user/id hard-coded-user-id)))
+        users (-> (concat (better-sample user/user-gen 40)
+                          (gen-known-users))
+                  with-tmp-db-ids)
         wods (-> (better-sample wod/wod-gen 100)
                  with-tmp-db-ids)
         workouts (-> (better-sample workout/workout-gen 100)
