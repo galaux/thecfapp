@@ -32,9 +32,11 @@
       "value": "info"
     },
     "STATIC_AUTH_ID": {
-      "value": "cfapp_review"
+      "description": "ID used by Auth0 to authenticate against our API",
+      "value": "cfapp_dev"
     },
     "STATIC_AUTH_PASSWORD": {
+      "description": "Password used by Auth0 to authenticate against our API",
       "value": "lUW1EYNnN4d8R7IvAiQ5W3Yrt6f2NRlPqTm9P3EDJbZTke9lVc"
     }
   }
