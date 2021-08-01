@@ -1,49 +1,32 @@
 (ns cfapp.api.handler
   (:require
-   [clojure.data.json :as json]
    [integrant.core :as ig]
-   [muuntaja.core :as m]
-   reitit.coercion.spec
    [reitit.ring :as ring]
-   [reitit.ring.coercion :as coercion]
-   [reitit.ring.middleware.multipart :as multipart]
-   [reitit.ring.middleware.muuntaja :as muuntaja]
-   [reitit.ring.middleware.parameters :as parameters]
-   [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
+   [ring-graphql-ui.core :refer [wrap-graphiql wrap-voyager]]
+   [ring.middleware.json :refer [wrap-json-body wrap-json-response]]
    [ring.util.http-response :refer [ok]]
-   [ring.util.response :refer [resource-response]]
-   [ring-graphql-ui.core :refer [wrap-graphiql wrap-voyager]]))
+   [ring.util.response :refer [resource-response]]))
 
-(def api-router-data
-  ;; router data affecting all routes
-  {:data {:coercion   reitit.coercion.spec/coercion
-          :muuntaja   m/instance
-          :middleware [;; query-params & form-params
-                       parameters/parameters-middleware
-                       ;; content-negotiation
-                       muuntaja/format-negotiate-middleware
-                       ;; encoding response body
-                       muuntaja/format-response-middleware
-                       ;; exception handling
-                       coercion/coerce-exceptions-middleware
-                       ;; decoding request body
-                       muuntaja/format-request-middleware
-                       ;; coercing response bodys
-                       coercion/coerce-response-middleware
-                       ;; coercing request parameters
-                       coercion/coerce-request-middleware
-                       ;; multipart
-                       multipart/multipart-middleware]}})
-
-(defn serve-graphql
-  [execute-query req]
-  (-> (:body req)
-      slurp
-      (json/read-str :key-fn keyword)
-      execute-query
-      ;; FIXME shouldn't this be done by a middleware?
-      json/write-str
-      ok))
+;; (def api-router-data
+;;   ;; router data affecting all routes
+;;   {:data {:coercion   reitit.coercion.spec/coercion
+;;           :muuntaja   m/instance
+;;           :middleware [;; query-params & form-params
+;;                        parameters/parameters-middleware
+;;                        ;; content-negotiation
+;;                        muuntaja/format-negotiate-middleware
+;;                        ;; encoding response body
+;;                        muuntaja/format-response-middleware
+;;                        ;; exception handling
+;;                        coercion/coerce-exceptions-middleware
+;;                        ;; decoding request body
+;;                        muuntaja/format-request-middleware
+;;                        ;; coercing response bodys
+;;                        coercion/coerce-response-middleware
+;;                        ;; coercing request parameters
+;;                        coercion/coerce-request-middleware
+;;                        ;; multipart
+;;                        multipart/multipart-middleware]}})
 
 (def react-app-handler
   "The React App build comprises a `index.html`, and some static assets. All
@@ -71,17 +54,20 @@
   (-> (ring/ring-handler
        ;; Regular handler: API & al.
        (ring/router
-        ["/api/graphql" {:post (partial serve-graphql execute-query)}])
+        [["/api/graphql"
+          {:post (fn [{:keys [body]}] (ok (execute-query body)))
+           :middleware [#(wrap-json-body % {:keywords? true})
+                        wrap-json-response]}]])
        ;; Default handler: our React App
        react-app-handler)
-      ;; Suplementary regular endpoints: GraphQL dev apps
+      ;; Supplementary regular endpoints: GraphQL dev apps
       (wrap-graphiql {:endpoint "/api/graphql"})
       (wrap-voyager {:endpoint "/api/graphql"})))
 
 ;; TODO see how to properly handle error page (see cfapp-back)
 
 (defmethod ig/init-key :cfapp.api/handler
-  [_ {:keys [execute-query] :as all}]
-  ;; FIXME use site-defaults
+  [_ {:keys [execute-query]}]
+  ;; FIXME use [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
   ;; TODO use wrap-reload for dev
   (app-routes execute-query))
