@@ -19,8 +19,21 @@ function verify(email, callback) {
   // https://example.com would redirect to the following URL:
   //     https://example.com?email=alice%40example.com&message=error&success=false
 
-  const msg = 'Please implement the Verify script for this database connection ' +
-    'at https://manage.auth0.com/#/connections/database';
-  return callback(new Error(msg));
-}
+  const request = require('request');
 
+  request.post({
+    url: 'https://' + configuration.AUTHORITY + '/api/user/' + email + '/email-verified',
+    auth: {
+      username: configuration.STATIC_AUTH_ID,
+      password: configuration.STATIC_AUTH_PASSWORD
+    }
+    //for more options check:
+    //https://github.com/mikeal/request#requestoptions-callback
+  }, function(err, response, body) {
+    if (err) return callback(err);
+    if (response.statusCode !== 204) return callback(new Error(body));
+
+    callback(null);
+  });
+
+}

@@ -1,9 +1,14 @@
 (ns cfapp.api.handler
   (:require
+   [cfapp.api.auth.core :as auth]
    [integrant.core :as ig]
    [reitit.ring :as ring]
    [ring-graphql-ui.core :refer [wrap-graphiql wrap-voyager]]
+   [ring.middleware.basic-authentication
+    :refer
+    [wrap-basic-authentication]]
    [ring.middleware.json :refer [wrap-json-body wrap-json-response]]
+   [ring.middleware.params :refer [wrap-params]]
    [ring.util.http-response :refer [ok]]
    [ring.util.response :refer [resource-response]]))
 
@@ -49,25 +54,63 @@
                         (resource-response "index.html"
                                            {:root "mobile"}))}))
 
+(defn- check-static-auth-fn
+  [{:keys [static-auth]}]
+  (let [{:keys [id password]} static-auth]
+    (fn [in-id in-password]
+      (and (= in-id id)
+           (= in-password password)))))
+
 (defn app-routes
-  [execute-query]
-  (-> (ring/ring-handler
-       ;; Regular handler: API & al.
-       (ring/router
-        [["/api/graphql"
-          {:post (fn [{:keys [body]}] (ok (execute-query body)))
-           :middleware [#(wrap-json-body % {:keywords? true})
-                        wrap-json-response]}]])
-       ;; Default handler: our React App
-       react-app-handler)
-      ;; Supplementary regular endpoints: GraphQL dev apps
-      (wrap-graphiql {:endpoint "/api/graphql"})
-      (wrap-voyager {:endpoint "/api/graphql"})))
+  [execute-query context]
+  (let [check-rest-auth (check-static-auth-fn context)]
+    (-> (ring/ring-handler
+         ;; Regular handler: API & al.
+         (ring/router
+          [["/api/graphql"
+            {:post (fn [{:keys [body]}] (ok (execute-query body)))
+             :middleware [#(wrap-json-body % {:keywords? true})
+                          wrap-json-response]}]
+           ;; Potential security improvement: filter the auth endpoints by the
+           ;; Auth0 server IPs (privided in the Auth0 UI)
+           ;; TODO check inputs
+           ["/api"
+            {:middleware [#(wrap-basic-authentication % check-rest-auth)
+                          wrap-params
+                          #(wrap-json-body % {:keywords? true})
+                          wrap-json-response]}
+            ["/login"
+             {:post (partial auth/login-user context)}]
+            ["/user"
+             ["/:email"
+              {:get (partial auth/user-by-email context)}]
+             [""
+              {:post (partial auth/create-user context)}]
+             ;; "delete-user" not implemented on purpose: we should not be
+             ;; deleting users rather than setting a status to "disabled" which
+             ;; we don't support yet. Currently, the only way a user deletion
+             ;; could be triggered is through Auth0 UI. Calling code snippet on
+             ;; Auth0 side should throw an exception right away.
+             ["/:email/password"
+              {:put (partial auth/change-user-password context)}]
+             ["/:email/email-verified"
+              {:post (partial auth/set-email-as-verified context)}]]]])
+         ;; Default handler: our React App
+         react-app-handler)
+        ;; Supplementary regular endpoints: GraphQL dev apps
+        (wrap-graphiql {:endpoint "/api/graphql"})
+        (wrap-voyager {:endpoint "/api/graphql"}))))
 
 ;; TODO see how to properly handle error page (see cfapp-back)
 
 (defmethod ig/init-key :cfapp.api/handler
-  [_ {:keys [execute-query]}]
+  [_ {:keys [execute-query] :as deps}]
   ;; FIXME use [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
   ;; TODO use wrap-reload for dev
-  (app-routes execute-query))
+  (let [context (select-keys deps
+                             #{:conn
+                               :execute-query
+                               :password-encoder
+                               :password-strength-checker
+                               :static-auth})]
+    (app-routes execute-query context)))

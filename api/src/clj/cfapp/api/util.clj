@@ -1,8 +1,12 @@
 (ns cfapp.api.util
-  (:require [camel-snake-kebab.core :as csk]
-            [clojure.spec.alpha :as s]
-            [clojure.walk :refer [postwalk]]
-            [cognitect.anomalies :as anomalies]))
+  (:require
+   [camel-snake-kebab.core :as csk]
+   [clojure.spec.alpha :as s]
+   [clojure.walk :refer [postwalk]]
+   [cognitect.anomalies :as anomalies]
+   [clojure.string :as str])
+  (:import
+   (java.util Base64)))
 
 ;; Anomaly
 ;; =======
@@ -68,3 +72,35 @@
   (let [f (fn [[k v]] [(csk/->kebab-case k) v])]
     ;; only apply to maps
     (postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) m)))
+
+(defn base64-encode
+  [s]
+  (.encodeToString (Base64/getEncoder) (.getBytes s)))
+
+(defn base64-decode
+  [encoded]
+  (String. (.decode (Base64/getDecoder) encoded)))
+
+(defn encode-basic-auth
+  [id password]
+  (str "Basic " (base64-encode (str id ":" password))))
+
+(defn basic-auth
+  [req]
+  (some-> (get-in req [:headers "authorization"])
+          (str/replace-first "Basic " "")
+          base64-decode
+          (str/split #":")))
+
+;; Validation
+;; ==========
+
+(def email-regex
+  #"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])")
+
+(defn valid-email?
+  [email]
+  (boolean (and (seq email)
+              (re-matches email-regex email))))
+
+(def some-entity? (comp some? :db/id))

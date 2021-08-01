@@ -13,7 +13,25 @@ function getByEmail(email, callback) {
   // 3. Something went wrong while trying to reach your database:
   //     callback(new Error("my error message"));
 
-  const msg = 'Please implement the Get User script for this database connection ' +
-    'at https://manage.auth0.com/#/connections/database';
-  return callback(new Error(msg));
+  const request = require('request');
+
+  request.get({
+    url: 'https://' + configuration.AUTHORITY + '/api/user/' + email,
+    auth: {
+      username: configuration.STATIC_AUTH_ID,
+      password: configuration.STATIC_AUTH_PASSWORD
+    },
+    //for more options check:
+    //https://github.com/mikeal/request#requestoptions-callback
+  }, function(err, response, body) {
+    if (err) return callback(err);
+    if (response.statusCode === 422) return callback(new Error(body));
+    if (response.statusCode === 204) return callback();
+    const user = JSON.parse(body);
+
+    callback(null, {
+      user_id: user.user_id.toString(),
+      email: user.email
+    });
+  });
 }

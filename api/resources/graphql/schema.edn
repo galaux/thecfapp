@@ -15,9 +15,6 @@
  {:AddUserToCommunityInput
   {:fields {:userId {:type (non-null :ID)}
             :communityId {:type (non-null :ID)}}}
-  :CreateUserInput
-  {:fields {:screenName {:type (non-null String)}
-            :email {:type (non-null String)}}}
   :NewCommunityInput
   {:fields {:name {:type (non-null String)}
             :street {:type String}
@@ -128,10 +125,6 @@
   :createScore {:args {:input {:type (non-null :NewScoreInput)}}
                 :type (non-null :Score)
                 :resolve :Mutation/new-score}
-  :createUser {:description "Not used by mobile"
-               :args {:input {:type (non-null :CreateUserInput)}}
-               :type (non-null :User)
-               :resolve :Mutation/new-user}
   :createWod {:args {:input {:type (non-null :NewWodInput)}}
               :type (non-null :Wod)
               :resolve :Mutation/new-wod}

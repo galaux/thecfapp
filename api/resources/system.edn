@@ -1,12 +1,28 @@
 ;; Very nice article on how to use config with Integrant
 ;; https://www.karimarttila.fi/clojure/2020/09/07/clojure-integrant-exercise.html
 {:cfapp.api/handler
- {:execute-query #ig/ref :cfapp.api.graphql/execute-query}
+ {:conn                      #ig/ref :cfapp.api.db/conn
+  :execute-query             #ig/ref :cfapp.api.graphql/execute-query
+  :password-encoder          #ig/ref :cfapp.api.auth/password-encoder
+  :password-strength-checker #ig/ref :cfapp.api.auth/password-strength-checker
+  :static-auth               #profile
+                              {:dev  {:id       "good"
+                                      :password "creds"}
+                               :test {:id       "good"
+                                      :password "creds"}
+                               :prod {:id       #env STATIC_AUTH_ID
+                                      :password #env STATIC_AUTH_PASSWORD}}}
 
  :cfapp.api/http-server
  {:handler #ig/ref :cfapp.api/handler
   ; Heroku expects application to bind on `PORT`
   :port #long #or [#env PORT 4000]}
+
+ :cfapp.api.auth/password-encoder
+ {}
+
+ :cfapp.api.auth/password-strength-checker
+ {}
 
  :cfapp.api.db/client
  {:server-type :dev-local

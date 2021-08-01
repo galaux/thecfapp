@@ -1,12 +1,25 @@
 (ns cfapp.api.spec-util
   (:require
-    [cfapp.api.util :as util]
+    [cfapp.api.util :as util :refer [email-regex]]
     [clojure.spec.alpha :as s]
     [clojure.spec.gen.alpha :as gen]
     [clojure.string :as str]
     [java-time :as java-time]
-    [talltale.core :as fake]
-    [datomic.client.api :as d]))
+    [talltale.core :as fake]))
+
+(def argon2id-regex
+  #"^\$argon2id\$v=19\$m=4096,t=3,p=1\$[A-Za-z0-9+/]{22}\$[A-Za-z0-9+/]{43}$")
+
+(def strong-password "rieo3*@ifi3iDE#b")
+
+;; Encoded argon2id of the previous "strong" password (useful for tests)
+(def argon2id-encoded-str
+  "$argon2id$v=19$m=4096,t=3,p=1$YfWMqBvHXasExi5Iw3tqvw$tq3A7T6TFRt6gl/l2Y1Lx0JNrUGbfamfjWegczTIPDY")
+
+(s/def :util/argon2id
+  (s/with-gen (partial re-matches argon2id-regex)
+    (constantly (s/gen #{argon2id-encoded-str}))))
+
 
 (s/def :util/uuid
   (s/with-gen uuid? gen/uuid))
@@ -17,7 +30,6 @@
 
 (s/def :util/tld #{"fr" "net" "com" "de" "co.uk" "org" "eu"})
 
-(def email-regex #"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$")
 (s/def :util/email
   (s/with-gen
     (s/and string? #(re-matches email-regex %))

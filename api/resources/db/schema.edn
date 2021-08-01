@@ -5,6 +5,10 @@
   :db/valueType :db.type/uuid
   :db/cardinality :db.cardinality/one
   :db/unique :db.unique/identity}
+ {:db/doc "User password"
+  :db/ident :user/password
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one}
  {:db/doc "User screen name"
   :db/ident :user/screen-name
   :db/valueType :db.type/string
@@ -15,6 +19,10 @@
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/unique :db.unique/identity}
+ {:db/doc "Whether or not the user email was verified"
+  :db/ident :user/email-verified?
+  :db/valueType :db.type/boolean
+  :db/cardinality :db.cardinality/one}
 
  ;; Community
  {:db/doc "Community ID"

@@ -21,7 +21,24 @@ function changePassword(email, newPassword, callback) {
   // https://example.com would redirect to the following URL:
   //     https://example.com?email=alice%40example.com&message=error&success=false
 
-  const msg = 'Please implement the Change Password script for this database ' +
-    'connection at https://manage.auth0.com/#/connections/database';
-  return callback(new Error(msg));
+  const request = require('request');
+
+  request.put({
+    url: 'https://' + configuration.AUTHORITY + '/api/user/' + email + '/password',
+    auth: {
+      username: configuration.STATIC_AUTH_ID,
+      password: configuration.STATIC_AUTH_PASSWORD
+    },
+    json: {
+      password: newPassword
+    }
+    //for more options check:
+    //https://github.com/mikeal/request#requestoptions-callback
+  }, function(err, response, body) {
+    if (err) return callback(err);
+    if (response.statusCode !== 204) return callback(new Error(body));
+
+    callback(null);
+  });
+
 }
