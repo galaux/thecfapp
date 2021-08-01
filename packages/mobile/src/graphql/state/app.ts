@@ -4,6 +4,10 @@
 
 const KEY_LOGGED_USER_ID = 'loggedUserId'
 
+export function noUserLoggedIn(): boolean {
+  return localStorage.getItem(KEY_LOGGED_USER_ID) == null
+}
+
 export function loggedUserId(id?: string): string {
   if (id !== undefined) {
     localStorage.setItem(KEY_LOGGED_USER_ID, id)

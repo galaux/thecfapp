@@ -1,11 +1,10 @@
 (ns cfapp.api.test-util
   (:require
     [cfapp.api.core :as core]
-    [clojure.data.json :as json]
     [clojure.string :as s]
     [datomic.client.api :as d]
     [integrant.core :as ig]
-    [ring.mock.request :refer [body request]])
+    [ring.mock.request :refer [request json-body]])
   (:import
     java.util.UUID))
 
@@ -101,8 +100,8 @@
   ([query-or-key fragments variables]
    (let [graphql-q (query-with-fragments query-or-key fragments)]
      (-> (request :post "/api/graphql")
-         (body (json/write-str {:query graphql-q
-                                :variables variables}))))))
+         (json-body {:query graphql-q
+                     :variables variables})))))
 
 (defn domain-add
   [conn tx-data]

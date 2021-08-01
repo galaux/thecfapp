@@ -1,5 +1,5 @@
-import { MenuContext } from '../../App'
 import Heading from '../../atoms/Heading'
+import { MenuContext } from '../../pages/menu'
 import { Box, Flex } from '@chakra-ui/react'
 import { Link } from '@reach/router'
 import * as React from 'react'

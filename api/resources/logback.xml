@@ -12,7 +12,7 @@
     <appender-ref ref="STDOUT"/>
   </root>
 
-  <logger name="cfapp.api.db" level="${level}"/>
+  <logger name="cfapp.api" level="${level}"/>
 
   <logger name="org.eclipse.jetty" level="${level}"/>
 
