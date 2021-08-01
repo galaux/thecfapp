@@ -3,6 +3,27 @@
 {:cfapp.api/handler
  {:conn                      #ig/ref :cfapp.api.db/conn
   :execute-query             #ig/ref :cfapp.api.graphql/execute-query
+  :serve-mobile              #profile {:dev  false
+                                       :test false
+                                       :prod true}
+  :jwt-conf                  #profile {:dev {:domain "cfapp-dev.eu.auth0.com"
+                                             :client-id "V8B2VcnW1Jk0FJXUs5uVk7yqp4z4G2qB"
+                                             :issuers {"https://cfapp-dev.eu.auth0.com/"
+                                                       {:alg          :RS256
+                                                        :jwk-endpoint "https://cfapp-dev.eu.auth0.com/.well-known/jwks.json"}}
+                                             :reject-missing-token? true}
+                                       :test {:domain "cfapp.eu.auth0.com"
+                                              :client-id "Uwq04GxM1iw3F2NjAtcQchGeJ2t3lhnb"
+                                              :issuers {"https://cfapp.eu.auth0.com/"
+                                                        {:alg    :RS256
+                                                         :jwk-endpoint "https://cfapp.eu.auth0.com/.well-known/jwks.json"}}
+                                              :reject-missing-token? false}
+                                       :prod {:domain #env JWT_DOMAIN
+                                              :client-id #env JWT_CLIENT_ID
+                                              :issuers {#envf ["https://%s/" JWT_DOMAIN]
+                                                        {:alg          :RS256
+                                                         :jwk-endpoint #envf ["https://%s/.well-known/jwks.json" JWT_DOMAIN]}}
+                                              :reject-missing-token? true}}
   :password-encoder          #ig/ref :cfapp.api.auth/password-encoder
   :password-strength-checker #ig/ref :cfapp.api.auth/password-strength-checker
   :static-auth               #profile
