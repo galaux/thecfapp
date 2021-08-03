@@ -1,5 +1,6 @@
 ;; Very nice article on how to use config with Integrant
 ;; https://www.karimarttila.fi/clojure/2020/09/07/clojure-integrant-exercise.html
+;; TODO Rename the `:prod` profile in `:live`
 {:cfapp.api/handler
  {:conn                      #ig/ref :cfapp.api.db/conn
   :execute-query             #ig/ref :cfapp.api.graphql/execute-query
@@ -54,9 +55,9 @@
   :system #profile {:dev "cfapp-dev"
                     :test "cfapp-test"
                     :prod "cfapp-prod"}
-  :storage-dir #profile {:dev "/enc/home/miguel/TheCFApp/sources/thecfapp/api/datomic"
+  :storage-dir #profile {:dev #envf ["%s/.datomic" HOME]
                          :test :mem
-                         :prod #join [#env HOME "/datomic"]}}
+                         :prod #envf ["%s/.datomic" HOME]}}
 
  :cfapp.api.db/conn
  {:bootstrap-if-empty? #profile {:dev true
