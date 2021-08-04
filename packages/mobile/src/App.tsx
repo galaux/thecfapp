@@ -1,4 +1,4 @@
-import { noUserLoggedIn } from './graphql/state/app'
+import { loggedUserId, noUserLoggedIn } from './graphql/state/app'
 import { CommunityDetailPage } from './pages/community/detail'
 import { FindCommunityPage } from './pages/community/find'
 import { NewCommunityPage } from './pages/community/new'
@@ -24,7 +24,7 @@ import 'react-dates/lib/css/_datepicker.css'
 
 /* A user with this ID is seeded in the DB at start-up, don't change or sync
    sync with @thecfapp/api/db/db-seeder value and re-seed the DB */
-/* const defaultUserId = 'df56c5a2-3f0c-459a-b158-d1a999714247' */
+const defaultUserId = 'df56c5a2-3f0c-459a-b158-d1a999714247'
 
 const colors = {
   _gray: '#808080',
@@ -41,7 +41,7 @@ type Props = {
 const App: React.FC<Props> = (props) => {
   const { client } = props
 
-  /* loggedUserId(defaultUserId) */
+  loggedUserId(defaultUserId)
 
   if (noUserLoggedIn()) {
     return <LoginPage />
