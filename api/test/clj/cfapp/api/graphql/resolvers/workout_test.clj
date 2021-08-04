@@ -1,16 +1,16 @@
 (ns cfapp.api.graphql.resolvers.workout-test
   (:require
-    [camel-snake-kebab.core :as csk]
-    [clojure.data.json :as json]
-    [clojure.spec.gen.alpha :as gen]
-    [clojure.test :refer [deftest is]]
-    [integrant.core :as ig]
-    [cfapp.api.db.core :as db]
-    [cfapp.api.db.domain.score :as score]
-    [cfapp.api.db.domain.user :as user]
-    [cfapp.api.db.domain.wod :as wod]
-    [cfapp.api.db.domain.workout :as workout]
-    [cfapp.api.test-util :as tutil]))
+   [camel-snake-kebab.core :as csk]
+   [cfapp.api.db.core :as db]
+   [cfapp.api.db.domain.score :as score]
+   [cfapp.api.db.domain.user :as user]
+   [cfapp.api.db.domain.wod :as wod]
+   [cfapp.api.db.domain.workout :as workout]
+   [cfapp.api.test-util :as tutil]
+   [clojure.data.json :as json]
+   [clojure.spec.gen.alpha :as gen]
+   [clojure.test :refer [deftest is]]
+   [integrant.core :as ig]))
 
 (defn make-scores
   [owner]

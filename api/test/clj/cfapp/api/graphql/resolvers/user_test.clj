@@ -6,8 +6,7 @@
     [integrant.core :as ig]
     [cfapp.api.db.domain.community :as community]
     [cfapp.api.db.domain.user :as user]
-    [cfapp.api.test-util :as tutil])
-  (:import java.util.UUID))
+    [cfapp.api.test-util :as tutil]))
 
 (def user-a (gen/generate user/user-gen))
 (def user-b (gen/generate user/user-gen))
@@ -16,40 +15,6 @@
                       :email (:user/email user-a)
                       :communities []})
 (def community-a (gen/generate community/community-gen))
-
-
-(deftest add-users-not-used-by-mobile
-  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
-        graphql-q
-        "mutation AddUser($name: String!, $email: String!) {
-           createUser(
-             input: {
-               screenName: $name,
-               email: $email
-             }
-           ) {
-             id email name
-             communities { id name }
-           }
-         }"
-        variables {:name (:user/screen-name user-a)
-                   :email (:user/email user-a)}
-        gql-query (tutil/test-query graphql-q [] variables)]
-    (let [response (handler gql-query)
-          parsed-response (-> response
-                              :body
-                              (json/read-str :key-fn keyword))
-          expected-user-a {:id (.toString (:user/id user-a))
-                           :name (:user/screen-name user-a)
-                           :email (:user/email user-a)
-                           :communities []}]
-      (is (= 200 (:status response)))
-      (is (empty? (:errors parsed-response)))
-      (let [created-user (-> parsed-response :data :createUser)]
-        (is (= (dissoc expected-user-a :id)
-               (dissoc created-user :id)))
-        (is (uuid? (UUID/fromString (:id created-user))))))
-    (ig/halt! system)))
 
 (deftest list-users-not-used-by-mobile
   (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)]

@@ -1,12 +1,12 @@
 (ns cfapp.api.test-util
   (:require
-    [cfapp.api.core :as core]
-    [clojure.string :as s]
-    [datomic.client.api :as d]
-    [integrant.core :as ig]
-    [ring.mock.request :refer [request json-body]])
-  (:import
-    java.util.UUID))
+   [cfapp.api.core :as core]
+   [clojure.string :as s]
+   [datomic.client.api :as d]
+   [integrant.core :as ig]
+   [integrant.repl.state :as ig-state]
+   [ring.mock.request :refer [json-body request]])
+  (:import java.util.UUID))
 
 (def ^:private fragments-dir "../packages/mobile/src/graphql/fragment")
 (def ^:private queries-dir "../packages/mobile/src/pages")
@@ -106,3 +106,27 @@
 (defn domain-add
   [conn tx-data]
   (d/transact conn {:tx-data tx-data}))
+
+(defn find-with-attr
+  ([attr]
+   (find-with-attr (-> ig-state/system :cfapp.api.db/conn d/db)
+                   attr))
+  ([db attr]
+   (d/q '[:find (pull ?e [*])
+          :in $ ?attr
+          :where [?e ?attr]]
+        db
+        attr)))
+
+(defn find-with-attr-and-value
+  ([attr value]
+   (find-with-attr-and-value (-> ig-state/system :cfapp.api.db/conn d/db)
+                             attr
+                             value))
+  ([db attr value]
+   (d/q '[:find (pull ?e [*])
+          :in $ ?attr ?value
+          :where [?e ?attr ?value]]
+        db
+        attr
+        value)))

@@ -1,28 +1,13 @@
 (ns user
   (:require
-    [clojure.java.browse :refer [browse-url]]
-    [clojure.spec.alpha :as s]
-    [clojure.spec.gen.alpha :as gen]
-    [clojure.tools.namespace.repl :refer [set-refresh-dirs]]
-    [clojure.walk :as walk]
-    [com.walmartlabs.lacinia :as lacinia]
-    [datomic.client.api :as d]
-    [integrant.core :as ig]
-    [integrant.repl :refer [clear go halt init prep reset reset-all]]
-    [integrant.repl.state :as state]
-    [cfapp.api.db.bootstrap :as bootstrap]
-    [cfapp.api.db.core :as db]
-    [cfapp.api.db.domain.community :as community]
-    [cfapp.api.db.domain.score :as score]
-    [cfapp.api.db.domain.user :as user]
-    [cfapp.api.db.domain.wod :as wod]
-    [cfapp.api.db.domain.workout :as workout]
-    [cfapp.api.test-util :as tutil]
-    [clojure.java.io :as io]
-    [cfapp.api.core :as core])
-  (:import
-    clojure.lang.IPersistentMap
-    java.util.UUID))
+   [cfapp.api.core :as core]
+   [cfapp.api.db.bootstrap :as bootstrap]
+   [cfapp.api.db.core :as db]
+   [cfapp.api.test-util :as tutil :refer [find-with-attr find-with-attr-and-value]]
+   [clojure.tools.namespace.repl :refer [set-refresh-dirs]]
+   [integrant.core :as ig]
+   [integrant.repl :refer [halt go reset reset-all]]
+   [integrant.repl.state :as state]))
 
 (add-tap (bound-fn* clojure.pprint/pprint))
 
@@ -36,25 +21,6 @@
     (db/install-schema conn)
     (tutil/domain-add conn (bootstrap/bootstrap-tx)))
   nil);; Don't waste the REPL with output
-
-(defn find-with-attr
-  [attr]
-  (let [db (-> integrant.repl.state/system :cfapp.api.db/conn d/db)]
-    (d/q '[:find (pull ?e [*])
-           :in $ ?attr
-           :where [?e ?attr]]
-         db
-         attr)))
-
-(defn find-with-attr-and-value
-  [attr value]
-  (let [db (-> integrant.repl.state/system :cfapp.api.db/conn d/db)]
-    (d/q '[:find (pull ?e [*])
-           :in $ ?attr ?value
-           :where [?e ?attr ?value]]
-         db
-         attr
-         value)))
 
 (def dev-config
   (core/app-config :dev))

@@ -30,6 +30,12 @@
     },
     "LOG_LEVEL": {
       "value": "info"
+    },
+    "STATIC_AUTH_ID": {
+      "value": "cfapp_review"
+    },
+    "STATIC_AUTH_PASSWORD": {
+      "value": "lUW1EYNnN4d8R7IvAiQ5W3Yrt6f2NRlPqTm9P3EDJbZTke9lVc"
     }
   }
 }

@@ -1,5 +1,14 @@
 # TheCFApp
 
+* [Repository organisation](#repository-organisation)
+* [GraphQL domain classes and React Hooks](#graphql-domain-classes-and-react-hooks)
+* [Yarn scripts](#yarn-scripts)
+* [Start the API without serving the mobile app](#start-the-api-without-serving-the-mobile-app)
+* [Build and start](#build-and-start)
+* [To-do](#to-do)
+* [Good to know](#good-to-know)
+
+
 ## Repository organisation
 
 This Git repository is a monorepo that hosts two main parts:
@@ -117,6 +126,53 @@ LOG_LEVEL=info java -jar cfapp-api.jar
 
 # Visit http://localhost:3000/
 ```
+
+## Authentication
+
+Authentication of users is done through a third party OAuth provider:
+[Auth0](https://auth0.com/).
+
+### Normal flow of authentication
+
+The authentication flow is as follows:
+
+- if the mobile application detects that the user is not logged-in, it
+  redirects her to the Auth0 login page
+- there, she can create an account and/or login
+- when performing any of these two, Auth0 uses REST endpoints from our API to
+  create and/or validate the user credentials (see code snippets in
+  `./api/auth0`)
+- more actions are available to "admins" in the Auth0 UI
+- communication between Auth0 and our API is secured by HTTP basic auth (hard
+  coded id/password specific to each env)
+- if authentication is successfull, Auth0 redirects the user back to the mobile
+  app along with a JWT
+- the mobile app will then detect a logged-in user and will thus grant access
+  to the rest of the app
+- when performing a GraphQL query, the mobile app adds the Auth0 JWT to the
+  HTTP header
+- when the API receives a GraphQL query, it checks
+  - the JWT's signature was signed with the keys published by Auth0
+  - the JWT _audience_ is equal to the ID of the Auth0 app of the environment
+    (to prevent an attacker from using a token from one environment in another)
+- if JWT is ok, the GraphQL query handling continues normally
+
+### Local environment and Heroku review apps special case
+
+When the application is run in a local environment or as a Heroku review app,
+no Auth0 application is setup to call the corresponding API to check password
+or create users because we cannot know it in advance.  In these cases, we use a
+special Auth0 app that check user/password against a list of 4 hard coded users
+(ID, email and password). These 4 users are also hard coded with the same ID,
+email and passwords in empty databases (such as for review apps).
+
+This allows us to have Auth0 deliver a valid JWT (which also contains the user
+ID) to enable the rest of the authentication flow.
+
+Nota: one can enable the full auth flow for a review app by configuring an
+Auth0 app with
+- the correct Auth0 snippets (effectively calling the correct API)
+- the correct login/logout/CORS in Auth0 UI pointing the API
 
 ## To-do
 
