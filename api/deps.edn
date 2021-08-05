@@ -66,7 +66,7 @@
                :jar cfapp-api.jar}}
 
   :start-api
-  {:main-opts ["-m" "cfapp.api.core"]}
+  {:main-opts ["-m" "cfapp.api.core" "--dev"]}
 
   :test
   {:extra-deps {com.cognitect/test-runner
