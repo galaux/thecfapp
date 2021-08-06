@@ -6,12 +6,9 @@
 #   #!/bin/sh
 #   . "$(dirname "$0")/../../api/bin/format-api.sh"
 
-echo "Formatting …"
-git diff --cached --name-status ./api/**/*{clj,edn} \
-  | grep -e '^[MAR]' \
-  | while IFS=$'\t' read mode fname; \
-    do
-      echo "• ${fname}"
-      zprint -w "${fname}"
-      git add "${fname}"
-    done
+for file in $(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(clj|cljs|edn)$')
+do
+  zprint --formatted-write "${file}"
+  git add "${file}"
+done
+
