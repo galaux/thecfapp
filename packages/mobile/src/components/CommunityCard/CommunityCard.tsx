@@ -1,11 +1,19 @@
 import Button from '../../atoms/Button'
 import Card from '../../atoms/Card'
+import Link from '../../atoms/Link'
 import Div from '../../common/Div'
-import { Aligns, ButtonType, Directions, Justifys, Size } from '../../types'
+import {
+  Aligns,
+  ButtonType,
+  ButtonVariant,
+  Directions,
+  Justifys,
+  Size,
+} from '../../types'
 import UserCountChip from '../UserCountChip'
 import { Address, CommunityName } from './CommunityCard.styled'
 import { CommunityCardFragment as Community } from './community-card.generated'
-import { Link, useNavigate } from '@reach/router'
+import { useNavigate } from '@reach/router'
 import React, { FC } from 'react'
 
 interface CommunityCardProps {
@@ -54,7 +62,12 @@ export const CommunityCard: FC<CommunityCardProps> = ({
       </Div>
       <Div justify={Justifys.end}>
         {community.isMember ? (
-          <Link to={`/community/${community.id}`}>See the community</Link>
+          <Link
+            variant={ButtonVariant.Primary}
+            to={`/community/${community.id}`}
+          >
+            See the community
+          </Link>
         ) : (
           <Button type={ButtonType.button} onClick={join}>
             Join

@@ -1,4 +1,4 @@
-import { colors, edgeSize, text } from '../../styles/theme'
+import { colors, edgeSize, FontWeights, text } from '../../styles/theme'
 import React, { FC } from 'react'
 import styled from 'styled-components'
 
@@ -6,6 +6,7 @@ const LabelWrapper = styled.label<{ $disabled: boolean }>`
   margin-bottom: ${edgeSize.xxsmall};
   font-size: ${text.xsmall.size};
   line-height: ${text.xsmall.height};
+  font-weight: ${FontWeights.Medium};
   color: ${colors.gray50};
   display: flex;
   flex-flow: row nowrap;

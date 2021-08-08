@@ -1,5 +1,6 @@
 import { hexToRgb } from '../mixins/hexToRgb'
 import { createGlobalStyle } from 'styled-components'
+import reset from 'styled-reset'
 
 export enum Colors {
   primary = 'primary',
@@ -14,6 +15,7 @@ export enum Colors {
   gray90 = 'gray90',
   white = 'white',
   boxShadow = 'boxShadow',
+  background = 'background',
 }
 
 export const colors = {
@@ -29,6 +31,7 @@ export const colors = {
   [Colors.gray90]: '#1A151A',
   [Colors.white]: '#FFFFFF',
   [Colors.boxShadow]: '#FFFFFF',
+  [Colors.background]: '#1D1D22',
 }
 
 export const font = {
@@ -207,6 +210,16 @@ export const text = {
 }
 
 export const GlobalStyle = createGlobalStyle`
+  ${reset}
+  
+  html, body, #root {
+    height: 100%;
+  }
+  #root{
+    >div {
+      height: 100%;
+    }
+  }
   body {
     font-family: 'Aaux Next', sans-serif;
     -webkit-font-smoothing: antialiased;

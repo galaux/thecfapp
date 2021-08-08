@@ -1,3 +1,9 @@
+import Button from '../../atoms/Button'
+import Label from '../../atoms/Label'
+import Div from '../../common/Div'
+import InputGroup from '../../common/InputGroup'
+import Input from '../../molecules/Input'
+import { ButtonType, Size } from '../../types'
 import { Body } from '../Body'
 import { CommunityList } from '../CommunityList'
 import { ErrorOr } from '../ErrorOr'
@@ -6,14 +12,7 @@ import { Layout } from '../Layout'
 import { LoadingOr } from '../LoadingOr'
 import { CommunityForFindCommunityPanelFragment as Community } from './find-community-panel.generated'
 import { ApolloError } from '@apollo/client'
-import {
-  Button,
-  InputGroup,
-  Input,
-  InputRightElement,
-  Text,
-  VStack,
-} from '@chakra-ui/react'
+import { Text, VStack } from '@chakra-ui/react'
 import { navigate } from '@reach/router'
 import React, { useState } from 'react'
 import * as Icon from 'react-feather'
@@ -34,10 +33,14 @@ export const FindCommunityPanel: React.FC<Props> = (props: Props) => {
     findCommunities,
     joinCommunity,
   } = props
-  const [name, setName] = useState<string | null>(null)
+  const [name, setName] = useState('')
 
   const onClickFind = () => {
     if (name) findCommunities(name)
+  }
+
+  const searchOnChange = (inputValue: string) => {
+    setName(inputValue)
   }
 
   const ifEmpty = (
@@ -46,7 +49,7 @@ export const FindCommunityPanel: React.FC<Props> = (props: Props) => {
         (·_·)
       </Text>
       <Text>Looks like this community doesn't exist yet.</Text>
-      <Button colorScheme='blue' onClick={() => navigate('/new-community')}>
+      <Button onClick={() => navigate('/new-community')}>
         Create your community
       </Button>
     </VStack>
@@ -58,17 +61,15 @@ export const FindCommunityPanel: React.FC<Props> = (props: Props) => {
       <Body>
         <LoadingOr loading={loading}>
           <ErrorOr error={error}>
-            <InputGroup>
-              <Input
-                placeholder='Search a community'
-                onChange={(e) => setName(e.target.value)}
-              />
-              <InputRightElement>
-                <Button h='1.75rem' size='sm' onClick={onClickFind}>
-                  <Icon.Search />
+            <Div margin={{ bottom: Size.Xlarge }}>
+              <Label htmlFor='search'>Search a box</Label>
+              <InputGroup>
+                <Input id='search' value={name} onChange={searchOnChange} />
+                <Button type={ButtonType.button} onClick={onClickFind}>
+                  <Icon.Search size={'14'} />
                 </Button>
-              </InputRightElement>
-            </InputGroup>
+              </InputGroup>
+            </Div>
             {lookedupCommunities && (
               <CommunityList
                 communities={lookedupCommunities}

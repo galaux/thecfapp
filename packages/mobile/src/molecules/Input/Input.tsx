@@ -11,6 +11,7 @@ export type InputProps = {
   value: string
   disabled?: boolean
   type?: InputType
+  placeholder?: string
 }
 
 const Input: FC<InputProps> = ({
@@ -22,7 +23,7 @@ const Input: FC<InputProps> = ({
   type = InputType.Text,
   ...rest
 }) => (
-  <Div direction={Directions.column}>
+  <Div width='100%' direction={Directions.column}>
     {label ? (
       <Label htmlFor={id} disabled={disabled}>
         {label}
