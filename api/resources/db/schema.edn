@@ -1,127 +1,128 @@
 [
  ;; User
- {:db/doc "User ID"
-  :db/ident :user/id
-  :db/valueType :db.type/uuid
+ {:db/doc         "User ID"
+  :db/ident       :user/id
+  :db/valueType   :db.type/uuid
   :db/cardinality :db.cardinality/one
-  :db/unique :db.unique/identity}
- {:db/doc "User password"
-  :db/ident :user/password
-  :db/valueType :db.type/string
+  :db/unique      :db.unique/identity}
+ {:db/doc         "User password"
+  :db/ident       :user/password
+  :db/valueType   :db.type/string
   :db/cardinality :db.cardinality/one}
- {:db/doc "User screen name"
-  :db/ident :user/screen-name
-  :db/valueType :db.type/string
+ {:db/doc         "User screen name"
+  :db/ident       :user/screen-name
+  :db/valueType   :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/unique :db.unique/identity}
- {:db/doc "User email"
-  :db/ident :user/email
-  :db/valueType :db.type/string
+  :db/unique      :db.unique/identity}
+ {:db/doc         "User email"
+  :db/ident       :user/email
+  :db/valueType   :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/unique :db.unique/identity}
- {:db/doc "Whether or not the user email was verified"
-  :db/ident :user/email-verified?
-  :db/valueType :db.type/boolean
+  :db/unique      :db.unique/identity}
+ {:db/doc         "Whether or not the user email was verified"
+  :db/ident       :user/email-verified?
+  :db/valueType   :db.type/boolean
   :db/cardinality :db.cardinality/one}
 
  ;; Community
- {:db/doc "Community ID"
-  :db/ident :community/id
-  :db/valueType :db.type/uuid
+ {:db/doc         "Community ID"
+  :db/ident       :community/id
+  :db/valueType   :db.type/uuid
   :db/cardinality :db.cardinality/one
-  :db/unique :db.unique/identity}
- {:db/doc "Community name"
-  :db/ident :community/name
-  :db/valueType :db.type/string
+  :db/unique      :db.unique/identity}
+ {:db/doc         "Community name"
+  :db/ident       :community/name
+  :db/valueType   :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/unique :db.unique/identity}
- {:db/doc "Community address – street"
-  :db/ident :community.address/street
-  :db/valueType :db.type/string
+  :db/unique      :db.unique/identity}
+ {:db/doc         "Community address – street"
+  :db/ident       :community.address/street
+  :db/valueType   :db.type/string
   :db/cardinality :db.cardinality/one}
- {:db/doc "Community address – zip-code"
-  :db/ident :community.address/zip-code
-  :db/valueType :db.type/string
+ {:db/doc         "Community address – zip-code"
+  :db/ident       :community.address/zip-code
+  :db/valueType   :db.type/string
   :db/cardinality :db.cardinality/one}
- {:db/doc "Community address – city"
-  :db/ident :community.address/city
-  :db/valueType :db.type/string
+ {:db/doc         "Community address – city"
+  :db/ident       :community.address/city
+  :db/valueType   :db.type/string
   :db/cardinality :db.cardinality/one}
- {:db/doc "Community address – country" ;; FIXME this should be the ISO code
-  :db/ident :community.address/country
-  :db/valueType :db.type/string
+ ;; FIXME this should be the ISO code
+ {:db/doc         "Community address – country"
+  :db/ident       :community.address/country
+  :db/valueType   :db.type/string
   :db/cardinality :db.cardinality/one}
 
  ;; User/Community
- {:db/doc "Owner privileges over a community"
-  :db/ident :community.privs/owner
-  :db/valueType :db.type/ref
+ {:db/doc         "Owner privileges over a community"
+  :db/ident       :community.privs/owner
+  :db/valueType   :db.type/ref
   :db/cardinality :db.cardinality/many}
- {:db/doc "Administrator privileges over a community"
-  :db/ident :community.privs/admin
-  :db/valueType :db.type/ref
+ {:db/doc         "Administrator privileges over a community"
+  :db/ident       :community.privs/admin
+  :db/valueType   :db.type/ref
   :db/cardinality :db.cardinality/many}
- {:db/doc "Member privileges over a community"
-  :db/ident :community.privs/member
-  :db/valueType :db.type/ref
+ {:db/doc         "Member privileges over a community"
+  :db/ident       :community.privs/member
+  :db/valueType   :db.type/ref
   :db/cardinality :db.cardinality/many}
 
  ;; Workout
- {:db/doc "Workout ID"
-  :db/ident :workout/id
-  :db/valueType :db.type/uuid
+ {:db/doc         "Workout ID"
+  :db/ident       :workout/id
+  :db/valueType   :db.type/uuid
   :db/cardinality :db.cardinality/one
-  :db/unique :db.unique/identity}
- {:db/doc "Workout name"
-  :db/ident :workout/name
-  :db/valueType :db.type/string
+  :db/unique      :db.unique/identity}
+ {:db/doc         "Workout name"
+  :db/ident       :workout/name
+  :db/valueType   :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/unique :db.unique/identity}
- {:db/doc "Workout description"
-  :db/ident :workout/description
-  :db/valueType :db.type/string
+  :db/unique      :db.unique/identity}
+ {:db/doc         "Workout description"
+  :db/ident       :workout/description
+  :db/valueType   :db.type/string
   :db/cardinality :db.cardinality/one}
  {:db/ident :workout.scoring-type/duration-ms}
  {:db/ident :workout.scoring-type/repetitions}
- {:db/doc "Workout scoring type"
-  :db/ident :workout/scoring-type
-  :db/valueType :db.type/ref
+ {:db/doc         "Workout scoring type"
+  :db/ident       :workout/scoring-type
+  :db/valueType   :db.type/ref
   :db/cardinality :db.cardinality/one}
 
  ;; WoD
- {:db/doc "WoD ID"
-  :db/ident :wod/id
-  :db/valueType :db.type/uuid
+ {:db/doc         "WoD ID"
+  :db/ident       :wod/id
+  :db/valueType   :db.type/uuid
   :db/cardinality :db.cardinality/one
-  :db/unique :db.unique/identity}
- {:db/doc "WoD date"
-  :db/ident :wod/date
-  :db/valueType :db.type/instant
+  :db/unique      :db.unique/identity}
+ {:db/doc         "WoD date"
+  :db/ident       :wod/date
+  :db/valueType   :db.type/instant
   :db/cardinality :db.cardinality/one}
- {:db/doc "The community a WoD belongs to"
-  :db/ident :wod/community
-  :db/valueType :db.type/ref
+ {:db/doc         "The community a WoD belongs to"
+  :db/ident       :wod/community
+  :db/valueType   :db.type/ref
   :db/cardinality :db.cardinality/one}
- {:db/doc "Workout performed during this WoD"
-  :db/ident :wod/workout
-  :db/valueType :db.type/ref
+ {:db/doc         "Workout performed during this WoD"
+  :db/ident       :wod/workout
+  :db/valueType   :db.type/ref
   :db/cardinality :db.cardinality/one}
 
  ;; Score
- {:db/doc "Score ID"
-  :db/ident :score/id
-  :db/valueType :db.type/uuid
+ {:db/doc         "Score ID"
+  :db/ident       :score/id
+  :db/valueType   :db.type/uuid
   :db/cardinality :db.cardinality/one
-  :db/unique :db.unique/identity}
- {:db/doc "User owning this score"
-  :db/ident :score/user
-  :db/valueType :db.type/ref
+  :db/unique      :db.unique/identity}
+ {:db/doc         "User owning this score"
+  :db/ident       :score/user
+  :db/valueType   :db.type/ref
   :db/cardinality :db.cardinality/one}
- {:db/doc "WoD this score is for"
-  :db/ident :score/wod
-  :db/valueType :db.type/ref
+ {:db/doc         "WoD this score is for"
+  :db/ident       :score/wod
+  :db/valueType   :db.type/ref
   :db/cardinality :db.cardinality/one}
- {:db/doc "The value of the score"
-  :db/ident :score/value
-  :db/valueType :db.type/long
+ {:db/doc         "The value of the score"
+  :db/ident       :score/value
+  :db/valueType   :db.type/long
   :db/cardinality :db.cardinality/one}]

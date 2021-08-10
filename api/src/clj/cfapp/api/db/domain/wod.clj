@@ -1,13 +1,13 @@
 (ns cfapp.api.db.domain.wod
   (:require
-    [cfapp.api.db.domain.community :as community]
-    [cfapp.api.db.domain.workout :as workout]
-    [cfapp.api.util :refer [anomaly]]
-    [clojure.spec.alpha :as s]
-    [cognitect.anomalies :as anomalies]
-    [datomic.client.api :as d])
+   [cfapp.api.db.domain.community :as community]
+   [cfapp.api.db.domain.workout :as workout]
+   [cfapp.api.util :refer [anomaly]]
+   [clojure.spec.alpha :as s]
+   [cognitect.anomalies :as anomalies]
+   [datomic.client.api :as d])
   (:import
-    java.util.UUID))
+   java.util.UUID))
 
 (s/def :wod/id :util/uuid)
 (s/def :wod/date :util/near-local-date)
@@ -68,11 +68,11 @@
 
 (defn- create-tx
   [community-id workout-id date]
-  {:db/id "new-wod-eid"
-   :wod/id (UUID/randomUUID)
+  {:db/id         "new-wod-eid"
+   :wod/id        (UUID/randomUUID)
    :wod/community {:community/id community-id}
-   :wod/workout {:workout/id workout-id}
-   :wod/date date})
+   :wod/workout   {:workout/id workout-id}
+   :wod/date      date})
 
 (defn- check-create
   [db community-id workout-id]
@@ -84,10 +84,12 @@
 (defn create
   [conn community-id workout-id date]
   (or (check-create (d/db conn) community-id workout-id)
-      (let [tx-data (create-tx community-id workout-id date)
+      (let [tx-data            (create-tx community-id workout-id date)
             {:keys [db-after]} (d/transact conn {:tx-data [tx-data]})]
         (by-id db-after (:wod/id tx-data)))))
 
 ;; TODO
-;; Quandary: should "low level" API function pull the :db/id of children so that
-;; they are readily available for the resolver to get them or should they be pulled on demand?
+;; Quandary: should "low level" API function pull the :db/id of children so
+;; that
+;; they are readily available for the resolver to get them or should they be
+;; pulled on demand?

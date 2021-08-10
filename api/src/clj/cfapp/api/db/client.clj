@@ -1,8 +1,8 @@
 (ns cfapp.api.db.client
   (:require
-    [datomic.client.api :as d]
-    [integrant.core :as ig]
-    [clojure.tools.logging :as log]))
+   [datomic.client.api :as d]
+   [integrant.core :as ig]
+   [clojure.tools.logging :as log]))
 
 (defmethod ig/init-key :cfapp.api.db/client
   [_ datomic-conf]

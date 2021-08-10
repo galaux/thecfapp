@@ -1,23 +1,23 @@
 (ns cfapp.api.graphql.resolvers.community
   (:require
-    [cfapp.api.db.domain.community :as community]
-    [cfapp.api.util :refer [anomaly->error anomaly? kebab-keys]]
-    [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
-    [datomic.client.api :as d]))
+   [cfapp.api.db.domain.community :as community]
+   [cfapp.api.util :refer [anomaly->error anomaly? kebab-keys]]
+   [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
+   [datomic.client.api :as d]))
 
 (defn shape-community-address
   [community]
   (let [{:community.address/keys [street zip-code city country]} community]
-    {:street street
+    {:street  street
      :zipCode zip-code
-     :city city
+     :city    city
      :country country}))
 
 (defn shape-community
   [community]
   (let [{:community/keys [id name]} community]
-    {:id id
-     :name name
+    {:id      id
+     :name    name
      :address (shape-community-address community)}))
 
 (defn get-community
@@ -69,7 +69,8 @@
 
 (defn user-join
   [{:keys [conn]} {:keys [input]} _value]
-  (let [{:keys [db-after] :as res} (community/user-join conn (kebab-keys input))]
+  (let [{:keys [db-after] :as res} (community/user-join conn
+                                                        (kebab-keys input))]
     (if (anomaly? res)
       (resolve-as false (anomaly->error res))
       (->> (d/pull db-after '[*] [:community/id (:communityId input)])

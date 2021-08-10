@@ -5,8 +5,8 @@
 
 (defn- shape-user
   [{:user/keys [id screen-name email]}]
-  {:id id
-   :name screen-name
+  {:id    id
+   :name  screen-name
    :email email})
 
 (defn get-user

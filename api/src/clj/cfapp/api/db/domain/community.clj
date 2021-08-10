@@ -1,17 +1,17 @@
 (ns cfapp.api.db.domain.community
   (:require
-    [cfapp.api.db.domain.user :as user]
-    [cfapp.api.util :refer [anomaly anomaly->error]]
-    [cfapp.api.spec-util :as sutil]
-    [clojure.spec.alpha :as s]
-    [clojure.spec.gen.alpha :as gen]
-    [clojure.string :as str]
-    [cognitect.anomalies :as anomalies]
-    [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
-    [datomic.client.api :as d]
-    [talltale.core :as fake])
+   [cfapp.api.db.domain.user :as user]
+   [cfapp.api.util :refer [anomaly anomaly->error]]
+   [cfapp.api.spec-util :as sutil]
+   [clojure.spec.alpha :as s]
+   [clojure.spec.gen.alpha :as gen]
+   [clojure.string :as str]
+   [cognitect.anomalies :as anomalies]
+   [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
+   [datomic.client.api :as d]
+   [talltale.core :as fake])
   (:import
-    java.util.UUID))
+   java.util.UUID))
 
 (s/def :community/id :util/uuid)
 (s/def :community/name :util/non-blank-string)
@@ -25,13 +25,14 @@
   (gen/fmap
     (fn [{:keys [company-name address]}]
       (cond->
-        {:community/id (UUID/randomUUID)
+        {:community/id   (UUID/randomUUID)
          :community/name (->> [company-name "Crossfit" (:city address)]
                               shuffle
                               (str/join " "))}
         (zero? (rand-int 3)) (assoc :community.address/street (:street address))
         (zero? (rand-int 3)) (assoc :community.address/city (:city address))
-        (zero? (rand-int 3)) (assoc :community.address/zip-code (:postal-code address))
+        (zero? (rand-int 3)) (assoc :community.address/zip-code
+                               (:postal-code address))
         (zero? (rand-int 3)) (assoc :community.address/country "USA")))
     (fake/company-gen)))
 
@@ -39,10 +40,10 @@
   (s/with-gen
     (s/keys :req [:community/id
                   :community/name]
-      :opt [:community.address/street
-            :community.address/zip-code
-            :community.address/city
-            :community.address/country])
+            :opt [:community.address/street
+                  :community.address/zip-code
+                  :community.address/city
+                  :community.address/country])
     gen-community))
 
 (def community-gen (s/gen ::community))
@@ -119,12 +120,12 @@
 
 (defn- create-tx
   [{:keys [name street zip-code city country]}]
-  (cond-> {:community/id (UUID/randomUUID)
+  (cond-> {:community/id   (UUID/randomUUID)
            :community/name name}
-    street (assoc :community.address/street street)
+    street   (assoc :community.address/street street)
     zip-code (assoc :community.address/zip-code zip-code)
-    city (assoc :community.address/city city)
-    country (assoc :community.address/country country)))
+    city     (assoc :community.address/city city)
+    country  (assoc :community.address/country country)))
 
 ;; TODO check input of this as being spec compliant
 ;; TODO extract full generation of tx
@@ -133,14 +134,16 @@
   [conn creator-id input]
   (let [db (d/db conn)]
     (or (check-create db input creator-id)
-        (let [community-eid "tmp-community-eid"
-              community (assoc (create-tx input)
-                          :db/id community-eid)
+        (let [community-eid   "tmp-community-eid"
+              community       (assoc (create-tx input)
+                                :db/id community-eid)
               community-privs (map (fn [priv]
                                      {:db/id [:user/id creator-id]
-                                      priv {:db/id community-eid}})
+                                      priv   {:db/id community-eid}})
                                 all-community-privs)
-              res (d/transact conn {:tx-data (conj community-privs community)})]
+              res             (d/transact conn
+                                          {:tx-data (conj community-privs
+                                                          community)})]
           (->> (get-in res [:tempids community-eid])
                (d/pull (d/db conn) '[*]))))))
 
@@ -197,7 +200,7 @@
 (defn user-join
   [conn {:keys [user-id community-id]}]
   (or (user-join-check (d/db conn) user-id community-id)
-      (let [tx-data [{:db/id [:user/id user-id]
+      (let [tx-data [{:db/id                  [:user/id user-id]
                       :community.privs/member {:db/id [:community/id
                                                        community-id]}}]]
         (d/transact conn {:tx-data tx-data}))))

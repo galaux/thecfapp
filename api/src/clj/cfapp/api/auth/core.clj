@@ -9,9 +9,9 @@
     [no-content ok unprocessable-entity]]))
 
 (defn- shape-user
- [{:user/keys [id email]}]
- {:user_id (str id)
-  :email email})
+  [{:user/keys [id email]}]
+  {:user_id (str id)
+   :email   email})
 
 ;; TODO Keep track of user created for test from the Auth0 UI?
 ;; When testing the creation of a user from Auth0 UI, we get a `:debug true`
@@ -37,9 +37,9 @@
 (defn login-user
   [{:keys [conn password-encoder]} {:keys [body]}]
   (let [{:keys [email password]} body
-        user (when (and (seq password)
-                        (valid-email? email))
-               (user/by-email (d/db conn) email))]
+        user                     (when (and (seq password)
+                                            (valid-email? email))
+                                   (user/by-email (d/db conn) email))]
     (if (and (some-entity? user)
              (matches? password-encoder password (:user/password user)))
       (ok (shape-user user))

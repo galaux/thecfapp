@@ -12,15 +12,15 @@
 ;; =======
 
 (s/def ::anomaly-args
-  (s/cat :category keyword?
-    :message string?
-    :supplemental (s/nilable map?)))
+  (s/cat :category     keyword?
+         :message      string?
+         :supplemental (s/nilable map?)))
 
 (defn anomaly
   ([category message supplemental]
    {:pre [(s/valid? ::anomaly-args [category message supplemental])]}
    (merge {::anomalies/category category
-           ::anomalies/message message}
+           ::anomalies/message  message}
           supplemental))
   ([category message]
    (anomaly category message nil)))
@@ -38,7 +38,8 @@
 ;; Date and time
 ;; =============
 
-;; Stolen from https://github.com/cloojure/tupelo/blob/master/src/clj/tupelo/java_time.clj
+;; Stolen from
+;; https://github.com/cloojure/tupelo/blob/master/src/clj/tupelo/java_time.clj
 
 (def zoneid-utc (java.time.ZoneId/of "UTC"))
 
@@ -101,6 +102,6 @@
 (defn valid-email?
   [email]
   (boolean (and (seq email)
-              (re-matches email-regex email))))
+                (re-matches email-regex email))))
 
 (def some-entity? (comp some? :db/id))

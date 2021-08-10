@@ -1,13 +1,13 @@
 (ns cfapp.api.graphql.resolvers.wod
   (:require
-    [cfapp.api.db.domain.wod :as wod]
-    [cfapp.api.util :refer [anomaly->error anomaly?]]
-    [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
-    [datomic.client.api :as d]))
+   [cfapp.api.db.domain.wod :as wod]
+   [cfapp.api.util :refer [anomaly->error anomaly?]]
+   [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
+   [datomic.client.api :as d]))
 
 (defn shape-wod
   [{:wod/keys [id date]}]
-  {:id id
+  {:id   id
    :date date})
 
 (defn get-wod
@@ -34,7 +34,10 @@
 (defn add-wod
   [{:keys [conn]} {:keys [input]} _value]
   (let [{:keys [communityId workoutId date]} input
-        res (wod/create conn communityId workoutId date)]
+        res                                  (wod/create conn
+                                                         communityId
+                                                         workoutId
+                                                         date)]
     (if (anomaly? res)
       (resolve-as false (anomaly->error res))
       (shape-wod res))))

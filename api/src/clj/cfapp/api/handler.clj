@@ -43,7 +43,7 @@
    `REACT_APP_` but it must be done here for live setups as the result of the
    mobile build is a set of static files and not a Node.js app."
   [{:keys [domain client-id]} body]
-  (let [server-config-str (json/write-str {"JWT_DOMAIN" domain
+  (let [server-config-str (json/write-str {"JWT_DOMAIN"    domain
                                            "JWT_CLIENT_ID" client-id})]
     (str/replace-first body "\"__SERVER_DATA__\"" server-config-str)))
 
@@ -65,15 +65,15 @@
    to the mobile application."
   [jwt-conf]
   (ring/create-resource-handler
-   {:path "/"
-    ;; Serve all known static resources in `./resources/mobile`
-    :root "mobile"
-    ;; Disable serving `/index.html` when asked for `/`, we'll handle this with
-    ;; `:not-found-handler` (prevents displaying `/index.html` on the browser
-    ;; address bar.
-    :index-files []
-    ;; Anything else than a know static file, we return the mobile app
-    :not-found-handler (constantly (mobile-index jwt-conf))}))
+    {:path              "/"
+     ;; Serve all known static resources in `./resources/mobile`
+     :root              "mobile"
+     ;; Disable serving `/index.html` when asked for `/`, we'll handle this with
+     ;; `:not-found-handler` (prevents displaying `/index.html` on the browser
+     ;; address bar.
+     :index-files       []
+     ;; Anything else than a know static file, we return the mobile app
+     :not-found-handler (constantly (mobile-index jwt-conf))}))
 
 (defn- check-static-auth-fn
   [{:keys [static-auth]}]
@@ -90,47 +90,47 @@
 
 (defn app-routes
   [execute-query serve-mobile {:keys [jwt-conf] :as context}]
-  (let [check-rest-auth (check-static-auth-fn context)
+  (let [check-rest-auth     (check-static-auth-fn context)
         check-jwt-client-id (check-jwt-client-id-fn jwt-conf)]
     (-> (ring/ring-handler
-         ;; Regular handler: API & al.
-         (ring/router
-          [["/api/graphql"
-            {:post (fn [{:keys [body claims]}]
-                     ;; Don't accept JWT from other environments
-                     (if (check-jwt-client-id claims)
-                       (ok (execute-query body))
-                       (unauthorized)))
-             :middleware [#(wrap-jwt % jwt-conf)
-                          #(wrap-json-body % {:keywords? true})
-                          wrap-json-response]}]
-           ;; Potential security improvement: filter the auth endpoints by the
-           ;; Auth0 server IPs (privided in the Auth0 UI)
-           ;; TODO check inputs
-           ["/api"
-            {:middleware [#(wrap-basic-authentication % check-rest-auth)
-                          wrap-params
-                          #(wrap-json-body % {:keywords? true})
-                          wrap-json-response]}
-            ["/login"
-             {:post (partial auth/login-user context)}]
-            ["/user"
-             ["/:email"
-              {:get (partial auth/user-by-email context)}]
-             [""
-              {:post (partial auth/create-user context)}]
-             ;; "delete-user" not implemented on purpose: we should not be
-             ;; deleting users rather than setting a status to "disabled" which
-             ;; we don't support yet. Currently, the only way a user deletion
-             ;; could be triggered is through Auth0 UI. Calling code snippet on
-             ;; Auth0 side should throw an exception right away.
-             ["/:email/password"
-              {:put (partial auth/change-user-password context)}]
-             ["/:email/email-verified"
-              {:post (partial auth/set-email-as-verified context)}]]]])
-         ;; Default handler: our React App
-         (when serve-mobile
-           (react-app-handler jwt-conf)))
+          ;; Regular handler: API & al.
+          (ring/router
+            [["/api/graphql"
+              {:post       (fn [{:keys [body claims]}]
+                             ;; Don't accept JWT from other environments
+                             (if (check-jwt-client-id claims)
+                               (ok (execute-query body))
+                               (unauthorized)))
+               :middleware [#(wrap-jwt % jwt-conf)
+                            #(wrap-json-body % {:keywords? true})
+                            wrap-json-response]}]
+             ;; Potential security improvement: filter the auth endpoints by the
+             ;; Auth0 server IPs (privided in the Auth0 UI)
+             ;; TODO check inputs
+             ["/api"
+              {:middleware [#(wrap-basic-authentication % check-rest-auth)
+                            wrap-params
+                            #(wrap-json-body % {:keywords? true})
+                            wrap-json-response]}
+              ["/login"
+               {:post (partial auth/login-user context)}]
+              ["/user"
+               ["/:email"
+                {:get (partial auth/user-by-email context)}]
+               [""
+                {:post (partial auth/create-user context)}]
+               ;; "delete-user" not implemented on purpose: we should not be
+               ;; deleting users rather than setting a status to "disabled"
+               ;; which we don't support yet. Currently, the only way a user
+               ;; deletion could be triggered is through Auth0 UI. Calling code
+               ;; snippet on Auth0 side should throw an exception right away.
+               ["/:email/password"
+                {:put (partial auth/change-user-password context)}]
+               ["/:email/email-verified"
+                {:post (partial auth/set-email-as-verified context)}]]]])
+          ;; Default handler: our React App
+          (when serve-mobile
+            (react-app-handler jwt-conf)))
         ;; supplementary regular endpoints: GraphQL dev apps
         (wrap-graphiql {:endpoint "/api/graphql"})
         (wrap-voyager {:endpoint "/api/graphql"}))))

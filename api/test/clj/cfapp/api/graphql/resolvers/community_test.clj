@@ -1,121 +1,162 @@
 (ns cfapp.api.graphql.resolvers.community-test
   (:require
-    [camel-snake-kebab.core :as csk]
-    [clojure.data.json :as json]
-    [clojure.spec.gen.alpha :as gen]
-    [clojure.test :refer [deftest is]]
-    [datomic.client.api :as d]
-    [integrant.core :as ig]
-    [cfapp.api.db.domain.community :as community]
-    [cfapp.api.db.domain.score :as score]
-    [cfapp.api.db.domain.user :as user]
-    [cfapp.api.db.domain.wod :as wod]
-    [cfapp.api.db.domain.workout :as workout]
-    [cfapp.api.graphql.schema :refer [date-formatter]]
-    [cfapp.api.test-util :as tutil])
+   [camel-snake-kebab.core :as csk]
+   [clojure.data.json :as json]
+   [clojure.spec.gen.alpha :as gen]
+   [clojure.test :refer [deftest is]]
+   [datomic.client.api :as d]
+   [integrant.core :as ig]
+   [cfapp.api.db.domain.community :as community]
+   [cfapp.api.db.domain.score :as score]
+   [cfapp.api.db.domain.user :as user]
+   [cfapp.api.db.domain.wod :as wod]
+   [cfapp.api.db.domain.workout :as workout]
+   [cfapp.api.graphql.schema :refer [date-formatter]]
+   [cfapp.api.test-util :as tutil])
   (:import
-    java.util.UUID))
+   java.util.UUID))
 
-(def user-a (-> (gen/generate user/user-gen) (assoc :db/id "user-a")))
-(def user-b (-> (gen/generate user/user-gen) (assoc :db/id "user-b")))
-(def user-c (-> (gen/generate user/user-gen) (assoc :db/id "user-c")))
-(def community-a (-> (gen/generate community/community-gen) (assoc :db/id "community-a")))
-(def community-b (-> (gen/generate community/community-gen) (assoc :db/id "community-b")))
-(def community-c (-> (gen/generate community/community-gen) (assoc :db/id "community-c")))
+(def user-a
+  (-> (gen/generate user/user-gen)
+      (assoc :db/id "user-a")))
+(def user-b
+  (-> (gen/generate user/user-gen)
+      (assoc :db/id "user-b")))
+(def user-c
+  (-> (gen/generate user/user-gen)
+      (assoc :db/id "user-c")))
+(def community-a
+  (-> (gen/generate community/community-gen)
+      (assoc :db/id "community-a")))
+(def community-b
+  (-> (gen/generate community/community-gen)
+      (assoc :db/id "community-b")))
+(def community-c
+  (-> (gen/generate community/community-gen)
+      (assoc :db/id "community-c")))
 
 (deftest find-communities
   (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         gql-query (tutil/test-query :FindCommunities
                                     [:Community :CommunityAddress]
-                                    {:name "crossfit"
+                                    {:name   "crossfit"
                                      :userId (str (:user/id user-a))})
         community-a (assoc community-a :community/name "crossfit Comm A")
         community-b (assoc community-b :community/name "Comm B CrOSsFit")
         community-c (assoc community-c :community/name "should not be returned")
         user-a (assoc user-a :community.privs/member [community-a])
-        user-b (assoc user-b :community.privs/member [community-a community-b community-c])
+        user-b (assoc user-b
+                 :community.privs/member [community-a community-b community-c])
         user-c (assoc user-c :community.privs/member [community-b])
-        input-comm->expected-comm (fn [community]
-                                    {:id          (.toString (:community/id community))
-                                     :name        (:community/name community)
-                                     :address     {:street  (:community.address/street community)
-                                                   :zipCode (:community.address/zip-code community)
-                                                   :city    (:community.address/city community)
-                                                   :country (:community.address/country community)}
-                                     :isMember    (= (:db/id community) "community-a")
-                                     :memberCount 2})
-        expected-communities (map input-comm->expected-comm [community-a community-b])]
-    (tutil/domain-add conn (concat [community-a community-b community-c]
-                                 [user-a user-b user-c]))
-    (let [response (handler gql-query)
+        input-comm->expected-comm
+          (fn [community]
+            {:id          (.toString (:community/id community))
+             :name        (:community/name community)
+             :address     {:street  (:community.address/street community)
+                           :zipCode (:community.address/zip-code community)
+                           :city    (:community.address/city community)
+                           :country (:community.address/country community)}
+             :isMember    (= (:db/id community) "community-a")
+             :memberCount 2})
+        expected-communities (map input-comm->expected-comm
+                               [community-a community-b])]
+    (tutil/domain-add conn
+                      (concat [community-a community-b community-c]
+                              [user-a user-b user-c]))
+    (let [response        (handler gql-query)
           parsed-response (-> response
                               :body
                               (json/read-str :key-fn keyword))
-          communities (-> parsed-response
-                          :data
-                          :findCommunities)]
+          communities     (-> parsed-response
+                              :data
+                              :findCommunities)]
       (is (= 200 (:status response)))
       (is (empty? (:errors parsed-response)))
       (is (= 2 (count communities)))
       (is (= expected-communities communities))
-      (is (uuid? (-> communities first :id UUID/fromString))))
+      (is (uuid? (-> communities
+                     first
+                     :id
+                     UUID/fromString))))
     (ig/halt! system)))
 
 (deftest get-community
   (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         communities (gen/sample community/community-gen)
-        searched-community (-> communities first (assoc :db/id "searched-community"))
-        workout-a (-> (gen/generate workout/workout-gen) (assoc :db/id "workout-a"))
+        searched-community (-> communities
+                               first
+                               (assoc :db/id "searched-community"))
+        workout-a (-> (gen/generate workout/workout-gen)
+                      (assoc :db/id "workout-a"))
         wods (->> (gen/sample wod/wod-gen 3)
                   (map-indexed (fn [i wod]
                                  (assoc wod
-                                        :db/id (str "wod-" i)
-                                        :wod/community searched-community
-                                        :wod/workout workout-a))))
+                                   :db/id         (str "wod-" i)
+                                   :wod/community searched-community
+                                   :wod/workout   workout-a))))
         scores-map (->> wods
                         (map (fn [wod]
                                [(:wod/id wod)
                                 (assoc (gen/generate score/score-gen)
-                                       :score/wod wod
-                                       :score/user (gen/generate user/user-gen))]))
+                                  :score/wod  wod
+                                  :score/user (gen/generate user/user-gen))]))
                         (into {}))
-        gql-query (tutil/test-query :CommunityDetail
-                                    [:Community
-                                     :CommunityAddress
-                                     :Wod
-                                     :Workout
-                                     :Score
-                                     :ScoreWithBelongsToLoggedUser]
-                                    {:communityId (.toString (:community/id searched-community))})]
+        gql-query
+          (tutil/test-query :CommunityDetail
+                            [:Community
+                             :CommunityAddress
+                             :Wod
+                             :Workout
+                             :Score
+                             :ScoreWithBelongsToLoggedUser]
+                            {:communityId (.toString (:community/id
+                                                       searched-community))})]
     (tutil/domain-add conn (concat communities wods (vals scores-map)))
-    (let [response (handler gql-query)
-          parsed-response (-> response
-                              :body
-                              (json/read-str :key-fn keyword))
-          expected-workout {:id (.toString (:workout/id workout-a))
-                            :name (:workout/name workout-a)
-                            :description (:workout/description workout-a)
-                            :scoringType (csk/->SCREAMING_SNAKE_CASE_STRING (:workout/scoring-type workout-a))}
-          expected-wods (map (fn [wod]
-                               {:id (.toString (:wod/id wod))
-                                :date (.format date-formatter (:wod/date wod))
-                                :workout expected-workout
-                                :scores [(let [score (get scores-map (:wod/id wod))]
-                                           {:id (.toString (:score/id score))
-                                            :value (:score/value score)
-                                            :user {:id (.toString (:user/id (:score/user score)))}})]})
-                             wods)
-          expected-community {:id (.toString (:community/id searched-community))
-                              :name (:community/name searched-community)
-                              :address {:street (:community.address/street searched-community)
-                                        :zipCode (:community.address/zip-code searched-community)
-                                        :city (:community.address/city searched-community)
-                                        :country (:community.address/country searched-community)}
-                              :wods expected-wods
+    (let [response           (handler gql-query)
+          parsed-response    (-> response
+                                 :body
+                                 (json/read-str :key-fn keyword))
+          expected-workout   {:id          (.toString (:workout/id workout-a))
+                              :name        (:workout/name workout-a)
+                              :description (:workout/description workout-a)
+                              :scoringType (csk/->SCREAMING_SNAKE_CASE_STRING
+                                             (:workout/scoring-type workout-a))}
+          expected-wods      (map
+                               (fn [wod]
+                                 {:id      (.toString (:wod/id wod))
+                                  :date    (.format date-formatter
+                                                    (:wod/date wod))
+                                  :workout expected-workout
+                                  :scores  [(let [score (get scores-map
+                                                             (:wod/id wod))]
+                                              {:id    (.toString (:score/id
+                                                                   score))
+                                               :value (:score/value score)
+                                               :user  {:id (.toString
+                                                             (:user/id
+                                                               (:score/user
+                                                                 score)))}})]})
+                               wods)
+          expected-community {:id          (.toString (:community/id
+                                                        searched-community))
+                              :name        (:community/name searched-community)
+                              :address     {:street  (:community.address/street
+                                                       searched-community)
+                                            :zipCode
+                                              (:community.address/zip-code
+                                                searched-community)
+                                            :city    (:community.address/city
+                                                       searched-community)
+                                            :country (:community.address/country
+                                                       searched-community)}
+                              :wods        expected-wods
                               :memberCount 0}]
       (is (empty? (:errors parsed-response)))
       (is (= 200 (:status response)))
-      (is (= expected-community (-> parsed-response :data :community))))
+      (is (= expected-community
+             (-> parsed-response
+                 :data
+                 :community))))
     (ig/halt! system)))
 
 (deftest user-communities
@@ -124,50 +165,64 @@
         other-communities (gen/sample community/community-gen 3)
         tx-data (conj other-communities
                       (assoc user-a
-                             :community.privs/member user-communities))
+                        :community.privs/member user-communities))
         fragments [:Community :CommunityAddress]
         variables {:userId (.toString (:user/id user-a))}
         gql-query (tutil/test-query :UserCommunities fragments variables)]
     (tutil/domain-add conn tx-data)
-    (let [response (handler gql-query)
-          parsed-response (-> response
-                              :body
-                              (json/read-str :key-fn keyword))
-          expected-communities (map (fn [community]
-                                      {:id (.toString (:community/id community))
-                                       :name (:community/name community)
-                                       :address {:street (:community.address/street community)
-                                                 :zipCode (:community.address/zip-code community)
-                                                 :city (:community.address/city community)
-                                                 :country (:community.address/country community)}
-                                       :memberCount 1})
-                                    user-communities)]
+    (let [response             (handler gql-query)
+          parsed-response      (-> response
+                                   :body
+                                   (json/read-str :key-fn keyword))
+          expected-communities
+            (map
+              (fn [community]
+                {:id          (.toString (:community/id community))
+                 :name        (:community/name community)
+                 :address     {:street  (:community.address/street community)
+                               :zipCode (:community.address/zip-code community)
+                               :city    (:community.address/city community)
+                               :country (:community.address/country community)}
+                 :memberCount 1})
+              user-communities)]
       (is (= 200 (:status response)))
       (is (empty? (:errors parsed-response)))
-      (is (= expected-communities (-> parsed-response :data :userCommunities))))
+      (is (= expected-communities
+             (-> parsed-response
+                 :data
+                 :userCommunities))))
     (ig/halt! system)))
 
 (deftest join-community
   (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         fragments [:Community :CommunityAddress]
-        variables {:userId (.toString (:user/id user-a))
+        variables {:userId      (.toString (:user/id user-a))
                    :communityId (.toString (:community/id community-a))}
         gql-query (tutil/test-query :JoinCommunity fragments variables)]
     (tutil/domain-add conn [user-a community-a])
-    (let [response (handler gql-query)
-          parsed-response (-> response
-                              :body
-                              (json/read-str :key-fn keyword))
-          expected-community {:id (.toString (:community/id community-a))
-                              :name (:community/name community-a)
-                              :address {:street (:community.address/street community-a)
-                                        :zipCode (:community.address/zip-code community-a)
-                                        :city (:community.address/city community-a)
-                                        :country (:community.address/country community-a)}
+    (let [response           (handler gql-query)
+          parsed-response    (-> response
+                                 :body
+                                 (json/read-str :key-fn keyword))
+          expected-community {:id          (.toString (:community/id
+                                                        community-a))
+                              :name        (:community/name community-a)
+                              :address     {:street  (:community.address/street
+                                                       community-a)
+                                            :zipCode
+                                              (:community.address/zip-code
+                                                community-a)
+                                            :city    (:community.address/city
+                                                       community-a)
+                                            :country (:community.address/country
+                                                       community-a)}
                               :memberCount 1}]
       (is (empty? (:errors parsed-response)))
       (is (= 200 (:status response)))
-      (is (= expected-community (-> parsed-response :data :addUserToCommunity)))
+      (is (= expected-community
+             (-> parsed-response
+                 :data
+                 :addUserToCommunity)))
       (let [privs (d/q '[:find ?priv-name
                          :in $ ?user-id ?community-id
                          :where
@@ -183,24 +238,26 @@
 
 (deftest leave-community
   (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
-        variables {:userId (.toString (:user/id user-a))
+        variables {:userId      (.toString (:user/id user-a))
                    :communityId (.toString (:community/id community-a))}
         gql-query (tutil/test-query :LeaveCommunity [] variables)
         tx-data [(assoc community-a :db/id "community-a")
                  (assoc user-a
-                        :db/id "user-a"
-                        :community.privs/member "community-a")]]
+                   :db/id                  "user-a"
+                   :community.privs/member "community-a")]]
     (tutil/domain-add conn tx-data)
-    (let [privs-before (d/q '[:find (pull ?user [*]) (pull ?community [*])
-                              :where [?user :community.privs/member ?community]]
-                            (d/db conn))
-          response (handler gql-query)
+    (let [privs-before    (d/q '[:find (pull ?user [*]) (pull ?community [*])
+                                 :where
+                                 [?user :community.privs/member ?community]]
+                               (d/db conn))
+          response        (handler gql-query)
           parsed-response (-> response
                               :body
                               (json/read-str :key-fn keyword))
-          privs-after (d/q '[:find (pull ?user [*]) (pull ?community [*])
-                             :where [?user :community.privs/member ?community]]
-                           (d/db conn))]
+          privs-after     (d/q '[:find (pull ?user [*]) (pull ?community [*])
+                                 :where
+                                 [?user :community.privs/member ?community]]
+                               (d/db conn))]
       (is (empty? (:errors parsed-response)))
       (is (= 200 (:status response)))
       (is (not (empty? privs-before)))
@@ -211,30 +268,35 @@
   (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
         fragments [:Community :CommunityAddress]
         [input-community expected-community]
-        (let [{:community/keys [name] :as community} (gen/generate community/community-gen)
-              {:community.address/keys [city country street zip-code]} community
-              input {:name name
-                     :city city
-                     :country country
-                     :street street
-                     :zipCode zip-code}
-              expected {:name name
-                        :memberCount 1
-                        :address {:city city
-                                  :country country
-                                  :street street
-                                  :zipCode zip-code}}]
-          [input expected])
+          (let [{:community/keys [name] :as community}
+                  (gen/generate community/community-gen)
+                {:community.address/keys [city country street zip-code]}
+                  community
+                input {:name    name
+                       :city    city
+                       :country country
+                       :street  street
+                       :zipCode zip-code}
+                expected {:name        name
+                          :memberCount 1
+                          :address     {:city    city
+                                        :country country
+                                        :street  street
+                                        :zipCode zip-code}}]
+            [input expected])
         variables {:creatorId (.toString (:user/id user-a))
-                   :input input-community}
+                   :input     input-community}
         gql-query (tutil/test-query :CreateCommunity fragments variables)]
     (tutil/domain-add conn [user-a])
-    (let [response (handler gql-query)
+    (let [response        (handler gql-query)
           parsed-response (-> response
                               :body
                               (json/read-str :key-fn keyword))]
       (is (empty? (:errors parsed-response)))
       (is (= 200 (:status response)))
       (is (= expected-community
-             (-> parsed-response :data :createCommunity (dissoc :id)))))
+             (-> parsed-response
+                 :data
+                 :createCommunity
+                 (dissoc :id)))))
     (ig/halt! system)))

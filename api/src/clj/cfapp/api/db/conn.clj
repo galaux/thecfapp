@@ -1,10 +1,10 @@
 (ns cfapp.api.db.conn
   (:require
-    [cfapp.api.db.bootstrap :refer [bootstrap-tx]]
-    [cfapp.api.db.core :refer [db-empty? install-schema schema-missing?]]
-    [clojure.tools.logging :as log]
-    [datomic.client.api :as d]
-    [integrant.core :as ig]))
+   [cfapp.api.db.bootstrap :refer [bootstrap-tx]]
+   [cfapp.api.db.core :refer [db-empty? install-schema schema-missing?]]
+   [clojure.tools.logging :as log]
+   [datomic.client.api :as d]
+   [integrant.core :as ig]))
 
 (defmethod ig/init-key :cfapp.api.db/conn
   [id {:keys [bootstrap-if-empty? client db-name]}]

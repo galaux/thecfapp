@@ -10,15 +10,18 @@
 
 ;; Log uncaught exceptions in threads
 (Thread/setDefaultUncaughtExceptionHandler
- (reify
-   Thread$UncaughtExceptionHandler
-   (uncaughtException [_ thread ex]
-     (log/error {:what :uncaught-exception
-                 :exception ex
-                 :where (str "Uncaught exception on" (.getName thread))}))))
+  (reify
+    Thread$UncaughtExceptionHandler
+      (uncaughtException [_ thread ex]
+        (log/error
+          {:what      :uncaught-exception
+           :exception ex
+           :where     (str "Uncaught exception on" (.getName thread))}))))
 
 (defmethod aero/reader
-  'ig/ref [_ _ value] (ig/ref value))
+  'ig/ref
+  [_ _ value]
+  (ig/ref value))
 
 (defn app-config
   [profile]
@@ -44,5 +47,6 @@
   (let [profile (condp = args
                   ["--dev"] :dev
                   nil       :prod
-                  (throw (ex-info "Unknown command line option" {:option args})))]
+                  (throw (ex-info "Unknown command line option"
+                                  {:option args})))]
     (alter-var-root #'system (constantly (start-app profile)))))

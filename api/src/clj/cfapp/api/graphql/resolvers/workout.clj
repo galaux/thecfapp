@@ -1,13 +1,13 @@
 (ns cfapp.api.graphql.resolvers.workout
   (:require
-    [cfapp.api.db.domain.workout :as workout]
-    [cfapp.api.util :refer [ident->enum-value]]
-    [datomic.client.api :as d]))
+   [cfapp.api.db.domain.workout :as workout]
+   [cfapp.api.util :refer [ident->enum-value]]
+   [datomic.client.api :as d]))
 
 (defn shape-workout
   [{:workout/keys [id name description scoring-type]}]
-  {:id id
-   :name name
+  {:id          id
+   :name        name
    :description description
    :scoringType (ident->enum-value scoring-type)})
 
