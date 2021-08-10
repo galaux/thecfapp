@@ -32,10 +32,20 @@
       "value": "info"
     },
     "STATIC_AUTH_ID": {
-      "value": "cfapp_review"
+      "description": "ID used by Auth0 to authenticate against our API",
+      "value": "cfapp_dev"
     },
     "STATIC_AUTH_PASSWORD": {
+      "description": "Password used by Auth0 to authenticate against our API",
       "value": "lUW1EYNnN4d8R7IvAiQ5W3Yrt6f2NRlPqTm9P3EDJbZTke9lVc"
+    },
+    "JWT_DOMAIN": {
+      "description": "Auth0 domain used to authenticate users. This will be used by the mobile app to redirect users as well as by the API to retrieve Auth0 signing keys.",
+      "value": "cfapp-dev.eu.auth0.com"
+    },
+    "JWT_CLIENT_ID": {
+      "description": "Auth0 application identifier to use (depends on the environment)",
+      "value": "V8B2VcnW1Jk0FJXUs5uVk7yqp4z4G2qB"
     }
   }
 }

@@ -1,16 +1,18 @@
 import { UserProfilePanel } from '../../../components/UserProfilePanel'
 import { fetchPolicy } from '../../../fetch-policy'
-import { loggedUserId } from '../../../graphql/state/app'
+import { extUserToInternalId } from '../../../utils'
 import { useGetUserLazyQuery } from './user.generated'
+import { Auth0Context } from '@auth0/auth0-react'
 import { RouteComponentProps } from '@reach/router'
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
 
 export const UserProfilePage: React.FC<RouteComponentProps> = () => {
-  const userId = loggedUserId()
+  const { user: extUser } = useContext(Auth0Context)
+  const loggedUserId = extUserToInternalId(extUser)
 
   const [getUser, { loading, error, data }] = useGetUserLazyQuery({
     fetchPolicy: fetchPolicy('user-profile-user'),
-    variables: { userId },
+    variables: { userId: loggedUserId },
   })
 
   let isMounted = true

@@ -32,13 +32,17 @@
   (shutdown-agents))
 
 (defn start-app
-  []
-  (log/info "starting …")
+  [profile]
+  (log/info (format "starting with profile %s …" profile))
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app))
-  (let [config (app-config :prod)]
+  (let [config (app-config profile)]
     (ig/load-namespaces config)
     (ig/init config)))
 
 (defn -main
   [& args]
-  (alter-var-root #'system (constantly (start-app))))
+  (let [profile (condp = args
+                  ["--dev"] :dev
+                  nil       :prod
+                  (throw (ex-info "Unknown command line option" {:option args})))]
+    (alter-var-root #'system (constantly (start-app profile)))))

@@ -8,7 +8,15 @@ export function noUserLoggedIn(): boolean {
   return localStorage.getItem(KEY_LOGGED_USER_ID) == null
 }
 
-export function loggedUserId(id?: string): string {
+/* DEPRECATED: use the following to get the user ID:
+   ```
+   const { user: extUser } = useContext(Auth0Context)
+   const loggedUserId = extUserToInternalId(extUser)
+   ```
+
+   This function remains until we get rid of the last piece of code to use it.
+  */
+export function __loggedUserId(id?: string): string {
   if (id !== undefined) {
     localStorage.setItem(KEY_LOGGED_USER_ID, id)
     return id

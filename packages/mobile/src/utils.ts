@@ -1,5 +1,6 @@
 import { ScoreFieldsFragment } from './graphql/fragment/score.generated'
 import { Address } from './types'
+import { User } from '@auth0/auth0-react'
 import { sortBy } from 'lodash/fp'
 
 export const COPYRIGHT_STR = '© 2020 TheCFApp. All rights reserved'
@@ -42,4 +43,9 @@ export function sortScores<Score extends ScoreFieldsFragment>(
       throw Error(`Unknown workout type: ${workoutType}`)
     }
   }
+}
+
+export function extUserToInternalId(extUser?: User): string {
+  // We check inside App that Auth0 returns a user with a sub
+  return extUser!.sub!.replace(/^(auth0\|)/, '')
 }

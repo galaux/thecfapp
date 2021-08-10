@@ -34,6 +34,7 @@
   org.clojure/tools.logging {:mvn/version "1.1.0"}
   org.clojure/tools.namespace {:mvn/version "1.1.0"}
   org.springframework.security/spring-security-crypto {:mvn/version "5.3.2.RELEASE"}
+  ovotech/ring-jwt {:mvn/version "2.2.1"}
   ring/ring-core {:mvn/version "1.9.2"}
   ring/ring-defaults {:mvn/version "0.3.2"}
   ring/ring-json {:mvn/version "0.5.1"}
@@ -49,8 +50,9 @@
    :extra-deps {ring/ring-devel {:mvn/version "1.9.2"}}}
 
   :env/test
-  {:extra-paths ["test/clj"]
-   :extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}
+  {:extra-paths ["test/clj" "env/test/resources"]
+   :extra-deps {buddy/buddy-core {:mvn/version "1.10.1"}
+                org.clojure/test.check {:mvn/version "1.1.0"}
                 ring/ring-mock {:mvn/version "0.4.0"}}}
 
   ;; Start the result with:
@@ -64,11 +66,10 @@
                :jar cfapp-api.jar}}
 
   :start-api
-  {:main-opts ["-m" "cfapp.api.core"]}
+  {:main-opts ["-m" "cfapp.api.core" "--dev"]}
 
   :test
-  {:extra-paths ["env/test/resources"]
-   :extra-deps {com.cognitect/test-runner
+  {:extra-deps {com.cognitect/test-runner
                 {:git/url "https://github.com/cognitect-labs/test-runner"
                  :sha "b6b3193fcc42659d7e46ecd1884a228993441182"}}
    :main-opts ["-m" "cognitect.test-runner"]}}}

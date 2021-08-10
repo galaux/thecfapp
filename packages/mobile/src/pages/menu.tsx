@@ -1,10 +1,11 @@
 import { Menu } from '../components/Menu'
 import { fetchPolicy } from '../fetch-policy'
-import { loggedUserId } from '../graphql/state/app'
 import { useMenuUserLazyQuery } from '../user-menu.generated'
+import { extUserToInternalId } from '../utils'
+import { Auth0Context } from '@auth0/auth0-react'
 import { UseDisclosureReturn } from '@chakra-ui/react'
 import { useDisclosure } from '@chakra-ui/react'
-import React, { createContext } from 'react'
+import React, { createContext, useContext } from 'react'
 
 const defaultUseDisclosureReturn = {
   isOpen: false,
@@ -22,14 +23,15 @@ export const MenuContext = createContext<UseDisclosureReturn>(
 
 export const MenuPage: React.FC = (props) => {
   const { children } = props
-  const userId = loggedUserId()
+  const { user: extUser } = useContext(Auth0Context)
+  const loggedUserId = extUserToInternalId(extUser)
 
   const [
     getMenuUser,
     { loading: loadingMenuUser, error: errorMenuUser, data: dataMenuUser },
   ] = useMenuUserLazyQuery({
     fetchPolicy: fetchPolicy('header-user'),
-    variables: { userId },
+    variables: { userId: loggedUserId },
   })
 
   /* FIXME keep in state what page the user is currently on so that if clicking
