@@ -12,8 +12,7 @@ import * as Icon from 'react-feather'
 import styled from 'styled-components'
 
 const UserCountChipWrapper = styled(Div)`
-  padding: ${edgeSize.xxxsmall} ${edgeSize.xxsmall}
-    calc(${edgeSize.xxxsmall} / 2);
+  padding: calc(${edgeSize.xxxsmall} / 2) ${edgeSize.xxsmall};
 `
 
 const Count = styled.span`
@@ -36,9 +35,10 @@ const UserCountChip: FC<UserCountChipProps> = ({
   <UserCountChipWrapper
     backgroundColor={color}
     direction={Directions.row}
-    align={Aligns.start}
+    align={Aligns.center}
     radius={BorderRadius.Xsmall}
     justify={Justifys.between}
+    color={Colors.white}
   >
     <Icon.Users size={12} />
     <Count>{count}</Count>
