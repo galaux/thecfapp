@@ -1,13 +1,13 @@
 (ns cfapp.api.db.domain.workout
   (:require
-    [cfapp.api.spec-util :as sutil]
-    [cfapp.api.util :refer [ident->enum-value]]
-    [clojure.spec.alpha :as s]
-    [clojure.spec.gen.alpha :as gen]
-    [clojure.string :as str]
-    [datomic.client.api :as d])
+   [cfapp.api.spec-util :as sutil]
+   [cfapp.api.util :refer [ident->enum-value]]
+   [clojure.spec.alpha :as s]
+   [clojure.spec.gen.alpha :as gen]
+   [clojure.string :as str]
+   [datomic.client.api :as d])
   (:import
-    java.util.UUID))
+   java.util.UUID))
 
 (s/def :workout/id :util/uuid)
 (s/def :workout/name :util/non-blank-string)
@@ -20,9 +20,9 @@
   []
   (gen/fmap
     (fn [[words-name description scoring-type]]
-      {:workout/id (UUID/randomUUID)
-       :workout/name (str/join " " words-name)
-       :workout/description description
+      {:workout/id           (UUID/randomUUID)
+       :workout/name         (str/join " " words-name)
+       :workout/description  description
        :workout/scoring-type scoring-type})
     (gen/tuple
       (gen/vector-distinct sutil/lorem-ipsum-words-gen

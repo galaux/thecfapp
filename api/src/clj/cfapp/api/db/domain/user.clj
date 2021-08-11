@@ -9,7 +9,8 @@
    [cognitect.anomalies :as anomalies]
    [datomic.client.api :as d]
    [talltale.core :as fake])
-  (:import java.util.UUID))
+  (:import
+   java.util.UUID))
 
 (s/def :user/id :util/uuid)
 (s/def :user/password :util/argon2id)
@@ -21,10 +22,10 @@
   []
   (gen/fmap
     (fn [{:keys [email username]}]
-      {:user/id (UUID/randomUUID)
-       :user/password argon2id-encoded-str
-       :user/screen-name (str username (rand-int 100))
-       :user/email email
+      {:user/id              (UUID/randomUUID)
+       :user/password        argon2id-encoded-str
+       :user/screen-name     (str username (rand-int 100))
+       :user/email           email
        :user/email-verified? (= (rand-int 2) 0)})
     (fake/person-gen)))
 
@@ -61,29 +62,32 @@
              :where
              [?user :user/email ?email]
              [?user :user/id]]
-        db email)
+           db
+           email)
       ffirst))
 
 (defn- create-tx
   [password-encoder {:keys [email password]}]
-  {:user/id (UUID/randomUUID)
+  {:user/id              (UUID/randomUUID)
    ;; See following note about screen name and email at creation
-   :user/screen-name email
-   :user/email email
+   :user/screen-name     email
+   :user/email           email
    :user/email-verified? false
-   :user/password (encode password-encoder password)})
+   :user/password        (encode password-encoder password)})
 
 ;; Note: Auth0 doesn't allow us to enforce a username on their side (with free
 ;; account) so at creation time, they only pass us an email and a password. We
-;; are thus forced to set user's screen name to her email which is obviously not
-;; ideal. User will be able to set it to something else later in her profile but
+;; are thus forced to set user's screen name to her email which is obviously
+;; not
+;; ideal. User will be able to set it to something else later in her profile
+;; but
 ;; she should then not be able to set it to any other email address!
 (defn- check-create
   [db pw-strength-checker {:keys [email password]}]
   (or (and ;; Auth0 enforces password strength, this function only persists the
            ;; user but let's also check Auth0 rules are met just for security.
-           (not (strong? pw-strength-checker password))
-           anomaly-weak-password)
+        (not (strong? pw-strength-checker password))
+        anomaly-weak-password)
       (and (not (valid-email? email))
            anomaly-invalid-email)
       (and (some? (with-email db email))
@@ -92,7 +96,7 @@
 (defn create
   [conn password-encoder password-strength-checker input]
   (or (check-create (d/db conn) password-strength-checker input)
-      (let [tx-data (create-tx password-encoder input)
+      (let [tx-data            (create-tx password-encoder input)
             {:keys [db-after]} (d/transact conn {:tx-data [tx-data]})]
         (by-id db-after (:user/id tx-data)))))
 
@@ -133,13 +137,13 @@
 
 (defn- set-email-as-verified-tx
   [email]
-  {:user/email email
+  {:user/email           email
    :user/email-verified? true})
 
 (defn set-email-as-verified
   [conn email]
   (or (check-set-email-as-verified (d/db conn) email)
-      (let [tx-data (set-email-as-verified-tx email)
+      (let [tx-data            (set-email-as-verified-tx email)
             {:keys [db-after]} (d/transact conn {:tx-data [tx-data]})]
         db-after)))
 
@@ -154,12 +158,15 @@
 
 (defn change-password-tx
   [password-encoder email password]
-  {:user/email email
+  {:user/email    email
    :user/password (encode password-encoder password)})
 
 (defn change-password
   [conn password-encoder password-strength-checker email password]
-  (or (check-change-password (d/db conn) password-strength-checker email password)
-      (let [tx-data (change-password-tx password-encoder email password)
-            {:keys [db-after]} (d/transact conn {:tx-data [tx-data]})]
-        db-after)))
+  (or
+    (check-change-password (d/db conn) password-strength-checker email password)
+    (let [tx-data            (change-password-tx password-encoder
+                                                 email
+                                                 password)
+          {:keys [db-after]} (d/transact conn {:tx-data [tx-data]})]
+      db-after)))

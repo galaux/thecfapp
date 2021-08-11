@@ -6,7 +6,8 @@
    [integrant.core :as ig]
    [integrant.repl.state :as ig-state]
    [ring.mock.request :refer [json-body request]])
-  (:import java.util.UUID))
+  (:import
+   java.util.UUID))
 
 (def ^:private fragments-dir "../packages/mobile/src/graphql/fragment")
 (def ^:private queries-dir "../packages/mobile/src/pages")
@@ -36,14 +37,14 @@
 (def fragments
   (load-and-clean-graphql
     fragments-dir
-    {:Community "community"
-     :CommunityAddress "community-address"
-     :CommunityWithAddress "community-with-address"
-     :Score "score"
+    {:Community                    "community"
+     :CommunityAddress             "community-address"
+     :CommunityWithAddress         "community-with-address"
+     :Score                        "score"
      :ScoreWithBelongsToLoggedUser "score-with-belongs-to-logged-user"
-     :User "user"
-     :Wod "wod"
-     :Workout "workout"}))
+     :User                         "user"
+     :Wod                          "wod"
+     :Workout                      "workout"}))
 
 (def queries
   (load-and-clean-graphql
@@ -51,17 +52,17 @@
     {;; Queries
      :CommunityDetail "community/detail/community-detail"
      :FindCommunities "community/find/find-communities"
-     :GetUser "user/profile/user"
-     :ListWorkouts "workout/user-workouts"
+     :GetUser         "user/profile/user"
+     :ListWorkouts    "workout/user-workouts"
      :UserCommunities "community/user-communities"
-     :UserWods "wod/user-wods"
-     :WodWithScores "score/scoreboard/scoreboard"
+     :UserWods        "wod/user-wods"
+     :WodWithScores   "score/scoreboard/scoreboard"
      ;; Mutations
      :CreateCommunity "community/new/new-community"
-     :CreateScore "score/new/new-score"
-     :CreateWod "wod/new/new-wod"
-     :JoinCommunity "community/join-community"
-     :LeaveCommunity "community/leave-community"}))
+     :CreateScore     "score/new/new-score"
+     :CreateWod       "wod/new/new-wod"
+     :JoinCommunity   "community/join-community"
+     :LeaveCommunity  "community/leave-community"}))
 
 (defn query-with-fragments
   [query-or-key fragment-keys]
@@ -74,10 +75,10 @@
 
 (defn setup
   []
-  (let [test-config (-> (core/app-config :test)
-                        (update-in [:cfapp.api.db/conn :db-name]
-                                   #(str % "-test-" (UUID/randomUUID))))
-        _ (ig/load-namespaces test-config)
+  (let [test-config  (-> (core/app-config :test)
+                         (update-in [:cfapp.api.db/conn :db-name]
+                                    #(str % "-test-" (UUID/randomUUID))))
+        _            (ig/load-namespaces test-config)
         keys-to-init (-> test-config
                          keys
                          set
@@ -100,7 +101,7 @@
   ([query-or-key fragments variables]
    (let [graphql-q (query-with-fragments query-or-key fragments)]
      (-> (request :post "/api/graphql")
-         (json-body {:query graphql-q
+         (json-body {:query     graphql-q
                      :variables variables})))))
 
 (defn domain-add
@@ -109,7 +110,9 @@
 
 (defn find-with-attr
   ([attr]
-   (find-with-attr (-> ig-state/system :cfapp.api.db/conn d/db)
+   (find-with-attr (-> ig-state/system
+                       :cfapp.api.db/conn
+                       d/db)
                    attr))
   ([db attr]
    (d/q '[:find (pull ?e [*])
@@ -120,7 +123,9 @@
 
 (defn find-with-attr-and-value
   ([attr value]
-   (find-with-attr-and-value (-> ig-state/system :cfapp.api.db/conn d/db)
+   (find-with-attr-and-value (-> ig-state/system
+                                 :cfapp.api.db/conn
+                                 d/db)
                              attr
                              value))
   ([db attr value]

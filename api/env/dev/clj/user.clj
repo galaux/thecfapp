@@ -3,7 +3,8 @@
    [cfapp.api.core :as core]
    [cfapp.api.db.bootstrap :as bootstrap]
    [cfapp.api.db.core :as db]
-   [cfapp.api.test-util :as tutil :refer [find-with-attr find-with-attr-and-value]]
+   [cfapp.api.test-util :as tutil :refer
+    [find-with-attr find-with-attr-and-value]]
    [clojure.tools.namespace.repl :refer [set-refresh-dirs]]
    [integrant.core :as ig]
    [integrant.repl :refer [halt go reset reset-all]]
@@ -17,7 +18,8 @@
 
 (defn bootstrap-db
   []
-  (let [conn (-> integrant.repl.state/system :cfapp.api.db/conn)]
+  (let [conn (-> integrant.repl.state/system
+                 :cfapp.api.db/conn)]
     (db/install-schema conn)
     (tutil/domain-add conn (bootstrap/bootstrap-tx)))
   nil);; Don't waste the REPL with output

@@ -1,4 +1,7 @@
 #!/bin/sh
+
+. "$(dirname "$0")/../api/bin/format-api-clj.sh"
+
 . "$(dirname "$0")/_/husky.sh"
 
 pushd ./packages/mobile

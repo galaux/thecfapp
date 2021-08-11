@@ -1,13 +1,13 @@
 (ns cfapp.api.db.domain.score
   (:require
-    [cfapp.api.db.domain.user :as user]
-    [cfapp.api.db.domain.wod :as wod]
-    [cfapp.api.util :as util :refer [anomaly]]
-    [clojure.spec.alpha :as s]
-    [cognitect.anomalies :as anomalies]
-    [datomic.client.api :as d])
+   [cfapp.api.db.domain.user :as user]
+   [cfapp.api.db.domain.wod :as wod]
+   [cfapp.api.util :as util :refer [anomaly]]
+   [clojure.spec.alpha :as s]
+   [cognitect.anomalies :as anomalies]
+   [datomic.client.api :as d])
   (:import
-    java.util.UUID))
+   java.util.UUID))
 
 (def one-hour-in-ms
   (* 60 60 1000))
@@ -49,9 +49,9 @@
 
 (defn- create-tx
   [{:keys [user-id wod-id value]}]
-  [{:score/id (UUID/randomUUID)
-    :score/user {:user/id user-id}
-    :score/wod {:wod/id wod-id}
+  [{:score/id    (UUID/randomUUID)
+    :score/user  {:user/id user-id}
+    :score/wod   {:wod/id wod-id}
     :score/value value}])
 
 (defn- check-create

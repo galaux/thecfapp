@@ -14,7 +14,7 @@
 
 (defn- log-time
   [f]
-  (let [start (System/nanoTime)
+  (let [start  (System/nanoTime)
         result (f)]
     (log/info (format "encoding took %s ms"
                       (/ (double (- (. System (nanoTime)) start)) 1000000.0)))

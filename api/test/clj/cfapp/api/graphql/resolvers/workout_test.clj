@@ -16,42 +16,51 @@
   [owner]
   (map (fn [score wod workout]
          (assoc score
-                :score/wod (assoc wod :wod/workout workout)
-                :score/user owner))
-       (gen/sample score/score-gen 3)
-       (gen/sample wod/wod-gen 3)
-       (gen/sample workout/workout-gen 3)))
+           :score/wod  (assoc wod :wod/workout workout)
+           :score/user owner))
+    (gen/sample score/score-gen 3)
+    (gen/sample wod/wod-gen 3)
+    (gen/sample workout/workout-gen 3)))
 
 (deftest user-workout-not-used-by-mobile
-  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
-        user-a (-> (gen/generate user/user-gen)
-                   (assoc :db/id "user-a"))
-        user-b (-> (gen/generate user/user-gen)
-                   (assoc :db/id "user-b"))
-        user-scores (make-scores user-a)
-        other-scores (make-scores user-b)
-        variables {:userId (.toString (:user/id user-a))}
-        gql-query-str "query UserWorkouts($userId: ID!) {
+  (let
+    [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
+     user-a (-> (gen/generate user/user-gen)
+                (assoc :db/id "user-a"))
+     user-b (-> (gen/generate user/user-gen)
+                (assoc :db/id "user-b"))
+     user-scores (make-scores user-a)
+     other-scores (make-scores user-b)
+     variables {:userId (.toString (:user/id user-a))}
+     gql-query-str
+       "query UserWorkouts($userId: ID!) {
                          userWorkouts(id: $userId) {
                            id name description
                          }
                        }"
-        gql-query (tutil/test-query gql-query-str [] variables)]
+     gql-query (tutil/test-query gql-query-str [] variables)]
     (tutil/domain-add conn user-scores)
-    (let [response (handler gql-query)
-          parsed-response (-> response
-                              :body
-                              (json/read-str :key-fn keyword))
-          expected-workouts (map (fn [db-score]
-                                   (let [db-workout (-> db-score :score/wod :wod/workout)]
-                                     {:id (.toString (:workout/id db-workout))
-                                      :name (:workout/name db-workout)
-                                      :description (:workout/description db-workout)}))
-                                 user-scores)]
+    (let [response          (handler gql-query)
+          parsed-response   (-> response
+                                :body
+                                (json/read-str :key-fn keyword))
+          expected-workouts (map
+                              (fn [db-score]
+                                (let [db-workout (-> db-score
+                                                     :score/wod
+                                                     :wod/workout)]
+                                  {:id          (.toString (:workout/id
+                                                             db-workout))
+                                   :name        (:workout/name db-workout)
+                                   :description (:workout/description
+                                                  db-workout)}))
+                              user-scores)]
       (is (= 200 (:status response)))
       (is (empty? (:errors parsed-response)))
       (is (= expected-workouts
-             (-> parsed-response :data :userWorkouts))))
+             (-> parsed-response
+                 :data
+                 :userWorkouts))))
     (ig/halt! system)))
 
 
@@ -61,18 +70,24 @@
         fragments [:Workout]
         gql-query (tutil/test-query :ListWorkouts fragments)]
     (tutil/domain-add conn workouts)
-    (let [response (handler gql-query)
-          parsed-response (-> response
-                              :body
-                              (json/read-str :key-fn keyword))
-          expected-workouts (map (fn [db-workout]
-                                   {:id (.toString (:workout/id db-workout))
-                                    :name (:workout/name db-workout)
-                                    :description (:workout/description db-workout)
-                                    :scoringType (csk/->SCREAMING_SNAKE_CASE_STRING (:workout/scoring-type db-workout))})
-                                 workouts)]
+    (let [response          (handler gql-query)
+          parsed-response   (-> response
+                                :body
+                                (json/read-str :key-fn keyword))
+          expected-workouts (map
+                              (fn [db-workout]
+                                {:id          (.toString (:workout/id
+                                                           db-workout))
+                                 :name        (:workout/name db-workout)
+                                 :description (:workout/description db-workout)
+                                 :scoringType (csk/->SCREAMING_SNAKE_CASE_STRING
+                                                (:workout/scoring-type
+                                                  db-workout))})
+                              workouts)]
       (is (= 200 (:status response)))
       (is (empty? (:errors parsed-response)))
       (is (= expected-workouts
-             (-> parsed-response :data :workouts))))
+             (-> parsed-response
+                 :data
+                 :workouts))))
     (ig/halt! system)))

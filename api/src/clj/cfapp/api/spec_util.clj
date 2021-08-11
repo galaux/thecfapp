@@ -1,11 +1,11 @@
 (ns cfapp.api.spec-util
   (:require
-    [cfapp.api.util :as util :refer [email-regex]]
-    [clojure.spec.alpha :as s]
-    [clojure.spec.gen.alpha :as gen]
-    [clojure.string :as str]
-    [java-time :as java-time]
-    [talltale.core :as fake]))
+   [cfapp.api.util :as util :refer [email-regex]]
+   [clojure.spec.alpha :as s]
+   [clojure.spec.gen.alpha :as gen]
+   [clojure.string :as str]
+   [java-time :as java-time]
+   [talltale.core :as fake]))
 
 (def argon2id-regex
   #"^\$argon2id\$v=19\$m=4096,t=3,p=1\$[A-Za-z0-9+/]{22}\$[A-Za-z0-9+/]{43}$")
@@ -18,7 +18,7 @@
 
 (s/def :util/argon2id
   (s/with-gen (partial re-matches argon2id-regex)
-    (constantly (s/gen #{argon2id-encoded-str}))))
+              (constantly (s/gen #{argon2id-encoded-str}))))
 
 
 (s/def :util/uuid
@@ -42,18 +42,20 @@
 (def today
   (java-time/local-date))
 
-;; Generator for a "local date" (ie "2021-04-17") in the vicinity of the current
+;; Generator for a "local date" (ie "2021-04-17") in the vicinity of the
+;; current
 ;; date and typed as a `java.util.Date` (for Datomic compatibility).
 ;; When used in sampling, dates generated won't be far apart from each other.
-;; To circumvent, just `(drop 40 (gen/sample (s/gen :util/near-local-date) 50))`
+;; To circumvent, just `(drop 40 (gen/sample (s/gen :util/near-local-date)
+;; 50))`
 (s/def :util/near-local-date
   (s/with-gen inst?
-    #(gen/fmap
-      (fn [r]
-        (-> today
-            (java-time/plus (java-time/days r))
-            util/LocalDate->Date))
-      (s/gen (s/int-in -100 100)))))
+              #(gen/fmap
+                 (fn [r]
+                   (-> today
+                       (java-time/plus (java-time/days r))
+                       util/LocalDate->Date))
+                 (s/gen (s/int-in -100 100)))))
 
 (def lorem-ipsum-words-gen
   (let [words (->> (fake/lorem-ipsum)
