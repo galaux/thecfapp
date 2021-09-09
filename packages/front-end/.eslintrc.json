@@ -1,0 +1,81 @@
+{
+  "plugins": ["@typescript-eslint", "unused-imports"],
+  "extends": ["airbnb-typescript", "plugin:react-hooks/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": ["./tsconfig.json", "./tsconfig.eslint.json"]
+  },
+  "env": {
+    "browser": true
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "arrow-parens": ["error", "always"],
+    "semi": ["error", "always"],
+    "import/prefer-default-export": 0,
+    "import/extensions": "off",
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.stories.tsx",
+          "**/*.test.ts"
+        ]
+      }
+    ],
+    "import/order": ["error", {
+      "alphabetize": {
+        "order": "asc",
+        "caseInsensitive": true
+      }
+    }],
+    "object-curly-newline": ["error", {
+        "ImportDeclaration": { "multiline": true, "minProperties": 7 }
+    }],
+    "react/jsx-curly-spacing": ["error", { "when": "always" }],
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-curly-newline": ["error", { "multiline": "require", "singleline": "forbid" }],
+    "react/require-default-props": "off",
+    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "max-len": ["error", { "code": 140 }],
+    "no-console": ["error"],
+    "no-multiple-empty-lines": [ "error", { "max": 1, "maxBOF": 0, "maxEOF": 1 }],
+    "no-nested-ternary": 0,
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "variable",
+        "format": ["camelCase", "PascalCase", "UPPER_CASE"],
+        "leadingUnderscore": "allow"
+      },
+      {
+        "selector": "function",
+        "format": ["camelCase", "PascalCase"]
+      },
+      {
+        "selector": "typeLike",
+        "format": ["PascalCase"]
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": [
+      "error",
+      {
+        "ignoreRestArgs": true
+      }
+    ],
+    "react/jsx-key": "error",
+    "react/prop-types": "off",
+    "react/no-unused-prop-types": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {"vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+    ]
+  },
+  "overrides": [{
+    "files": ["*.tsx"]
+  }]
+}
