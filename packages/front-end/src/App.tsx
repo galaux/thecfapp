@@ -1,3 +1,4 @@
+import { Redirect } from '@reach/router';
 import React from 'react';
 import Layout from './components/Layout';
 import LayoutRouter from './components/LayoutRouter';
@@ -13,6 +14,7 @@ function App() {
       <Layout>
         <LayoutRouter>
           <FindCommunity path="/find-community" />
+          <Redirect from="/" to="/find-community" default noThrow />
         </LayoutRouter>
       </Layout>
     </>

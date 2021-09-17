@@ -50,8 +50,9 @@ export const edgeSize = {
   small: '1rem',
   medium: '1.25rem',
   large: '1.5rem',
-  xlarge: '2rem',
+  xlarge: '1.875rem',
   xxlarge: '2.5rem',
+  xxxlarge: '3.125rem',
 };
 
 export enum FontWeights {
@@ -257,16 +258,23 @@ export const GlobalStyle = createGlobalStyle`
   html, body, #root {
     height: 100%;
   }
+  
+  html {
+    background: ${colors.background};
+  }
+  
   #root{
     >div {
       height: 100%;
     }
   }
+  
   body {
     font-family: 'Aaux Next', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  
   *, *:before, *:after {
     box-sizing: border-box;
   }

@@ -7,7 +7,7 @@ import { HEADER_BACKGROUND_IMAGE } from '../../utils/constants';
 export const HeaderWrapper = styled(Div)`
   border-radius: 0 0 ${borderRadius.xsmall} ${borderRadius.xsmall};
   background-color: ${colors.gray80};
-  padding: 0 ${edgeSize.xxlarge} ${edgeSize.xxlarge};
+  padding: 0 ${edgeSize.xxlarge} ${edgeSize.xxxlarge};
   background-image: url(${HEADER_BACKGROUND_IMAGE});
   background-size: initial;
   background-position: center left;

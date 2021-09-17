@@ -7,4 +7,6 @@ export type TextProps = {
   textAlign?: TextAlign
   color?: Colors
   weight?: FontWeights
+  uppercase?: boolean;
+  spacing?: string;
 };

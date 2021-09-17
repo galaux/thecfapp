@@ -11,4 +11,6 @@ export const TextWrapper = styled.p<TextProps>`
   font-weight: ${({ weight = FontWeights.Regular }) => weight};
   color: ${({ color = Colors.white }) => colors[color]};
   text-align: ${({ textAlign = TextAlign.Left }) => textAlign};
+  ${({ uppercase }) => (uppercase ? 'text-transform: uppercase' : null)};
+  ${({ spacing }) => (spacing ? `letter-spacing: ${spacing}` : null)};
 `;

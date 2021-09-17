@@ -5,6 +5,7 @@ import { edgeSize } from '../../styles/theme';
 export const PageContentWrapper = styled(Div)`
   height: 100%;
   flex: 1;
+  overflow-y: scroll;
 `;
 
 export const Content = styled(Div)`

@@ -6,5 +6,3 @@ export const LayoutWrapper = styled(Div)`
   background: ${colors.background};
   min-height: 100%;
 `;
-
-LayoutWrapper.displayName = 'LayoutWrapper';

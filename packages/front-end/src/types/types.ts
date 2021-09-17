@@ -9,6 +9,7 @@ export enum Size {
   Large = 'large',
   Xlarge = 'xlarge',
   Xxlarge = 'xxlarge',
+  Xxxlarge = 'xxxlarge',
 }
 
 export type BorderProps = Partial<{
@@ -31,6 +32,7 @@ export const EDGESIZE_MAP: EdgeSizeTypes = {
   [Size.Large]: edgeSize[Size.Large],
   [Size.Xlarge]: edgeSize[Size.Xlarge],
   [Size.Xxlarge]: edgeSize[Size.Xxlarge],
+  [Size.Xxxlarge]: edgeSize[Size.Xxxlarge],
 };
 
 export type AllSides =
