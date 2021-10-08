@@ -17,7 +17,7 @@
                     {:alg          :RS256
                      :jwk-endpoint
                        "https://cfapp-dev.eu.auth0.com/.well-known/jwks.json"}}
-               :reject-missing-token? true}
+               :reject-missing-token? false}
         :test {:domain                "cfapp.eu.auth0.com"
                :client-id             "Uwq04GxM1iw3F2NjAtcQchGeJ2t3lhnb"
                :issuers
