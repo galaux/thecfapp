@@ -14,7 +14,8 @@
    [ring.middleware.jwt :refer [wrap-jwt]]
    [ring.middleware.params :refer [wrap-params]]
    [ring.util.http-response :refer [ok unauthorized]]
-   [ring.util.response :refer [response]]))
+   [ring.util.response :refer [response]]
+   [ring.middleware.cors :as cors]))
 
 ;; (def api-router-data
 ;;   ;; router data affecting all routes
@@ -88,6 +89,15 @@
     (fn [claims] (= (:aud claims) (:client-id jwt-conf)))
     (constantly true)))
 
+(defn- wrap-cors
+  [handler]
+  (cors/wrap-cors
+   handler
+   ;; TODO config?
+   :access-control-allow-origin      [#"http://localhost:8280"]
+   :access-control-allow-methods     [:get :put :post :delete]
+   :access-control-allow-credentials "true"))
+
 (defn app-routes
   [execute-query serve-mobile {:keys [jwt-conf] :as context}]
   (let [check-rest-auth     (check-static-auth-fn context)
@@ -102,8 +112,10 @@
                                (ok (execute-query body))
                                (unauthorized)))
                :middleware [#(wrap-jwt % jwt-conf)
+                            ;; FIXME use Muuntaja for these 2:
                             #(wrap-json-body % {:keywords? true})
-                            wrap-json-response]}]
+                            wrap-json-response
+                            wrap-cors]}]
              ;; Potential security improvement: filter the auth endpoints by the
              ;; Auth0 server IPs (privided in the Auth0 UI)
              ;; TODO check inputs
