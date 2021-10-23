@@ -1,0 +1,46 @@
+{:nrepl        {:port 8777}
+
+ :jvm-opts     ["-Xmx1G"]
+
+ :source-paths ["src/cljs"
+                "src/js"
+                "test"]
+
+ :dependencies
+   [[reagent "1.1.0"]
+    [re-frame "1.2.0"]
+
+    [binaryage/devtools "1.0.3"]
+    [cider/cider-nrepl "0.26.0"]
+
+    [re-graph "0.1.15" :exclusions [re-graph.hato]]]
+
+ :dev-http
+   {8280 ["resources/public"
+          "../views/public"]
+    8290 "target/browser-test"}
+
+ :builds
+   {:mobile
+      {:target     :browser
+       :output-dir "resources/public/js/compiled"
+       :asset-path "/js/compiled"
+       :modules
+         {:mobile {:init-fn cfapp.mobile.core/init}}
+       :devtools
+         {:preloads []}
+       :dev
+         {:compiler-options
+            {:closure-defines
+               {}}}}
+
+    :browser-test
+      {:target    :browser-test
+       :ns-regexp "-test$"
+       :runner-ns shadow.test.browser
+       :test-dir  "target/browser-test"}
+
+    :karma-test
+      {:target    :karma
+       :ns-regexp "-test$"
+       :output-to "target/karma-test.js"}}}
