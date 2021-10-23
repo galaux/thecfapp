@@ -8,18 +8,22 @@ import InputGroup from '../../common/InputGroup';
 import CommunityList from '../../components/CommunityList';
 import Header from '../../components/Header';
 import PageContent from '../../components/PageContent';
-import { communitiesMock } from '../../mockData/mockData';
 import Input from '../../molecules/Input';
 import { ButtonType, Size } from '../../types';
 import { FindCommunityProps } from './FindCommunity.types';
 
-const FindCommunity: FC<FindCommunityProps> = () => {
+const FindCommunity: FC<FindCommunityProps> = ({
+  findCommunities,
+  communities,
+  joinCommunity,
+  navToCommunity,
+}) => {
   const { t } = useTranslation();
   const [name, setName] = useState('');
 
   const onClickFind = () => {
     if (name) {
-      // findCommunities(name);
+      findCommunities(name);
     }
   };
 
@@ -39,7 +43,11 @@ const FindCommunity: FC<FindCommunityProps> = () => {
             </Button>
           </InputGroup>
         </Div>
-        <CommunityList communities={ communitiesMock } />
+        <CommunityList
+          communities={ communities }
+          joinCommunity={ joinCommunity }
+          navToCommunity={ navToCommunity }
+        />
       </PageContent>
     </>
   );

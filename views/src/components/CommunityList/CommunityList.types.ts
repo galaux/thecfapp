@@ -15,4 +15,6 @@ export type Community = {
 
 export type CommunityListProps = {
   communities: Community[];
+  joinCommunity: (id: string) => void;
+  navToCommunity: (id: string) => void;
 };
