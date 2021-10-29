@@ -22,7 +22,7 @@ export default [
     input: "index.ts",
     output: [
       {
-        file: "../mobile/src/js/views.js",
+        file: "../src/js/views.js",
         format: "cjs",
         sourcemap: true
       }

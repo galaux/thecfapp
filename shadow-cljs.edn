@@ -4,7 +4,7 @@
 
  :source-paths ["src/cljs"
                 "src/js"
-                "test"]
+                "test/cljs"]
 
  :dependencies
    [[reagent "1.1.0"]
@@ -17,7 +17,7 @@
 
  :dev-http
    {8280 ["resources/public"
-          "../views/public"]
+          "views/public"]
     8290 "target/browser-test"}
 
  :builds

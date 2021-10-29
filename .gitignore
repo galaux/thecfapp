@@ -1,40 +1,30 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-node_modules
+*.generated.tsx
+*.jar
+.DS_Store
+.cpcache
+.env
+.env.development.local
+.env.local
+.env.production.local
+.env.test.local
+.eslintcache
+.idea
 .pnp
 .pnp.js
-
-# testing
-coverage
-
-# production
-packages/**/build
-
-# Codegen generated
-*.generated.tsx
-packages/mobile/src/types/graphql.ts
-
-# misc
-.DS_Store
-.eslintcache
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-.idea
+.shadow-cljs/
 .tmp
 .vscode
 .zip
-
+api/datomic
+api/resources/mobile/**/*
+api/resources/mobile/index.html
+coverage
+datomic
+node_modules
 npm-debug.log*
+packages/**/build
+packages/mobile/src/types/graphql.ts
+resources/public/js/compiled
+src/js
 yarn-debug.log*
 yarn-error.log*
-
-api/datomic
-api/resources/mobile/index.html
-api/resources/mobile/**/*
-*.jar
-datomic
-.cpcache
