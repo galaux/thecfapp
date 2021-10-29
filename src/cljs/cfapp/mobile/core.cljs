@@ -3,6 +3,7 @@
    [cfapp.mobile.config :as config]
    [cfapp.mobile.main-panel.events :as events]
    [cfapp.mobile.main-panel.views :refer [main-panel]]
+   [cfapp.mobile.theme] ;; Don't remove
    [re-frame.core :as re-frame]
    [re-graph.core :as re-graph]
    [reagent.core :as r]

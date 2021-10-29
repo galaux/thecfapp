@@ -252,6 +252,7 @@ export const headingDefaultSize = {
   h6: HeadingSize.Xxsmall,
 };
 
+/* Changes to GlobalStyle must be manually reflected in the ClojureScript app */
 export const GlobalStyle = createGlobalStyle`
   ${reset}
   
@@ -279,5 +280,23 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 `;
+
+export const theme = {
+  Colors,
+  colors,
+  font,
+  edgeSize,
+  FontWeights,
+  BorderRadius,
+  borderRadius,
+  BorderWidth,
+  borderWidth,
+  BoxShadow,
+  boxShadow,
+  text,
+  HeadingSize,
+  headingSize,
+  headingDefaultSize,
+};
 
 export default GlobalStyle;
