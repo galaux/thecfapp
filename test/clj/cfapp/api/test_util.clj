@@ -9,8 +9,8 @@
   (:import
    java.util.UUID))
 
-(def ^:private fragments-dir "../packages/mobile/src/graphql/fragment")
-(def ^:private queries-dir "../packages/mobile/src/pages")
+(def ^:private fragments-dir "./packages/mobile/src/graphql/fragment")
+(def ^:private queries-dir "./packages/mobile/src/pages")
 
 (defn remove-client-fields
   "Remove GraphQL field declared with a `@client` directive.

@@ -36,3 +36,5 @@ api/datomic
 api/resources/mobile/index.html
 api/resources/mobile/**/*
 *.jar
+datomic
+.cpcache
