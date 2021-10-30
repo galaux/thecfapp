@@ -38,23 +38,6 @@
 ;;                        ;; multipart
 ;;                        multipart/multipart-middleware]}})
 
-(defn inject-server-config
-  "Inject mobile app configuration into the served `index.html`. At dev time
-   this is done by `react-scripts` through environment variables starting with
-   `REACT_APP_` but it must be done here for live setups as the result of the
-   mobile build is a set of static files and not a Node.js app."
-  [{:keys [domain client-id]} body]
-  (let [server-config-str (json/write-str {"JWT_DOMAIN"    domain
-                                           "JWT_CLIENT_ID" client-id})]
-    (str/replace-first body "\"__SERVER_DATA__\"" server-config-str)))
-
-(defn mobile-index
-  [jwt-conf]
-  (->> (io/resource "mobile/index.html")
-       slurp
-       (inject-server-config jwt-conf)
-       response))
-
 (defn react-app-handler
   "The React App build comprises a `index.html`, and some static assets. All
    must obviously be served but with a caveat. As the React App uses
@@ -66,15 +49,9 @@
    to the mobile application."
   [jwt-conf]
   (ring/create-resource-handler
-    {:path              "/"
-     ;; Serve all known static resources in `./resources/mobile`
-     :root              "mobile"
-     ;; Disable serving `/index.html` when asked for `/`, we'll handle this with
-     ;; `:not-found-handler` (prevents displaying `/index.html` on the browser
-     ;; address bar.
-     :index-files       []
-     ;; Anything else than a know static file, we return the mobile app
-     :not-found-handler (constantly (mobile-index jwt-conf))}))
+    {:path "/"
+     ;; Serve all known static resources in `./resources/public`
+     :root "public"}))
 
 (defn- check-static-auth-fn
   [{:keys [static-auth]}]
