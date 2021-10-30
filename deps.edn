@@ -60,15 +60,10 @@
                      org.clojure/test.check {:mvn/version "1.1.0"}
                      ring/ring-mock         {:mvn/version "0.4.0"}}}
 
-    ;; Start the result with:
-    ;;   java -cp cfapp-api.jar clojure.main -m cfapp.api.core
     :build
-      {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.0.216"}}
-       :exec-fn      hf.depstar/uberjar
-       :exec-args    {:aot        true
-                      :compile-ns :all
-                      :main-class cfapp.api.core
-                      :jar        cfapp-api.jar}}
+      {:deps       {io.github.clojure/tools.build {:git/tag "v0.6.2"
+                                                   :git/sha "226fb52"}}
+       :ns-default build}
 
     :start-api
       {:main-opts ["-m" "cfapp.api.core" "--dev"]}

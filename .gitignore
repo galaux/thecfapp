@@ -26,5 +26,6 @@ packages/**/build
 packages/mobile/src/types/graphql.ts
 resources/public/js/compiled
 src/js
+target
 yarn-debug.log*
 yarn-error.log*

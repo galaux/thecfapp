@@ -1,1 +1,1 @@
-web: java -jar ./api/cfapp-api.jar
+web: java -jar ./target/cfapp.jar
