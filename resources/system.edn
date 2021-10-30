@@ -35,7 +35,7 @@
                                         #envf
                                          ["https://%s/.well-known/jwks.json"
                                           JWT_DOMAIN]}}
-           :reject-missing-token? true}}
+           :reject-missing-token? false}}
     :password-encoder #ig/ref :cfapp.api.auth/password-encoder
     :password-strength-checker #ig/ref :cfapp.api.auth/password-strength-checker
     :static-auth #profile
