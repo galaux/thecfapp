@@ -42,6 +42,8 @@ peculiarities in its file hierarchy:
 - `./api/`: home of the Clojure `deps.edn` project for the API.
 - `./project.clj`: an empty placeholder required to trigger the Heroku Clojure
   Build Pack installation.
+- `./pom.xml`: an empty placeholder required to trigger the Heroku Java
+  Build Pack installation.
 - `./system.properties`: picked-up by Heroku to specify the JVM to install.
 - `./bin/build`: a shell script overriding the Clojure Build Pack default
   behavior which would otherwise run Leiningen. This script assumes the mobile
