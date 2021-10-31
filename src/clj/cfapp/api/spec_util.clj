@@ -1,11 +1,17 @@
 (ns cfapp.api.spec-util
   (:require
    [cfapp.api.util :as util :refer [email-regex]]
+   [clojure.edn :as edn]
+   [clojure.java.io :as io]
    [clojure.spec.alpha :as s]
    [clojure.spec.gen.alpha :as gen]
    [clojure.string :as str]
-   [java-time :as java-time]
-   [talltale.core :as fake]))
+   [java-time :as java-time]))
+
+(def fake-data
+  (->> (io/resource "db/fake-data.edn")
+       slurp
+       edn/read-string))
 
 (def argon2id-regex
   #"^\$argon2id\$v=19\$m=4096,t=3,p=1\$[A-Za-z0-9+/]{22}\$[A-Za-z0-9+/]{43}$")
@@ -56,28 +62,3 @@
                        (java-time/plus (java-time/days r))
                        util/LocalDate->Date))
                  (s/gen (s/int-in -100 100)))))
-
-(def lorem-ipsum-words-gen
-  (let [words (->> (fake/lorem-ipsum)
-                   str/lower-case
-                   (remove #(contains? #{\. \,} %))
-                   (apply str))]
-    (-> words
-        (str/split #" ")
-        set
-        s/gen)))
-
-(defn- gen-lorem-ipsum-text
-  []
-  (gen/fmap
-    (partial str/join " ")
-    (gen/vector lorem-ipsum-words-gen)))
-
-(s/def ::lorem-ipsum-text
-  (s/with-gen
-    string?
-    gen-lorem-ipsum-text))
-
-(def lorem-ipsum-text-gen
-  "Spec generator to produce Lorem Ipsum like texts."
-  (s/gen ::lorem-ipsum-text))

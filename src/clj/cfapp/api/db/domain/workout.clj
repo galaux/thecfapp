@@ -1,11 +1,10 @@
 (ns cfapp.api.db.domain.workout
   (:require
-   [cfapp.api.spec-util :as sutil]
-   [cfapp.api.util :refer [ident->enum-value]]
    [clojure.spec.alpha :as s]
    [clojure.spec.gen.alpha :as gen]
    [clojure.string :as str]
-   [datomic.client.api :as d])
+   [datomic.client.api :as d]
+   [cfapp.api.spec-util :refer [fake-data]])
   (:import
    java.util.UUID))
 
@@ -19,17 +18,19 @@
 (defn- gen-workout
   []
   (gen/fmap
-    (fn [[words-name description scoring-type]]
+   (fn [[scoring-type lorem1 lorem2 lorem3 lorem4]]
       {:workout/id           (UUID/randomUUID)
-       :workout/name         (str/join " " words-name)
-       :workout/description  description
+       :workout/name         (->> [lorem1 lorem2 lorem3]
+                                  (map str/capitalize)
+                                  (str/join " "))
+       :workout/description  lorem4
        :workout/scoring-type scoring-type})
-    (gen/tuple
-      (gen/vector-distinct sutil/lorem-ipsum-words-gen
-                           {:min-elements 2
-                            :max-elements 5})
-      sutil/lorem-ipsum-text-gen
-      (s/gen :workout/scoring-type))))
+   (gen/tuple
+    (s/gen :workout/scoring-type)
+    (s/gen (set (get-in fake-data [:lorem-ipsum])))
+    (s/gen (set (get-in fake-data [:lorem-ipsum])))
+    (s/gen (set (get-in fake-data [:lorem-ipsum])))
+    (s/gen (set (get-in fake-data [:lorem-ipsum]))))))
 
 (s/def ::workout
   (s/with-gen

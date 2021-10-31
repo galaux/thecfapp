@@ -2,13 +2,13 @@
   (:require
    [cfapp.api.auth.password-encoder :refer [encode]]
    [cfapp.api.auth.password-strength-checker :refer [strong?]]
-   [cfapp.api.spec-util :refer [argon2id-encoded-str]]
-   [cfapp.api.util :refer [anomaly valid-email? some-entity?]]
+   [cfapp.api.spec-util :refer [argon2id-encoded-str fake-data]]
+   [cfapp.api.util :refer [anomaly some-entity? valid-email?]]
    [clojure.spec.alpha :as s]
    [clojure.spec.gen.alpha :as gen]
+   [clojure.string :as str]
    [cognitect.anomalies :as anomalies]
-   [datomic.client.api :as d]
-   [talltale.core :as fake])
+   [datomic.client.api :as d])
   (:import
    java.util.UUID))
 
@@ -21,13 +21,16 @@
 (defn- gen-user
   []
   (gen/fmap
-    (fn [{:keys [email username]}]
-      {:user/id              (UUID/randomUUID)
-       :user/password        argon2id-encoded-str
-       :user/screen-name     (str username (rand-int 100))
-       :user/email           email
-       :user/email-verified? (= (rand-int 2) 0)})
-    (fake/person-gen)))
+   (fn [[first-name last-name email-domain]]
+     {:user/id              (UUID/randomUUID)
+      :user/password        argon2id-encoded-str
+      :user/screen-name     (str first-name "." last-name)
+      :user/email           (str/lower-case (str first-name "." last-name "@" email-domain))
+      :user/email-verified? (= (rand-int 2) 0)})
+   (gen/tuple
+    (s/gen (set (get-in fake-data [:user :first-name])))
+    (s/gen (set (get-in fake-data [:user :last-name])))
+    (s/gen (get-in fake-data [:email :domain])))))
 
 (s/def ::user
   (s/with-gen

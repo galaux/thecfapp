@@ -35,6 +35,9 @@
     entities))
 
 (defn- better-sample
+  "Due to the generator implementation, it takes a few samples to get
+   \"interesting\" so I skipped ahead a bit.
+   https://clojure.org/guides/spec#_range_specs_and_generators"
   [generator gen-count]
   (->> (gen/sample generator (+ gen-count 50))
        (drop 50)))

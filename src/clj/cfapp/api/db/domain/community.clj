@@ -1,17 +1,15 @@
 (ns cfapp.api.db.domain.community
   (:require
    [cfapp.api.db.domain.user :as user]
+   [cfapp.api.spec-util :as sutil :refer [fake-data]]
    [cfapp.api.util :refer [anomaly anomaly->error]]
-   [cfapp.api.spec-util :as sutil]
    [clojure.spec.alpha :as s]
    [clojure.spec.gen.alpha :as gen]
    [clojure.string :as str]
    [cognitect.anomalies :as anomalies]
    [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
-   [datomic.client.api :as d]
-   [talltale.core :as fake])
-  (:import
-   java.util.UUID))
+   [datomic.client.api :as d])
+  (:import java.util.UUID))
 
 (s/def :community/id :util/uuid)
 (s/def :community/name :util/non-blank-string)
@@ -20,21 +18,40 @@
 (s/def :community.address/city string?)
 (s/def :community.address/country string?)
 
+(defn maybe?
+  []
+  (zero? (rand-int 3)))
+
 (defn- gen-community
   []
   (gen/fmap
-    (fn [{:keys [company-name address]}]
-      (cond->
-        {:community/id   (UUID/randomUUID)
-         :community/name (->> [company-name "Crossfit" (:city address)]
-                              shuffle
-                              (str/join " "))}
-        (zero? (rand-int 3)) (assoc :community.address/street (:street address))
-        (zero? (rand-int 3)) (assoc :community.address/city (:city address))
-        (zero? (rand-int 3)) (assoc :community.address/zip-code
-                               (:postal-code address))
-        (zero? (rand-int 3)) (assoc :community.address/country "USA")))
-    (fake/company-gen)))
+   (fn [[city street-fname country zip-code lorem1 lorem2]]
+     (let [
+           community-name (->> [lorem1
+                                lorem2
+                                "Crossfit"
+                                city]
+                               shuffle
+                               (take 3)
+                               (map str/capitalize)
+                               (str/join " "))]
+       (cond->
+         {:community/id   (UUID/randomUUID)
+          :community/name community-name}
+         (maybe?) (assoc :community.address/street
+                         (str (rand-int 30) " " street-fname " Street"))
+         (maybe?) (assoc :community.address/city city)
+         (maybe?) (assoc :community.address/zip-code (apply str zip-code))
+         (maybe?) (assoc :community.address/country country))))
+   (gen/tuple
+    (s/gen (set (get-in fake-data [:address :city])))
+    (s/gen (set (get-in fake-data [:user :last-name])))
+    (s/gen (set (get-in fake-data [:address :country])))
+    (s/gen
+     (s/coll-of #{"A" "B" "C" "D" "E" "0" "1" "2" "3" "4" "5" "6" "7" "8" "9"}
+                :count 5))
+    (s/gen (set (get-in fake-data [:lorem-ipsum])))
+    (s/gen (set (get-in fake-data [:lorem-ipsum]))))))
 
 (s/def ::community
   (s/with-gen
