@@ -11,7 +11,7 @@
   "env": {
     "CLOJURE_CLI_VERSION": {
       "description": "Clojure version for the Heroku build pack to pick up",
-      "value": "1.10.3.814"
+      "value": "1.10.3.933"
     },
     "MY_DATOMIC_REPO_USERNAME": {
       "description": "Username for the 'my.datomic.com' repository where to get datomic-pro",
