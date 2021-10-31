@@ -46,6 +46,10 @@
     "JWT_CLIENT_ID": {
       "description": "Auth0 application identifier to use (depends on the environment)",
       "value": "V8B2VcnW1Jk0FJXUs5uVk7yqp4z4G2qB"
+    },
+    "NODE_ENV": {
+      "description": "Unset Heroku's default `production` otherwise Yarn doesn't install `devDependencies` (https://github.com/yarnpkg/yarn/issues/2739)",
+      "value": "development"
     }
   }
 }
