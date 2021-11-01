@@ -3,6 +3,7 @@
  :jvm-opts     ["-Xmx1G"]
 
  :source-paths ["src/cljs"
+                "src/cljc"
                 "src/js"
                 "test/cljs"]
 

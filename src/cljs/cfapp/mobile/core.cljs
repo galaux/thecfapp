@@ -41,17 +41,9 @@
   (re-frame/dispatch [::re-graph/destroy])
   (js/console.log "… stop."))
 
-(def ^:private gql-config
-  {:ws   nil
-   :http {:url    "http://localhost:4000/api/graphql"
-          ;; implementation-specific options (see clj-http or hato for options,
-          ;; defaults to {}, may be a literal or a function that returns the options
-          :impl   {}
-          :supported-operations #{:query :mutate}}})
-
 (defn init
   []
   (re-frame/dispatch-sync [::events/initialize-db])
-  (re-frame/dispatch      [::re-graph/init gql-config])
+  (re-frame/dispatch      [::re-graph/init config/gql])
   (dev-setup)
   (mount-root))
