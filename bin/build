@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-# This file's is picked up by the Heroku Clojure build pack in order to be run
-# instead of the upstream Leiningen build script.
+# This file is picked up by the Heroku Clojure Build Pack to override its
+# default behavior to use Leiningen.
+
+ # This script assumes the mobile app is built and the resulting static assets
+ # are available in `./resources/public`.
 
 # Exit if any command fails
 set -e

@@ -14,7 +14,7 @@
   ],
   "env": {
     "CLOJURE_CLI_VERSION": {
-      "description": "Clojure version for the Heroku build pack to pick up",
+      "description": "Clojure version for the Heroku build pack to pick up. If missing, the default version of Clojure doesn't understand the parameters passed to `clj` or `clojure`.",
       "value": "1.10.3.933"
     },
     "MY_DATOMIC_REPO_USERNAME": {
