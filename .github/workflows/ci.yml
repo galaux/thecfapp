@@ -38,6 +38,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Install clojure tools
+        uses: DeLaGuardo/setup-clojure@3.3
+        with:
+          # Should be kept in sync with ../app.json
+          cli: 1.10.3.933
+
       - name: Install dependencies
         run: yarn install
 
