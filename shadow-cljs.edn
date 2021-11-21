@@ -1,21 +1,9 @@
-{:nrepl        {:port 8777}
+{; `:source-paths` and `:dependencies` declared in `deps.edn`
+ :deps {:aliases [:env/cljs]}
+
+ :nrepl        {:port 8777}
 
  :jvm-opts     ["-Xmx1G"]
-
- :source-paths ["src/cljs"
-                "src/cljc"
-                "src/js"
-                "test/cljs"]
-
- :dependencies
-   [[reagent "1.1.0"]
-    [re-frame "1.2.0"]
-    [herb "0.10.0"]
-
-    [binaryage/devtools "1.0.3"]
-    [cider/cider-nrepl "0.26.0"]
-
-    [re-graph "0.1.15" :exclusions [re-graph.hato]]]
 
  :dev-http
    {8280 ["resources/public"
