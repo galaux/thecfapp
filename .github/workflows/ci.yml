@@ -44,6 +44,23 @@ jobs:
           # Should be kept in sync with ../app.json
           cli: 1.10.3.933
 
+      - name: Setup Maven
+        uses: s4u/maven-settings-action@v2.4.0
+        with:
+          servers: |
+            [
+              {
+                "id": "my.datomic.com",
+                "username": "${env.MY_DATOMIC_REPO_USERNAME}",
+                "password": "${env.MY_DATOMIC_REPO_PASSWORD}"
+              },
+              {
+                "id": "cognitect-dev-tools",
+                "username": "${env.COGNITECT_DEVTOOLS_REPO_USERNAME}",
+                "password": "${env.COGNITECT_DEVTOOLS_REPO_PASSWORD}"
+              }
+            ]
+
       - name: Install dependencies
         run: yarn install
 
@@ -51,6 +68,11 @@ jobs:
       #   run: yarn test
 
       - name: Build
+        env:
+          MY_DATOMIC_REPO_USERNAME: ${{ secrets.MY_DATOMIC_REPO_USERNAME }}
+          MY_DATOMIC_REPO_PASSWORD: ${{ secrets.MY_DATOMIC_REPO_PASSWORD }}
+          COGNITECT_DEVTOOLS_REPO_USERNAME: ${{ secrets.COGNITECT_DEVTOOLS_REPO_USERNAME }}
+          COGNITECT_DEVTOOLS_REPO_PASSWORD: ${{ secrets.COGNITECT_DEVTOOLS_REPO_PASSWORD }}
         run: yarn build
 
   build-api:
