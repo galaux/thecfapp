@@ -8,6 +8,7 @@
   * [Work on the Views project](#work-on-the-views-project)
   * [Work on the Mobile project](#work-on-the-mobile-project)
   * [Start the API (without serving the mobile app)](#start-the-api-without-serving-the-mobile-app)
+* [Heroku integration](#heroku-integration)
 * [Authentication](#authentication)
   * [Normal flow of authentication](#normal-flow-of-authentication)
   * [Local environment and Heroku review apps special case](#local-environment-and-heroku-review-apps-special-case)
@@ -82,7 +83,7 @@ The (production) build process requires the tree following steps:
    - `yarn build` (also builds Views)
 3. build project API
    - serves API along with result produced by the previous step
-   - `npx shadow-cljs release mobile`
+   - `clojure -T:build uber`
 
 Run the result with: `LOG_LEVEL=info java -jar ./target/cfapp.jar`
 
@@ -125,6 +126,15 @@ and run: `LOG_LEVEL=info clojure -M:start-api`. Then visit:
 - the GraphiQL UI: http://localhost:4000/graphiql
 - the Voyager UI: http://localhost:4000/voyager
 
+
+## Heroku integration
+
+To create a Heroku app, you need to specify what Heroku calls _Config vars_
+(environment variables) that are listed in `./app.json` as well as:
+
+- `HEROKU_APP_NAME`: the name of the Heroku application (`thecfapp-staging` for
+  staging, …). We need to communicate this to the application as it used by
+  Heroku in the URL.
 
 ## Authentication
 
