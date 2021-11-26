@@ -3,6 +3,7 @@
    [cfapp.mobile.config :as config]
    [cfapp.mobile.main-panel.events :as events]
    [cfapp.mobile.main-panel.views :refer [main-panel]]
+   [cfapp.mobile.routing.core :as routing]
    [cfapp.mobile.theme] ;; Don't remove
    [re-frame.core :as re-frame]
    [re-graph.core :as re-graph]
@@ -38,6 +39,7 @@
     (rdom/render [err-boundary [main-panel]] root-el)))
 
 (defn ^:dev/before-load stop []
+  (routing/stop-browser-history-handler!)
   (re-frame/dispatch [::re-graph/destroy])
   (js/console.log "… stop."))
 
@@ -45,5 +47,6 @@
   []
   (re-frame/dispatch-sync [::events/initialize-db])
   (re-frame/dispatch      [::re-graph/init config/gql])
+  (routing/start-browser-history-handler!)
   (dev-setup)
   (mount-root))
