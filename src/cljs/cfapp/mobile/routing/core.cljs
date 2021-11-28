@@ -7,8 +7,8 @@
 
 (def ^:private routes
   ["/"
-   {"index.html"       :index
-    "page-a"           :page-a
+   {""                 :home
+    "logged-out"       :logged-out
     "page-b"           :page-b
     "find-community"   :find-community
     ["community/" :id] :community}])

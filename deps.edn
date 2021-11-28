@@ -59,11 +59,12 @@
        :extra-deps
          {thheller/shadow-cljs {:mvn/version "2.16.4"}
 
-          herb/herb            {:mvn/version "0.10.0"}
-          re-frame/re-frame    {:mvn/version "1.2.0"}
-          reagent/reagent      {:mvn/version "1.1.0"}
-          bidi/bidi            {:mvn/version "2.1.6"}
-          clj-commons/pushy    {:mvn/version "0.3.10"}
+          herb/herb             {:mvn/version "0.10.0"}
+          re-frame/re-frame     {:mvn/version "1.2.0"}
+          reagent/reagent       {:mvn/version "1.1.0"}
+          bidi/bidi             {:mvn/version "2.1.6"}
+          clj-commons/pushy     {:mvn/version "0.3.10"}
+          re-promise/re-promise {:mvn/version "0.1.1"}
 
           ;; TODO move these dev dependencies
           binaryage/devtools   {:mvn/version "1.0.4"}

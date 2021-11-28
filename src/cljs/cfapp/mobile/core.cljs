@@ -1,14 +1,17 @@
 (ns cfapp.mobile.core
   (:require
+   [cfapp.mobile.auth.core :as auth]
    [cfapp.mobile.config :as config]
    [cfapp.mobile.main-panel.events :as events]
    [cfapp.mobile.main-panel.views :refer [main-panel]]
    [cfapp.mobile.routing.core :as routing]
-   [cfapp.mobile.theme] ;; Don't remove
+   cfapp.mobile.theme
+   re-promise.core
    [re-frame.core :as re-frame]
    [re-graph.core :as re-graph]
    [reagent.core :as r]
-   [reagent.dom :as rdom]))
+   [reagent.dom :as rdom]
+   [cfapp.mobile.auth.db]))
 
 (defn dev-setup
   []
@@ -21,14 +24,14 @@
   [& children]
   (let [err-state (r/atom nil)]
     (r/create-class
-     {:display-name "ErrBoundary"
-      :component-did-catch (fn [err info]
-                             (reset! err-state [err info]))
-      :reagent-render (fn [& children]
-                        (if (nil? @err-state)
-                          (into [:<>] children)
-                          (let [[_ info] @err-state]
-                            [:pre [:code (pr-str info)]])))})))
+      {:display-name        "ErrBoundary"
+       :component-did-catch (fn [err info]
+                              (reset! err-state [err info]))
+       :reagent-render      (fn [& children]
+                              (if (nil? @err-state)
+                                (into [:<>] children)
+                                (let [[_ info] @err-state]
+                                  [:pre [:code (pr-str info)]])))})))
 
 (defn ^:dev/after-load mount-root
   []
@@ -38,7 +41,8 @@
     (rdom/unmount-component-at-node root-el)
     (rdom/render [err-boundary [main-panel]] root-el)))
 
-(defn ^:dev/before-load stop []
+(defn ^:dev/before-load stop
+  []
   (routing/stop-browser-history-handler!)
   (re-frame/dispatch [::re-graph/destroy])
   (js/console.log "… stop."))
@@ -46,7 +50,8 @@
 (defn init
   []
   (re-frame/dispatch-sync [::events/initialize-db])
-  (re-frame/dispatch      [::re-graph/init config/gql])
+  (auth/init! config/auth)
+  (re-frame/dispatch [::re-graph/init config/gql])
   (routing/start-browser-history-handler!)
   (dev-setup)
   (mount-root))
