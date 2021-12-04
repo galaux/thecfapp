@@ -1,9 +1,21 @@
 #!/bin/sh
 
-. "$(dirname "$0")/../api/bin/format-api-clj.sh"
+if [ "x$CI" != "xtrue" ]
+then
+
+  for file in $(git diff --cached --name-only --diff-filter=ACM -- */*.{edn,clj,cljs})
+  do
+    if ! command -v zprint &> /dev/null
+    then
+      echo 'Cannot find the Zprint binary in the path.'
+      echo 'Zprint is used to enforce standard code formatting, please install it.'
+    else
+      zprint --formatted-write "${file}"
+      git add "${file}"
+    fi
+  done
+fi
 
 . "$(dirname "$0")/_/husky.sh"
 
-pushd ./packages/mobile
-npx lint-staged
-popd
+#npm test
