@@ -24,6 +24,11 @@
             {:closure-defines
                {}}}}
 
+    :stories
+      {:target     :npm-module
+       :ns-regexp  "^cfapp.mobile.ui.*.story$"
+       :output-dir "resources/public/js/stories"}
+
     :browser-test
       {:target    :browser-test
        :ns-regexp "-test$"

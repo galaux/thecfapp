@@ -24,7 +24,7 @@ node_modules
 npm-debug.log*
 packages/**/build
 packages/mobile/src/types/graphql.ts
-resources/public/js/compiled
+resources/public/js
 src/js
 target
 yarn-debug.log*
