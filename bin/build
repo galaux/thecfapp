@@ -12,6 +12,8 @@ set -e
 # Show debug
 set -x
 
+npx shadow-cljs release mobile
+
 # On Heroku, this requires setting the CLOJURE_CLI_VERSION environment variable
 # for the Clojure build pack to pick it up.
 clojure -T:build uber

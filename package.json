@@ -13,7 +13,7 @@
     "release": "npx shadow-cljs release mobile",
     "build-report": "npx shadow-cljs run shadow.cljs.build-report mobile target/build-report.html",
     "preinstall": "yarn --cwd views install",
-    "build": "yarn --cwd views build && npx shadow-cljs release mobile",
+    "build": "yarn --cwd views build",
     "ci": "npx shadow-cljs compile karma-test && npx karma start --single-run --reporters junit,dots"
   },
   "dependencies": {
@@ -22,10 +22,10 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "karma": "6.3.4",
+    "karma": "6.3.9",
     "karma-chrome-launcher": "3.1.0",
     "karma-cljs-test": "0.1.0",
     "karma-junit-reporter": "2.0.1",
-    "shadow-cljs": "2.15.1"
+    "shadow-cljs": "2.16.8"
   }
 }

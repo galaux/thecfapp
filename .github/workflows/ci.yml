@@ -22,8 +22,8 @@ jobs:
       - name: Install dependencies
         run: yarn --cwd views install
 
-      - name: Check lint
-        run: yarn --cwd views lint:check
+      # - name: Check lint
+      #   run: yarn --cwd views lint:check
 
       # - name: Test
       #   run: yarn --cwd views test
