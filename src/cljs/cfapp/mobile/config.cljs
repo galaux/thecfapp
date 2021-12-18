@@ -27,3 +27,6 @@
           :impl   {}
           :supported-operations #{:query :mutate}}})
 
+(def auth
+  #js {:domain "cfapp-dev.eu.auth0.com"
+       :client_id "V8B2VcnW1Jk0FJXUs5uVk7yqp4z4G2qB"})
