@@ -10,5 +10,5 @@
 (defn icon
   ([id] (icon {} id))
   ([{:keys [variant] :or {variant :light}} id]
-   [:div
+   [:span
     {:class (str "fa" (->variant variant) " fa-" (name id))}]))

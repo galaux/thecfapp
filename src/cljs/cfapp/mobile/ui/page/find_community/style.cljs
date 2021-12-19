@@ -51,13 +51,11 @@
 
 (defn body
   []
-  {:background-color "blue"
-   :flex-grow        1})
+  {:flex-grow 1})
 
 (defn footer
   []
-  {:height "30px"
-   :background-color "red"})
+  {:height "30px"})
 
 (defn container
   []

@@ -3,10 +3,12 @@
    [reagent.core :as r]))
 
 (defn init-state
-  []
-  (let [atom-open? (r/atom true)
-        open       #(swap! atom-open? (constantly true))
-        close      #(swap! atom-open? (constantly false))]
-    {:atom-open? atom-open?
-     :open       open
-     :close      close}))
+  ([]
+   (init-state false))
+  ([open?]
+   (let [atom-open? (r/atom open?)
+         open       #(swap! atom-open? (constantly true))
+         close      #(swap! atom-open? (constantly false))]
+     {:atom-open? atom-open?
+      :open       open
+      :close      close})))

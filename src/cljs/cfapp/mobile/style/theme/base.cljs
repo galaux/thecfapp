@@ -55,6 +55,7 @@
    :semi-bold 600
    :bold      700})
 
+;; FIXME rename into `font-sizes`?
 ;; FIXME use this or maybe Garden has a better way?
 (def text-sizes
   {:xxxsmall {:size   ".625rem"

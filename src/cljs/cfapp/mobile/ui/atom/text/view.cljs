@@ -6,7 +6,7 @@
 (defn text
   ([child]
    (text {} child))
-  ([{:keys [font-weight text-size]} child]
-   [:div
-    {:class (<class style/text font-weight text-size)}
+  ([props child]
+   [:span
+    {:class (<class style/text props)}
     child]))

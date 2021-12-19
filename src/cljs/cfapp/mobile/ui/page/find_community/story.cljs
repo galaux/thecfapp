@@ -15,4 +15,8 @@
   (let [menu-state (menu/init-state)]
     (r/as-element
       [find-community
-       {:menu-state menu-state}])))
+       {:menu-state menu-state
+        :user       {:first-name  "Joanna"
+                     :last-name   "Wallace"
+                     :avatar-path
+                     "https://randomuser.me/api/portraits/women/13.jpg"}}])))

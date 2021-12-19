@@ -1,23 +1,31 @@
 (ns cfapp.mobile.ui.molecule.menu.style
   (:require
-   [cfapp.mobile.style.theme.core :refer [color]]))
+   [cfapp.mobile.style.theme.core :refer [color]]
+   [garden.util :refer [space-join]]))
 
-(defn close-icon
+(defn close-button
   []
-  {:position    "absolute"
-   :top         "10px"
-   :right       "10px"
-   :margin-left "50px"})
+  {:position         "absolute"
+   :top              "15px"
+   :right            "15px"
+   :background-color (color :gray60)
+   :border-radius    "50%"
+   :height           "30px"
+   :width            "30px"
+   :padding          "7px 10px"
+   :cursor           "pointer"})
 
-(def avatar
+(defn avatar
+  []
   {:height           "100px"
    :width            "100px"
    :background-color (color :gray60)
    :border-radius    "50%"
    :display          "inline-block"})
 
-(def avatar-circle
-  {;; Ensures avatar sits on top of its parent div
+(defn avatar-circle
+  []
+  {;; Ensures circle sits on top of its parent div
    :position         "absolute"
    :margin           "3px 0 0 3px"
    :height           "94px"
@@ -26,7 +34,8 @@
    :border-radius    "50%"
    :display          "inline-block"})
 
-(def avatar-image
+(defn avatar-image
+  []
   {:object-fit    "cover"
    :border-radius "50%"
    :height        "88px"
@@ -35,33 +44,104 @@
    :position      "absolute"
    :margin        "3px 0 0 3px"})
 
-(defn menu-icon
+(defn drawer
   []
-  {})
+  {;; Drawer MUST have a "position" because its child (`close-icon`) uses
+   ;; `position: absolute` which only work if parent is itself positionned
+   :position         "absolute"
+
+   ;; Allow `drawer-body` to `flex-grow`
+   :display          "flex"
+   :flex-direction   "column"
+
+   :height           "100%"
+   :background-color (color :gray80)
+   :border-radius    "0 10px 0 0"
+   :color            (color :white)
+   :padding          "60px 40px 0px 40px"})
+
+(defn drawer-body
+  []
+  {:display        "flex"
+   :flex-direction "column"
+   :flex-grow      1
+   ;; Ensures text isn't gradually "compressed" when we shrink the drawer width
+   :min-width      "250px"})
+
+(defn user-first-name
+  []
+  {:padding-top "40px"})
+
+(defn user-last-name
+  []
+  {:padding-top "20px"})
+
+(defn menu-items
+  []
+  {:padding-top    "30px"
+   :display        "flex"
+   :flex-direction "column"
+   :flex-grow      1})
+
+(defn menu-items-main
+  []
+  {:flex-grow 1})
 
 (defn menu-item
   []
-  {:padding "20px 0 0 20px"})
+  {:padding "35px 0 0 0"
+   :cursor  "pointer"})
+
+(defn menu-items-bottom
+  []
+  {:padding-bottom "25px"})
+
+(defn drawer-footer
+  []
+  {:border-top (space-join ["1px" "solid" (color :gray60)])
+   :padding    "20px 0 20px 0"})
 
 (defn menu-item-icon
   []
-  {:padding-right "15px"})
+  {:padding-right "15px"
+   :color         (color :gray50)})
 
-(defn menu
+(defn overlay-invisible
+  []
+  {:opacity   1
+   :flex-grow 1
+   :height    "100%"})
+
+(defn page-body
+  []
+  {:position "absolute"
+   :top      0
+   :left     0
+   :height   "100%"
+   :width    "100%"})
+
+(defn menu-overlay
   [open?]
-  {:height           "100%"
-   :width            (if open? "250px" 0)
-   :position         "fixed"
-   :z-index          1
-   :top              0
-   :left             0
-   :background-color (color :gray80)
-   :color            (color :gray10)
-   ;; Disable horizontal scroll
-   :overflow-x       "hidden"
-   :transition       "0.3s"
-   ;; FIXME the left padding prevents the menu from disappearing completely
-   :padding          (if open?
-                       "60px 0 0 30px"
-                       "0")
-   :border-radius    "0 10px 0 0"})
+  {:position       "absolute"
+
+   ;; For children to be able to use flex-grow
+   :display        "flex"
+   :flex-direction "row"
+
+   :top            0
+   :left           0
+   :height         "100%"
+   :width          (if open? "100%" 0)
+   :z-index        10
+   ;; Disable horizontal scroll (and completely hide drawer when closed)
+   :overflow-x     "hidden"
+
+   :transition     "0.3s"})
+
+(defn menuable-layout
+  []
+  {;; For children (overlay and page body) to be able to stack
+   ;; on top of each other with `:position "absolute"`
+   :position "relative"
+   :height   "100%"
+   :width    "100%"})

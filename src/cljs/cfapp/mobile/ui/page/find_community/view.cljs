@@ -1,6 +1,6 @@
 (ns cfapp.mobile.ui.page.find-community.view
   (:require
-   [cfapp.mobile.ui.molecule.menu.view :refer [menu]]
+   [cfapp.mobile.ui.molecule.menu.view :refer [menuable-layout]]
    [cfapp.mobile.ui.atom.icon.view :refer [icon]]
    [cfapp.mobile.ui.page.find-community.style :as style]
    [herb.core :refer [<class]]))
@@ -50,12 +50,9 @@
    "© 2021 CFApp, all right reserved"])
 
 (defn find-community
-  [{:keys [menu-state]}]
-  [:div
-   [menu
-    (assoc menu-state
-      :user-name   "Joanna Wallace"
-      :avatar-path "avatar_path")]
+  [{:keys [menu-state] :as props}]
+  [menuable-layout
+   (select-keys props #{:menu-state :user})
    [:div
     {:class (<class style/container)}
     [header menu-state]
