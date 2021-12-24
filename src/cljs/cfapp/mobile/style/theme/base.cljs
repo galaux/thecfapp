@@ -18,25 +18,20 @@
   ;; Names in comments correspond to names given in our palette:
   ;; https://xd.adobe.com/view/033e9162-93f3-4a87-89b4-653e104188e3-566d/screen/92aecc9d-e9ad-4d4b-b630-f55c6fb62678/specs/
   {:background "#1D1D22"
-   ;; Brand colors
-   :brand1     "#8ABF4C" ;; Green
-   :brand2     "#046A38" ;; Dark green
-   :brand3     "#06555A" ;; Deep green
    ;; Gray scales
    :black      "#000000"
-   :gray80     "#32332F" ;; Black
-   :gray60     "#565952" ;; Gray
-   :gray50     "#888C81" ;; Light grey
-   :gray40     "#C6CCBC" ;; Lighter grey
-   :gray30     "#D9D9DA" ;; Off gray
-   :gray20     "#F2F2EE" ;; Off white
-   :gray10     "#F8F8F8" ;; Off gray #2
-   :white      "#FFFFFF" ;; Pure white
+   :gray90     "#1A151A"
+   :gray80     "#2F2A2F"
+   :gray60     "#484848"
+   :gray50     "#808080"
+   :gray30     "#C1BFC1"
+   :gray10     "#DADADB"
+   :white      "#FFFFFF"
    ;; Complementary colors
-   :info       "#31B8C7" ;; Blue
-   :success    "#8ABF4C" ;; Success
-   :warning    "#F5BD3E" ;; Orange
-   :danger     "#E86546"});; Red
+   :info       "#31B8C7"
+   :success    "#8ABF4C"
+   :warning    "#F5BD3E"
+   :danger     "#E86546"})
 
 (def edge-sizes
   {:xxxsmall "0.25rem"
