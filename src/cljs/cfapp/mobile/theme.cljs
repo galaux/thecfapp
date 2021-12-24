@@ -1,8 +1,10 @@
 (ns cfapp.mobile.theme
   (:require
    ["/views" :as views]
+   [garden.stylesheet :refer [at-font-face]]
    [herb.core :refer [defglobal]]))
 
+;; TODO remove
 (def theme
   (js->clj views/theme :keywordize-keys true))
 
@@ -40,16 +42,46 @@
   [:q [:before :after {:content "none"}]]
   [:table {:border-collapse "collapse" :border-spacing 0}])
 
-(defglobal global
-           "Our base global theme ported from Views.
-            Changes to Views's `GlobalStyle` must be manually reflected here."
-           [:html :body :#root {:height "100%"}]
-           [:html {:background (get-in theme [:colors :background])}]
-           [:root [:>div {:height "100%"}]]
-           [:body
-            {:font-family "'Aaux Next', sans-serif"
-             :-webkit-font-smoothing "antialiased"
-             :-moz-osx-font-smoothing "grayscale"}]
-           [:* {:box-sizing "border-box"}
-            [:before {:box-sizing "border-box"}]
-            [:after {:box-sizing "border-box"}]])
+(defglobal
+  fonts
+  [(at-font-face
+     {:font-family "Aaux Next"
+      :font-weight 400
+      :font-style "normal"
+      :src ["url(./assets/fonts/aauxnext-rg-webfont.woff2) format('woff2')"
+            "url(./assets/fonts/aauxnext-rg-webfont.woff)  format('woff')"]})
+   (at-font-face
+     {:font-family "Aaux Next"
+      :font-weight 500
+      :font-style "normal"
+      :src ["url(./assets/fonts/aauxnext-md-webfont.woff2) format('woff2')"
+            "url(./assets/fonts/aauxnext-md-webfont.woff)  format('woff')"]})
+   (at-font-face
+     {:font-family "Aaux Next"
+      :font-weight 600
+      :font-style "normal"
+      :src ["url(./assets/fonts/aauxnext-sm-webfont.woff2) format('woff2')"
+            "url(./assets/fonts/aauxnext-sm-webfont.woff)  format('woff')"]})
+   (at-font-face
+     {:font-family "Aaux Next"
+      :font-weight 700
+      :font-style "normal"
+      :src ["url(./assets/fonts/aauxnext-bd-webfont.woff2) format('woff2')"
+            "url(./assets/fonts/aauxnext-bd-webfont.woff)  format('woff')"]})])
+
+(defglobal
+  global
+  "Our base global theme ported from Views.
+   Changes to Views's `GlobalStyle` must be manually reflected here."
+  [:html :body :#root {:height "100%"}]
+  [:html
+   {:background (get-in theme [:colors :background]) ;; FIXME use `color`
+    :color      (get-in theme [:colors :white])}]
+  [:root [:>div {:height "100%"}]]
+  [:body
+   {:font-family "'Aaux Next', sans-serif"
+    :-webkit-font-smoothing "antialiased"
+    :-moz-osx-font-smoothing "grayscale"}]
+  [:* {:box-sizing "border-box"}
+   [:before {:box-sizing "border-box"}]
+   [:after {:box-sizing "border-box"}]])

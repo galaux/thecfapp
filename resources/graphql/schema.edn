@@ -140,5 +140,5 @@
                                           {:type
                                              (non-null
                                                :RemoveUserFromCommunityInput)}}
-                              :type    (non-null :ID)
+                              :type    (non-null :Community)
                               :resolve :Mutation/leave-community}}}

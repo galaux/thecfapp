@@ -12,12 +12,12 @@
 
 (def border-widths
   {:medium "1px"
-   :large  "large"})
+   :large  "2px"})
 
 (def colors
-  ;; Names in comments correspond to names given in our palette:
-  ;; https://xd.adobe.com/view/033e9162-93f3-4a87-89b4-653e104188e3-566d/screen/92aecc9d-e9ad-4d4b-b630-f55c6fb62678/specs/
   {:background "#1D1D22"
+   :blue       "#1160D6"
+   :dark-blue  "#204582"
    ;; Gray scales
    :black      "#000000"
    :gray90     "#1A151A"
@@ -31,7 +31,7 @@
    :info       "#31B8C7"
    :success    "#8ABF4C"
    :warning    "#F5BD3E"
-   :danger     "#E86546"})
+   :danger     "#9b2c2c"})
 
 (def edge-sizes
   {:xxxsmall "0.25rem"
@@ -50,7 +50,6 @@
    :semi-bold 600
    :bold      700})
 
-;; FIXME rename into `font-sizes`?
 ;; FIXME use this or maybe Garden has a better way?
 (def text-sizes
   {:xxxsmall {:size   ".625rem"

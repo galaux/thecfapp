@@ -46,22 +46,25 @@
                      {:client client})))))
 
 (rf/reg-event-db
-  ::set-logged-in
+  ::set-authenticated
   (fn [db [_ user-data]]
-    (update db
-            :auth
-            merge
-            {:stage     :logged-in
-             :user-data user-data})))
+    (assoc-in db [:auth :user-data] user-data)))
+
+(rf/reg-event-db
+  ::set-logged-in
+  ;; TODO handle error
+  (fn [db [_ {:keys [data errors]}]]
+    (-> db
+        (assoc-in [:auth :stage] :logged-in)
+        (assoc :logged-user (:user data)))))
 
 (rf/reg-event-db
   ::set-logged-out
   (fn [db _]
-    (update db
-            :auth
-            merge
-            {:stage     :logged-out
-             :user-data nil})))
+    (-> db
+        (dissoc :logged-user)
+        (update :auth dissoc :user-data)
+        (assoc-in [:auth :stage] :logged-out))))
 
 (rf/reg-event-db
   ::set-error
@@ -71,3 +74,11 @@
             merge
             {:stage :error
              :error error})))
+
+
+;; (rf/reg-event-db
+;;  ::on-got-user
+;;  (fn [db [_ {:keys [data errors]}]]
+;;    ;; TODO handle errors
+;;    (let [user (get data :user)]
+;;      (assoc db :logged-user user))))

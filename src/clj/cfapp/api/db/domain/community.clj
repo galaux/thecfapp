@@ -2,14 +2,14 @@
   (:require
    [cfapp.api.db.domain.user :as user]
    [cfapp.api.spec-util :as sutil :refer [fake-data]]
-   [cfapp.api.util :refer [anomaly anomaly->error]]
+   [cfapp.api.util :refer [anomaly]]
    [clojure.spec.alpha :as s]
    [clojure.spec.gen.alpha :as gen]
    [clojure.string :as str]
    [cognitect.anomalies :as anomalies]
-   [com.walmartlabs.lacinia.resolve :refer [resolve-as]]
    [datomic.client.api :as d])
-  (:import java.util.UUID))
+  (:import
+   java.util.UUID))
 
 (s/def :community/id :util/uuid)
 (s/def :community/name :util/non-blank-string)
@@ -25,33 +25,34 @@
 (defn- gen-community
   []
   (gen/fmap
-   (fn [[city street-fname country zip-code lorem1 lorem2]]
-     (let [
-           community-name (->> [lorem1
-                                lorem2
-                                "Crossfit"
-                                city]
-                               shuffle
-                               (take 3)
-                               (map str/capitalize)
-                               (str/join " "))]
-       (cond->
-         {:community/id   (UUID/randomUUID)
-          :community/name community-name}
-         (maybe?) (assoc :community.address/street
-                         (str (rand-int 30) " " street-fname " Street"))
-         (maybe?) (assoc :community.address/city city)
-         (maybe?) (assoc :community.address/zip-code (apply str zip-code))
-         (maybe?) (assoc :community.address/country country))))
-   (gen/tuple
-    (s/gen (set (get-in fake-data [:address :city])))
-    (s/gen (set (get-in fake-data [:user :last-name])))
-    (s/gen (set (get-in fake-data [:address :country])))
-    (s/gen
-     (s/coll-of #{"A" "B" "C" "D" "E" "0" "1" "2" "3" "4" "5" "6" "7" "8" "9"}
-                :count 5))
-    (s/gen (set (get-in fake-data [:lorem-ipsum])))
-    (s/gen (set (get-in fake-data [:lorem-ipsum]))))))
+    (fn [[city street-fname country zip-code lorem1 lorem2]]
+      (let [community-name (->> [lorem1
+                                 lorem2
+                                 "Crossfit"
+                                 city]
+                                shuffle
+                                (take 3)
+                                (map str/capitalize)
+                                (str/join " "))]
+        (cond->
+          {:community/id   (UUID/randomUUID)
+           :community/name community-name}
+          (maybe?) (assoc :community.address/street
+                     (str (rand-int 30) " " street-fname " Street"))
+          (maybe?) (assoc :community.address/city city)
+          (maybe?) (assoc :community.address/zip-code (apply str zip-code))
+          (maybe?) (assoc :community.address/country country))))
+    (gen/tuple
+      (s/gen (set (get-in fake-data [:address :city])))
+      (s/gen (set (get-in fake-data [:user :last-name])))
+      (s/gen (set (get-in fake-data [:address :country])))
+      (s/gen
+        (s/coll-of #{"A" "B" "C" "D" "E" "0" "1" "2" "3" "4" "5" "6" "7" "8"
+                     "9"}
+                   :count
+                   5))
+      (s/gen (set (get-in fake-data [:lorem-ipsum])))
+      (s/gen (set (get-in fake-data [:lorem-ipsum]))))))
 
 (s/def ::community
   (s/with-gen
@@ -151,16 +152,16 @@
   [conn creator-id input]
   (let [db (d/db conn)]
     (or (check-create db input creator-id)
-        (let [community-eid   "tmp-community-eid"
-              community       (assoc (create-tx input)
-                                :db/id community-eid)
+        (let [community-eid "tmp-community-eid"
+              community     (assoc (create-tx input)
+                              :db/id community-eid)
               community-privs (map (fn [priv]
                                      {:db/id [:user/id creator-id]
                                       priv   {:db/id community-eid}})
                                 all-community-privs)
-              res             (d/transact conn
-                                          {:tx-data (conj community-privs
-                                                          community)})]
+              res           (d/transact conn
+                                        {:tx-data (conj community-privs
+                                                        community)})]
           (->> (get-in res [:tempids community-eid])
                (d/pull (d/db conn) '[*]))))))
 
@@ -217,7 +218,7 @@
 (defn user-join
   [conn {:keys [user-id community-id]}]
   (or (user-join-check (d/db conn) user-id community-id)
-      (let [tx-data [{:db/id                  [:user/id user-id]
+      (let [tx-data [{:db/id [:user/id user-id]
                       :community.privs/member {:db/id [:community/id
                                                        community-id]}}]]
         (d/transact conn {:tx-data tx-data}))))
@@ -244,8 +245,6 @@
 (defn user-leave
   [conn input]
   (let [{:keys [community-id user-id]} input]
-    (if-let [anom (check-user-leave (d/db conn) user-id community-id)]
-      (resolve-as false (anomaly->error anom))
-      (let [tx-data (user-leave-tx user-id community-id)]
-        (d/transact conn {:tx-data [tx-data]})
-        community-id))))
+    (or (check-user-leave (d/db conn) user-id community-id)
+        (let [tx-data (user-leave-tx user-id community-id)]
+          (d/transact conn {:tx-data [tx-data]})))))

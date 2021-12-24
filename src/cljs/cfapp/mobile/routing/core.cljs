@@ -7,10 +7,11 @@
 
 (def ^:private routes
   ["/"
-   {""                 :home
-    "logged-out"       :logged-out
-    "page-b"           :page-b
-    "find-community"   :find-community
+   {"" :home
+    "logged-out" :logged-out
+    "page-b" :page-b
+    "find-community" :find-community
+    "my-communities" :my-communities
     ["community/" :id] :community}])
 
 
@@ -44,3 +45,7 @@
 (defn path-for
   [key]
   (bidi/path-for routes key))
+
+(defn nav-to
+  [page-key]
+  (rf/dispatch [::event/nav-to page-key]))

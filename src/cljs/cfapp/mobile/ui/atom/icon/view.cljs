@@ -1,14 +1,9 @@
 (ns cfapp.mobile.ui.atom.icon.view)
 
-(def ^:private ->variant
-  {:duotone "d"
-   :light   "l"
-   :regular "r"
-   :solid   "s"
-   :thin    "t"})
-
 (defn icon
-  ([id] (icon {} id))
-  ([{:keys [variant] :or {variant :light}} id]
-   [:span
-    {:class (str "fa" (->variant variant) " fa-" (name id))}]))
+  ([feather-comp]
+   (icon {} feather-comp))
+  ([{:keys [size]
+     :or   {size 20}} feather-comp]
+   [:> feather-comp
+    {:size size}]))

@@ -1,4 +1,4 @@
-(ns cfapp.mobile.ui.molecule.menu.style
+(ns cfapp.mobile.ui.molecule.menu-wrapper.style
   (:require
    [cfapp.mobile.style.theme.core :refer [color]]
    [garden.util :refer [space-join]]))
@@ -12,7 +12,7 @@
    :border-radius    "50%"
    :height           "30px"
    :width            "30px"
-   :padding          "7px 10px"
+   :padding          "5px 5px"
    :cursor           "pointer"})
 
 (defn avatar
@@ -72,10 +72,6 @@
   []
   {:padding-top "40px"})
 
-(defn user-last-name
-  []
-  {:padding-top "20px"})
-
 (defn menu-items
   []
   {:padding-top    "30px"
@@ -89,8 +85,10 @@
 
 (defn menu-item
   []
-  {:padding "35px 0 0 0"
-   :cursor  "pointer"})
+  {:display        "flex"
+   :flex-direction "row"
+   :padding-top    "25px"
+   :cursor         "pointer"})
 
 (defn menu-items-bottom
   []
@@ -138,7 +136,7 @@
 
    :transition     "0.3s"})
 
-(defn menuable-layout
+(defn menu-wrapper
   []
   {;; For children (overlay and page body) to be able to stack
    ;; on top of each other with `:position "absolute"`

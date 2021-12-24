@@ -8,13 +8,6 @@
     (get-in db [:auth :stage])))
 
 (rf/reg-sub
-  ::user-data
+  ::logged-user
   (fn [db]
-    (get-in db [:auth :user-data])))
-
-(rf/reg-sub
-  ::user-data*
-  :<-
-  [::user-data]
-  (fn [user-data]
-    (js->clj user-data :keywordize-keys true)))
+    (:logged-user db)))

@@ -37,6 +37,8 @@
   []
   (js/console.log "Start …")
   (re-frame/clear-subscription-cache!)
+  (re-frame/dispatch [::re-graph/init config/gql])
+  (routing/start-browser-history-handler!)
   (let [root-el (.getElementById js/document "root")]
     (rdom/unmount-component-at-node root-el)
     (rdom/render [err-boundary [main-panel]] root-el)))
@@ -51,7 +53,5 @@
   []
   (re-frame/dispatch-sync [::events/initialize-db])
   (auth/init! config/auth)
-  (re-frame/dispatch [::re-graph/init config/gql])
-  (routing/start-browser-history-handler!)
   (dev-setup)
   (mount-root))

@@ -1,60 +1,71 @@
 (ns cfapp.mobile.ui.page.find-community.view
   (:require
-   [cfapp.mobile.ui.molecule.menu.view :refer [menuable-layout]]
-   [cfapp.mobile.ui.atom.icon.view :refer [icon]]
+   [cfapp.mobile.ui.atom.text.view :refer [text]]
+   [cfapp.mobile.ui.molecule.community-card.view :refer [community-card]]
+   [cfapp.mobile.ui.molecule.menu-wrapper.view :refer [menu-wrapper]]
+   [cfapp.mobile.ui.molecule.layout.view :refer [layout]]
+   [cfapp.mobile.ui.molecule.text-input-group.view
+    :refer
+    [text-input-group]]
    [cfapp.mobile.ui.page.find-community.style :as style]
-   [herb.core :refer [<class]]))
+   [herb.core :refer [<class]]
+   [reagent.core :as r]))
 
-(defn menu-icon
-  [{:keys [open]}]
+(defn- community-list
+  [{:keys [communities] :as props}]
   [:div
-   {:class    (<class style/menu-icon)
-    :on-click open}
-   [icon :bars]])
+   {:class (<class style/community-list)}
+   (cond
+     (nil? communities)
+     nil
 
-(defn user-icon
-  []
-  [:div
-   {:class (<class style/user-icon)}
-   [icon :user]])
+     (empty? communities)
+     [:div
+      {:class (<class style/not-found)}
+      [text
+       {:text-size :large}
+       "¯\\_(ツ)_/¯"]]
 
-(defn main-heading
-  []
-  [:div
-   {:class (<class style/main-heading)}
-   "FIND A COMMUNITY"])
+     :else
+     (for [{:keys [id] :as community} communities]
+       ^{:key id}
+       [:div
+        {:class (<class style/community-card)}
+        [community-card
+         (-> (select-keys props
+                          #{:join-community
+                            :leave-community})
+             (assoc :community community))]]))])
 
-(defn header
-  [menu-state]
-  [:div
-   {:class (<class style/header)}
-   [:div
-    {:class (<class style/top-line)}
-    [menu-icon menu-state]
-    [:div
-     {:class (<class style/title)}
-     "WODME"]
-    [user-icon]]
-   [main-heading]])
-
-(defn body
-  []
-  [:div
-   {:class (<class style/body)}
-   "body"])
-
-(defn footer
-  []
-  [:div
-   {:class (<class style/footer)}
-   "© 2021 CFApp, all right reserved"])
+(defn- body
+  [_props]
+  (let [state (r/atom nil)]
+    (fn [{:keys [find-communities] :as props}]
+      [:div
+       [text-input-group
+        {:id        :search-community
+         :label     "Search a community"
+         :value     @state
+         :on-change #(reset! state %)
+         :on-click  find-communities}]
+       [community-list
+        (select-keys props
+                     #{:communities
+                       :join-community
+                       :leave-community})]])))
 
 (defn find-community
-  [{:keys [menu-state] :as props}]
-  [menuable-layout
-   (select-keys props #{:menu-state :user})
-   [:div
-    {:class (<class style/container)}
-    [header menu-state]
-    [body]
-    [footer]]])
+  [props]
+  [menu-wrapper
+   (select-keys props
+                #{:logged-user
+                  :menu-props})
+   [layout
+    {:title     "Find a community"
+     :open-menu (get-in props [:menu-props :open])}
+    [body
+     (select-keys props
+                  #{:communities
+                    :find-communities
+                    :join-community
+                    :leave-community})]]])
