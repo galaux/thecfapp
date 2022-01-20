@@ -65,6 +65,7 @@
           bidi/bidi             {:mvn/version "2.1.6"}
           clj-commons/pushy     {:mvn/version "0.3.10"}
           re-promise/re-promise {:mvn/version "0.1.1"}
+          town.lilac/pyramid    {:mvn/version "3.2.0"}
 
           ;; TODO move these dev dependencies
           binaryage/devtools   {:mvn/version "1.0.4"}

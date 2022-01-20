@@ -1,5 +1,6 @@
 (ns cfapp.mobile.auth.events
   (:require
+   [pyramid.core :as p]
    [re-frame.core :as rf]
    [re-frame.db :as rf-db]))
 
@@ -56,7 +57,7 @@
   (fn [db [_ {:keys [data errors]}]]
     (-> db
         (assoc-in [:auth :stage] :logged-in)
-        (assoc :logged-user (:user data)))))
+        (p/add {:logged-user (:user data)}))))
 
 (rf/reg-event-db
   ::set-logged-out

@@ -9,6 +9,5 @@ mutation JoinCommunity($userId: ID!, $communityId: ID!) {
       street
       zipCode
     }
-    isMember(userId: $userId)
   }
 }

@@ -3,6 +3,7 @@
    [camel-snake-kebab.core :as csk]
    [clojure.walk :refer [postwalk]]))
 
+;; TODO remove (use cljc/common instead)
 (defn gql->clj
   [m]
   ;; Heavily inspired by `clojure.walk/stringify-keys`
