@@ -25,20 +25,20 @@
 (deftest user-workout-not-used-by-mobile
   (let
     [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
-     user-a (-> (gen/generate user/user-gen)
-                (assoc :db/id "user-a"))
-     user-b (-> (gen/generate user/user-gen)
-                (assoc :db/id "user-b"))
-     user-scores (make-scores user-a)
-     other-scores (make-scores user-b)
-     variables {:userId (.toString (:user/id user-a))}
+     user-a        (-> (gen/generate user/user-gen)
+                       (assoc :db/id "user-a"))
+     user-b        (-> (gen/generate user/user-gen)
+                       (assoc :db/id "user-b"))
+     user-scores   (make-scores user-a)
+     other-scores  (make-scores user-b)
+     variables     {:userId (.toString (:user/id user-a))}
      gql-query-str
        "query UserWorkouts($userId: ID!) {
                          userWorkouts(id: $userId) {
                            id name description
                          }
                        }"
-     gql-query (tutil/test-query gql-query-str [] variables)]
+     gql-query     (tutil/test-query gql-query-str variables)]
     (tutil/domain-add conn user-scores)
     (let [response          (handler gql-query)
           parsed-response   (-> response
@@ -63,12 +63,20 @@
                  :userWorkouts))))
     (ig/halt! system)))
 
+(def ^:private q-user-workouts
+  "query UserWorkouts {
+     workouts {
+       id
+       name
+       description
+       scoringType
+     }
+   }")
 
 (deftest list-workouts
   (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
-        workouts (gen/sample workout/workout-gen 3)
-        fragments [:Workout]
-        gql-query (tutil/test-query :ListWorkouts fragments)]
+        workouts  (gen/sample workout/workout-gen 3)
+        gql-query (tutil/test-query q-user-workouts nil)]
     (tutil/domain-add conn workouts)
     (let [response          (handler gql-query)
           parsed-response   (-> response

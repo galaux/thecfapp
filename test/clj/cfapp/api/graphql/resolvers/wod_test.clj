@@ -1,10 +1,6 @@
 (ns cfapp.api.graphql.resolvers.wod-test
   (:require
    [camel-snake-kebab.core :as csk]
-   [clojure.data.json :as json]
-   [clojure.spec.gen.alpha :as gen]
-   [clojure.test :refer [deftest is]]
-   [integrant.core :as ig]
    [cfapp.api.db.core :as db]
    [cfapp.api.db.domain.community :as community]
    [cfapp.api.db.domain.score :as score]
@@ -12,10 +8,14 @@
    [cfapp.api.db.domain.wod :as wod]
    [cfapp.api.db.domain.workout :as workout]
    [cfapp.api.graphql.schema :refer [date-formatter]]
-   [cfapp.api.test-util :as tutil])
+   [cfapp.api.test-util :as tutil]
+   [clojure.data.json :as json]
+   [clojure.spec.gen.alpha :as gen]
+   [clojure.test :refer [deftest is]]
+   [integrant.core :as ig])
   (:import
-   java.time.LocalDate
-   java.util.UUID))
+   (java.time LocalDate)
+   (java.util UUID)))
 
 (def user-a
   (-> (gen/generate user/user-gen)
@@ -33,24 +33,40 @@
       (assoc :db/id "score-b")))
 
 (deftest get-wod
-  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
-        tx-data [user-a
-                 (assoc wod-a
-                   :wod/workout   workout-a
-                   :wod/community community-a)
-                 score-a
-                 score-b
-                 [:db/add "score-a" :score/wod "wod-a"]
-                 [:db/add "score-a" :score/user "user-a"]
-                 [:db/add "score-b" :score/wod "wod-a"]
-                 [:db/add "score-b" :score/user "user-a"]]
-        fragments [:Score
-                   :ScoreWithBelongsToLoggedUser
-                   :User
-                   :Wod
-                   :Workout]
-        variables {:wodId (.toString (:wod/id wod-a))}
-        gql-query (tutil/test-query :WodWithScores fragments variables)]
+  (let
+    [q "query WodWithScores($wodId: ID!) {
+             wod(id: $wodId) {
+               id
+               date
+               workout {
+                 id
+                 name
+                 description
+                 scoringType
+               }
+               scores {
+                 id
+                 value
+                 user {
+                   id
+                   name
+                 }
+               }
+             }
+            }"
+     {:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
+     tx-data [user-a
+              (assoc wod-a
+                :wod/workout   workout-a
+                :wod/community community-a)
+              score-a
+              score-b
+              [:db/add "score-a" :score/wod "wod-a"]
+              [:db/add "score-a" :score/user "user-a"]
+              [:db/add "score-b" :score/wod "wod-a"]
+              [:db/add "score-b" :score/user "user-a"]]
+     variables {:wodId (.toString (:wod/id wod-a))}
+     gql-query (tutil/test-query q variables)]
     (tutil/domain-add conn tx-data)
     (let [response        (handler gql-query)
           parsed-response (-> response
@@ -84,27 +100,47 @@
     (ig/halt! system)))
 
 (deftest user-wods
-  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
-        user-a (assoc user-a :db/id "user-a")
-        user-scores
-          (map
-            (fn [score wod]
-              (assoc score
-                :score/user user-a
-                :score/wod  (assoc wod
-                              :wod/community
-                                (gen/generate community/community-gen)
-                              :wod/workout   (gen/generate
-                                               workout/workout-gen))))
-            (gen/sample score/score-gen 3)
-            (gen/sample wod/wod-gen 3))
-        other-wods (gen/sample wod/wod-gen 3)
-        fragments [:Score
-                   :ScoreWithBelongsToLoggedUser
-                   :Wod
-                   :Workout]
-        variables {:userId (.toString (:user/id user-a))}
-        gql-query (tutil/test-query :UserWods fragments variables)]
+  (let
+    [q "query UserWods($userId: ID!) {
+             userWods(userId: $userId) {
+               id
+               date
+               scores {
+                 id
+                 value
+                 user {
+                   id
+                 }
+               }
+               workout {
+                 id
+                 name
+                 description
+                 scoringType
+               }
+               community {
+                 id
+                 name
+               }
+             }
+          }"
+     {:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
+     user-a (assoc user-a :db/id "user-a")
+     user-scores
+       (map
+         (fn [score wod]
+           (assoc score
+             :score/user user-a
+             :score/wod  (assoc wod
+                           :wod/community
+                             (gen/generate community/community-gen)
+                           :wod/workout   (gen/generate
+                                            workout/workout-gen))))
+         (gen/sample score/score-gen 3)
+         (gen/sample wod/wod-gen 3))
+     other-wods (gen/sample wod/wod-gen 3)
+     variables {:userId (.toString (:user/id user-a))}
+     gql-query (tutil/test-query q variables)]
     (tutil/domain-add conn (concat other-wods user-scores))
     (let [response        (handler gql-query)
           parsed-response (-> response
@@ -143,11 +179,20 @@
     (ig/halt! system)))
 
 (deftest create-wod
-  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
-        variables {:communityId (.toString (:community/id community-a))
-                   :workoutId   (.toString (:workout/id workout-a))
-                   :date        (.toString (LocalDate/of 2000 12 30))} ;; TODO
-        gql-query (tutil/test-query :CreateWod [:Wod] variables)]
+  (let
+    [q "mutation CreateWod($communityId: ID!, $workoutId: ID!, $date: Date!) {
+             createWod(
+               input: { communityId: $communityId, workoutId: $workoutId, date: $date }
+             ) {
+               id
+               date
+             }
+           }"
+     {:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
+     variables {:communityId (.toString (:community/id community-a))
+                :workoutId   (.toString (:workout/id workout-a))
+                :date        (.toString (LocalDate/of 2000 12 30))} ;; TODO
+     gql-query (tutil/test-query q variables)]
     (tutil/domain-add conn [community-a workout-a])
     (let [response        (handler gql-query)
           parsed-response (-> response
