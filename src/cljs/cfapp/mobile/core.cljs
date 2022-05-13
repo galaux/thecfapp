@@ -1,9 +1,9 @@
 (ns cfapp.mobile.core
   (:require
-   [cfapp.mobile.auth.core :as auth]
+   [cfapp.mobile.controller.auth.core :as auth]
    [cfapp.mobile.config :as config]
-   [cfapp.mobile.main-panel.events :as events]
-   [cfapp.mobile.main-panel.views :refer [main-panel]]
+   [cfapp.mobile.ui.main-panel.events :as events]
+   [cfapp.mobile.ui.main-panel.views :refer [main-panel]]
    [cfapp.mobile.routing.core :as routing]
    cfapp.mobile.theme
    re-promise.core
@@ -11,7 +11,7 @@
    [re-graph.core :as re-graph]
    [reagent.core :as r]
    [reagent.dom :as rdom]
-   [cfapp.mobile.auth.db]))
+   [cfapp.mobile.controller.auth.db]))
 
 (defn dev-setup
   []

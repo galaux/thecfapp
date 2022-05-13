@@ -3,7 +3,7 @@
    [cfapp.mobile.ui.page.my-communities.view :refer [my-communities]]
    [cfapp.mobile.ui.storybook :refer [->default]]
    [reagent.core :as r]
-   [cfapp.mobile.ui.molecule.menu-wrapper.core :as menu]))
+   [cfapp.mobile.ui.component.menu-wrapper.core :as menu]))
 
 (def ^:export default
   (->default

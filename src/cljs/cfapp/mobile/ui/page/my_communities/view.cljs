@@ -1,9 +1,9 @@
 (ns cfapp.mobile.ui.page.my-communities.view
   (:require
-   [cfapp.mobile.ui.atom.text.view :refer [text]]
-   [cfapp.mobile.ui.molecule.community-card.view :refer [community-card]]
-   [cfapp.mobile.ui.molecule.layout.view :refer [layout]]
-   [cfapp.mobile.ui.molecule.menu-wrapper.view :refer [menu-wrapper]]
+   [cfapp.mobile.ui.component.text.view :refer [text]]
+   [cfapp.mobile.ui.component.community-card.view :refer [community-card]]
+   [cfapp.mobile.ui.component.layout.view :refer [layout]]
+   [cfapp.mobile.ui.component.menu-wrapper.view :refer [menu-wrapper]]
    [cfapp.mobile.ui.page.my-communities.style :as style]
    [herb.core :refer [<class]]))
 
