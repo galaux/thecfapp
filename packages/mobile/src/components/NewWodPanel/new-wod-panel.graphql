@@ -1,3 +1,0 @@
-fragment NewWodPanel on Wod {
-  ...WodFields
-}

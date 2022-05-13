@@ -1,7 +1,0 @@
-fragment CommunityForNewWod on Community {
-  ...CommunityFields
-}
-
-fragment WorkoutForNewWod on Workout {
-  ...WorkoutFields
-}

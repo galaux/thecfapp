@@ -1,3 +1,0 @@
-fragment UserWodPanel on Wod {
-  ...WodForSwipeList
-}

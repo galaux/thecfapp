@@ -1,9 +1,0 @@
-fragment UserForMenu on User {
-  ...UserFields
-}
-
-query MenuUser($userId: ID!) {
-  user(id: $userId) {
-    ...UserForMenu
-  }
-}

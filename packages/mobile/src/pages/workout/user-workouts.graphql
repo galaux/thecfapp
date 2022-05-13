@@ -1,9 +1,0 @@
-fragment UserWorkout on Workout {
-  ...WorkoutFields
-}
-
-query UserWorkouts {
-  workouts {
-    ...UserWorkout
-  }
-}

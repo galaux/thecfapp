@@ -12,8 +12,6 @@
     "watch": "npx shadow-cljs watch mobile browser-test karma-test",
     "release": "npx shadow-cljs release mobile",
     "build-report": "npx shadow-cljs run shadow.cljs.build-report mobile target/build-report.html",
-    "preinstall": "yarn --cwd views install",
-    "build": "yarn --cwd views build",
     "ci": "npx shadow-cljs compile karma-test && npx karma start --single-run --reporters junit,dots",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
