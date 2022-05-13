@@ -1,12 +1,8 @@
 (ns cfapp.mobile.theme
   (:require
-   ["/views" :as views]
    [garden.stylesheet :refer [at-font-face]]
+   [cfapp.mobile.style.theme.core :refer [color]]
    [herb.core :refer [defglobal]]))
-
-;; TODO remove
-(def theme
-  (js->clj views/theme :keywordize-keys true))
 
 (defglobal
   reset-css
@@ -75,8 +71,8 @@
    Changes to Views's `GlobalStyle` must be manually reflected here."
   [:html :body :#root {:height "100%"}]
   [:html
-   {:background (get-in theme [:colors :background]) ;; FIXME use `color`
-    :color      (get-in theme [:colors :white])}]
+   {:background (color :background) ;; FIXME use `color`
+    :color      (color :white)}]
   [:root [:>div {:height "100%"}]]
   [:body
    {:font-family "'Aaux Next', sans-serif"

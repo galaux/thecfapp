@@ -6,8 +6,7 @@
  :jvm-opts     ["-Xmx1G"]
 
  :dev-http
-   {8280 ["resources/public"
-          "views/public"]
+   {8280 ["resources/public"]
     8290 "target/browser-test"}
 
  :builds
