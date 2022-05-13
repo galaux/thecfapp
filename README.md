@@ -1,4 +1,4 @@
-# TheCFApp
+# CFApp
 
 <!-- vim-markdown-toc GFM -->
 
@@ -137,7 +137,7 @@ specify in the Heroku UI for the app:
   - Clojure
 - all environment variables (Heroku calls them _Config vars_) that are listed
   in `./app.json` as well as:
-  - `HEROKU_APP_NAME`: the name of the Heroku application (`thecfapp-staging`
+  - `HEROKU_APP_NAME`: the name of the Heroku application (`cfapp-staging`
     for staging, …). We need to communicate this to the application as it used
     by Heroku in the URL.
 

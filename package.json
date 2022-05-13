@@ -1,11 +1,11 @@
 {
-  "name": "@thecfapp/mobile",
+  "name": "@cfapp/mobile",
   "version": "1.0.0",
   "private": true,
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/TheCFApp/thecfapp.git"
+    "url": "git+ssh://git@github.com/galaux/cfapp.git"
   },
   "scripts": {
     "postinstall": "git config core.hooksPath .githooks",
