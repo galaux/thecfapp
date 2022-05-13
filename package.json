@@ -8,6 +8,7 @@
     "url": "git+ssh://git@github.com/TheCFApp/thecfapp.git"
   },
   "scripts": {
+    "postinstall": "git config core.hooksPath .githooks",
     "ancient": "clojure -Sdeps '{:deps {com.github.liquidz/antq {:mvn/version \"RELEASE\"}}}' -m antq.core",
     "watch": "npx shadow-cljs watch mobile browser-test karma-test",
     "release": "npx shadow-cljs release mobile",
