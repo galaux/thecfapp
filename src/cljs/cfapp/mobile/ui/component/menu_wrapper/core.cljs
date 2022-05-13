@@ -19,6 +19,6 @@
       :nav-to-find-community #(do
                                 (close)
                                 (routing/nav-to :find-community))
-      :nav-to-my-communities #(do
-                                (close)
-                                (routing/nav-to :my-communities))})))
+      :nav-to-user-communities #(do
+                                  (close)
+                                  (routing/nav-to :user-communities))})))

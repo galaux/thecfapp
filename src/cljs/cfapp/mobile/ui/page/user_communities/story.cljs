@@ -1,14 +1,14 @@
-(ns cfapp.mobile.ui.page.my-communities.story
+(ns cfapp.mobile.ui.page.user-communities.story
   (:require
-   [cfapp.mobile.ui.page.my-communities.view :refer [my-communities]]
+   [cfapp.mobile.ui.page.user-communities.view :refer [user-communities]]
    [cfapp.mobile.ui.storybook :refer [->default]]
    [reagent.core :as r]
    [cfapp.mobile.ui.component.menu-wrapper.core :as menu]))
 
 (def ^:export default
   (->default
-    {:title     "Pages/My Communities"
-     :component my-communities}))
+    {:title     "Pages/User Communities"
+     :component user-communities}))
 
 (def ^:private logged-user
   {:first-name  "Joanna"
@@ -38,7 +38,7 @@
   [_args]
   (let [menu-props (menu/init-props)]
     (r/as-element
-      [my-communities
+      [user-communities
        {:menu-props      menu-props
         :logged-user     logged-user
         :communities     communities
@@ -48,7 +48,7 @@
   [_args]
   (let [menu-props (menu/init-props)]
     (r/as-element
-      [my-communities
+      [user-communities
        {:menu-props      menu-props
         :logged-user     logged-user
         :communities     []

@@ -1,4 +1,4 @@
-(ns cfapp.mobile.ui.page.my-communities.style
+(ns cfapp.mobile.ui.page.user-communities.style
   (:require
    [cfapp.mobile.ui.style.theme.core :refer [color]]))
 

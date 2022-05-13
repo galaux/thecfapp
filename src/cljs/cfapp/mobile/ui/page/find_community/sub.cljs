@@ -4,16 +4,16 @@
    [pyramid.core :as p]
    [re-frame.core :as rf]))
 
-;; TODO factorize with my-communities/sub
+;; TODO factorize with user-communities/sub
 (def ^:private community-pull
   [:id
    :name
    :member-count
    {:address
-      [:street
-       :zip-code
-       :city
-       :country]}])
+    [:street
+     :zip-code
+     :city
+     :country]}])
 
 (rf/reg-sub
   ::found-communities

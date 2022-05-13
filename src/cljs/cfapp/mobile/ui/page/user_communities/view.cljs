@@ -1,10 +1,10 @@
-(ns cfapp.mobile.ui.page.my-communities.view
+(ns cfapp.mobile.ui.page.user-communities.view
   (:require
    [cfapp.mobile.ui.component.text.view :refer [text]]
    [cfapp.mobile.ui.component.community-card.view :refer [community-card]]
    [cfapp.mobile.ui.component.layout.view :refer [layout]]
    [cfapp.mobile.ui.component.menu-wrapper.view :refer [menu-wrapper]]
-   [cfapp.mobile.ui.page.my-communities.style :as style]
+   [cfapp.mobile.ui.page.user-communities.style :as style]
    [herb.core :refer [<class]]))
 
 ;; TODO factorize this component to be used with "find-communities"?
@@ -26,7 +26,7 @@
                           #{:leave-community})
              (assoc :community community))]]))])
 
-(defn my-communities
+(defn user-communities
   [props]
   [menu-wrapper
    (select-keys props

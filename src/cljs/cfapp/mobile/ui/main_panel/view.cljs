@@ -5,7 +5,7 @@
    [cfapp.mobile.ui.page.logged-out.view :refer [logged-out]]
    [cfapp.mobile.ui.component.menu-wrapper.core :as menu]
    [cfapp.mobile.ui.page.find-community.core :refer [find-community]]
-   [cfapp.mobile.ui.page.my-communities.core :refer [my-communities]]
+   [cfapp.mobile.ui.page.user-communities.core :refer [user-communities]]
    [re-frame.core :as rf]
    [re-frame.db :as rf-db]))
 
@@ -34,7 +34,7 @@
                       ;; one which automatically redirects to Auth0.
                       :logged-out     logged-out
                       :find-community find-community
-                      :my-communities my-communities
+                      :user-communities user-communities
                       home)
         stage       @(auth/subscribe-stage)
         ;; TODO reconciliate backend user with what frontend wants:

@@ -11,7 +11,7 @@
     "logged-out" :logged-out
     "page-b" :page-b
     "find-community" :find-community
-    "my-communities" :my-communities
+    "user-communities" :user-communities
     ["community/" :id] :community}])
 
 

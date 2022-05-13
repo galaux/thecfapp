@@ -36,7 +36,7 @@
 (defn- drawer
   [{:keys [logged-user menu-props]}]
   (let [{:keys [close
-                nav-to-my-communities
+                nav-to-user-communities
                 nav-to-find-community
                 log-out]}
         menu-props]
@@ -63,7 +63,7 @@
         [menu-item
          {:icon-key Clipboard
           :label    "My communities"
-          :on-click nav-to-my-communities}]
+          :on-click nav-to-user-communities}]
         [menu-item
          {:icon-key Search
           :label    "Find a community"

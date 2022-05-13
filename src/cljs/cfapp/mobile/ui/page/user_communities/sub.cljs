@@ -1,4 +1,4 @@
-(ns cfapp.mobile.ui.page.my-communities.sub
+(ns cfapp.mobile.ui.page.user-communities.sub
   (:require
    [cfapp.common.graphql :refer [gql->clj index-by]]
    [pyramid.core :as p]

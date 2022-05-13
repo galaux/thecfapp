@@ -1,11 +1,11 @@
-(ns cfapp.mobile.ui.page.my-communities.core
+(ns cfapp.mobile.ui.page.user-communities.core
   (:require
    [cfapp.mobile.controller.community.core :as community-ctl]
-   [cfapp.mobile.ui.page.my-communities.sub :as sub]
-   [cfapp.mobile.ui.page.my-communities.view :as view]
+   [cfapp.mobile.ui.page.user-communities.sub :as sub]
+   [cfapp.mobile.ui.page.user-communities.view :as view]
    [re-frame.core :as rf]))
 
-(defn my-communities
+(defn user-communities
   [{:keys [logged-user]}]
   (let [logged-user-id (:id logged-user)]
     ;; Watch-out: order is important:
@@ -14,7 +14,7 @@
     (community-ctl/user-communities logged-user-id)
     (fn [{:keys [logged-user menu-props]}]
       (let [communities @(rf/subscribe [::sub/user-communities])]
-        (view/my-communities
+        (view/user-communities
           {:menu-props      menu-props
            :logged-user     logged-user
            :communities     (vals communities)
