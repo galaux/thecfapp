@@ -2,10 +2,10 @@
   (:require
    [cfapp.mobile.controller.auth.core :as auth]
    [cfapp.mobile.config :as config]
-   [cfapp.mobile.ui.main-panel.events :as events]
-   [cfapp.mobile.ui.main-panel.views :refer [main-panel]]
-   [cfapp.mobile.routing.core :as routing]
-   cfapp.mobile.theme
+   [cfapp.mobile.ui.main-panel.event :as event]
+   [cfapp.mobile.ui.main-panel.view :refer [main-panel]]
+   [cfapp.mobile.controller.routing.core :as routing]
+   cfapp.mobile.ui.style.global
    re-promise.core
    [re-frame.core :as re-frame]
    [re-graph.core :as re-graph]
@@ -51,7 +51,7 @@
 
 (defn init
   []
-  (re-frame/dispatch-sync [::events/initialize-db])
+  (re-frame/dispatch-sync [::event/initialize-db])
   (auth/init! config/auth)
   (dev-setup)
   (mount-root))

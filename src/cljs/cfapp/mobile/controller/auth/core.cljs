@@ -1,9 +1,9 @@
 (ns cfapp.mobile.controller.auth.core
   (:require
    ["@auth0/auth0-spa-js" :refer [createAuth0Client]]
-   [cfapp.mobile.controller.auth.events :as auth]
-   [cfapp.mobile.controller.auth.subs :as sub]
-   [cfapp.mobile.routing.events :as routing]
+   [cfapp.mobile.controller.auth.event :as auth]
+   [cfapp.mobile.controller.auth.sub :as sub]
+   [cfapp.mobile.controller.routing.event :as routing]
    [cljs.core.async :refer [go]]
    [cljs.core.async.interop :refer-macros [<p!]]
    [cljs.reader :refer [read-string]]

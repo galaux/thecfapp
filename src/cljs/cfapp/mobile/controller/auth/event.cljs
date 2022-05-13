@@ -1,4 +1,4 @@
-(ns cfapp.mobile.controller.auth.events
+(ns cfapp.mobile.controller.auth.event
   (:require
    [pyramid.core :as p]
    [re-frame.core :as rf]

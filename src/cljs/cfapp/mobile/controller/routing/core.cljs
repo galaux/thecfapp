@@ -1,7 +1,7 @@
-(ns cfapp.mobile.routing.core
+(ns cfapp.mobile.controller.routing.core
   (:require
    [bidi.bidi :as bidi]
-   [cfapp.mobile.routing.events :as event]
+   [cfapp.mobile.controller.routing.event :as event]
    [pushy.core :as pushy]
    [re-frame.core :as rf]))
 

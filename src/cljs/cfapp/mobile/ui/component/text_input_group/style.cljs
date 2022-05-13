@@ -1,6 +1,6 @@
 (ns cfapp.mobile.ui.component.text-input-group.style
   (:require
-   [cfapp.mobile.style.theme.core
+   [cfapp.mobile.ui.style.theme.core
     :refer
     [border-radius border-width color]]
    [garden.color :refer [darken]]

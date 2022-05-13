@@ -1,4 +1,4 @@
-(ns cfapp.mobile.ui.main-panel.subs
+(ns cfapp.mobile.ui.main-panel.sub
   (:require
    [re-frame.core :as re-frame]))
 

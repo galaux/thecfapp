@@ -1,6 +1,6 @@
-(ns cfapp.mobile.ui.page.logged-out.views
+(ns cfapp.mobile.ui.page.logged-out.view
   (:require
-   [cfapp.mobile.controller.auth.events :as auth]
+   [cfapp.mobile.controller.auth.event :as auth]
    [re-frame.core :as rf]))
 
 (defn logged-out

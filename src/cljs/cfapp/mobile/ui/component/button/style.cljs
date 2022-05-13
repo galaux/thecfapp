@@ -1,6 +1,6 @@
 (ns cfapp.mobile.ui.component.button.style
   (:require
-   [cfapp.mobile.style.theme.core
+   [cfapp.mobile.ui.style.theme.core
     :refer
     [border-radius border-width color edge-size font-weight text-size]]
    [garden.util :refer [space-join]]

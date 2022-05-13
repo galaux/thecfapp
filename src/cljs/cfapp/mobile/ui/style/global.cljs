@@ -1,11 +1,10 @@
-(ns cfapp.mobile.theme
+(ns cfapp.mobile.ui.style.global
   (:require
    [garden.stylesheet :refer [at-font-face]]
-   [cfapp.mobile.style.theme.core :refer [color]]
+   [cfapp.mobile.ui.style.theme.core :refer [color]]
    [herb.core :refer [defglobal]]))
 
-(defglobal
-  reset-css
+(defglobal reset-css
   "http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)"
@@ -38,8 +37,7 @@
   [:q [:before :after {:content "none"}]]
   [:table {:border-collapse "collapse" :border-spacing 0}])
 
-(defglobal
-  fonts
+(defglobal fonts
   [(at-font-face
      {:font-family "Aaux Next"
       :font-weight 400
@@ -65,8 +63,7 @@
       :src ["url(./assets/fonts/aauxnext-bd-webfont.woff2) format('woff2')"
             "url(./assets/fonts/aauxnext-bd-webfont.woff)  format('woff')"]})])
 
-(defglobal
-  global
+(defglobal global
   "Our base global theme ported from Views.
    Changes to Views's `GlobalStyle` must be manually reflected here."
   [:html :body :#root {:height "100%"}]

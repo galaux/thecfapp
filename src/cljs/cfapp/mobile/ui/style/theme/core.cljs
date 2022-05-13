@@ -1,6 +1,6 @@
-(ns cfapp.mobile.style.theme.core
+(ns cfapp.mobile.ui.style.theme.core
   (:require
-   [cfapp.mobile.style.theme.base :as base]))
+   [cfapp.mobile.ui.style.theme.base :as base]))
 
 ;; Modify this def live with `(set! theme-id :blue)` to change the theme
 (def theme-id :base)

@@ -1,7 +1,7 @@
 (ns cfapp.mobile.ui.component.menu-wrapper.core
   (:require
-   [cfapp.mobile.controller.auth.events :as auth-evt]
-   [cfapp.mobile.routing.core :as routing]
+   [cfapp.mobile.controller.auth.event :as auth-evt]
+   [cfapp.mobile.controller.routing.core :as routing]
    [re-frame.core :as rf]
    [reagent.core :as r]))
 

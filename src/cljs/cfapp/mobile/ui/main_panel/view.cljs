@@ -1,15 +1,15 @@
-(ns cfapp.mobile.ui.main-panel.views
+(ns cfapp.mobile.ui.main-panel.view
   (:require
    [cfapp.mobile.controller.auth.core :as auth]
-   [cfapp.mobile.ui.main-panel.subs :as subs]
-   [cfapp.mobile.ui.page.logged-out.views :refer [logged-out]]
+   [cfapp.mobile.ui.main-panel.sub :as sub]
+   [cfapp.mobile.ui.page.logged-out.view :refer [logged-out]]
    [cfapp.mobile.ui.component.menu-wrapper.core :as menu]
    [cfapp.mobile.ui.page.find-community.core :refer [find-community]]
    [cfapp.mobile.ui.page.my-communities.core :refer [my-communities]]
    [re-frame.core :as rf]
    [re-frame.db :as rf-db]))
 
-;; TODO remove shadow-cljs config for the "views" project
+;; TODO remove shadow-cljs config for the "vpiews" project
 
 (defn spinner
   []
@@ -25,7 +25,7 @@
 (defn main-panel
   []
   (let [home        find-community ;; TODO change for real home
-        page        (condp = @(rf/subscribe [::subs/curr-page])
+        page        (condp = @(rf/subscribe [::sub/curr-page])
                       :home           home
                       ;; TODO Last bit re auth: we configured Auth0 to redirect
                       ;; logged-out users

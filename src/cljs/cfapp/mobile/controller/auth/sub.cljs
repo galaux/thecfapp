@@ -1,4 +1,4 @@
-(ns cfapp.mobile.controller.auth.subs
+(ns cfapp.mobile.controller.auth.sub
   (:require
    [re-frame.core :as rf]
    [pyramid.core :as p]))

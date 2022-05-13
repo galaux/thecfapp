@@ -1,6 +1,6 @@
 (ns cfapp.mobile.ui.component.layout.style
   (:require
-   [cfapp.mobile.style.theme.core :refer [border-radius color]]
+   [cfapp.mobile.ui.style.theme.core :refer [border-radius color]]
    [garden.util :refer [space-join]]))
 
 (defn top-line

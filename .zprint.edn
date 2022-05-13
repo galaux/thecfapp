@@ -6,4 +6,5 @@
  :binding        {:indent 0}
  :map            {:comma? false
                   :indent 0}
- :pair           {:indent 0}}
+ :pair           {:indent 0}
+ :fn-map         {"defglobal" :arg1}}

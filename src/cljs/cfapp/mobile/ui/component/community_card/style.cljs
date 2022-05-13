@@ -1,6 +1,6 @@
 (ns cfapp.mobile.ui.component.community-card.style
   (:require
-   [cfapp.mobile.style.theme.core
+   [cfapp.mobile.ui.style.theme.core
     :refer
     [border-radius color edge-size text-size]]))
 

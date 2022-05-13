@@ -1,6 +1,6 @@
 (ns cfapp.mobile.ui.component.text.style
   (:require
-   [cfapp.mobile.style.theme.core :refer [color font-weight text-size]]))
+   [cfapp.mobile.ui.style.theme.core :refer [color font-weight text-size]]))
 
 (defn text
   [props]

@@ -1,4 +1,4 @@
-(ns cfapp.mobile.style.theme.base)
+(ns cfapp.mobile.ui.style.theme.base)
 
 (def border-radiuses
   {:xxxsmall ".25rem"

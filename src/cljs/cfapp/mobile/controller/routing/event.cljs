@@ -1,4 +1,4 @@
-(ns cfapp.mobile.routing.events
+(ns cfapp.mobile.controller.routing.event
   (:require
    [re-frame.core :as rf]))
 

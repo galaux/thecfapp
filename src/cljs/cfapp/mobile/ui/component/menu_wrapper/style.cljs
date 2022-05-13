@@ -1,6 +1,6 @@
 (ns cfapp.mobile.ui.component.menu-wrapper.style
   (:require
-   [cfapp.mobile.style.theme.core :refer [color]]
+   [cfapp.mobile.ui.style.theme.core :refer [color]]
    [garden.util :refer [space-join]]))
 
 (defn close-button
