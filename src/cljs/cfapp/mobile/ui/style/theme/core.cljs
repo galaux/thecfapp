@@ -2,6 +2,8 @@
   (:require
    [cfapp.mobile.ui.style.theme.base :as base]))
 
+(def app-name "CFApp")
+
 ;; Modify this def live with `(set! theme-id :blue)` to change the theme
 (def theme-id :base)
 

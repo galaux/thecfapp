@@ -61,7 +61,7 @@
                 #{:logged-user
                   :menu-props})
    [layout
-    {:title     "Find a community"
+    {:header    "Find a community"
      :open-menu (get-in props [:menu-props :open])}
     [body
      (select-keys props

@@ -2,68 +2,38 @@
   (:require
    ["lucide-react" :refer [Menu User]]
    [cfapp.mobile.ui.component.icon.view :refer [icon]]
-   [cfapp.mobile.ui.component.text.view :refer [text]]
    [cfapp.mobile.ui.component.layout.style :as style]
+   [cfapp.mobile.ui.component.text.view :refer [text]]
+   [cfapp.mobile.ui.style.theme.core :as theme]
+   [clojure.string :as s]
    [herb.core :refer [<class]]))
 
-(defn- menu-icon
-  [{:keys [open-menu]}]
-  [:div
-   {:class    (<class style/menu-icon)
-    :on-click open-menu}
-   [icon Menu]])
-
-(defn- user-icon
-  []
-  [:div
-   {:class (<class style/user-icon)}
-   [icon User]])
-
-(defn- page-heading
-  [title]
-  [:div
-   {:class (<class style/page-heading)}
-   [text
-    {:text-size      :medium
-     :font-weight    :semi-bold
-     :text-transform "uppercase"}
-    title]])
-
-(defn- header
-  [props title]
-  [:div
-   {:class (<class style/header)}
-   [:div
-    {:class (<class style/header-content)}
-    [:div
-     {:class (<class style/top-line)}
-     [menu-icon (select-keys props #{:open-menu})]
-     [:div
-      {:class (<class style/app-name)}
-      [text
-       {:text-size      :medium
-        :font-weight    :semi-bold
-        :text-transform "uppercase"}
-       "WodIt"]]
-     [user-icon]]
-    [page-heading title]]])
-
-(def ^:private footer
-  [:div
-   {:class (<class style/footer)}
-   [text
-    {:text-size :xxxsmall}
-    "© 2021 CFApp, all rights reserved"]])
-
 (defn layout
-  [{:keys [title] :as props} body]
-  [:div
-   {:class (<class style/container)}
-   [header
-    (select-keys props
-                 #{:open-menu})
-    title]
-   [:div
-    {:class (<class style/body)}
-    body]
-   footer])
+  [{sub-header :header :keys [open-menu]} body]
+  [:div {:class (<class style/container)}
+   [:div {:class (<class style/header-wrapper)}
+    [:div {:class (<class style/header)}
+     [:div {:class (<class style/top-line)}
+      [:div {:on-click open-menu}
+       [icon Menu]]
+      [text
+       ;; TODO change letter spacing
+       {:font-weight    :bold
+        :text-transform :uppercase
+        :text-size      :medium}
+       theme/app-name]
+      [icon User]]
+     [:div {:class (<class style/sub-header)}
+      (if (string? sub-header)
+        [text
+         {:color          :white
+          :font-weight    :bold
+          :text-transform :uppercase}
+         sub-header]
+        sub-header)]]
+    [:div {:class (<class style/body)}
+     body]]
+   [:div {:class (<class style/footer)}
+    [text
+     {:text-size :xxxsmall}
+     (s/join " " ["© 2022" theme/app-name ", all rights reserved"])]]])

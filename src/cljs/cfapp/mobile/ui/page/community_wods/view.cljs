@@ -14,7 +14,7 @@
                 #{:logged-user
                   :menu-props})
    [layout
-    {:title     (:name community)
+    {:header    (:name community)
      :open-menu (get-in props [:menu-props :open])}
     [:div
      {:class (<class style/parent)}

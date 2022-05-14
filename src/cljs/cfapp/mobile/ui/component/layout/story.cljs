@@ -14,5 +14,5 @@
   (r/as-element
     [layout
      {:open-menu #(println "Open menu")
-      :title     "Page title"}
+      :header    "Page title"}
      "Page body"]))
