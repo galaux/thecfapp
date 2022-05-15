@@ -1,18 +1,20 @@
 (ns cfapp.mobile.ui.component.wod-card.story
   (:require
    [cfapp.mobile.ui.component.wod-card.view :refer [wod-card]]
-   [cfapp.mobile.ui.storybook :refer [->default]]
+   [cfapp.mobile.ui.storybook :as sb-util]
    [reagent.core :as r]))
 
 (def ^:export default
-  (->default
+  (sb-util/->default
     {:title     "Component/WoD Card"
      :component wod-card}))
+
+(def href-props
+  {:href {:create-score identity}})
 
 (defn ^:export base
   [_args]
   (r/as-element
     [wod-card
-     {:name        "DT"
-      :description "Run till you die"
-      :score-count 23}]))
+     href-props
+     sb-util/wod]))

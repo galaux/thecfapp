@@ -18,27 +18,24 @@
 
 (defn header
   []
-  (let [height   "200px"
-        h-radius (space-join
-                   [0 0 (border-radius :xsmall) (border-radius :xsmall)])]
-    (with-meta
-      {:min-height    height
-       :border-radius h-radius
-       :display       :block
-       :position      :relative}
-      {:pseudo
-       {:after
-        {:content          "''"
-         :position         :absolute
-         :top              0
-         :right            0
-         :bottom           0
-         :left             0
-         :background-image "url(./images/header-background-image.png)"
-         :opacity          0.1
-         :z-index          -1}}})))
+  (with-meta
+    {:border-radius (space-join
+                      [0 0 (border-radius :xsmall) (border-radius :xsmall)])
+     :display       :block
+     :position      :relative}
+    {:pseudo
+     {:after
+      {:content          "''"
+       :position         :absolute
+       :top              0
+       :right            0
+       :bottom           0
+       :left             0
+       :background-image "url(./images/header-background-image.png)"
+       :opacity          0.1
+       :z-index          -1}}}))
 
-(defn sub-header
+(defn sub-header-wrapper
   []
   {:padding "15px"})
 

@@ -15,6 +15,4 @@
       :find-communities (partial community-ctl/lookup logged-user-id)
       :join-community   (partial community-ctl/join logged-user-id)
       :leave-community  (partial community-ctl/leave logged-user-id)
-      :communities      found-communities}]))
-
-
+      :communities      (map community-ctl/with-href found-communities)}]))

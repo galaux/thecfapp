@@ -16,9 +16,5 @@
       :open       open
       :close      close
       :log-out    #(rf/dispatch [::auth-evt/logout])
-      :nav-to-find-community #(do
-                                (close)
-                                (routing/nav-to :find-community))
-      :nav-to-user-communities #(do
-                                  (close)
-                                  (routing/nav-to :user-communities))})))
+      :href       {:find-community   routing/href-find-community
+                   :user-communities routing/href-user-communities}})))

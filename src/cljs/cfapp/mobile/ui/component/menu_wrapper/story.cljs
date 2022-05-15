@@ -20,11 +20,7 @@
   [_args]
   (r/as-element
     (let [menu-props (assoc (core/init-props true)
-                       :log-out #(println "Log out")
-                       :nav-to-find-community
-                       #(println "Nav to find-community")
-                       :nav-to-user-communities
-                       #(println "Nav to user-communities"))]
+                       :log-out #(println "Log out"))]
       [menu-wrapper
        {:menu-props  menu-props
         :logged-user logged-user}

@@ -7,4 +7,9 @@
  :map            {:comma? false
                   :indent 0}
  :pair           {:indent 0}
- :fn-map         {"defglobal" :arg1}}
+ :fn-map         {"defcard" :arg1
+                  "defcard-rg" :arg1
+                  "defglobal" :arg1
+                  "reg-event-fx" :arg1
+                  "reg-fx" :arg1
+                  "reg-sub" :arg1}}

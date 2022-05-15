@@ -32,7 +32,7 @@
 (defn- dispatch-get-user
   [user-id]
   (rf/dispatch [::re-graph/query
-                :find-community
+                :find-community ;; TODO
                 gql-get-user
                 {:userId user-id}
                 [::auth/set-logged-in]]))
@@ -62,6 +62,12 @@
               page (some-> callback-result
                            .-appState
                            read-string
+                           ;; FIXME we should not pass a keyword to Auth0
+                           ;; but the full href like "/user-communities/13"
+                           ;; that Bidi will translates into a kw.
+                           ;; Also it seems for now we always receive
+                           ;; `find-community`: I must have set it somewhere
+                           ;; either in code or maybe Auth0 side
                            keyword)]
           ;; Query parameters must be removed from the URL so that if user
           ;; refreshes the page, we don't falsly detect case B again

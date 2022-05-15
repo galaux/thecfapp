@@ -17,6 +17,11 @@
    :flex-direction  "row"
    :justify-content "space-between"})
 
+(defn link
+  []
+  {:color (color :white)
+   :text-decoration :none})
+
 (defn address
   []
   {:flex-grow 1

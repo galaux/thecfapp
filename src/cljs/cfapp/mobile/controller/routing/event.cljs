@@ -4,5 +4,5 @@
 
 (rf/reg-event-db
   ::nav-to
-  (fn [db [_ page-key]]
-    (assoc db :curr-page page-key)))
+  (fn [db [_ page-id]]
+    (assoc db :curr-page page-id)))

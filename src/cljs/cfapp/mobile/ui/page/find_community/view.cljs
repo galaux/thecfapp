@@ -4,9 +4,9 @@
    [cfapp.mobile.ui.component.community-card.view :refer [community-card]]
    [cfapp.mobile.ui.component.menu-wrapper.view :refer [menu-wrapper]]
    [cfapp.mobile.ui.component.layout.view :refer [layout]]
-   [cfapp.mobile.ui.component.text-input-group.view
+   [cfapp.mobile.ui.component.search-input-group.view
     :refer
-    [text-input-group]]
+    [search-input-group]]
    [cfapp.mobile.ui.page.find-community.style :as style]
    [herb.core :refer [<class]]
    [reagent.core :as r]))
@@ -42,7 +42,7 @@
   (let [state (r/atom nil)]
     (fn [{:keys [find-communities] :as props}]
       [:div
-       [text-input-group
+       [search-input-group
         {:id        :search-community
          :label     "Search a community"
          :value     @state
@@ -61,8 +61,8 @@
                 #{:logged-user
                   :menu-props})
    [layout
-    {:header    "Find a community"
-     :open-menu (get-in props [:menu-props :open])}
+    {:sub-header "Find a community"
+     :open-menu  (get-in props [:menu-props :open])}
     [body
      (select-keys props
                   #{:communities

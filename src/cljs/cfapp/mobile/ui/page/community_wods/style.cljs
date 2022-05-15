@@ -12,3 +12,15 @@
    :right      0
    :min-height "100px"
    :padding    "15px 0 0 0"})
+
+(defn header
+  []
+  {:display         :flex
+   :flex-direction  :column
+   :justify-content :space-between})
+
+(defn header-footer
+  []
+  {:display         :flex
+   :justify-content :space-between
+   :padding-top     "25px"})

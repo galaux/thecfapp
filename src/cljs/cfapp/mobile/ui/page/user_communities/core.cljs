@@ -3,7 +3,8 @@
    [cfapp.mobile.controller.community.core :as community-ctl]
    [cfapp.mobile.ui.page.user-communities.sub :as sub]
    [cfapp.mobile.ui.page.user-communities.view :as view]
-   [re-frame.core :as rf]))
+   [re-frame.core :as rf]
+   [cfapp.mobile.controller.routing.core :as routing]))
 
 (defn user-communities
   [{:keys [logged-user]}]
@@ -17,5 +18,6 @@
         (view/user-communities
           {:menu-props      menu-props
            :logged-user     logged-user
-           :communities     (vals communities)
-           :leave-community (partial community-ctl/leave logged-user-id)})))))
+           :communities     (map community-ctl/with-href (vals communities))
+           :leave-community (partial community-ctl/leave logged-user-id)
+           :href            {:community-wods routing/href-community-wods}})))))

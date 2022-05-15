@@ -5,9 +5,11 @@
    [cfapp.api.db.domain.user :as user]
    [cfapp.api.db.domain.wod :as wod]
    [cfapp.api.db.domain.workout :as workout]
-   [clojure.spec.gen.alpha :as gen])
+   [clojure.java.io :as io]
+   [clojure.spec.gen.alpha :as gen]
+   [clojure.edn :as edn])
   (:import
-   java.util.UUID))
+   (java.util UUID)))
 
 (defn- many-to-many-links
   [attr link-count entities-a entities-b]
@@ -59,28 +61,44 @@
                    :user/email (format know-user-email i)))
                (better-sample user/user-gen (count known-user-ids))))
 
-(defn bootstrap-tx
+(defn rand-id
+  [_]
+  (UUID/randomUUID))
+
+(defn read-entities
+  [e]
+  (edn/read-string
+    {:readers {'rand-id rand-id}}
+    e))
+
+(def slurp-edn (comp read-entities slurp io/resource))
+
+(defn gen-txes
   []
-  (let [communities (-> (better-sample community/community-gen 10)
-                        with-tmp-db-ids)
-        scores      (-> (gen/sample score/score-gen 300)
-                        with-tmp-db-ids)
+  (let [movements   (slurp-edn "movements.edn")
+        ;; communities (-> (better-sample community/community-gen 10)
+        ;;                 with-tmp-db-ids)
+        communities (slurp-edn "communities.edn")
+        ;; ;; scores      (-> (gen/sample score/score-gen 300)
+        ;; ;;                 with-tmp-db-ids)
         users       (-> (concat (better-sample user/user-gen 40)
                                 (gen-known-users))
                         with-tmp-db-ids)
         wods        (-> (better-sample wod/wod-gen 100)
                         with-tmp-db-ids)
-        workouts    (-> (better-sample workout/workout-gen 100)
-                        with-tmp-db-ids)]
-    (concat communities
-            scores
+        ;; workouts    (-> (better-sample workout/workout-gen 100)
+        ;;                 with-tmp-db-ids)
+        workouts    (slurp-edn "workouts.edn")]
+    (concat movements
+            communities
+            ;; scores
             users
             workouts
             wods
             (many-to-many-links :community.privs/member 50 users communities)
             (compulsory-1-to-1-links :wod/community wods communities)
-            (compulsory-1-to-1-links :wod/workout wods workouts)
-            ;; TODO improve this because it currently makes users do wods
-            ;; for communities they might not belong to
-            (compulsory-1-to-1-links :score/user scores users)
-            (compulsory-1-to-1-links :score/wod scores wods))))
+            (compulsory-1-to-1-links :wod/workout wods workouts))))
+           ;; TODO improve this because it currently makes users do wods
+           ;; for communities they might not belong to
+           ;; (compulsory-1-to-1-links :score/user scores users)
+           ;; (compulsory-1-to-1-links :score/wod scores wods))))

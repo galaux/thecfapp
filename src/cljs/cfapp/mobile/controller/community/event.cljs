@@ -27,7 +27,7 @@
                                     (assoc-in [:logged-user :communities]
                                               ui-user-communities)
                                     (assoc :found-communities
-                                             found-ui-communities))]
+                                           found-ui-communities))]
       ;; TODO have this p/add in the `state` ns?
       (p/add db db-accretion))))
 
@@ -56,3 +56,18 @@
     ;; TODO protect against "unfound" community?
     ;; (problem will go away once we use normalization anyway)
     (community-state/leave db (:removeUserFromCommunity data))))
+
+(defn str->date
+  [str-date]
+  (js/Date. str-date))
+
+(re-frame/reg-event-db
+  ::on-community-by-id
+  (fn [db [_ {:keys [data errors]}]]
+    ;; TODO handle errors
+    (let [community (-> (:community data)
+                        gql->clj
+                        (update :wods
+                                #(map (fn [wod] (update wod :date str->date))
+                                   %)))]
+      (p/add db community))))

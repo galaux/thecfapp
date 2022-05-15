@@ -1,0 +1,57 @@
+CommunityById($id: ID!) {
+  community(id: $id) {
+    id
+    name
+    wods {
+      id
+      date
+      workout {
+        id
+        name
+        loop {
+          ...WorkoutLoopFragment
+        }
+      }
+      scores {
+        id
+      }
+    }
+  }
+}
+
+fragment ExerciseFragment on Exercise {
+  movement {
+    id
+    name
+  }
+  application {
+    value {
+      all
+      men
+      women
+    }
+    unit
+  }
+  repCount
+}
+
+fragment TaskFragment on Task {
+  __typename
+  ... on Exercise {
+    ...ExerciseFragment
+  }
+  ... on WorkoutLoop {
+    ...WorkoutLoopFragment
+  }
+}
+
+fragment WorkoutLoopFragment on WorkoutLoop {
+  roundCount
+  capTime
+  period
+  duration
+  scoreType
+  tasks {
+    ...TaskFragment
+  }
+}

@@ -3,36 +3,13 @@
    [cfapp.mobile.ui.page.find-community.view :refer [find-community]]
    [cfapp.mobile.ui.storybook :refer [->default]]
    [reagent.core :as r]
-   [cfapp.mobile.ui.component.menu-wrapper.core :as menu]))
+   [cfapp.mobile.ui.component.menu-wrapper.core :as menu]
+   [cfapp.mobile.ui.storybook :as sb]))
 
 (def ^:export default
   (->default
     {:title     "Pages/Find Community"
      :component find-community}))
-
-(def ^:private logged-user
-  {:first-name  "Joanna"
-   :last-name   "Wallace"
-   :avatar-path
-   "https://randomuser.me/api/portraits/women/13.jpg"})
-
-(def ^:private communities
-  [{:id           "89898"
-    :name         "CrossFit Lutèce"
-    :address      {:street   "4 rue Jules Simon"
-                   :zip-code "75015"
-                   :city     "Paris"
-                   :country  "France"}
-    :is-member?   true
-    :member-count 9}
-   {:id           "134"
-    :name         "Crossfit Dansaert"
-    :address      {:street   "Rue Vandenbranden, 1"
-                   :zip-code "1000"
-                   :city     "Brussels"
-                   :country  "Belgium"}
-    :is-member?   true
-    :member-count 28}])
 
 (defn ^:export primary
   [_args]
@@ -40,8 +17,8 @@
     (r/as-element
       [find-community
        {:menu-props  menu-props
-        :logged-user logged-user
-        :communities communities}])))
+        :logged-user sb/logged-user
+        :communities sb/communities}])))
 
 (defn ^:export no-search-yet
   [_args]
@@ -49,7 +26,7 @@
     (r/as-element
       [find-community
        {:menu-props  menu-props
-        :logged-user logged-user
+        :logged-user sb/logged-user
         :communities nil}])))
 
 (defn ^:export no-communities
@@ -58,5 +35,5 @@
     (r/as-element
       [find-community
        {:menu-props  menu-props
-        :logged-user logged-user
+        :logged-user sb/logged-user
         :communities []}])))

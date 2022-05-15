@@ -1,9 +1,8 @@
 (ns cfapp.api.db.core
   (:require
-   [integrant.core :as ig]
    [clojure.edn :as edn]
    [clojure.java.io :as io]
-   [clojure.spec.gen.alpha :as gen]
+   [clojure.pprint]
    [datomic.client.api :as d]))
 
 (defn ident-exists?

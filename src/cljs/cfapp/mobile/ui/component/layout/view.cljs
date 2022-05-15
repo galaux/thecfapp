@@ -9,7 +9,10 @@
    [herb.core :refer [<class]]))
 
 (defn layout
-  [{sub-header :header :keys [open-menu]} body]
+  "Watch-out: pages should not declare a sub-header which height exceeds the
+  height of the header's background image otherwise said background image
+  will be repeated."
+  [{:keys [sub-header open-menu]} body]
   [:div {:class (<class style/container)}
    [:div {:class (<class style/header-wrapper)}
     [:div {:class (<class style/header)}
@@ -23,7 +26,7 @@
         :text-size      :medium}
        theme/app-name]
       [icon User]]
-     [:div {:class (<class style/sub-header)}
+     [:div {:class (<class style/sub-header-wrapper)}
       (if (string? sub-header)
         [text
          {:color          :white

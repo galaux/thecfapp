@@ -16,10 +16,9 @@
    :position         :relative})
 
 (defn header
-  []
+  [wod-color-key]
   (with-meta
-    {;:background-color "lightblue"
-     :display         "flex"
+    {:display         "flex"
      :justify-content "space-between"}
     {:pseudo
      {:before
@@ -29,7 +28,7 @@
        :left             0
        :width            "100%"
        :height           "7px"
-       :background-color (color :blue)
+       :background-color (color wod-color-key)
        :border-radius    (space-join [(border-radius :small)
                                       (border-radius :small)
                                       0
@@ -37,9 +36,11 @@
 
 (defn description
   []
-  {;:background-color "olive"
-   :padding-top "15px"})
+  {:padding-top "15px"})
 
 (defn footer
   []
-  {});:background-color "tomato"})
+  {:display         :flex
+   :justify-content :space-between
+   :align-items     :center
+   :padding-top     "25px"})

@@ -19,6 +19,12 @@
 ;; (def ^:private add-community-input-spec
 ;;   (s/keys :req-un [:graphql.NewCommunityInput/name]))
 
+;; There is a slight confusion in the naming of the resolvers that generates
+;; a name collision. Some root Query resolvers have the same naming convention
+;; as some field resolvers but their signature differ. For instance:
+;; :Query/wod-scores         score/by-wod-id
+;; :Wod/scores               score/by-wod-id
+;; TODO Find 2 naming conventions for these
 (def ^:private resolver-map
   {:Community/wods           wod/by-community-id
    :Community/member-count   community/member-count
@@ -38,11 +44,12 @@
    :Query/user-communities   community/user-communities
    :Query/user-wods          wod/by-user-id
    :Query/user-workouts      workout/by-user-id         ;; Not used by mobile
+   :Query/wod-scores         score/by-wod-id
    :Score/user               user/by-score-id
    :Score/wod                wod/by-score-id
    :User/communities         community/user->communities
    :Wod/community            community/by-wod-id
-   :Wod/scores               score/by-wod-id
+   :Wod/scores               score/for-wod
    :Wod/workout              workout/by-wod-id})
 
 (def date-formatter

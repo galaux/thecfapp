@@ -1,9 +1,15 @@
 (ns cfapp.mobile.controller.community.core
   (:require
    [cfapp.mobile.controller.community.event :as event]
+   [re-frame.core :as rf]
    [re-graph.core :as re-graph]
    [shadow.resource :as rc]
-   [re-frame.core :as rf]))
+   [cfapp.mobile.controller.routing.core :as routing]))
+
+(defn with-href
+  [{:keys [id] :as community}]
+  (assoc community
+    :href (routing/href-community-wods id)))
 
 (def ^:private gql-find-community
   (rc/inline "./find-community.gql"))
@@ -55,3 +61,17 @@
      {:userId      logged-user-id
       :communityId community-id}
      [::event/on-left-community]]))
+
+(def ^:private gql-community-by-id
+  (rc/inline "./community-by-id.gql"))
+
+;; TODO This query should not get the list of scores but maybe just a custom
+;; computed `score-count`
+(defn by-id
+  [community-id]
+  (rf/dispatch
+    [::re-graph/query
+     :community-by-id
+     gql-community-by-id
+     {:id community-id}
+     [::event/on-community-by-id]]))

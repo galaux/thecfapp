@@ -85,10 +85,11 @@
 
 (defn menu-item
   []
-  {:display        "flex"
-   :flex-direction "row"
-   :padding-top    "25px"
-   :cursor         "pointer"})
+  {:display         :flex
+   :padding-top     "25px"
+   :color           (color :white)
+   :text-decoration :none
+   :cursor          :pointer})
 
 (defn menu-items-bottom
   []

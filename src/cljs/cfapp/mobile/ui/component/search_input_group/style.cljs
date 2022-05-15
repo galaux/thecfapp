@@ -1,4 +1,4 @@
-(ns cfapp.mobile.ui.component.text-input-group.style
+(ns cfapp.mobile.ui.component.search-input-group.style
   (:require
    [cfapp.mobile.ui.style.theme.core
     :refer
@@ -6,7 +6,7 @@
    [garden.color :refer [darken]]
    [garden.util :refer [space-join]]))
 
-(defn text-input-group
+(defn input-group
   []
   {:display        "flex"
    :flex-direction "column"})

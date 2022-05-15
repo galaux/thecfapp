@@ -17,6 +17,9 @@
 (def colors
   {:background "#1D1D22"
    :blue       "#1160D6"
+   :green      "#68DA94"
+   :purple     "#8126F4"
+   :yellow     "#EEE223"
    :dark-blue  "#204582"
    ;; Gray scales
    :black      "#000000"

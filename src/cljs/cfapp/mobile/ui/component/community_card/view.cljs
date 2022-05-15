@@ -9,15 +9,18 @@
 
 (defn community-card
   [{:keys [community join-community leave-community]}]
-  (let [{:keys [id name address is-member? member-count]} community]
+  (let [{:keys [id href name address is-member? member-count]} community]
     [:div
      {:class (<class style/community-card)}
      [:div
       {:class (<class style/top-line)}
-      [text
-       {:text-size      :small
-        :text-transform "uppercase"}
-       name]
+      [:a ;; TODO factorize as a component
+       {:class (<class style/link)
+        :href  href}
+       [text
+        {:text-size      :small
+         :text-transform "uppercase"}
+        name]]
       [chip Users member-count]]
      [:div
       {:class (<class style/address)}

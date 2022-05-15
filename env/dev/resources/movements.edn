@@ -1,0 +1,28 @@
+[{:movement/id #rand-id nil :movement/name "Air Squat"}
+ {:movement/id #rand-id nil :movement/name "Bench Press"}
+ {:movement/id #rand-id nil :movement/name "Clean"}
+ {:movement/id #rand-id nil :movement/name "Clean & Jerk"}
+ {:movement/id #rand-id nil :movement/name "Deadlift"}
+ {:movement/id #rand-id nil :movement/name "Double-Under"}
+ {:movement/id #rand-id nil :movement/name "Double Kettlebell Squat"}
+ {:movement/id #rand-id nil :movement/name "Double Kettlebell Clean"}
+ {:movement/id #rand-id nil :movement/name "Double Kettlebell Thruster"}
+ {:movement/id #rand-id nil :movement/name "Double Dumbell Clean & Jerk"}
+ {:movement/id #rand-id nil :movement/name "Handstand Push-Up"}
+ {:movement/id #rand-id nil :movement/name "Handstand Walk"}
+ {:movement/id #rand-id nil :movement/name "Kettlebell Swing"}
+ {:movement/id #rand-id nil :movement/name "Overhead Squat"}
+ {:movement/id #rand-id nil :movement/name "Pistol"}
+ {:movement/id #rand-id nil :movement/name "Pull-Up"}
+ {:movement/id #rand-id nil :movement/name "Push-Up"}
+ {:movement/id #rand-id nil :movement/name "Rest"}
+ {:movement/id #rand-id nil :movement/name "Ring Dip"}
+ {:movement/id #rand-id nil :movement/name "Row"}
+ {:movement/id #rand-id nil :movement/name "Run"}
+ {:movement/id #rand-id nil :movement/name "Russian Kettlebell Swing"}
+ {:movement/id #rand-id nil :movement/name "Single Dumbell Clean & Jerk"}
+ {:movement/id #rand-id nil :movement/name "Sit-Up"}
+ {:movement/id #rand-id nil :movement/name "Snatch"}
+ {:movement/id #rand-id nil :movement/name "Strict Pull-Up"}
+ {:movement/id #rand-id nil :movement/name "Thruster"}
+ {:movement/id #rand-id nil :movement/name "Wall Ball Shot"}]

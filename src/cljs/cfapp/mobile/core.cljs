@@ -3,6 +3,7 @@
    [cfapp.mobile.controller.auth.core :as auth]
    [cfapp.mobile.config :as config]
    [cfapp.mobile.ui.main-panel.event :as event]
+   [cfapp.mobile.controller.score.event]
    [cfapp.mobile.ui.main-panel.view :refer [main-panel]]
    [cfapp.mobile.controller.routing.core :as routing]
    cfapp.mobile.ui.style.global

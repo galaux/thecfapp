@@ -4,10 +4,17 @@
    [cfapp.mobile.ui.component.button.style :as style]))
 
 (defn button
-  [{:keys [variant on-click]
-    :or   {variant :primary}}
+  [{:keys [type variant on-click href]
+    :or   {type :button variant :primary}}
    label]
-  [:button
-   {:class    (<class style/button variant)
-    :on-click on-click}
-   label])
+  (case type
+    :button
+    [:button
+     {:class    (<class style/button variant)
+      :on-click on-click}
+     label]
+    :link
+    [:a
+     {:class (<class style/button variant)
+      :href  href}
+     label]))

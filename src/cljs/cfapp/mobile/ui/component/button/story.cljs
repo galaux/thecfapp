@@ -13,9 +13,11 @@
   [_args]
   (r/as-element
     [:div
-     (for [variant [:primary :success :danger :warning :info]]
+     (for [type    [:button :link]
+           variant [:primary :success :danger :warning :info]]
        ^{:key variant}
        [button
-        {:variant  variant
+        {:type     type
+         :variant  variant
          :on-click #(println variant)}
         variant])]))

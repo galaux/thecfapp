@@ -33,8 +33,8 @@
                 #{:logged-user
                   :menu-props})
    [layout
-    {:header    "My communities"
-     :open-menu (get-in props [:menu-props :open])}
+    {:sub-header "My communities"
+     :open-menu  (get-in props [:menu-props :open])}
     [community-list
      (select-keys props
                   #{:communities

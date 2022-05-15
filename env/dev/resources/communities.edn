@@ -1,0 +1,42 @@
+[{:db/id "crossfit dansaert"
+  :community/id #rand-id nil
+  :community/name "CrossFit Dansaert"
+  :community.address/street "Rue Vandenbranden 1"
+  :community.address/zip-code "1000"
+  :community.address/city "Brussels"
+  :community.address/country "Belgium"}
+ {:db/id "crossfit lutece"
+  :community/id #rand-id nil
+  :community/name "CrossFit Lutèce"
+  :community.address/street "4 rue Jules Simon"
+  :community.address/zip-code "75015"
+  :community.address/city "Paris"
+  :community.address/country "France"}
+ {:db/id "crossfit exit8"
+  :community/id #rand-id nil
+  :community/name "CrossFit Exit8"
+  :community.address/street "Romeinsesteenweg 868"
+  :community.address/zip-code "1780"
+  :community.address/city "Wemmel"
+  :community.address/country "Belgium"}
+ {:db/id "crossfit power factory"
+  :community/id #rand-id nil
+  :community/name "CrossFit Power Factory"
+  :community.address/street "9-13 rue d'Idalie"
+  :community.address/zip-code "1050"
+  :community.address/city "Brussels"
+  :community.address/country "Belgium"}
+ {:db/id "crossfit w950"
+  :community/id #rand-id nil
+  :community/name "CrossFit W950"
+  :community.address/street "950 Chaussee de Wavre"
+  :community.address/zip-code "1000"
+  :community.address/city "Brussels"
+  :community.address/country "Belgium"}
+ {:db/id "crossfit vince21"
+  :community/id #rand-id nil
+  :community/name "CrossFit Vince21"
+  :community.address/street "Rue César Franck 30"
+  :community.address/zip-code "1190"
+  :community.address/city "Brussels"
+  :community.address/country "Belgium"}]

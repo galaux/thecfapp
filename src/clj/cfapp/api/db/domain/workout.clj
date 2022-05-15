@@ -12,25 +12,25 @@
 (s/def :workout/name :util/non-blank-string)
 (s/def :workout/description :util/non-blank-string)
 (s/def :workout/scoring-type
-  #{:workout.scoring-type/duration-ms
+  #{:workout.scoring-type/duration-ms ;; TODO wrong
     :workout.scoring-type/repetitions})
 
 (defn- gen-workout
   []
   (gen/fmap
-   (fn [[scoring-type lorem1 lorem2 lorem3 lorem4]]
+    (fn [[scoring-type lorem1 lorem2 lorem3 lorem4]]
       {:workout/id           (UUID/randomUUID)
        :workout/name         (->> [lorem1 lorem2 lorem3]
                                   (map str/capitalize)
                                   (str/join " "))
        :workout/description  lorem4
        :workout/scoring-type scoring-type})
-   (gen/tuple
-    (s/gen :workout/scoring-type)
-    (s/gen (set (get-in fake-data [:lorem-ipsum])))
-    (s/gen (set (get-in fake-data [:lorem-ipsum])))
-    (s/gen (set (get-in fake-data [:lorem-ipsum])))
-    (s/gen (set (get-in fake-data [:lorem-ipsum]))))))
+    (gen/tuple
+      (s/gen :workout/scoring-type)
+      (s/gen (set (get-in fake-data [:lorem-ipsum])))
+      (s/gen (set (get-in fake-data [:lorem-ipsum])))
+      (s/gen (set (get-in fake-data [:lorem-ipsum])))
+      (s/gen (set (get-in fake-data [:lorem-ipsum]))))))
 
 (s/def ::workout
   (s/with-gen
@@ -43,11 +43,43 @@
 (def workout-gen (s/gen ::workout))
 
 
-(def ^:private base-workout-pull
+(def pp-exercise
+  [{:exercise/movement
+    [:movement/id
+     :movement/name]}
+   {:exercise/application
+    [{:exercise.application/value
+      [:exercise.application.value/all
+       :exercise.application.value/men
+       :exercise.application.value/women]}
+     :exercise.application/unit]}
+   :exercise/rep-count])
+
+(def pp-loop-shallow
+  [:workout.loop/cap-time
+   :workout.loop/duration
+   :workout.loop/period
+   :workout.loop/round-count
+   :workout.loop/score-type
+   {:workout.loop/tasks pp-exercise}])
+
+(def pp-task
+  (concat pp-exercise
+          pp-loop-shallow))
+
+(def pp-task-shallow
+  pp-exercise)
+
+(def pp-workout
   [:workout/id
    :workout/name
-   :workout/description
-   :workout/scoring-type])
+   {:workout/loop
+    [:workout.loop/cap-time
+     :workout.loop/duration
+     :workout.loop/period
+     :workout.loop/round-count
+     :workout.loop/score-type
+     {:workout.loop/tasks pp-task}]}])
 
 (def ^:private q-all
   '[:find (pull ?e pull-expr)
@@ -56,19 +88,19 @@
 
 (defn all
   [db]
-  (->> (d/q q-all db base-workout-pull)
+  (->> (d/q q-all db pp-workout)
        flatten))
 
 (def q-by-wod-id
-  '[:find (pull ?workout [*])
-    :in $ ?wod-id
+  '[:find (pull ?workout pull-pattern)
+    :in $ ?wod-id pull-pattern
     :where
     [?wod :wod/id ?wod-id]
     [?wod :wod/workout ?workout]])
 
 (defn by-wod-id
   [db id]
-  (->> (d/q q-by-wod-id db id)
+  (->> (d/q q-by-wod-id db id pp-workout)
        ffirst))
 
 (def ^:private q-by-user-id
