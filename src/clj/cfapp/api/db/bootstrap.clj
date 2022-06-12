@@ -88,7 +88,9 @@
                         with-tmp-db-ids)
         ;; workouts    (-> (better-sample workout/workout-gen 100)
         ;;                 with-tmp-db-ids)
-        workouts    (slurp-edn "workouts.edn")]
+        workouts    (concat
+                      (slurp-edn "workouts/named.edn")
+                      (slurp-edn "workouts/custom.edn"))]
     (concat movements
             communities
             ;; scores

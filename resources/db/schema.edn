@@ -42,15 +42,15 @@
  ;; Exercise application
  {:db/doc         "Exercise application value for all"
   :db/ident       :exercise.application.value/all
-  :db/valueType   :db.type/long
+  :db/valueType   :db.type/double
   :db/cardinality :db.cardinality/one}
  {:db/doc         "Exercise application value for men"
   :db/ident       :exercise.application.value/men
-  :db/valueType   :db.type/long
+  :db/valueType   :db.type/double
   :db/cardinality :db.cardinality/one}
  {:db/doc         "Exercise application value for women"
   :db/ident       :exercise.application.value/women
-  :db/valueType   :db.type/long
+  :db/valueType   :db.type/double
   :db/cardinality :db.cardinality/one}
  {:db/doc         "Exercise application unit"
   :db/ident       :exercise.application/unit

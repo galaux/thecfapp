@@ -61,3 +61,10 @@
 (defn find-workout-by-id
   [id]
   (d/q q-workout-by-id (get-db) workout/pp-workout id))
+
+(defn remove-db
+  []
+  (let [client (d/client {:server-type :dev-local
+                          :system "cfapp-dev"
+                          :storage-dir "/home/miguel/.datomic"})]
+    (d/delete-database client {:db-name "domain"})))

@@ -3,6 +3,7 @@
  {:movement/id #rand-id nil :movement/name "Clean"}
  {:movement/id #rand-id nil :movement/name "Clean & Jerk"}
  {:movement/id #rand-id nil :movement/name "Deadlift"}
+ {:movement/id #rand-id nil :movement/name "Devil Press"}
  {:movement/id #rand-id nil :movement/name "Double-Under"}
  {:movement/id #rand-id nil :movement/name "Double Kettlebell Squat"}
  {:movement/id #rand-id nil :movement/name "Double Kettlebell Clean"}
@@ -25,4 +26,5 @@
  {:movement/id #rand-id nil :movement/name "Snatch"}
  {:movement/id #rand-id nil :movement/name "Strict Pull-Up"}
  {:movement/id #rand-id nil :movement/name "Thruster"}
- {:movement/id #rand-id nil :movement/name "Wall Ball Shot"}]
+ {:movement/id #rand-id nil :movement/name "Wall Ball Shot"}
+ {:movement/id #rand-id nil :movement/name "Wall Climb"}]
