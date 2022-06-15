@@ -77,9 +77,9 @@
                         :resolve :Wod/scores}}}
 
   :ApplicationValue
-  {:fields {:all   {:type Int}
-            :men   {:type Int}
-            :women {:type Int}}}
+  {:fields {:all   {:type Float}
+            :men   {:type Float}
+            :women {:type Float}}}
 
   :Application
   {:fields {:value {:type (non-null :ApplicationValue)}
@@ -95,7 +95,7 @@
             :repCount    {:type Int}}}
 
   :WorkoutLoop
-  {:fields {:capTime    {:type Int}
+  {:fields {:timeCap    {:type Int}
             :duration   {:type Int}
             :period     {:type Int}
             :roundCount {:type Int}
@@ -107,6 +107,16 @@
             :name {:type String}
             :loop {:type (non-null :WorkoutLoop)}}}
   ;; :scoringType {:type (non-null :ScoringType)}}}
+
+  :ParseWorkoutError
+  {:fields {:lineNb   {:type Int}
+            :charPos  {:type Int}
+            :offender {:type String}
+            :message  {:type String}}}
+
+  :ParseWorkoutResult
+  {:fields {:workout {:type :Workout}
+            :errors  {:type (list (non-null :ParseWorkoutError))}}}
 
   :Score
   {:fields {:id    {:type (non-null :ID)}
@@ -151,6 +161,9 @@
                     :type    (non-null (list (non-null :Score)))
                     :resolve :Query/wod-scores}
 
+  :parseWorkout    {:args    {:workoutStr {:type (non-null :String)}}
+                    :type    (non-null :ParseWorkoutResult)
+                    :resolve :Query/parse-workout}
   :workouts        {:type    (non-null (list (non-null :Workout)))
                     :resolve :Query/list-workouts}}
 

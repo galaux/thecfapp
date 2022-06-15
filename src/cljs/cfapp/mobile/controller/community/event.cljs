@@ -65,9 +65,11 @@
   ::on-community-by-id
   (fn [db [_ {:keys [data errors]}]]
     ;; TODO handle errors
-    (let [community (-> (:community data)
-                        gql->clj
-                        (update :wods
-                                #(map (fn [wod] (update wod :date str->date))
-                                   %)))]
-      (p/add db community))))
+    (if errors
+      (println "Error: " errors)
+      (let [community (-> (:community data)
+                          gql->clj
+                          (update :wods
+                                  #(map (fn [wod] (update wod :date str->date))
+                                     %)))]
+        (p/add db community)))))

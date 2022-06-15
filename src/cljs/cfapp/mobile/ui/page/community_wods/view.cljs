@@ -1,16 +1,19 @@
 (ns cfapp.mobile.ui.page.community-wods.view
   (:require
-   ["lucide-react" :refer [Users]]
-   [cfapp.mobile.ui.component.horizontal-stamp.view :refer [horizontal-stamp]]
+   ["lucide-react" :refer [Users PlusCircle]]
    [cfapp.mobile.ui.component.carousel.view :refer [carousel]]
    [cfapp.mobile.ui.component.chip.view :refer [chip]]
+   [cfapp.mobile.ui.component.horizontal-stamp.view
+    :refer [horizontal-stamp]]
    [cfapp.mobile.ui.component.layout.view :refer [layout]]
    [cfapp.mobile.ui.component.menu-wrapper.view :refer [menu-wrapper]]
    [cfapp.mobile.ui.component.text.view :refer [text]]
    [cfapp.mobile.ui.component.wod-card.view :refer [wod-card]]
    [cfapp.mobile.ui.page.community-wods.style :as style]
    [clojure.string :as s]
-   [herb.core :refer [<class]]))
+   [cfapp.mobile.ui.component.icon.view :refer [icon]]
+   [herb.core :refer [<class]]
+   [cfapp.mobile.controller.routing.core :as routing]))
 
 (defn- ->address
   [{:keys [street zip-code city country]}]
@@ -44,9 +47,12 @@
    [layout
     {:sub-header [sub-header community (count wods)]
      :open-menu  (get-in props [:menu-props :open])}
-    [:div
-     {:class (<class style/parent)}
-     "WODs"
+    [:div {:class (<class style/parent)}
+     [:div {:class (<class style/parent-header)}
+      "WODs"
+      [:a
+       {:href routing/href-create-workout}
+       [icon PlusCircle]]]
      [:div
       {:class (<class style/child)}
       [carousel

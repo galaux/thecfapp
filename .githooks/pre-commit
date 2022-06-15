@@ -6,12 +6,15 @@ then
 fi
 
 for file in $(git diff --cached --name-only --diff-filter=ACM \
+                env/dev/clj/cfapp \
                 resources/db \
                 resources/graphql/* \
                 resources/system.edn \
-                src
-                test)
+                src \
+                test \
+                | grep -v src/clj/cfapp/api/domain/workout/parse/movement.clj)
 do
+  echo $file
   if ! type zprint > /dev/null || ! test -f ~/.zprint.edn
   then
     echo 'Either the Zprint binary cannot be found in the path or config file "~/.zprint.edn" is missing.'

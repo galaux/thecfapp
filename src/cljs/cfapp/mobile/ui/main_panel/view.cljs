@@ -1,14 +1,15 @@
 (ns cfapp.mobile.ui.main-panel.view
   (:require
-   [cfapp.mobile.ui.page.create-score.controller :refer [create-score]]
    [cfapp.mobile.controller.auth.core :as auth]
    [cfapp.mobile.ui.component.menu-wrapper.core :as menu]
    [cfapp.mobile.ui.main-panel.sub :as sub]
    [cfapp.mobile.ui.page.community-wods.core :refer [community-wods]]
-   [cfapp.mobile.ui.page.wod-scores.core :refer [wod-scores]]
+   [cfapp.mobile.ui.page.create-score.controller :refer [create-score]]
+   [cfapp.mobile.ui.page.create-workout.controller :refer [create-workout]]
    [cfapp.mobile.ui.page.find-community.core :refer [find-community]]
    [cfapp.mobile.ui.page.logged-out.view :refer [logged-out]]
    [cfapp.mobile.ui.page.user-communities.core :refer [user-communities]]
+   [cfapp.mobile.ui.page.wod-scores.core :refer [wod-scores]]
    [re-frame.core :as rf]
    [re-frame.db :as rf-db]))
 
@@ -42,6 +43,7 @@
                       :community-wods   community-wods
                       :create-score     create-score
                       :wod-scores       wod-scores
+                      :create-workout   create-workout
                       home)
         stage       @(auth/subscribe-stage)
         ;; TODO reconciliate backend user with what frontend wants:

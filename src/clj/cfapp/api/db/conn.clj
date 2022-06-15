@@ -18,8 +18,7 @@
       (install-schema conn))
     (when (and bootstrap-if-empty?
                (db-empty? (d/db conn)))
-      (log/info "DB empty: bootstrapping some fake data")
-      (d/transact conn {:tx-data (bootstrap/gen-txes)}))
+      (bootstrap/go conn))
     (log/info "done.")
     conn))
 

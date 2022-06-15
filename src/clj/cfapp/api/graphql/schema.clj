@@ -40,6 +40,7 @@
    :Query/get-wod            wod/get-wod
    :Query/list-communities   community/list-communities ;; Not used by mobile
    :Query/list-users         user/list-users            ;; Not used by mobile
+   :Query/parse-workout      workout/parse
    :Query/list-workouts      workout/list-workouts
    :Query/user-communities   community/user-communities
    :Query/user-wods          wod/by-user-id

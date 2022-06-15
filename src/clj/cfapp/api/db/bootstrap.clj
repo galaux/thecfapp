@@ -1,5 +1,7 @@
 (ns cfapp.api.db.bootstrap
   (:require
+   [clojure.tools.logging :as log]
+   [datomic.client.api :as d]
    [cfapp.api.db.domain.community :as community]
    [cfapp.api.db.domain.score :as score]
    [cfapp.api.db.domain.user :as user]
@@ -73,24 +75,55 @@
 
 (def slurp-edn (comp read-entities slurp io/resource))
 
+(defn gen-movements
+  []
+  (->> (slurp-edn "movements.edn")
+       keys
+       (map (fn [movement-name]
+              {:movement/name movement-name
+               :movement/id   (UUID/randomUUID)}))))
+
+(defn gen-communities
+  []
+  ;; (-> (better-sample community/community-gen 10)
+  ;;     with-tmp-db-ids)
+  (slurp-edn "communities.edn"))
+
+;; (defn gen-scores
+;;   []
+;;   (-> (gen/sample score/score-gen 300)
+;;       with-tmp-db-ids))
+
+(defn gen-users
+  []
+  (-> (concat (better-sample user/user-gen 40)
+              (gen-known-users))
+      with-tmp-db-ids))
+
+(defn gen-wods
+  []
+  (-> (better-sample wod/wod-gen 100)
+      with-tmp-db-ids))
+
+(defn gen-workouts
+  []
+  ;; (-> (better-sample workout/workout-gen 100)
+  ;;     with-tmp-db-ids))
+  (->> (concat
+         (slurp-edn "workouts/named.edn")
+         (slurp-edn "workouts/custom.edn"))
+       vals
+       (map :db)
+       (map #(assoc % :workout/id (UUID/randomUUID)))
+       with-tmp-db-ids))
+
 (defn gen-txes
   []
-  (let [movements   (slurp-edn "movements.edn")
-        ;; communities (-> (better-sample community/community-gen 10)
-        ;;                 with-tmp-db-ids)
-        communities (slurp-edn "communities.edn")
-        ;; ;; scores      (-> (gen/sample score/score-gen 300)
-        ;; ;;                 with-tmp-db-ids)
-        users       (-> (concat (better-sample user/user-gen 40)
-                                (gen-known-users))
-                        with-tmp-db-ids)
-        wods        (-> (better-sample wod/wod-gen 100)
-                        with-tmp-db-ids)
-        ;; workouts    (-> (better-sample workout/workout-gen 100)
-        ;;                 with-tmp-db-ids)
-        workouts    (concat
-                      (slurp-edn "workouts/named.edn")
-                      (slurp-edn "workouts/custom.edn"))]
+  (let [movements   (gen-movements)
+        communities (gen-communities)
+        users       (gen-users)
+        wods        (gen-wods)
+        workouts    (gen-workouts)]
     (concat movements
             communities
             ;; scores
@@ -104,3 +137,8 @@
            ;; for communities they might not belong to
            ;; (compulsory-1-to-1-links :score/user scores users)
            ;; (compulsory-1-to-1-links :score/wod scores wods))))
+
+(defn go
+  [conn]
+  (log/info "DB empty: bootstrapping some fake data")
+  (d/transact conn {:tx-data (gen-txes)}))

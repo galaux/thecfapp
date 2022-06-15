@@ -78,14 +78,38 @@
           (= logged-user-id (:id user)))
         scores))
 
-(defn wod-card
-  [{:keys [href logged-user-id]} {:keys [id date workout scores]}]
-  (let [href-create-score (:create-score href)
-        wod-color-key     (case (workout-util/loop-type (:loop workout))
-                            :amrap    :yellow
-                            :emom     :purple
-                            :for-time :green
-                            :dark-blue)]
+(defn score-count-chip
+  [scores wod-id wod-color-key]
+  (if (pos? (count scores))
+    [:a
+     {:style {:color :white}
+      :href  (routing/href-wod-scores wod-id)} ;; TODO
+     [chip Timer (count scores) :color-key wod-color-key]]
+    [chip Timer (count scores) :color-key wod-color-key]))
+
+(defn wod-footer
+  [date logged-user-id scores wod-color-key href-create-score wod-id]
+  [:div {:class (<class style/footer)}
+   [apply vertical-stamp (util/month-and-day date)]
+   (if (user-already-has-score logged-user-id scores)
+     [icon Check]
+     [button
+      {:type    :link
+       :variant wod-color-key
+       :href    (href-create-score wod-id)}
+      "Add my score"])])
+
+(defn- workout-color
+  [workout]
+  (case (workout-util/loop-type (:loop workout))
+    :amrap    :yellow
+    :emom     :purple
+    :for-time :green
+    :dark-blue))
+
+(defn workout-card
+  [workout top-right-cmp footer]
+  (let [wod-color-key (workout-color workout)]
     [:div {:class (<class card-style/card wod-color-key)}
      [:div
       [:div {:class (<class style/header wod-color-key)}
@@ -93,20 +117,19 @@
         {:text-size      :small
          :text-transform "uppercase"}
         (:name workout)]
-       (if (pos? (count scores))
-         [:a
-          {:style {:color :white}
-           :href  (routing/href-wod-scores id)} ;; TODO
-          [chip Timer (count scores) :color-key wod-color-key]]
-         [chip Timer (count scores) :color-key wod-color-key])]
+       (when top-right-cmp
+         top-right-cmp)]
       [:div {:class (<class style/description)}
        [workout-loop (:loop workout)]]]
-     [:div {:class (<class style/footer)}
-      [apply vertical-stamp (util/month-and-day date)]
-      (if (user-already-has-score logged-user-id scores)
-        [icon Check]
-        [button
-         {:type    :link
-          :variant wod-color-key
-          :href    (href-create-score id)}
-         "Add my score"])]]))
+     (when footer
+       footer)]))
+
+(defn wod-card
+  [{:keys [href logged-user-id]} {:keys [id date workout scores]}]
+  (let [href-create-score (:create-score href)
+        wod-color-key     (workout-color workout)]
+    [workout-card
+     workout
+     [score-count-chip scores id wod-color-key]
+     [wod-footer
+      date logged-user-id scores wod-color-key href-create-score id]]))

@@ -10,17 +10,17 @@
    :name
    :member-count
    {:address
-      [:street
-       :zip-code
-       :city
-       :country]}])
+    [:street
+     :zip-code
+     :city
+     :country]}])
 
 (rf/reg-sub
   ::user-communities
   (fn [db]
     (let [communities (-> (p/pull db
                                   [{:logged-user
-                                      [{:communities community-pull}]}])
+                                    [{:communities community-pull}]}])
                           (get-in [:logged-user :communities]))]
       (->> communities
            (map (comp

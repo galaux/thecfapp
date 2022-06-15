@@ -34,7 +34,7 @@
 (def workout-for-time
   {:id   "8548378b-afcb-499f-bd6e-55c1b05beaa6"
    :name "Karen"
-   :loop {:cap-time   nil
+   :loop {:time-cap   60000
           :duration   nil
           :period     nil
           :rep-count  nil
@@ -50,7 +50,7 @@
 (def workout-emom
   {:id   "0de7b6e8-518d-44cc-8761-839638118352"
    :name "Chelsea"
-   :loop {:cap-time   nil
+   :loop {:time-cap   nil
           :duration   1800000
           :period     60000
           :rep-count  nil
@@ -68,7 +68,7 @@
 (def workout-emom-unusual-period
   {:id   "0de7b6e8-518d-44cc-8761-839638118359"
    :name "Strange Chelsea"
-   :loop {:cap-time   nil
+   :loop {:time-cap   nil
           :duration   1800000
           :period     90000
           :rep-count  nil
@@ -99,16 +99,16 @@
 
 (def workout-multi-amraps
   {:id   "de5aa274-e487-4f12-992e-ee373ed1fcda"
-   :name "complex"
+   :name "Multi AMRAP"
    :loop
-   {:cap-time   nil
+   {:time-cap   nil
     :duration   nil
     :period     nil
     :rep-count  nil
     :score-type nil
     :tasks
     [{:rep-count  nil
-      :cap-time   nil
+      :time-cap   nil
       :duration   300000
       :period     nil
       :score-type "REP_COUNT"
@@ -124,7 +124,7 @@
       :application {:value {:all 60000} :unit "MILLISECOND"}
       :rep-count   nil}
      {:rep-count  nil
-      :cap-time   nil
+      :time-cap   nil
       :duration   300000
       :period     nil
       :score-type "REP_COUNT"
@@ -139,7 +139,7 @@
       :application {:value {:all 60000} :unit "MILLISECOND"}
       :rep-count   nil}
      {:rep-count  nil
-      :cap-time   nil
+      :time-cap   nil
       :duration   300000
       :period     nil
       :score-type "REP_COUNT"
@@ -186,7 +186,7 @@
 
 (def wod
   {:id      "81834"
-   :date    "2022-06-02"
+   :date    #inst "2022-05-01T00:00:00.000-00:00"
    :workout workout-multi-amraps})
 
 (def scores-for-duration

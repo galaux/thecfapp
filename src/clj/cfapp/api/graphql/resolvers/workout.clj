@@ -1,16 +1,19 @@
 (ns cfapp.api.graphql.resolvers.workout
   (:require
    [cfapp.api.db.domain.workout :as workout]
+   [cfapp.api.domain.workout.parse.core :as workout-parse]
    [cfapp.api.util :refer [ident->enum-value]]
    [com.walmartlabs.lacinia.schema :refer [tag-with-type]]
-   [datomic.client.api :as d]))
+   [datomic.client.api :as d])
+  (:import
+   (java.util UUID)))
 
 (defn- shape-movement
   [{:movement/keys [id name]}]
   {:id   id
    :name name})
 
-(defn shape-application-value
+(defn- shape-application-value
   [{:exercise.application.value/keys [all men women]}]
   (cond-> {}
     all   (assoc :all all)
@@ -35,7 +38,7 @@
 
 (defn- shape-loop
   [{:workout.loop/keys
-    [round-count score-type cap-time duration period tasks]}]
+    [round-count score-type time-cap duration period tasks]}]
   (let [gql-loop (cond->
                    {:tasks (map
                              (fn [task]
@@ -48,7 +51,7 @@
                                  (throw (ex-info "Bad Task type"
                                                  {:task task}))))
                              tasks)}
-                   cap-time    (assoc :capTime cap-time)
+                   time-cap    (assoc :timeCap time-cap)
                    duration    (assoc :duration duration)
                    period      (assoc :period period)
                    round-count (assoc :roundCount round-count)
@@ -77,3 +80,39 @@
   [{:keys [conn]} {:keys [id]} _value]
   (->> (workout/by-user-id (d/db conn) id)
        (map shape-workout)))
+
+(defn rework-long-message
+  [message]
+  (or (re-find #"^mismatched input '[^']+'" message)
+      message))
+
+(defn shape-error
+  [{:keys [line-nb char-pos offender message]}]
+  {:lineNb   line-nb
+   :charPos  char-pos
+   :offender offender
+   :message  (rework-long-message message)})
+
+(defn- shape-result
+  [workout errors]
+  (merge
+    {:errors (map shape-error errors)}
+    (when workout
+      {:workout (shape-workout workout)})))
+
+(defn parse
+  [{:keys [conn]} {:keys [workoutStr]} _]
+  (let [workout-id (UUID/randomUUID)
+        {:keys [parsed errors]} (workout-parse/parse workoutStr)]
+    (if (seq errors)
+      (shape-result nil errors)
+      ;; TODO run parsed through Specs
+      (let [workout (assoc parsed
+                      :db/id      "new-workout"
+                      :workout/id workout-id)
+            {:keys [db-after tempids]} (d/with (d/with-db conn)
+                                               {:tx-data [workout]})
+            workout (d/pull db-after
+                            workout/pp-workout
+                            (get tempids "new-workout"))]
+        (shape-result workout [])))))

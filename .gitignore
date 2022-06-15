@@ -18,6 +18,9 @@
 api/datomic
 api/resources/mobile/**/*
 api/resources/mobile/index.html
+classes/**/*.class
+classes/**/*.interp
+classes/**/*.tokens
 coverage
 datomic
 node_modules

@@ -66,9 +66,9 @@
   :db/ident       :workout.loop/score-type
   :db/valueType   :db.type/ref
   :db/cardinality :db.cardinality/one}
- {:db/doc         "Workout loop cap time"
-  :db/ident       :workout.loop/cap-time
-  :db/valueType   :db.type/ref
+ {:db/doc         "Workout loop time cap"
+  :db/ident       :workout.loop/time-cap
+  :db/valueType   :db.type/long
   :db/cardinality :db.cardinality/one}
  {:db/doc         "Workout loop duration"
   :db/ident       :workout.loop/duration

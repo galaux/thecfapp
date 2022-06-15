@@ -10,35 +10,71 @@
 
 (s/def :workout/id :util/uuid)
 (s/def :workout/name :util/non-blank-string)
-(s/def :workout/description :util/non-blank-string)
-(s/def :workout/scoring-type
-  #{:workout.scoring-type/duration-ms ;; TODO wrong
-    :workout.scoring-type/repetitions})
 
-(defn- gen-workout
-  []
-  (gen/fmap
-    (fn [[scoring-type lorem1 lorem2 lorem3 lorem4]]
-      {:workout/id           (UUID/randomUUID)
-       :workout/name         (->> [lorem1 lorem2 lorem3]
-                                  (map str/capitalize)
-                                  (str/join " "))
-       :workout/description  lorem4
-       :workout/scoring-type scoring-type})
-    (gen/tuple
-      (s/gen :workout/scoring-type)
-      (s/gen (set (get-in fake-data [:lorem-ipsum])))
-      (s/gen (set (get-in fake-data [:lorem-ipsum])))
-      (s/gen (set (get-in fake-data [:lorem-ipsum])))
-      (s/gen (set (get-in fake-data [:lorem-ipsum]))))))
+(s/def :movement/name :util/non-blank-string)
+(s/def ::movement
+  (s/keys :req [:movement/name]))
+(s/def ::rep-count pos-int?)
+(s/def :exercise/movement ::movement)
+(s/def :exercise/rep-count ::rep-count)
 
+(s/def ::application-value (s/and float? pos?))
+(s/def ::unit
+  #{:unit/kilogram
+    :unit/meter
+    :unit/millisecond})
+
+(s/def :exercise.application.value/all ::application-value)
+(s/def ::exercise-application-value-all
+  (s/keys :req [:exercise.application.value/all]))
+
+(s/def :exercise.application.value/men ::application-value)
+(s/def :exercise.application.value/women ::application-value)
+(s/def ::exercise-application-value-men-women
+  (s/keys :req [:exercise.application.value/men
+                :exercise.application.value/women]))
+
+(s/def ::exercise-application-value
+  (s/or :all       ::exercise-application-value-all
+        :men-women ::exercise-application-value-men-women))
+
+(s/def :exercise.application/value ::exercise-application-value)
+(s/def :exercise.application/unit ::unit)
+(s/def ::application
+  (s/keys :req [:exercise.application/value
+                :exercise.application/unit]))
+
+(s/def :exercise/application ::application)
+(s/def ::exercise
+  (s/keys :req [:exercise/movement]
+          :opt [:exercise/rep-count
+                :exercise/application]))
+
+(s/def :workout.loop/tasks
+  (s/coll-of
+    (s/or :exercise ::exercise
+          :loop     ::workout-loop)
+    :min-count 1))
+(s/def :workout.loop/duration pos-int?)
+(s/def :workout.loop/period pos-int?)
+(s/def ::workout-loop-for-time
+  (s/keys :req [:workout.loop/tasks]))
+(s/def ::workout-loop-amrap
+  (s/keys :req [:workout.loop/tasks]
+          :opt [:workout.loop/duration]))
+(s/def ::workout-loop-emom
+  (s/keys :req [:workout.loop/tasks]
+          :opt [:workout.loop/duration
+                :workout.loop/period]))
+(s/def ::workout-loop
+  (s/or :amrap    ::workout-loop-amrap
+        :for-time ::workout-loop-for-time
+        :emom     ::workout-loop-emom))
+
+(s/def :workout/loop ::workout-loop)
 (s/def ::workout
-  (s/with-gen
-    (s/keys :req [:workout/id
-                  :workout/name
-                  :workout/description
-                  :workout/scoring-type])
-    gen-workout))
+  (s/keys :req [:workout/loop]
+          :opt [:workout/name]))
 
 (def workout-gen (s/gen ::workout))
 
@@ -56,7 +92,7 @@
    :exercise/rep-count])
 
 (def pp-loop-shallow
-  [:workout.loop/cap-time
+  [:workout.loop/time-cap
    :workout.loop/duration
    :workout.loop/period
    :workout.loop/round-count
@@ -74,7 +110,7 @@
   [:workout/id
    :workout/name
    {:workout/loop
-    [:workout.loop/cap-time
+    [:workout.loop/time-cap
      :workout.loop/duration
      :workout.loop/period
      :workout.loop/round-count

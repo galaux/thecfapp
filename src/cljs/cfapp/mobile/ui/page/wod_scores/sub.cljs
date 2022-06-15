@@ -15,7 +15,7 @@
    :rep-count])
 
 (def ^:private pp-loop
-  [:cap-time
+  [:time-cap
    :duration
    :period
    :round-count
@@ -32,7 +32,7 @@
               :unit]}
             :rep-count
             ;; Workout loop
-            :cap-time
+            :time-cap
             :duration
             :period
             :round-count

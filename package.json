@@ -15,7 +15,8 @@
     "build-report": "npx shadow-cljs run shadow.cljs.build-report mobile target/build-report.html",
     "ci": "npx shadow-cljs compile karma-test && npx karma start --single-run --reporters junit,dots",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "compile-grammar": "export CLASSPATH=.:/usr/share/java/antlr-4.9.3-complete.jar:$CLASSPATH && antlr4 -Xexact-output-dir -o classes/workout -no-listener -visitor env/dev/resources/grammars/Workout.g4 && javac classes/workout/*.java"
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.19.2",

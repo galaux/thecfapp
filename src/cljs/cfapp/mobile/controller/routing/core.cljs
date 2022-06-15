@@ -15,7 +15,8 @@
     ["community-wods/" :id] :community-wods
     ["community/" :id] :community
     ["create-score/" :wod-id] :create-score
-    ["wod-scores/" :wod-id] :wod-scores}])
+    ["wod-scores/" :wod-id] :wod-scores
+    "create-workout" :create-workout}])
 
 
 (defn- match-route
@@ -54,6 +55,7 @@
 
 (def href-find-community (path-for :find-community))
 (def href-user-communities (path-for :user-communities))
+(def href-create-workout (path-for :create-workout))
 
 (defn href-community-wods
   [id]

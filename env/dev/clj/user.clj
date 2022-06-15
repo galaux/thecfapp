@@ -9,7 +9,8 @@
    [integrant.core :as ig]
    [integrant.repl :refer [halt go reset reset-all]]
    [integrant.repl.state :as state]
-   [cfapp.api.db.domain.workout :as workout]))
+   [cfapp.api.db.domain.workout :as workout]
+   [cfapp.api.db.domain.community :as community]))
 
 (add-tap (bound-fn* clojure.pprint/pprint))
 
@@ -36,11 +37,13 @@
 
 ;; (reload-ig)
 
+(defn get-conn
+  []
+  (:cfapp.api.db/conn integrant.repl.state/system))
+
 (defn get-db
   []
-  (-> integrant.repl.state/system
-      :cfapp.api.db/conn
-      datomic.client.api/db))
+  (datomic.client.api/db (get-conn)))
 
 (def ^:private q-workout-by-name
   '[:find (pull ?workout workout-pull-pattern)
@@ -68,3 +71,43 @@
                           :system "cfapp-dev"
                           :storage-dir "/home/miguel/.datomic"})]
     (d/delete-database client {:db-name "domain"})))
+
+(def ^:private q-all-workouts
+  '[:find (pull ?workout workout-pull-pattern)
+    :in $ workout-pull-pattern
+    :where
+    [?workout :workout/id]])
+
+(defn all-workouts
+  ([db]
+   (d/q q-all-workouts db workout/pp-workout))
+  ([]
+   (all-workouts (get-db))))
+
+(def ^:private q-all-communities
+  '[:find (pull ?community pull-pattern)
+    :in $ pull-pattern
+    :where
+    [?community :community/id]])
+
+(def ^:private community-pull-pattern
+  [:db/id
+   :community/id
+   :community/name
+   :workout/loop
+   [:workout.loop/time-cap]])
+
+(defn all-communities
+  []
+  (d/q q-all-communities (get-db) community-pull-pattern))
+
+;; Find one element
+;;   :find ?year .
+;; Find a list
+;;   :find [?w ...]
+
+(defn start-api
+  []
+  (in-ns 'user)
+  (reload-ig)
+  (go))

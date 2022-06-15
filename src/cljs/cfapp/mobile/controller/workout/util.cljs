@@ -28,8 +28,13 @@
     "MILLISECOND" (str (/ value millis-in-one-minute) "'")
     (str value unit)))
 
+(defn- ->time-cap
+  [time-cap]
+  (when time-cap
+    (str " (time cap " (/ time-cap millis-in-one-minute) "')")))
+
 (defn loop-title
-  [{:keys [duration period round-count score-type] :as all}]
+  [{:keys [duration period round-count score-type time-cap]}]
   (cond
     ;; TODO turn all these into keywords in state
     (and (some? duration) (some? period))
@@ -43,8 +48,10 @@
     ;;
     (= score-type "DURATION")
     (if (some? round-count)
-      (str round-count " rounds for time")
-      "for time")
+      (str round-count
+           " rounds for time"
+           (when time-cap (str " (time cap " time-cap "')")))
+      (str "for time" (->time-cap time-cap)))
     ;;
     (some? round-count)
     (str round-count " rounds")))

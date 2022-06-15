@@ -5,6 +5,12 @@
   {:position :static
    :margin   "0 auto"})
 
+(defn parent-header
+  []
+  {:display         :flex
+   :justify-content :space-between
+   :padding         "0 20px"})
+
 (defn child
   []
   {:position   :absolute
