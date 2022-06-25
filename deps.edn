@@ -84,7 +84,7 @@
     :env/test
       {:extra-paths ["test/clj" "env/test/resources"]
        :extra-deps  {buddy/buddy-core       {:mvn/version "1.10.1"}
-                     org.clojure/test.check {:mvn/version "1.1.0"}
+                     ; org.clojure/test.check {:mvn/version "1.1.0"}
                      ring/ring-mock         {:mvn/version "0.4.0"}}}
 
     :build
@@ -95,8 +95,9 @@
     :start-api
       {:main-opts ["-m" "cfapp.api.core" "--dev"]}
 
+    ;; Run with `clj -M:env/test:test -n cfapp.api.domain.workout.parse-test`
     :test
-      {:extra-deps {com.cognitect/test-runner
-                      {:git/url "https://github.com/cognitect-labs/test-runner"
-                       :sha     "b6b3193fcc42659d7e46ecd1884a228993441182"}}
-       :main-opts  ["-m" "cognitect.test-runner"]}}}
+      {:extra-deps {io.github.cognitect-labs/test-runner
+                    {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
+       :main-opts ["-m" "cognitect.test-runner"]
+       :exec-fn cognitect.test-runner.api/test}}}
