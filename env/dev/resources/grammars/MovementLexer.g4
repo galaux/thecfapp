@@ -351,7 +351,8 @@ REST :  R E S T ; // ["Rest" [:duration]]
    "kg" is tried against rule `KILOGRAM` before `WORD`. */
 // FIXME `movement` must allow '2' (for "c2b", …)
 // TODO change '&'
-WORD : ( LOWERCASE | UPPERCASE | DASH | '&' )+ ; // IGNORE
+// WORD : ( LOWERCASE | UPPERCASE | DASH | '&' )+ ; // IGNORE
+// WORD : ~["]+ ; // IGNORE
 
 // Order is important here
 WS  : ( ' ' | '\t' )+ ; // IGNORE

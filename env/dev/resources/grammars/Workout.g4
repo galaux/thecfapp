@@ -79,13 +79,12 @@ fragment Y : ('Y'|'y') ;
 fragment Z : ('Z'|'z') ;
 
 
-workoutName : DOUBLE_QUOTE WORD ( WS WORD )* DOUBLE_QUOTE ;
+workoutName : WORKOUT_NAME ;
 
 roundCount : NUMBER WS ROUNDS ;
-duration : NUMBER WS? MINUTE ;
+duration : NUMBER WS? ( MINUTE | SECOND ) ;
 timeCap :  TIME_CAP WS duration ;
-// TODO add feature to specify `period` in seconds or minutes with comma
-period : NUMBER WS? MINUTE ;
+period : NUMBER WS? ( MINUTE | SECOND ) ;
 repCount : NUMBER ;
 
 headerForTime
@@ -99,8 +98,12 @@ headerEMOM :  EMOM WS duration  | EVERY WS period WS FOR WS duration  ;
 header  : ( headerAMRAP | headerForTime | headerEMOM ) ;
 
 applicationValue : NUMBER ;
-applicationUnit : METER | MINUTE | KILOGRAM ;
+applicationUnit : KILOGRAM | METER | MINUTE | SECOND ;
 
+/* We declare `application` as a branching over these four cases to code that
+   one of them is compulsory. We tried using the "all optional in the grammar
+   then sort things out in code" pattern but then Antlr cannot make the
+   difference with the repCount. */
 application
   : // compulsory paren version
     PAREN_OPEN
@@ -161,14 +164,15 @@ fragment DOT : '.' ;
    knowing when it found a WORD!
    It seems in this case, AMPERSAND should/could actually be a `fragment`. */
 
+/* I don't NEED these to be tokenized (no parser rule requires to capture it)
+    and I probably even SHOULD NOT! TODO Inline these! */
 AT_SIGN : '@' ;
 DASH : '-' ;
 PAREN_OPEN : '(' ;
 PAREN_CLOSE : ')' ;
-DOUBLE_QUOTE : '"' ;
 COMMA : ',' ;
 
-NUMBER : DIGIT+  ( ( DOT | COMMA ) DIGIT+ )?  ;
+NUMBER : DIGIT+ ( ( DOT | COMMA ) DIGIT+ )?  ;
 
 FOR : F O R ;
 ROUNDS : R O U N D S? ;
@@ -179,9 +183,14 @@ EMOM : E M O M ;
 EVERY : E V E R Y ;
 TIME_CAP : T I M E WS? C A P | T C ;
 
-METER : M ; // TODO Support "meter"?
-MINUTE : ( M I N U T E S? | '\'' | '’' )  ; // TODO change '\''
+BODY_WEIGHT : ( B O D Y SEP? W E I G H T ) | B W ;
 KILOGRAM : K G ;
+METER : M ( E T E R S? )? ;
+MINUTE : M I N U T E S? | '\'' | '’' ;
+
+SECOND : S | '"' ;
+
+WORKOUT_NAME : '"' ~["]+ '"' ;
 
 /* We need this FOR_TIME_SCHEME lexer rule so that the lexer doesn't take
    "-2-" from "1-2-3-4" for a WORD */
@@ -200,5 +209,5 @@ NEWLINE             : ( '\r'? '\n' | '\r' ) ;
 */
 // ERROR_CHAR : . ; // TODO I should try to check this is empty after parsing?
 
-WS          : ( ' ' | '\t' )+ ;
+WS  : ( ' ' | '\t' )+ ;
 SEP : ( '-' | WS ) ;

@@ -5,6 +5,8 @@
 # we can't test for extraneous content in Parser rules!
 # https://github.com/antlr/antlr4/issues/839
 
+# TODO instead of 'noDiagnostics', specify which warning we "expect"
+
 antlrJar='/usr/share/java/antlr-complete.jar'
 
 script=$(readlink -f $0)
@@ -39,7 +41,7 @@ testWorkoutName() {
   check \
     'workoutName' \
     '"Super duper workout"' \
-    '(workoutName " Super duper workout ")'
+    '(workoutName "Super duper workout")'
 }
 
 testDurationLabelShort() {
@@ -161,6 +163,21 @@ testApplicationMinute() {
     "(application (applicationValue 12) (applicationUnit '))"
 }
 
+testApplicationSecond() {
+    check \
+        'application' \
+        '12"' \
+        '(application (applicationValue 12) (applicationUnit "))'
+}
+
+# TODO
+# testApplicationBodyWeight() {
+#   check \
+#     'application' \
+#     "1.25 BW" \
+#     "(application (applicationValue 1.25) (applicationUnit BW))"
+# }
+
 testApplicationMenWomenDoubleUnit() {
   check \
     'application' \
@@ -273,7 +290,7 @@ testWorkout() {
   check \
     'workout' \
     "\"Joe\"\nAMRAP 15'\n\nfor time\n5 pull-ups\n10 push-ups\n\n1' rest" \
-    "(workout (workoutName \" Joe \") \n (parentLoop (header (headerAMRAP AMRAP (duration 15 '))) \n \n (flatLoop (header (headerForTime for time)) \n (exercise (repCount 5) (movement pull-ups)) \n (exercise (repCount 10) (movement push-ups))) \n (parentLoopNextTask \n (exercise (application (applicationValue 1) (applicationUnit ')) (movement rest)))) <EOF>)" \
+    "(workout (workoutName \"Joe\") \n (parentLoop (header (headerAMRAP AMRAP (duration 15 '))) \n \n (flatLoop (header (headerForTime for time)) \n (exercise (repCount 5) (movement pull-ups)) \n (exercise (repCount 10) (movement push-ups))) \n (parentLoopNextTask \n (exercise (application (applicationValue 1) (applicationUnit ')) (movement rest)))) <EOF>)" \
     'noDiagnostics' # TODO
 }
 

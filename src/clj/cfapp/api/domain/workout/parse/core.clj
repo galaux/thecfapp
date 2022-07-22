@@ -163,14 +163,14 @@
 
 (defn- visit-application-unit
   [_this ctx]
-  (case (s/lower-case (.getText ctx))
-    "kg"      :unit/kilogram
-    "m"       :unit/meter
-    "\""      :unit/millisecond
-    "'"       :unit/second ;; Turned later into ms at exercise level
-    "minutes" :unit/minute ;; Turned later into ms at exercise level
-    (throw (ex-info "Unrecognized unit"
-                    {:str (.getText ctx)}))))
+  (cond
+    (.KILOGRAM ctx)    :unit/kilogram
+    (.METER ctx)       :unit/meter
+    (.MILLISECOND ctx) :unit/millisecond
+    ;; "'"       :unit/second ;; Turned later into ms at exercise level
+    ;; "minutes" :unit/minute ;; Turned later into ms at exercise level
+    :else              (throw (ex-info "Unrecognized unit"
+                                       {:str (.getText ctx)}))))
 
 (defn- visit-application-value
   [_this ctx]

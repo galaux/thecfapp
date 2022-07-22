@@ -114,6 +114,14 @@
     {:exercise.application/value {:exercise.application.value/all 12.0}
      :exercise.application/unit  :unit/meter}))
 
+;; TODO
+;; (deftest parse-application-all-body-weight
+;;   (parse-ok?
+;;    sut/parser-dot-application
+;;    "1.25 BW"
+;;    {:exercise.application/value {:exercise.application.value/all 1.25}
+;;     :exercise.application/unit  :unit/body-weight}))
+
 (deftest parse-application-men-women-double-unit
   (parse-ok?
     sut/parser-dot-application
