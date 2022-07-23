@@ -52,7 +52,7 @@
       :exercise/rep-count 15}]}}}
 
  :diane
- {:str "\"Diane\"\n\nFor Time\n21 Deadlift @102Kg/70kg\n21 Handstand Push-Up\n15 Deadlift @102Kg/70kg\n15 Handstand Push-Up\n9 Deadlift @102Kg/70kg\n9 Handstand Push-Up"
+ {:str "\"Diane\"\n\nFor Time 21-15-9\nDeadlift @225lbs/155lbs\nHandstand Push-Up"
   :db
   {:workout/name "Diane"
    :workout/loop
@@ -62,32 +62,32 @@
       :exercise/rep-count   21
       :exercise/application
       {:exercise.application/value
-       {:exercise.application.value/men   102.0
-        :exercise.application.value/women 70.0}
-       :exercise.application/unit  :unit/kilogram}}
+       {:exercise.application.value/men   225.0
+        :exercise.application.value/women 155.0}
+       :exercise.application/unit  :unit/pound}}
      {:exercise/movement  {:movement/name "Handstand Push-up"}
       :exercise/rep-count 21}
      {:exercise/movement    {:movement/name "Deadlift"}
       :exercise/rep-count   15
       :exercise/application
       {:exercise.application/value
-       {:exercise.application.value/men   102.0
-        :exercise.application.value/women 70.0}
-       :exercise.application/unit  :unit/kilogram}}
+       {:exercise.application.value/men   225.0
+        :exercise.application.value/women 155.0}
+       :exercise.application/unit  :unit/pound}}
      {:exercise/movement  {:movement/name "Handstand Push-up"}
       :exercise/rep-count 15}
      {:exercise/movement    {:movement/name "Deadlift"}
       :exercise/rep-count   9
       :exercise/application
       {:exercise.application/value
-       {:exercise.application.value/men   102.0
-        :exercise.application.value/women 70.0}
-       :exercise.application/unit  :unit/kilogram}}
+       {:exercise.application.value/men   225.0
+        :exercise.application.value/women 155.0}
+       :exercise.application/unit  :unit/pound}}
      {:exercise/movement  {:movement/name "Handstand Push-up"}
       :exercise/rep-count 9}]}}}
 
  :elizabeth
- {:str "\"Elizabeth\"\n\n21-15-9 For Time\nClean 61Kg/43Kg\nRing Dip"
+ {:str "\"Elizabeth\"\n\n21-15-9 For Time\nClean 135lbs/95lbs\nRing Dip"
   :db
   {:workout/name "Elizabeth"
    :workout/loop
@@ -96,33 +96,33 @@
     [{:exercise/movement    {:movement/name "Clean"}
       :exercise/application
       {:exercise.application/value
-       {:exercise.application.value/men   61.0
-        :exercise.application.value/women 43.0}
-       :exercise.application/unit  :unit/kilogram}
+       {:exercise.application.value/men   135.0
+        :exercise.application.value/women 95.0}
+       :exercise.application/unit  :unit/pound}
       :exercise/rep-count   21}
      {:exercise/movement  {:movement/name "Ring Dip"}
       :exercise/rep-count 21}
      {:exercise/movement    {:movement/name "Clean"}
       :exercise/application
       {:exercise.application/value
-       {:exercise.application.value/men   61.0
-        :exercise.application.value/women 43.0}
-       :exercise.application/unit  :unit/kilogram}
+       {:exercise.application.value/men   135.0
+        :exercise.application.value/women 95.0}
+       :exercise.application/unit  :unit/pound}
       :exercise/rep-count   15}
      {:exercise/movement  {:movement/name "Ring Dip"}
       :exercise/rep-count 15}
      {:exercise/movement    {:movement/name "Clean"}
       :exercise/application
       {:exercise.application/value
-       {:exercise.application.value/men   61.0
-        :exercise.application.value/women 43.0}
-       :exercise.application/unit  :unit/kilogram}
+       {:exercise.application.value/men   135.0
+        :exercise.application.value/women 95.0}
+       :exercise.application/unit  :unit/pound}
       :exercise/rep-count   9}
      {:exercise/movement  {:movement/name "Ring Dip"}
       :exercise/rep-count 9}]}}}
 
  :fran
- {:str "\"Fran\"\n\n21-15-9 For Time\nThruster @43kg/30Kg\nPull-Up"
+ {:str "\"Fran\"\n\n21-15-9 For Time\nThruster @95lbs/65lbs\nPull-Up"
   :db
   {:workout/name "Fran"
    :workout/loop
@@ -132,32 +132,32 @@
       :exercise/rep-count   21
       :exercise/application
       {:exercise.application/value
-       {:exercise.application.value/men   43.0
-        :exercise.application.value/women 30.0}
-       :exercise.application/unit  :unit/kilogram}}
+       {:exercise.application.value/men   95.0
+        :exercise.application.value/women 65.0}
+       :exercise.application/unit  :unit/pound}}
      {:exercise/movement  {:movement/name "Pull-up"}
       :exercise/rep-count 21}
      {:exercise/movement    {:movement/name "Thruster"}
       :exercise/rep-count   15
       :exercise/application
       {:exercise.application/value
-       {:exercise.application.value/men   43.0
-        :exercise.application.value/women 30.0}
-       :exercise.application/unit  :unit/kilogram}}
+       {:exercise.application.value/men   95.0
+        :exercise.application.value/women 65.0}
+       :exercise.application/unit  :unit/pound}}
      {:exercise/movement  {:movement/name "Pull-up"}
       :exercise/rep-count 15}
      {:exercise/movement    {:movement/name "Thruster"}
       :exercise/rep-count   9
       :exercise/application
       {:exercise.application/value
-       {:exercise.application.value/men   43.0
-        :exercise.application.value/women 30.0}
-       :exercise.application/unit  :unit/kilogram}}
+       {:exercise.application.value/men   95.0
+        :exercise.application.value/women 65.0}
+       :exercise.application/unit  :unit/pound}}
      {:exercise/movement  {:movement/name "Pull-up"}
       :exercise/rep-count 9}]}}}
 
  :grace
- {:str "\"Grace\"\n\nFor Time\n30 Clean and Jerk 61Kg/43Kg"
+ {:str "\"Grace\"\n\nFor Time\n30 Clean and Jerk (135/95 lb)"
   :db
   {:workout/name "Grace"
    :workout/loop
@@ -167,12 +167,12 @@
       :exercise/rep-count   30
       :exercise/application
       {:exercise.application/value
-       {:exercise.application.value/men   61.0
-        :exercise.application.value/women 43.0}
-       :exercise.application/unit  :unit/kilogram}}]}}}
+       {:exercise.application.value/men   135.0
+        :exercise.application.value/women 95.0}
+       :exercise.application/unit  :unit/pound}}]}}}
 
  :helen
- {:str "\"Helen\"\n\n3 Rounds For Time\n400m Run\n21 Kettlebell Swing @24Kg/16kg\n12 Pull-Up"
+ {:str "\"Helen\"\n\n3 Rounds For Time\n400m Run\n21 Kettlebell Swing @1.5 pood/1 pood\n12 Pull-Up"
   :db
   {:workout/name "Helen" ;; For time
    :workout/loop
@@ -187,9 +187,9 @@
      {:exercise/movement    {:movement/name "American Kettlebell Swing"}
       :exercise/application
       {:exercise.application/value
-       {:exercise.application.value/men   24.0
-        :exercise.application.value/women 16.0}
-       :exercise.application/unit  :unit/kilogram}
+       {:exercise.application.value/men   1.5
+        :exercise.application.value/women 1.0}
+       :exercise.application/unit  :unit/pood}
       :exercise/rep-count   21}
      {:exercise/movement  {:movement/name "Pull-up"}
       :exercise/rep-count 12}]}}}
@@ -223,7 +223,7 @@
       :exercise/rep-count 10}]}}}
 
  :eva
- {:str "\"Eva\"\n\n5 Rounds For Time\n800m Run\n30 Kettlebell Swing @32Kg/24Kg\n30 Pull-Up"
+ {:str "\"Eva\"\n\n5 Rounds For Time\n800m Run\n30 Kettlebell Swing (2/1.5 pood)\n30 Pull-Up"
   :db
   {:workout/name "Eva"
    :workout/loop
@@ -238,15 +238,15 @@
      {:exercise/movement    {:movement/name "American Kettlebell Swing"}
       :exercise/application
       {:exercise.application/value
-       {:exercise.application.value/men   32.0
-        :exercise.application.value/women 24.0}
-       :exercise.application/unit  :unit/kilogram}
+       {:exercise.application.value/men   2.0
+        :exercise.application.value/women 1.5}
+       :exercise.application/unit  :unit/pood}
       :exercise/rep-count   30}
      {:exercise/movement  {:movement/name "Pull-up"}
       :exercise/rep-count 30}]}}}
 
  :isabel
- {:str "\"Isabel\"\n\nFor Time\n30 Snatch @61Kg/43Kg"
+ {:str "\"Isabel\"\n\nFor Time\n30 Snatch (135/95 lb)"
   :db
   {:workout/name "Isabel"
    :workout/loop
@@ -255,13 +255,13 @@
     [{:exercise/movement    {:movement/name "Snatch"}
       :exercise/application
       {:exercise.application/value
-       {:exercise.application.value/men   61.0
-        :exercise.application.value/women 43.0}
-       :exercise.application/unit  :unit/kilogram}
+       {:exercise.application.value/men   135.0
+        :exercise.application.value/women 95.0}
+       :exercise.application/unit  :unit/pound}
       :exercise/rep-count   30}]}}}
 
  :jackie
- {:str "\"Jackie\"\n\nFor Time\n1000m Row\n50 Thruster @20Kg/16Kg\n30 Pull-Up"
+ {:str "\"Jackie\"\n\nFor Time\n1000m Row\n50 Thruster (45/35 lbs)\n30 Pull-Up"
   :db
   {:workout/name "Jackie"
    :workout/loop
@@ -275,15 +275,15 @@
      {:exercise/movement    {:movement/name "Thruster"}
       :exercise/application
       {:exercise.application/value
-       {:exercise.application.value/men   20.0
-        :exercise.application.value/women 16.0}
-       :exercise.application/unit  :unit/kilogram}
+       {:exercise.application.value/men   45.0
+        :exercise.application.value/women 35.0}
+       :exercise.application/unit  :unit/pound}
       :exercise/rep-count   50}
      {:exercise/movement  {:movement/name "Pull-up"}
       :exercise/rep-count 30}]}}}
 
  :karen
- {:str "\"Karen\"\n\nFor Time\n150 Wall Ball Shot @9Kg/6Kg"
+ {:str "\"Karen\"\n\nFor Time\n150 Wall Ball Shot (20/14 lb)"
   :db
   {:workout/name "Karen"
    :workout/loop
@@ -292,17 +292,49 @@
     [{:exercise/movement    {:movement/name "Wall-ball"}
       :exercise/application
       {:exercise.application/value
-       {:exercise.application.value/men   9.0
-        :exercise.application.value/women 6.0}
-       :exercise.application/unit  :unit/kilogram}
+       {:exercise.application.value/men   20.0
+        :exercise.application.value/women 14.0}
+       :exercise.application/unit  :unit/pound}
       :exercise/rep-count   150}]}}}
 
- ;; NOTE: commented-out because requires :unit/body-weight
- ;; "Linda"
- ;; 10-9-8-7-6-5-4-3-2-1 Reps, For Time
- ;; Deadlift (1½ bodyweight)
- ;; Bench Press (bodyweight)
- ;; Clean (¾ bodyweight)
+ ;; TODO I tuned this 10-9-8-7…-2-1 into 10-9 for simplicity just time to fix the "for time scheme"
+ :linda
+ {:str "\"Linda\"\n\n10-9 For Time\nDeadlift (1.5 bodyweight)\nBench Press (1 bodyweight)\nClean (0.75 bodyweight)"
+  :db
+  {:workout/name "Linda"
+   :workout/loop
+   {:workout.loop/score-type :score-type/duration
+    :workout.loop/tasks
+    [{:exercise/movement {:movement/name "Deadlift"}
+      :exercise/application
+      {:exercise.application/value {:exercise.application.value/all 1.5}
+       :exercise.application/unit :unit/bodyweight}
+      :exercise/rep-count 10}
+     {:exercise/movement {:movement/name "Bench Press"}
+      :exercise/application
+      {:exercise.application/value {:exercise.application.value/all 1.0}
+       :exercise.application/unit :unit/bodyweight}
+      :exercise/rep-count 10}
+     {:exercise/movement {:movement/name "Clean"}
+      :exercise/application
+      {:exercise.application/value {:exercise.application.value/all 0.75}
+       :exercise.application/unit :unit/bodyweight}
+      :exercise/rep-count 10}
+     {:exercise/movement {:movement/name "Deadlift"}
+      :exercise/application
+      {:exercise.application/value {:exercise.application.value/all 1.5}
+       :exercise.application/unit :unit/bodyweight}
+      :exercise/rep-count 9}
+     {:exercise/movement {:movement/name "Bench Press"}
+      :exercise/application
+      {:exercise.application/value {:exercise.application.value/all 1.0}
+       :exercise.application/unit :unit/bodyweight}
+      :exercise/rep-count 9}
+     {:exercise/movement {:movement/name "Clean"}
+      :exercise/application
+      {:exercise.application/value {:exercise.application.value/all 0.75}
+       :exercise.application/unit :unit/bodyweight}
+      :exercise/rep-count 9}]}}}
 
  :mary
  {:str "\"Mary\"\n\nAMRAP 20 minutes\n5 Handstand Push-Up\n10 Pistol\n15 Pull-Up"
@@ -320,7 +352,7 @@
       :exercise/rep-count 15}]}}}
 
  :nancy
- {:str "\"Nancy\"\n\n5 Rounds For Time\n400m Run\n15 Overhead Squat @43Kg/30Kg"
+ {:str "\"Nancy\"\n\n5 Rounds For Time\n400m Run\n15 Overhead Squat (95/65 lb)"
   :db
   {:workout/name "Nancy"
    :workout/loop
@@ -335,7 +367,7 @@
      {:exercise/movement    {:movement/name "Overhead Squat"}
       :exercise/application
       {:exercise.application/value
-       {:exercise.application.value/men   43.0
-        :exercise.application.value/women 30.0}
-       :exercise.application/unit  :unit/kilogram}
+       {:exercise.application.value/men   95.0
+        :exercise.application.value/women 65.0}
+       :exercise.application/unit  :unit/pound}
       :exercise/rep-count   15}]}}}}

@@ -142,6 +142,90 @@ testHeaderEMOMEveryNMinutes() {
     "(headerEMOM every (period 2 ') for (duration 10 '))"
 }
 
+testApplicationUnitCalorie() {
+  check \
+    'applicationUnit' \
+    'cal' \
+    '(applicationUnit cal)'
+}
+
+testApplicationUnitFeet() {
+  check \
+    'applicationUnit' \
+    'ft' \
+    '(applicationUnit ft)'
+}
+
+testApplicationUnitMeter() {
+  check \
+    'applicationUnit' \
+    'm' \
+    '(applicationUnit m)'
+}
+
+testApplicationUnitMile() {
+  check \
+    'applicationUnit' \
+    'mi' \
+    '(applicationUnit mi)'
+}
+
+testApplicationUnitMinute() {
+  check \
+    'applicationUnit' \
+    "'" \
+    "(applicationUnit ')"
+}
+
+testApplicationUnitSecond() {
+  check \
+    'applicationUnit' \
+    '"' \
+    '(applicationUnit ")'
+}
+
+testApplicationUnitBodyweightLong() {
+  check \
+    'applicationUnit' \
+    'bodyweight' \
+    '(applicationUnit bodyweight)'
+}
+
+testApplicationUnitBodyweightShort() {
+  check \
+    'applicationUnit' \
+    'bw' \
+    '(applicationUnit bw)'
+}
+
+testApplicationUnitKilogram() {
+  check \
+    'applicationUnit' \
+    'Kg' \
+    '(applicationUnit Kg)'
+}
+
+testApplicationUnitPood() {
+  check \
+    'applicationUnit' \
+    'pood' \
+    '(applicationUnit pood)'
+}
+
+testApplicationUnitPoundLong() {
+  check \
+    'applicationUnit' \
+    'pounds' \
+    '(applicationUnit pounds)'
+}
+
+testApplicationUnitPoundShort() {
+  check \
+    'applicationUnit' \
+    'lbs' \
+    '(applicationUnit lbs)'
+}
+
 testApplicationKg() {
   check \
     'application' \
@@ -164,10 +248,17 @@ testApplicationMinute() {
 }
 
 testApplicationSecond() {
-    check \
-        'application' \
-        '12"' \
-        '(application (applicationValue 12) (applicationUnit "))'
+  check \
+    'application' \
+    '12"' \
+    '(application (applicationValue 12) (applicationUnit "))'
+}
+
+testApplicationBodyweight() {
+  check \
+    'application' \
+    '1.25 BW' \
+    "(application (applicationValue 1.25) (applicationUnit BW))"
 }
 
 testApplicationMenWomenDoubleUnit() {

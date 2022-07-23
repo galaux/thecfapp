@@ -99,8 +99,23 @@ headerAMRAP : AMRAP WS duration ;
 headerEMOM :  EMOM WS duration  | EVERY WS period WS FOR WS duration  ;
 header  : ( headerAMRAP | headerForTime | headerEMOM ) ;
 
+// TODO need to be able to specify "80% bodyweight"
+// TODO need to be able to specify "bodyweight" (no "value=1")
 applicationValue : NUMBER ;
-applicationUnit : KILOGRAM | METER | MINUTE | SECOND ;
+applicationUnit
+    : CALORIE
+    // Distance
+    | FOOT
+    | METER
+    | MILE
+    // Duration
+    | MINUTE
+    | SECOND
+    // Weight
+    | BODYWEIGHT
+    | KILOGRAM
+    | POOD
+    | POUND ;
 
 /* We declare `application` as a branching over these four cases to code that
    one of them is compulsory. We tried using the "all optional in the grammar
@@ -185,10 +200,20 @@ EMOM : E M O M ;
 EVERY : E V E R Y ;
 TIME_CAP : T I M E WS? C A P | T C ;
 
-KILOGRAM : K G ;
+CALORIE : C A L ( O R I E )? ;
+// Distance
+FOOT : F ( E E | O O )? T ;
 METER : M ( E T E R S? )? ;
+MILE : M I ( L E S? )? ;
+// Duration
 MINUTE : M I N U T E S? | '\'' | '’' ;
 SECOND : S | '"' ;
+// Weight
+BODYWEIGHT : ( B O D Y SEP? W E I G H T ) | B W ;
+KILOGRAM : K G ;
+POOD : P O O D S? ;
+POUND : P O U N D S? | L B S? ;
+
 
 WORKOUT_NAME : '"' ~["]+ '"' ;
 

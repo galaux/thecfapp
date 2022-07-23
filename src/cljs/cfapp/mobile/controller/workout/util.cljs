@@ -23,10 +23,19 @@
   of 60000 with an unit of `MILLISECOND` would be turned into `1'`."
   [value unit]
   (case unit
-    "KILOGRAM"    (str value " Kg")
-    "METER"       (str value "m")
+    "CALORIE"     (str value " cal")
+    ;; TODO if <1' then return result in seconds rather than minute
     "MILLISECOND" (str (/ value millis-in-one-minute) "'")
-    (str value unit)))
+    ;; Distance
+    "FOOT"        (str value " ft")
+    "METER"       (str value " m")
+    "MILE"        (str value " mi")
+    ;; Weight
+    "BODYWEIGHT"  (str value "× bodyweight")
+    "KILOGRAM"    (str value " Kg")
+    "POOD"        (str value " pood")
+    "POUND"       (str value " lbs")
+    (throw (ex-info "Unknown unit" {:unit unit}))))
 
 (defn- ->time-cap
   [time-cap]

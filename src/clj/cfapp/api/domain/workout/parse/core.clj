@@ -9,7 +9,8 @@
    [clojure.string :as s]
    [cfapp.api.domain.workout.parse.movement :refer [parse-movement]]
    [clojure.edn :as edn]
-   [clojure.java.io :as io]))
+   [clojure.java.io :as io]
+   [clojure.pprint :refer [pprint]]))
 
 (def ^:private one-second-in-ms
   1000)
@@ -166,13 +167,21 @@
 (defn- visit-application-unit
   [_this ctx]
   (cond
-    (.BODYWEIGHT ctx)  :unit/bodyweight
-    (.KILOGRAM ctx)    :unit/kilogram
-    (.METER ctx)       :unit/meter
-    (.MINUTE ctx)      :unit/minute      ;; Turned into ms at exercise level
-    (.MILLISECOND ctx) :unit/millisecond ;; Turned into ms at exercise level
-    :else              (throw (ex-info "Unrecognized unit"
-                                       {:str (.getText ctx)}))))
+    (.CALORIE ctx)    :unit/calorie
+    ;; Distance
+    (.FOOT ctx)       :unit/foot
+    (.METER ctx)      :unit/meter
+    (.MILE ctx)       :unit/mile
+    ;; Duration
+    (.MINUTE ctx)     :unit/minute ;; Turned into ms at exercise level
+    (.SECOND ctx)     :unit/second ;; Turned into ms at exercise level
+    ;; Weight
+    (.BODYWEIGHT ctx) :unit/bodyweight
+    (.KILOGRAM ctx)   :unit/kilogram
+    (.POOD ctx)       :unit/pood
+    (.POUND ctx)      :unit/pound
+    :else             (throw (ex-info "Unknown unit"
+                                      {:str (.getText ctx)}))))
 
 (defn- visit-application-value
   [_this ctx]
@@ -335,6 +344,10 @@
   [parser]
   (.headerEMOM parser))
 
+(defn parser-dot-application-unit
+  [parser]
+  (.applicationUnit parser))
+
 (defn parser-dot-application
   [parser]
   (.application parser))
@@ -386,6 +399,8 @@
                   !errors)
         parsed  (.visit workout-visitor (ctx-fn parser))
         errors  @!errors]
+    (when (= ctx-fn parser-dot-workout)
+      (println (pprint parsed)))
     (merge
       {:parsed parsed}
       (when (seq errors)

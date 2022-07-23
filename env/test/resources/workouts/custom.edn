@@ -179,4 +179,18 @@
      {:exercise/movement    {:movement/name "Row"}
       :exercise/application {:exercise.application/value
                              {:exercise.application.value/all 2000.0}
-                             :exercise.application/unit :unit/meter}}]}}}}
+                             :exercise.application/unit :unit/meter}}]}}}
+
+ :dansaert-2022-07-22
+ {:workout/name "Randy",
+  :workout/loop
+  {:workout.loop/score-type :score-type/duration,
+   :workout.loop/time-cap 480000,
+   :workout.loop/tasks
+   ({:exercise/movement {:movement/name "Snatch"},
+     :exercise/application
+     {:exercise.application/value
+      {:exercise.application.value/men 35.0,
+       :exercise.application.value/women 25.0},
+      :exercise.application/unit :unit/kilogram},
+     :exercise/rep-count 75})}}}

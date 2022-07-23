@@ -12,7 +12,16 @@
    :values      [:DURATION :REP_COUNT]}
 
   :Unit
-  {:values [:CALORIE :KILOGRAM :METER :MILLISECOND]}}
+  {:values
+   [:CALORIE
+    :MILLISECOND
+    :FOOT
+    :METER
+    :MILE
+    :BODYWEIGHT
+    :KILOGRAM
+    :POOD
+    :POUND]}}
 
  :unions
  {:Task

@@ -1,8 +1,15 @@
 [;; Units
  {:db/ident :unit/calorie}
- {:db/ident :unit/kilogram}
- {:db/ident :unit/meter}
  {:db/ident :unit/millisecond}
+
+ {:db/ident :unit/foot}
+ {:db/ident :unit/meter}
+ {:db/ident :unit/mile}
+
+ {:db/ident :unit/bodyweight}
+ {:db/ident :unit/kilogram}
+ {:db/ident :unit/pood}
+ {:db/ident :unit/pound}
 
  ;; Movement
  {:db/doc         "Movement ID"

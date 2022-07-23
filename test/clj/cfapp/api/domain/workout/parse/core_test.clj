@@ -112,6 +112,78 @@
     {:workout.loop/duration 600000
      :workout.loop/period   120000}))
 
+(deftest parse-application-unit-calorie
+  (parse-ok?
+    sut/parser-dot-application-unit
+    "cal"
+    :unit/calorie))
+
+(deftest parse-application-unit-feet
+  (parse-ok?
+    sut/parser-dot-application-unit
+    "ft"
+    :unit/foot))
+
+(deftest parse-application-unit-meter
+  (parse-ok?
+    sut/parser-dot-application-unit
+    "m"
+    :unit/meter))
+
+(deftest parse-application-unit-mile
+  (parse-ok?
+    sut/parser-dot-application-unit
+    "mi"
+    :unit/mile))
+
+(deftest parse-application-unit-minute
+  (parse-ok?
+    sut/parser-dot-application-unit
+    "'"
+    :unit/minute))
+
+(deftest parse-application-unit-second
+  (parse-ok?
+    sut/parser-dot-application-unit
+    "\""
+    :unit/second))
+
+(deftest parse-application-unit-bodyweight-long
+  (parse-ok?
+    sut/parser-dot-application-unit
+    "bodyweight"
+    :unit/bodyweight))
+
+(deftest parse-application-unit-bodyweight-short
+  (parse-ok?
+    sut/parser-dot-application-unit
+    "bw"
+    :unit/bodyweight))
+
+(deftest parse-application-unit-kilogram
+  (parse-ok?
+    sut/parser-dot-application-unit
+    "Kg"
+    :unit/kilogram))
+
+(deftest parse-application-unit-pood
+  (parse-ok?
+    sut/parser-dot-application-unit
+    "pood"
+    :unit/pood))
+
+(deftest parse-application-unit-pound-long
+  (parse-ok?
+    sut/parser-dot-application-unit
+    "pounds"
+    :unit/pound))
+
+(deftest parse-application-unit-pound-short
+  (parse-ok?
+    sut/parser-dot-application-unit
+    "lbs"
+    :unit/pound))
+
 (deftest parse-application-all-kilogram
   (parse-ok?
     sut/parser-dot-application
@@ -126,13 +198,12 @@
     {:exercise.application/value {:exercise.application.value/all 12.0}
      :exercise.application/unit  :unit/meter}))
 
-;; TODO
-;; (deftest parse-application-all-body-weight
-;;   (parse-ok?
-;;    sut/parser-dot-application
-;;    "1.25 BW"
-;;    {:exercise.application/value {:exercise.application.value/all 1.25}
-;;     :exercise.application/unit  :unit/body-weight}))
+(deftest parse-application-all-bodyweight
+  (parse-ok?
+    sut/parser-dot-application
+    "1.25 BW"
+    {:exercise.application/value {:exercise.application.value/all 1.25}
+     :exercise.application/unit  :unit/bodyweight}))
 
 (deftest parse-application-men-women-double-unit
   (parse-ok?
@@ -303,5 +374,5 @@
       (is (= {:parsed db} (sut/parse str))))))
 
 ;; (deftest parse-specific
-;;   (let [{:keys [str db]} (get named-workouts :helen)]
-;;     (is (= db (sut/parse str)))))
+;;   (let [{:keys [str db]} (get named-workouts :diane)]
+;;     (is (= {:parsed db} (sut/parse str)))))

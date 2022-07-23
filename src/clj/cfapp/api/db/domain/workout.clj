@@ -20,9 +20,15 @@
 
 (s/def ::application-value (s/and float? pos?))
 (s/def ::unit
-  #{:unit/kilogram
+  #{:unit/calorie
+    :unit/millisecond
+    :unit/foot
     :unit/meter
-    :unit/millisecond})
+    :unit/mile
+    :unit/bodyweight
+    :unit/kilogram
+    :unit/pood
+    :unit/pound})
 
 (s/def :exercise.application.value/all ::application-value)
 (s/def ::exercise-application-value-all
