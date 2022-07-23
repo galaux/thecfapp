@@ -214,7 +214,6 @@ KILOGRAM : K G ;
 POOD : P O O D S? ;
 POUND : P O U N D S? | L B S? ;
 
-
 WORKOUT_NAME : '"' ~["]+ '"' ;
 
 /* We need this FOR_TIME_SCHEME lexer rule so that the lexer doesn't take

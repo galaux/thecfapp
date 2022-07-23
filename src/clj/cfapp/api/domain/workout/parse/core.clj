@@ -399,8 +399,8 @@
                   !errors)
         parsed  (.visit workout-visitor (ctx-fn parser))
         errors  @!errors]
-    (when (= ctx-fn parser-dot-workout)
-      (println (pprint parsed)))
+    ;; (when (= ctx-fn parser-dot-workout)
+    ;;   (println (pprint parsed)))
     (merge
       {:parsed parsed}
       (when (seq errors)

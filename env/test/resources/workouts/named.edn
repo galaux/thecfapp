@@ -184,7 +184,7 @@
       {:exercise.application/value
        {:exercise.application.value/all 400.0}
        :exercise.application/unit  :unit/meter}}
-     {:exercise/movement    {:movement/name "American Kettlebell Swing"}
+     {:exercise/movement    {:movement/name "Kettlebell Swing"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/men   1.5
@@ -235,7 +235,7 @@
       {:exercise.application/value
        {:exercise.application.value/all 800.0}
        :exercise.application/unit  :unit/meter}}
-     {:exercise/movement    {:movement/name "American Kettlebell Swing"}
+     {:exercise/movement    {:movement/name "Kettlebell Swing"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/men   2.0

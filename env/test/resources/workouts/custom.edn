@@ -82,7 +82,7 @@
     :workout.loop/tasks
     [{:workout.loop/round-count 3
       :workout.loop/tasks
-      [{:exercise/movement    {:movement/name "Single Arm Dumbbell Clean & Jerk"}
+      [{:exercise/movement    {:movement/name "Dumbbell Clean & Jerk"}
         :exercise/application
         {:exercise.application/value
          {:exercise.application.value/men   20.0

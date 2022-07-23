@@ -239,11 +239,17 @@
       :exercise.application.value/women 10.0}
      :exercise.application/unit  :unit/kilogram}))
 
+(deftest parse-movement-sing-arm-kb-swing
+  (parse-ok?
+    sut/parser-dot-movement
+    "Single arm KB swing"
+    {:movement/name "Kettlebell Swing"}))
+
 (deftest parse-exercise-with-rep-count
   (parse-ok?
     sut/parser-dot-exercise
     "5 kb swing @16Kg" ;; FIXME "5 kb swingeeeee" doesn't fail the test :(
-    {:exercise/movement    {:movement/name "American Kettlebell Swing"}
+    {:exercise/movement    {:movement/name "Kettlebell Swing"}
      :exercise/application
      {:exercise.application/value {:exercise.application.value/all 16.0}
       :exercise.application/unit  :unit/kilogram}
@@ -253,7 +259,7 @@
   (parse-ok?
     sut/parser-dot-exercise
     "kb swing @5kg"
-    {:exercise/movement    {:movement/name "American Kettlebell Swing"}
+    {:exercise/movement    {:movement/name "Kettlebell Swing"}
      :exercise/application
      {:exercise.application/value {:exercise.application.value/all 5.0}
       :exercise.application/unit  :unit/kilogram}}))
@@ -262,7 +268,7 @@
   (parse-ok?
     sut/parser-dot-exercise
     "kb swing (15kg)"
-    {:exercise/movement    {:movement/name "American Kettlebell Swing"}
+    {:exercise/movement    {:movement/name "Kettlebell Swing"}
      :exercise/application
      {:exercise.application/value {:exercise.application.value/all 15.0}
       :exercise.application/unit  :unit/kilogram}}))
@@ -280,7 +286,7 @@
   (parse-ok?
     sut/parser-dot-exercise
     "10 20kg KB swing"
-    {:exercise/movement    {:movement/name "American Kettlebell Swing"}
+    {:exercise/movement    {:movement/name "Kettlebell Swing"}
      :exercise/rep-count   10
      :exercise/application
      {:exercise.application/value {:exercise.application.value/all 20.0}
@@ -290,7 +296,7 @@
   (parse-ok?
     sut/parser-dot-exercise
     "KB swing (20/15))"
-    {:exercise/movement    {:movement/name "American Kettlebell Swing"}
+    {:exercise/movement    {:movement/name "Kettlebell Swing"}
      :exercise/application
      {:exercise.application/value
       {:exercise.application.value/men   20.0
@@ -374,5 +380,5 @@
       (is (= {:parsed db} (sut/parse str))))))
 
 ;; (deftest parse-specific
-;;   (let [{:keys [str db]} (get named-workouts :diane)]
+;;   (let [{:keys [str db]} (get named-workouts :eva)]
 ;;     (is (= {:parsed db} (sut/parse str)))))

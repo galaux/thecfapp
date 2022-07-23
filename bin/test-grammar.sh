@@ -292,12 +292,18 @@ testApplicationParen() {
     'noDiagnostics' # Ambiguity between branches not relevant to us
 }
 
-# TODO new sh test to report in CLJ
 testApplicationNoUnit() {
   check \
     'application' \
     '(15/12)' \
     '(application ( (applicationValue 15) / (applicationValue 12) ))'
+}
+
+testMovementSingleArmKBSwing() {
+  check \
+    'movement' \
+    'Single arm KB swing' \
+    '(movement Single arm KB swing)'
 }
 
 testExercise() {
