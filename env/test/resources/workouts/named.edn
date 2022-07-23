@@ -57,34 +57,18 @@
   {:workout/name "Diane"
    :workout/loop
    {:workout.loop/score-type :score-type/duration
+    :workout.loop/rep-scheme
+    {:workout.loop.rep-scheme/first-rep-count 21
+     :workout.loop.rep-scheme/last-rep-count   9
+     :workout.loop.rep-scheme/step            -6}
     :workout.loop/tasks
     [{:exercise/movement    {:movement/name "Deadlift"}
-      :exercise/rep-count   21
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/men   225.0
         :exercise.application.value/women 155.0}
        :exercise.application/unit  :unit/pound}}
-     {:exercise/movement  {:movement/name "Handstand Push-up"}
-      :exercise/rep-count 21}
-     {:exercise/movement    {:movement/name "Deadlift"}
-      :exercise/rep-count   15
-      :exercise/application
-      {:exercise.application/value
-       {:exercise.application.value/men   225.0
-        :exercise.application.value/women 155.0}
-       :exercise.application/unit  :unit/pound}}
-     {:exercise/movement  {:movement/name "Handstand Push-up"}
-      :exercise/rep-count 15}
-     {:exercise/movement    {:movement/name "Deadlift"}
-      :exercise/rep-count   9
-      :exercise/application
-      {:exercise.application/value
-       {:exercise.application.value/men   225.0
-        :exercise.application.value/women 155.0}
-       :exercise.application/unit  :unit/pound}}
-     {:exercise/movement  {:movement/name "Handstand Push-up"}
-      :exercise/rep-count 9}]}}}
+     {:exercise/movement  {:movement/name "Handstand Push-up"}}]}}}
 
  :elizabeth
  {:str "\"Elizabeth\"\n\n21-15-9 For Time\nClean 135lbs/95lbs\nRing Dip"
@@ -92,34 +76,18 @@
   {:workout/name "Elizabeth"
    :workout/loop
    {:workout.loop/score-type :score-type/duration
+    :workout.loop/rep-scheme
+    {:workout.loop.rep-scheme/first-rep-count 21
+     :workout.loop.rep-scheme/last-rep-count   9
+     :workout.loop.rep-scheme/step            -6}
     :workout.loop/tasks
     [{:exercise/movement    {:movement/name "Clean"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/men   135.0
         :exercise.application.value/women 95.0}
-       :exercise.application/unit  :unit/pound}
-      :exercise/rep-count   21}
-     {:exercise/movement  {:movement/name "Ring Dip"}
-      :exercise/rep-count 21}
-     {:exercise/movement    {:movement/name "Clean"}
-      :exercise/application
-      {:exercise.application/value
-       {:exercise.application.value/men   135.0
-        :exercise.application.value/women 95.0}
-       :exercise.application/unit  :unit/pound}
-      :exercise/rep-count   15}
-     {:exercise/movement  {:movement/name "Ring Dip"}
-      :exercise/rep-count 15}
-     {:exercise/movement    {:movement/name "Clean"}
-      :exercise/application
-      {:exercise.application/value
-       {:exercise.application.value/men   135.0
-        :exercise.application.value/women 95.0}
-       :exercise.application/unit  :unit/pound}
-      :exercise/rep-count   9}
-     {:exercise/movement  {:movement/name "Ring Dip"}
-      :exercise/rep-count 9}]}}}
+       :exercise.application/unit  :unit/pound}}
+     {:exercise/movement  {:movement/name "Ring Dip"}}]}}}
 
  :fran
  {:str "\"Fran\"\n\n21-15-9 For Time\nThruster @95lbs/65lbs\nPull-Up"
@@ -127,34 +95,18 @@
   {:workout/name "Fran"
    :workout/loop
    {:workout.loop/score-type :score-type/duration
+    :workout.loop/rep-scheme
+    {:workout.loop.rep-scheme/first-rep-count 21
+     :workout.loop.rep-scheme/last-rep-count 9
+     :workout.loop.rep-scheme/step -6}
     :workout.loop/tasks
     [{:exercise/movement    {:movement/name "Thruster"}
-      :exercise/rep-count   21
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/men   95.0
         :exercise.application.value/women 65.0}
        :exercise.application/unit  :unit/pound}}
-     {:exercise/movement  {:movement/name "Pull-up"}
-      :exercise/rep-count 21}
-     {:exercise/movement    {:movement/name "Thruster"}
-      :exercise/rep-count   15
-      :exercise/application
-      {:exercise.application/value
-       {:exercise.application.value/men   95.0
-        :exercise.application.value/women 65.0}
-       :exercise.application/unit  :unit/pound}}
-     {:exercise/movement  {:movement/name "Pull-up"}
-      :exercise/rep-count 15}
-     {:exercise/movement    {:movement/name "Thruster"}
-      :exercise/rep-count   9
-      :exercise/application
-      {:exercise.application/value
-       {:exercise.application.value/men   95.0
-        :exercise.application.value/women 65.0}
-       :exercise.application/unit  :unit/pound}}
-     {:exercise/movement  {:movement/name "Pull-up"}
-      :exercise/rep-count 9}]}}}
+     {:exercise/movement  {:movement/name "Pull-up"}}]}}}
 
  :grace
  {:str "\"Grace\"\n\nFor Time\n30 Clean and Jerk (135/95 lb)"
@@ -200,27 +152,13 @@
   {:workout/name "Annie"
    :workout/loop
    {:workout.loop/score-type :score-type/duration
+    :workout.loop/rep-scheme
+    {:workout.loop.rep-scheme/first-rep-count  50
+     :workout.loop.rep-scheme/last-rep-count   10
+     :workout.loop.rep-scheme/step             -10}
     :workout.loop/tasks
-    [{:exercise/movement  {:movement/name "Double Under"}
-      :exercise/rep-count 50}
-     {:exercise/movement  {:movement/name "Sit-up"}
-      :exercise/rep-count 50}
-     {:exercise/movement  {:movement/name "Double Under"}
-      :exercise/rep-count 40}
-     {:exercise/movement  {:movement/name "Sit-up"}
-      :exercise/rep-count 40}
-     {:exercise/movement  {:movement/name "Double Under"}
-      :exercise/rep-count 30}
-     {:exercise/movement  {:movement/name "Sit-up"}
-      :exercise/rep-count 30}
-     {:exercise/movement  {:movement/name "Double Under"}
-      :exercise/rep-count 20}
-     {:exercise/movement  {:movement/name "Sit-up"}
-      :exercise/rep-count 20}
-     {:exercise/movement  {:movement/name "Double Under"}
-      :exercise/rep-count 10}
-     {:exercise/movement  {:movement/name "Sit-up"}
-      :exercise/rep-count 10}]}}}
+    [{:exercise/movement  {:movement/name "Double Under"}}
+     {:exercise/movement  {:movement/name "Sit-up"}}]}}}
 
  :eva
  {:str "\"Eva\"\n\n5 Rounds For Time\n800m Run\n30 Kettlebell Swing (2/1.5 pood)\n30 Pull-Up"
@@ -297,44 +235,29 @@
        :exercise.application/unit  :unit/pound}
       :exercise/rep-count   150}]}}}
 
- ;; TODO I tuned this 10-9-8-7…-2-1 into 10-9 for simplicity just time to fix the "for time scheme"
  :linda
- {:str "\"Linda\"\n\n10-9 For Time\nDeadlift (1.5 bodyweight)\nBench Press (1 bodyweight)\nClean (0.75 bodyweight)"
+ {:str "\"Linda\"\n\n10-9-8-7-6-5-4-3-2-1 For Time\nDeadlift (1.5 bodyweight)\nBench Press (1 bodyweight)\nClean (0.75 bodyweight)"
   :db
   {:workout/name "Linda"
    :workout/loop
    {:workout.loop/score-type :score-type/duration
+    :workout.loop/rep-scheme
+    {:workout.loop.rep-scheme/first-rep-count 10
+     :workout.loop.rep-scheme/last-rep-count 1
+     :workout.loop.rep-scheme/step -1}
     :workout.loop/tasks
     [{:exercise/movement {:movement/name "Deadlift"}
       :exercise/application
       {:exercise.application/value {:exercise.application.value/all 1.5}
-       :exercise.application/unit :unit/bodyweight}
-      :exercise/rep-count 10}
+       :exercise.application/unit :unit/bodyweight}}
      {:exercise/movement {:movement/name "Bench Press"}
       :exercise/application
       {:exercise.application/value {:exercise.application.value/all 1.0}
-       :exercise.application/unit :unit/bodyweight}
-      :exercise/rep-count 10}
+       :exercise.application/unit :unit/bodyweight}}
      {:exercise/movement {:movement/name "Clean"}
       :exercise/application
       {:exercise.application/value {:exercise.application.value/all 0.75}
-       :exercise.application/unit :unit/bodyweight}
-      :exercise/rep-count 10}
-     {:exercise/movement {:movement/name "Deadlift"}
-      :exercise/application
-      {:exercise.application/value {:exercise.application.value/all 1.5}
-       :exercise.application/unit :unit/bodyweight}
-      :exercise/rep-count 9}
-     {:exercise/movement {:movement/name "Bench Press"}
-      :exercise/application
-      {:exercise.application/value {:exercise.application.value/all 1.0}
-       :exercise.application/unit :unit/bodyweight}
-      :exercise/rep-count 9}
-     {:exercise/movement {:movement/name "Clean"}
-      :exercise/application
-      {:exercise.application/value {:exercise.application.value/all 0.75}
-       :exercise.application/unit :unit/bodyweight}
-      :exercise/rep-count 9}]}}}
+       :exercise.application/unit :unit/bodyweight}}]}}}
 
  :mary
  {:str "\"Mary\"\n\nAMRAP 20 minutes\n5 Handstand Push-Up\n10 Pistol\n15 Pull-Up"
@@ -370,4 +293,20 @@
        {:exercise.application.value/men   95.0
         :exercise.application.value/women 65.0}
        :exercise.application/unit  :unit/pound}
-      :exercise/rep-count   15}]}}}}
+      :exercise/rep-count   15}]}}}
+
+ :randy
+ {:str "\"Randy\"\n\nFor time (TC 8')\n75 snatch 35/25 Kg"
+  :db
+  {:workout/name "Randy",
+   :workout/loop
+   {:workout.loop/score-type :score-type/duration,
+    :workout.loop/time-cap 480000,
+    :workout.loop/tasks
+    ({:exercise/movement {:movement/name "Snatch"},
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/men 35.0,
+        :exercise.application.value/women 25.0},
+       :exercise.application/unit :unit/kilogram},
+      :exercise/rep-count 75})}}}}

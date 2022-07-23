@@ -340,8 +340,8 @@ DEVIL_PRESS : D E V I L SEP PRESS ; // ["Devil Press" [:weight]]
 BENCH_PRESS : B E N C H SEP PRESS ; // ["Bench Press" [:weight]]
 PRESS : P R E S S (E S)? ; // ["Press" [:weight]]
 BURPEE : B U R P E E S? ; // ["Burpee" [nil]]
-BOX_JUMP : B O X SEP JUMP ; // ["Box Jump" [:distance]]
-WALL_BALL : ( M E D I C I N E | W A L L ) SEP B A L L ( SEP S H O T S? )? ; // ["Wall-ball" [:weight]]
+BOX_JUMP : B O X SEP JUMP ; // ["Box Jump" [:distance] {:default-application {:exercise.application/value {:exercise.application.value/men 0.6 :exercise.application.value/women 0.5} :exercise.application/unit :unit/meter}}]
+WALL_BALL : ( M E D I C I N E | W A L L ) SEP B A L L ( SEP S H O T S? )? ; // ["Wall-ball" [:weight] {:default-application {:exercise.application/value {:exercise.application.value/men 9.0 :exercise.application.value/women 6.0} :exercise.application/unit :unit/kilogram}}]
 REST :  R E S T ; // ["Rest" [:duration]]
 
 // Order is important here

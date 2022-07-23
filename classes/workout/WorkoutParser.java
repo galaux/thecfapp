@@ -19,7 +19,7 @@ public class WorkoutParser extends Parser {
 		T__0=1, AT_SIGN=2, DASH=3, PAREN_OPEN=4, PAREN_CLOSE=5, COMMA=6, NUMBER=7, 
 		FOR=8, ROUNDS=9, AMRAP=10, FOR_TIME=11, EMOM=12, EVERY=13, TIME_CAP=14, 
 		CALORIE=15, FOOT=16, METER=17, MILE=18, MINUTE=19, SECOND=20, BODYWEIGHT=21, 
-		KILOGRAM=22, POOD=23, POUND=24, WORKOUT_NAME=25, FOR_TIME_SCHEME=26, NEWLINE=27, 
+		KILOGRAM=22, POOD=23, POUND=24, WORKOUT_NAME=25, REP_SCHEME=26, NEWLINE=27, 
 		WS=28, SEP=29, BURPEE_BAR_MUSCLE_UP=30, BURPEE_MUSCLE_UP=31, BURPEE_PULL_UP=32, 
 		CLUSTER=33, BAR_FACING_BURPEE=34, BURPEE_BOX_JUMP_OVER=35, BOX_JUMP_OVER=36, 
 		BOX_STEP_UP=37, WEIGHTED_BOX_STEP_UP=38, SINGLE_ARM_KB_CLEAN_AND_JERK=39, 
@@ -121,7 +121,7 @@ public class WorkoutParser extends Parser {
 			null, null, "AT_SIGN", "DASH", "PAREN_OPEN", "PAREN_CLOSE", "COMMA", 
 			"NUMBER", "FOR", "ROUNDS", "AMRAP", "FOR_TIME", "EMOM", "EVERY", "TIME_CAP", 
 			"CALORIE", "FOOT", "METER", "MILE", "MINUTE", "SECOND", "BODYWEIGHT", 
-			"KILOGRAM", "POOD", "POUND", "WORKOUT_NAME", "FOR_TIME_SCHEME", "NEWLINE", 
+			"KILOGRAM", "POOD", "POUND", "WORKOUT_NAME", "REP_SCHEME", "NEWLINE", 
 			"WS", "SEP", "BURPEE_BAR_MUSCLE_UP", "BURPEE_MUSCLE_UP", "BURPEE_PULL_UP", 
 			"CLUSTER", "BAR_FACING_BURPEE", "BURPEE_BOX_JUMP_OVER", "BOX_JUMP_OVER", 
 			"BOX_STEP_UP", "WEIGHTED_BOX_STEP_UP", "SINGLE_ARM_KB_CLEAN_AND_JERK", 
@@ -521,9 +521,9 @@ public class WorkoutParser extends Parser {
 		public RoundCountContext roundCount(int i) {
 			return getRuleContext(RoundCountContext.class,i);
 		}
-		public List<TerminalNode> FOR_TIME_SCHEME() { return getTokens(WorkoutParser.FOR_TIME_SCHEME); }
-		public TerminalNode FOR_TIME_SCHEME(int i) {
-			return getToken(WorkoutParser.FOR_TIME_SCHEME, i);
+		public List<TerminalNode> REP_SCHEME() { return getTokens(WorkoutParser.REP_SCHEME); }
+		public TerminalNode REP_SCHEME(int i) {
+			return getToken(WorkoutParser.REP_SCHEME, i);
 		}
 		public List<TimeCapContext> timeCap() {
 			return getRuleContexts(TimeCapContext.class);
@@ -580,10 +580,10 @@ public class WorkoutParser extends Parser {
 				roundCount();
 				}
 				break;
-			case FOR_TIME_SCHEME:
+			case REP_SCHEME:
 				{
 				setState(64);
-				match(FOR_TIME_SCHEME);
+				match(REP_SCHEME);
 				}
 				break;
 			case PAREN_OPEN:
@@ -669,10 +669,10 @@ public class WorkoutParser extends Parser {
 					roundCount();
 					}
 					break;
-				case FOR_TIME_SCHEME:
+				case REP_SCHEME:
 					{
 					setState(83);
-					match(FOR_TIME_SCHEME);
+					match(REP_SCHEME);
 					}
 					break;
 				case PAREN_OPEN:
@@ -885,7 +885,7 @@ public class WorkoutParser extends Parser {
 			case NUMBER:
 			case FOR_TIME:
 			case TIME_CAP:
-			case FOR_TIME_SCHEME:
+			case REP_SCHEME:
 				{
 				setState(116);
 				headerForTime();

@@ -33,12 +33,12 @@ After some testing, I feel like I'm balancing between 2 extremes:
     has already identified many precise tokens (INT, …)
   - con: more parser rules and as the parser gets more complicated, I might
     break some use cases I previously had (for instance allowing "2" in
-    movement names messed-up the lexer rule for FOR_TIME_SCHEME when scheme has
+    movement names messed-up the lexer rule for REP_SCHEME when scheme has
     "2" in it – Lexer then considers "-2-" is a WORD)
 - new solution tested tonight which is the other extreme: have many more lexer
   rules such as DURATION which identifies "1 minute", WORKOUT_NAME
   - pro: less mixes when tokenizing (ie, "no WORD for "-2-" when it actually is
-    a FOR_TIME_SCHEME
+    a REP_SCHEME
   - con: forces me to have supplementary `(re-find #"[0-9]+" (.getText duration)`
     for nearly every lexer rule
 
@@ -48,7 +48,7 @@ Good solution looks to be:
   so that visitor is powerfull and simple (no supplementary re-find) but when
   a modiication in the grammar introduces a tokenizing problem, then create
   a specific lexer rule to properly differenciate cases and use a re-find for
-  said case (just like I already do for FOR_TIME_SCHEME where I extract values
+  said case (just like I already do for REP_SCHEME where I extract values
   from "1-2-3-4"). */
 
 fragment A : ('A'|'a') ;
@@ -90,8 +90,8 @@ period : NUMBER WS? ( MINUTE | SECOND ) ;
 repCount : NUMBER ;
 
 headerForTime
-  :                           ( FOR_TIME | roundCount | FOR_TIME_SCHEME | ( PAREN_OPEN? timeCap PAREN_CLOSE? ) )
-    ( ( WS | ( COMMA WS? ) )  ( FOR_TIME | roundCount | FOR_TIME_SCHEME | ( PAREN_OPEN? timeCap PAREN_CLOSE? ) ) )*
+  :                           ( FOR_TIME | roundCount | REP_SCHEME | ( PAREN_OPEN? timeCap PAREN_CLOSE? ) )
+    ( ( WS | ( COMMA WS? ) )  ( FOR_TIME | roundCount | REP_SCHEME | ( PAREN_OPEN? timeCap PAREN_CLOSE? ) ) )*
   ;
 
 // TODO support word "in". For instance "AMRAP in 20'"
@@ -118,9 +118,9 @@ applicationUnit
     | POUND ;
 
 /* We declare `application` as a branching over these four cases to code that
-   one of them is compulsory. We tried using the "all optional in the grammar
-   then sort things out in code" pattern but then Antlr cannot make the
-   difference with the repCount. */
+   one of them is compulsory. We tried using the "all optional multiple times
+   in the grammar then sort things out in code" pattern `(a|b|c)+` but then
+   Antlr cannot make the difference with the repCount. */
 application
   : // compulsory paren version
     PAREN_OPEN
@@ -203,6 +203,7 @@ TIME_CAP : T I M E WS? C A P | T C ;
 CALORIE : C A L ( O R I E )? ;
 // Distance
 FOOT : F ( E E | O O )? T ;
+// TODO add "inch" (for box height for instance)
 METER : M ( E T E R S? )? ;
 MILE : M I ( L E S? )? ;
 // Duration
@@ -216,9 +217,9 @@ POUND : P O U N D S? | L B S? ;
 
 WORKOUT_NAME : '"' ~["]+ '"' ;
 
-/* We need this FOR_TIME_SCHEME lexer rule so that the lexer doesn't take
+/* We need this REP_SCHEME lexer rule so that the lexer doesn't take
    "-2-" from "1-2-3-4" for a WORD */
-FOR_TIME_SCHEME : ( NUMBER DASH )+ NUMBER ;
+REP_SCHEME : NUMBER ( DASH NUMBER )+ ( DASH NUMBER | DASH? ( '...' | '…' ) ) ;
 
 NEWLINE             : ( '\r'? '\n' | '\r' ) ;
 

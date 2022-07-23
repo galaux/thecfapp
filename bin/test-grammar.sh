@@ -114,11 +114,25 @@ testHeaderForTimeTimeCapShortParen() {
     "(headerForTime for time ( (timeCap TC (duration 5 ')) ))"
 }
 
-testHeaderForTimeScheme() {
+testHeaderRepScheme() {
   check \
     'headerForTime' \
     '1-2-3-4 for time' \
     '(headerForTime 1-2-3-4 for time)'
+}
+
+testHeaderRepSchemeInfiniteWithTrailingDash() {
+  check \
+    'headerForTime' \
+    '1-2-3-4-... for time' \
+    '(headerForTime 1-2-3-4-... for time)'
+}
+
+testHeaderRepSchemeInfiniteWithoutTrailingDash() {
+  check \
+    'headerForTime' \
+    '1-2-3-4... for time' \
+    '(headerForTime 1-2-3-4... for time)'
 }
 
 testHeaderAMRAP() {

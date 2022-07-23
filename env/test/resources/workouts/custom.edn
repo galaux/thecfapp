@@ -151,46 +151,21 @@
    {:workout.loop/score-type :score-type/duration
     :workout.loop/time-cap 720000
     :workout.loop/tasks
-    [{:workout.loop/tasks
-       [{:exercise/movement {:movement/name "Wall Climb"} :exercise/rep-count 15}
-        {:exercise/movement    {:movement/name "Devil Press"}
-         :exercise/application {:exercise.application/value
-                                {:exercise.application.value/men   30.0
-                                 :exercise.application.value/women 22.5}
-                                :exercise.application/unit :unit/kilogram}
-         :exercise/rep-count   15}
-        {:exercise/movement {:movement/name "Wall Climb"} :exercise/rep-count 12}
-        {:exercise/movement    {:movement/name "Devil Press"}
-         :exercise/application {:exercise.application/value
-                                {:exercise.application.value/men   30.0
-                                 :exercise.application.value/women 22.5}
-                                :exercise.application/unit :unit/kilogram}
-         :exercise/rep-count   12}
-        {:exercise/movement {:movement/name "Wall Climb"} :exercise/rep-count 9}
-        {:exercise/movement    {:movement/name "Devil Press"}
-         :exercise/application {:exercise.application/value
-                                {:exercise.application.value/men   30.0
-                                 :exercise.application.value/women 22.5}
-                                :exercise.application/unit :unit/kilogram}
-         :exercise/rep-count   9}]}
+    [{:workout.loop/rep-scheme
+      {:workout.loop.rep-scheme/first-rep-count 15
+       :workout.loop.rep-scheme/last-rep-count 9
+       :workout.loop.rep-scheme/step -3}
+      :workout.loop/tasks
+      [{:exercise/movement {:movement/name "Wall Climb"}}
+       {:exercise/movement    {:movement/name "Devil Press"}
+        :exercise/application {:exercise.application/value
+                               {:exercise.application.value/men   30.0
+                                :exercise.application.value/women 22.5}
+                               :exercise.application/unit :unit/kilogram}}]}
      {:exercise/movement    {:movement/name "Rest"}
       :exercise/application {:exercise.application/value {:exercise.application.value/all 120000.0}
                              :exercise.application/unit :unit/millisecond}}
      {:exercise/movement    {:movement/name "Row"}
       :exercise/application {:exercise.application/value
                              {:exercise.application.value/all 2000.0}
-                             :exercise.application/unit :unit/meter}}]}}}
-
- :dansaert-2022-07-22
- {:workout/name "Randy",
-  :workout/loop
-  {:workout.loop/score-type :score-type/duration,
-   :workout.loop/time-cap 480000,
-   :workout.loop/tasks
-   ({:exercise/movement {:movement/name "Snatch"},
-     :exercise/application
-     {:exercise.application/value
-      {:exercise.application.value/men 35.0,
-       :exercise.application.value/women 25.0},
-      :exercise.application/unit :unit/kilogram},
-     :exercise/rep-count 75})}}}
+                             :exercise.application/unit :unit/meter}}]}}}}

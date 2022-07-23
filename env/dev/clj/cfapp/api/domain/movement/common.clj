@@ -13,13 +13,15 @@
 
 (defn- parse-line
   [line]
-  (let [[_matched rule-name args] (re-find re-extract-rule-name-and-args line)]
-    (when-not (= args "IGNORE")
-      (let [[movement-name applications] (edn/read-string args)]
+  (let [[_matched rule-name conf] (re-find re-extract-rule-name-and-args line)]
+    (when-not (= conf "IGNORE")
+      (let [[movement-name applications props] (edn/read-string conf)]
         (if (and line rule-name movement-name applications)
           [movement-name
-           {:rule-name    rule-name
-            :applications applications}]
+           (merge
+             {:rule-name    rule-name
+              :applications applications}
+             props)]
           (throw (ex-info "Error while parsing Movement lexer"
                           {:line line})))))))
 

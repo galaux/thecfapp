@@ -36,31 +36,11 @@
   [_this ctx]
   (trim-double-quotes (.getText ctx)))
 
-(defn- time-scheme->reps
-  [s]
-  (map #(Long/parseLong %)
-    (s/split s #"\-")))
-
-(defn- apply-for-time-scheme
-  [tasks for-time-scheme-ctx]
-  (for [rep-count (time-scheme->reps (.getText for-time-scheme-ctx))
-        task      tasks]
-    (assoc task :exercise/rep-count rep-count)))
-
 (defn- visit-flat-loop
   [this ctx]
-  (let [tasks (map #(.visitExercise this %) (.exercise ctx))
-        for-time-scheme (some-> ctx
-                                (.header)
-                                (.headerForTime)
-                                (.FOR_TIME_SCHEME)
-                                first)]
-    (merge
-      (.visitHeader this (.header ctx))
-      {:workout.loop/tasks
-       (if for-time-scheme
-         (apply-for-time-scheme tasks for-time-scheme)
-         tasks)})))
+  (merge
+    (.visitHeader this (.header ctx))
+    {:workout.loop/tasks (map #(.visitExercise this %) (.exercise ctx))}))
 
 (defn- visit-parent-loop-next-task
   [this ctx]
@@ -114,15 +94,43 @@
                      (.parent)
                      (.parent))))
 
+(defn- rep-scheme-finite
+  [scheme]
+  (let [[first-reps second-reps & _rest :as reps] (map #(Long/parseLong %)
+                                                    (s/split scheme #"\-"))
+        last-reps (last reps)
+        step      (- second-reps first-reps)
+        expected  (conj (into [] (range first-reps last-reps step)) last-reps)]
+    (when-not (= expected reps)
+      (throw (ex-info "Bad rep scheme" {:rep-scheme scheme})))
+    {:workout.loop/rep-scheme
+     {:workout.loop.rep-scheme/first-rep-count first-reps
+      :workout.loop.rep-scheme/last-rep-count last-reps
+      :workout.loop.rep-scheme/step step}}))
+
+(defn- rep-scheme
+  [scheme]
+  (if (s/ends-with? scheme "...")
+    (let [no-ellipsis (re-find #"[0-9-]+-[0-9]+" scheme)]
+      (-> (rep-scheme-finite no-ellipsis)
+          (update :workout.loop/rep-scheme
+                  dissoc
+                  :workout.loop.rep-scheme/last-rep-count)))
+    (rep-scheme-finite scheme)))
+
 (defn- visit-header-for-time
   [this ctx]
+  ;; TODO handle case where user gave more than one roundCount,
+  ;; scheme and time-cap as errors
   (merge
     (when (parent-loop-header? ctx)
       {:workout.loop/score-type :score-type/duration})
     (when-let [round-count (first (.roundCount ctx))]
       (.visitRoundCount this round-count))
     (when-let [time-cap (first (.timeCap ctx))]
-      (.visitTimeCap this time-cap))))
+      (.visitTimeCap this time-cap))
+    (when-let [scheme (first (.REP_SCHEME ctx))]
+      (rep-scheme (.getText scheme)))))
 
 (defn- visit-time-cap
   [this ctx]
@@ -248,15 +256,17 @@
 ;; map)
 
 (defn- with-default-application-unit
+  ;; TODO This function also needs to check if given unit is ok with the
+  ;; movement (ie "no kg for pull-up")
   [{:exercise/keys [movement application] :as exercise}]
   (let [unit         (:exercise.application/unit application)
         default-unit (default-application-unit (:movement/name movement))]
-    (if (or unit (nil? default-unit))
-      exercise
+    (if (and (nil? unit) default-unit)
       (assoc-in
         exercise
         [:exercise/application :exercise.application/unit]
-        default-unit))))
+        default-unit)
+      exercise)))
 
 (defn- with-fixed-application-value
   [{:exercise/keys [application] :as exercise}]
@@ -269,6 +279,18 @@
                     :unit/millisecond))
       exercise)))
 
+(defn- with-default-application
+  "If user didn't provide any application and given movement has a default one
+  in the `movements-config` map, assign it to the exercise."
+  [{:exercise/keys [movement application] :as exercise}]
+  (let [def-application (get-in movements-config
+                                [(:movement/name movement)
+                                 :default-application])
+        {:exercise.application/keys [value unit]} application]
+    (if (and (nil? value) (nil? unit) def-application)
+      (merge exercise {:exercise/application def-application})
+      exercise)))
+
 (defn- with-fixed-application
   "Fix the application of an exercise:
   - unit: user may not specify any ; then, if compulsory, assign the default one
@@ -276,6 +298,7 @@
     milliseconds)"
   [exercise]
   (-> exercise
+      with-default-application
       with-default-application-unit
       with-fixed-application-value))
 

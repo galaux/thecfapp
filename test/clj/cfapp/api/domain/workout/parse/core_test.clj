@@ -92,6 +92,49 @@
     "for time, (TC 10')"
     {:workout.loop/time-cap 600000}))
 
+(deftest parse-header-rep-scheme
+  (parse-ok?
+    sut/parser-dot-header-for-time
+    "1-2-3-4 for time"
+    {:workout.loop/rep-scheme
+     {:workout.loop.rep-scheme/first-rep-count 1
+      :workout.loop.rep-scheme/last-rep-count 4
+      :workout.loop.rep-scheme/step 1}}))
+
+(deftest parse-header-rep-scheme-infinite-with-trailing-dot
+  (parse-ok?
+    sut/parser-dot-header-for-time
+    "1-2-3-4-... for time"
+    {:workout.loop/rep-scheme
+     {:workout.loop.rep-scheme/first-rep-count 1
+      :workout.loop.rep-scheme/step 1}}))
+
+(deftest parse-header-rep-scheme-infinite-without-trailing-dot
+  (parse-ok?
+    sut/parser-dot-header-for-time
+    "1-2-3-4... for time"
+    {:workout.loop/rep-scheme
+     {:workout.loop.rep-scheme/first-rep-count 1
+      :workout.loop.rep-scheme/step 1}}))
+
+(deftest parse-header-rep-scheme-exercise-override
+  ;; Burpee has a rep-count that "overrides" the rep scheme
+  (parse-ok?
+    sut/parser-dot-flat-loop
+    "21-15-9 for time\nC&J (50/40 Kg)\n5 burpees"
+    {:workout.loop/rep-scheme
+     {:workout.loop.rep-scheme/first-rep-count 21
+      :workout.loop.rep-scheme/last-rep-count 9
+      :workout.loop.rep-scheme/step -6}
+     :workout.loop/tasks
+     [{:exercise/movement    {:movement/name "Clean & Jerk"}
+       :exercise/application
+       {:exercise.application/value {:exercise.application.value/men   50.0
+                                     :exercise.application.value/women 40.0}
+        :exercise.application/unit  :unit/kilogram}}
+      {:exercise/movement  {:movement/name "Burpee"}
+       :exercise/rep-count 5}]}))
+
 (deftest parse-header-amrap
   (parse-ok?
     sut/parser-dot-header-amrap
@@ -313,6 +356,18 @@
       {:exercise.application.value/all 60000.0}
       :exercise.application/unit  :unit/millisecond}}))
 
+(deftest parse-exercise-with-default-application
+  (parse-ok?
+    sut/parser-dot-exercise
+    "5 wall ball shots"
+    {:exercise/movement    {:movement/name "Wall-ball"}
+     :exercise/application
+     {:exercise.application/value
+      {:exercise.application.value/men   9.0
+       :exercise.application.value/women 6.0}
+      :exercise.application/unit  :unit/kilogram}
+     :exercise/rep-count   5}))
+
 (deftest parse-flat-loop
   (parse-ok?
     sut/parser-dot-flat-loop
@@ -322,20 +377,6 @@
        :exercise/rep-count 5}
       {:exercise/movement  {:movement/name "Push-up"}
        :exercise/rep-count 10}]}))
-
-(deftest parse-loop-with-for-time-scheme
-  (parse-ok?
-    sut/parser-dot-flat-loop
-    "1-2-3-4 for time\npull-up"
-    {:workout.loop/tasks
-     [{:exercise/movement  {:movement/name "Pull-up"}
-       :exercise/rep-count 1}
-      {:exercise/movement  {:movement/name "Pull-up"}
-       :exercise/rep-count 2}
-      {:exercise/movement  {:movement/name "Pull-up"}
-       :exercise/rep-count 3}
-      {:exercise/movement  {:movement/name "Pull-up"}
-       :exercise/rep-count 4}]}))
 
 (deftest parse-unknown-movement
   (let [{:keys [_workout errors] :as actual}
@@ -368,17 +409,15 @@
 
 (deftest parse-all-named-workouts
   (doseq [{:keys [str db]} (vals named-workouts)]
-    (when str
-      (is (= {:parsed db} (sut/parse str))))))
+    (is (= {:parsed db} (sut/parse str)))))
 
 (def ^:private custom-workouts
   (edn/read-string (slurp (io/resource "workouts/custom.edn"))))
 
 (deftest parse-all-custom-workouts
   (doseq [{:keys [str db]} (vals custom-workouts)]
-    (when str
-      (is (= {:parsed db} (sut/parse str))))))
+    (is (= {:parsed db} (sut/parse str)))))
 
-;; (deftest parse-specific
-;;   (let [{:keys [str db]} (get named-workouts :eva)]
-;;     (is (= {:parsed db} (sut/parse str)))))
+(deftest parse-specific
+  (let [{:keys [str db]} (get named-workouts :annie)]
+    (is (= {:parsed db} (sut/parse str)))))
