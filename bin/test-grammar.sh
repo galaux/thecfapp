@@ -170,14 +170,6 @@ testApplicationSecond() {
         '(application (applicationValue 12) (applicationUnit "))'
 }
 
-# TODO
-# testApplicationBodyWeight() {
-#   check \
-#     'application' \
-#     "1.25 BW" \
-#     "(application (applicationValue 1.25) (applicationUnit BW))"
-# }
-
 testApplicationMenWomenDoubleUnit() {
   check \
     'application' \

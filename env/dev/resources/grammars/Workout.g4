@@ -84,6 +84,8 @@ workoutName : WORKOUT_NAME ;
 roundCount : NUMBER WS ROUNDS ;
 duration : NUMBER WS? ( MINUTE | SECOND ) ;
 timeCap :  TIME_CAP WS duration ;
+// TODO Do we really need a `period` parser rule? `headerEMOM` could just
+// use 2 `duration`s
 period : NUMBER WS? ( MINUTE | SECOND ) ;
 repCount : NUMBER ;
 
@@ -183,11 +185,9 @@ EMOM : E M O M ;
 EVERY : E V E R Y ;
 TIME_CAP : T I M E WS? C A P | T C ;
 
-BODY_WEIGHT : ( B O D Y SEP? W E I G H T ) | B W ;
 KILOGRAM : K G ;
 METER : M ( E T E R S? )? ;
 MINUTE : M I N U T E S? | '\'' | '’' ;
-
 SECOND : S | '"' ;
 
 WORKOUT_NAME : '"' ~["]+ '"' ;

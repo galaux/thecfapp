@@ -12,7 +12,7 @@
    [clojure.java.io :as io]))
 
 (def ^:private one-second-in-ms
-  60000)
+  1000)
 
 (def ^:private one-minute-in-ms
   60000)
@@ -135,14 +135,16 @@
     (when-let [duration (.duration ctx)]
       {:workout.loop/duration (.visitDuration this duration)})))
 
-(defn- visit-period
-  [_this ctx]
-  ;; FIXME we'll fail if user passes "9.0"
-  (* 60 1000 (Long/parseLong (.getText (.NUMBER ctx)))))
-
 (defn- visit-duration
   [_this ctx]
-  (* 60 1000 (Long/parseLong (.getText (.NUMBER ctx)))))
+  ;; FIXME we'll fail if user passes "9.0"
+  (let [value (Long/parseLong (.getText (.NUMBER ctx)))]
+    (cond
+      (.MINUTE ctx) (* value one-minute-in-ms)
+      (.SECOND ctx) (* value one-second-in-ms)
+      :else         value)))
+
+(def ^:private visit-period visit-duration)
 
 (defn- visit-header-emom
   [this ctx]
@@ -164,11 +166,11 @@
 (defn- visit-application-unit
   [_this ctx]
   (cond
+    (.BODYWEIGHT ctx)  :unit/bodyweight
     (.KILOGRAM ctx)    :unit/kilogram
     (.METER ctx)       :unit/meter
-    (.MILLISECOND ctx) :unit/millisecond
-    ;; "'"       :unit/second ;; Turned later into ms at exercise level
-    ;; "minutes" :unit/minute ;; Turned later into ms at exercise level
+    (.MINUTE ctx)      :unit/minute      ;; Turned into ms at exercise level
+    (.MILLISECOND ctx) :unit/millisecond ;; Turned into ms at exercise level
     :else              (throw (ex-info "Unrecognized unit"
                                        {:str (.getText ctx)}))))
 
@@ -260,10 +262,10 @@
 
 (defn- with-fixed-application
   "Fix the application of an exercise:
-  - unit: is optional so if missing, assign the default one
+  - unit: user may not specify any ; then, if compulsory, assign the default one
   - value: may need to be turned into the correct unit (minutes or seconds into
     milliseconds)"
-  [exercise] ;; {:exercise.application/keys [unit] :as application}
+  [exercise]
   (-> exercise
       with-default-application-unit
       with-fixed-application-value))

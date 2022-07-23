@@ -20,17 +20,29 @@
     "\"Super workout\""
     "Super workout"))
 
+(deftest parse-duration-label-long
+  (parse-ok?
+    sut/parser-dot-duration
+    "1 minute"
+    60000))
+
 (deftest parse-duration-label-short
   (parse-ok?
     sut/parser-dot-duration
     "1'"
     60000))
 
-(deftest parse-duration-label-long
+(deftest parse-duration-minute
   (parse-ok?
     sut/parser-dot-duration
-    "1 minute"
+    "1'"
     60000))
+
+(deftest parse-duration-seconds
+  (parse-ok?
+    sut/parser-dot-duration
+    "1\""
+    1000))
 
 (deftest parse-round-count
   (parse-ok?
@@ -251,13 +263,28 @@
 (deftest parse-unknown-movement
   (let [{:keys [_workout errors] :as actual}
         (sut/parse "garbage" :ctx-fn sut/parser-dot-movement)
-        {:keys [message] :as error} (first errors)]
+        {:keys [message] :as error} (last errors)]
     (is (empty? (meta actual)))
-    (is (= {:line-nb  1
-            :char-pos 0
-            :offender "garbage"}
+    (is (= [{:line-nb  1
+             :char-pos 0
+             :offender nil
+             :message  "token recognition error at: 'ga'"}
+            {:line-nb  1
+             :char-pos 2
+             :offender nil
+             :message  "token recognition error at: 'rb'"}
+            {:line-nb  1
+             :char-pos 4
+             :offender nil
+             :message  "token recognition error at: 'ag'"}
+            {:line-nb  1
+             :char-pos 6
+             :offender nil
+             :message  "token recognition error at: 'e'"}]
+           (take 4 errors)))
+    (is (= {:line-nb 1 :char-pos 7 :offender "<EOF>"}
            (dissoc error :message)))
-    (is (s/starts-with? message "mismatched input 'garbage' expecting"))))
+    (is (s/starts-with? message "missing {"))))
 
 (def ^:private named-workouts
   (edn/read-string (slurp (io/resource "workouts/named.edn"))))

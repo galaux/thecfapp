@@ -344,16 +344,6 @@ BOX_JUMP : B O X SEP JUMP ; // ["Box Jump" [:distance]]
 WALL_BALL : ( M E D I C I N E | W A L L ) SEP B A L L ( WS S H O T S? )? ; // ["Wall-ball" [:weight]]
 REST :  R E S T ; // ["Rest" [:duration]]
 
-/* WORD is the only Workout rules that must live inside the Movement grammar
-   because it must appear after all the movement lexer rules */
-/* Order in the lexer rules is important: `WORD` for instance is a broad rule.
-   It must be declared after `METER`, `MINUTES` and `KILOGRAM` so that string
-   "kg" is tried against rule `KILOGRAM` before `WORD`. */
-// FIXME `movement` must allow '2' (for "c2b", …)
-// TODO change '&'
-// WORD : ( LOWERCASE | UPPERCASE | DASH | '&' )+ ; // IGNORE
-// WORD : ~["]+ ; // IGNORE
-
 // Order is important here
 WS  : ( ' ' | '\t' )+ ; // IGNORE
 SEP : ( '-' | WS ) ;    // IGNORE
