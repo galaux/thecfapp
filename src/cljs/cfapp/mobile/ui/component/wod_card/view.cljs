@@ -6,13 +6,13 @@
    [cfapp.mobile.ui.component.button.view :refer [button]]
    [cfapp.mobile.ui.component.card.style :as card-style]
    [cfapp.mobile.ui.component.chip.view :refer [chip]]
+   [cfapp.mobile.ui.component.icon.view :refer [icon]]
    [cfapp.mobile.ui.component.text.view :refer [text]]
    [cfapp.mobile.ui.component.vertical-stamp.view :refer [vertical-stamp]]
    [cfapp.mobile.ui.component.wod-card.style :as style]
+   [cfapp.mobile.util :as util]
    [clojure.string :as s]
-   [cfapp.mobile.ui.component.icon.view :refer [icon]]
-   [herb.core :refer [<class]]
-   [cfapp.mobile.util :as util]))
+   [herb.core :refer [<class]]))
 
 (defn- ->application
   [{:keys [value unit]}]

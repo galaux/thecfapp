@@ -1,54 +1,86 @@
 (ns cfapp.api.domain.movement.common
   (:require
-   [clojure.java.io :as io]
-   [clojure.string :as s]
-   [clojure.edn :as edn]))
+   [cfapp.api.domain.movement.util :refer [multiply plus]]
+   [cfapp.api.domain.movement.element
+    :refer
+    [back
+     hang
+     power
+     barbell
+     double-hand
+     dumbbell
+     front
+     kettlebell
+     overhead
+     single
+     squat-as-adjective
+     wall-ball]]))
 
-(defn- rule?
-  [line]
-  (re-matches #"^[A-Z].*" line))
+(def one-hand-gear #{kettlebell dumbbell})
 
-(def ^:private re-extract-rule-name-and-args
-  #"^([^\s:]+)[^/]+//[\s]+(.*)")
+(def one-hand-positions #{nil overhead})
+(def two-one-hands-positions #{nil overhead})
+(def wall-ball-positions #{nil overhead})
+(def barbell-positions #{front overhead back})
 
-(defn- parse-line
-  [line]
-  (let [[_matched rule-name conf] (re-find re-extract-rule-name-and-args line)]
-    (when-not (= conf "IGNORE")
-      (let [[movement-name applications props] (edn/read-string conf)]
-        (if (and line rule-name movement-name applications)
-          [movement-name
-           (merge
-             {:rule-name    rule-name
-              :applications applications}
-             props)]
-          (throw (ex-info "Error while parsing Movement lexer"
-                          {:line line})))))))
+(def one-hand-configs
+  (multiply
+    #{nil single}
+    one-hand-gear))
 
-(def ^:private ignore? nil?)
+(def one-hand-configs-and-positions
+  (multiply
+    (plus nil one-hand-configs)
+    one-hand-positions))
 
-(def ^:private xf-extract
-  (comp
-    (filter rule?)
-    (map parse-line)
-    (remove ignore?)))
+(def two-one-hands-configs
+  (multiply
+    double-hand
+    one-hand-gear))
 
-(defn- check!
-  [movements-info-list]
-  (let [more-than-one (->> movements-info-list
-                           (group-by first)
-                           (map (fn [[name names-list]]
-                                  [name (count names-list)]))
-                           (filter (fn [[_name occurences]]
-                                     (> occurences 1))))]
-    (when (seq more-than-one)
-      (throw (ex-info "Duplicate entries in Movement Lexer"
-                      (into {} more-than-one))))))
+(def two-hands-configs
+  (plus
+    barbell
+    wall-ball))
 
-(defn parse-lexer
-  []
-  (let [lines (s/split-lines (slurp (io/resource "grammars/MovementLexer.g4")))
-        movements-info-list (sequence xf-extract lines)]
-    (check! movements-info-list)
-    (println (format "Found %s rules with names" (count movements-info-list)))
-    (into {} movements-info-list)))
+(def two-hands-configs-and-positions
+  (plus
+    (multiply
+      barbell-positions
+      barbell)
+    (multiply
+      wall-ball-positions
+      wall-ball)))
+
+(def all-hands-configs
+  (plus
+    one-hand-configs
+    two-one-hands-configs
+    two-hands-configs))
+
+(def two-one-hands-configs-and-positions
+  (multiply
+    two-one-hands-configs
+    one-hand-positions))
+
+(def all-one-hand-gear-configs
+  (plus
+    one-hand-configs
+    two-one-hands-configs))
+
+(def all-one-hand-gear-configs-and-positions
+  (plus
+    one-hand-configs-and-positions
+    two-one-hands-configs-and-positions))
+
+(def all-hands-configs-weightlifting
+  (multiply
+    (plus nil all-hands-configs)
+    #{nil hang}
+    #{nil power squat-as-adjective}))
+
+(def all-hands-configs-and-positions
+  (plus
+    one-hand-configs-and-positions
+    two-one-hands-configs-and-positions
+    two-hands-configs-and-positions))

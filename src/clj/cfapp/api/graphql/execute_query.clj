@@ -4,10 +4,10 @@
    [integrant.core :as ig]))
 
 (defmethod ig/init-key :cfapp.api.graphql/execute-query
-  [_ {:keys [conn schema]}]
+  [_ {:keys [schema] :as deps}]
   (fn [gql-query]
     (let [{:keys [query variables operationName]} gql-query
-          context                                 {:conn conn}]
+          context (select-keys deps [:conn :workout-visitor])]
       (lacinia/execute schema
                        query
                        variables

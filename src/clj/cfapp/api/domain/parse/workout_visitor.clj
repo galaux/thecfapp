@@ -1,18 +1,19 @@
-(ns cfapp.api.domain.workout.parse.core
+(ns cfapp.api.domain.parse.workout-visitor
+  (:require
+   [clojure.string :as s]
+   [cfapp.api.domain.parse.movement :refer [parse-movement]]
+   [clojure.tools.logging :as log]
+   [integrant.core :as ig]
+   [datomic.client.api :as d]
+   [cfapp.api.db.domain.movement :as movement])
   (:import
    WorkoutLexer
    WorkoutParser
    WorkoutBaseVisitor
    WorkoutParser$WorkoutContext
-   (org.antlr.v4.runtime BaseErrorListener CharStreams CommonTokenStream))
-  (:require
-   [cfapp.api.domain.movement.config :as movement]
-   [clojure.string :as s]
-   [cfapp.api.domain.workout.parse.movement :refer [parse-movement]]
-   [clojure.edn :as edn]
-   [clojure.java.io :as io]
-   [clojure.pprint :refer [pprint]]
-   [clojure.spec.alpha :as spec]))
+   (org.antlr.v4.runtime BaseErrorListener
+                         CharStreams
+                         CommonTokenStream)))
 
 (def ^:private one-second-in-ms
   1000)
@@ -24,34 +25,6 @@
 (defn- trim-double-quotes
   [s]
   (apply str (remove #(= \" %) s)))
-
-(defn- units
-  [kw]
-  ;; Remember these are valid and default units for user inputs but they will
-  ;; be "fixed" later at the exercise level
-  (if (sequential? kw)
-    (mapcat units kw)
-    (case kw
-      :calories [:unit/calorie] ;; TODO add watt? TODO rename to `energy`
-      :duration [:unit/second :unit/minute]
-      :distance [:unit/meter :unit/mile :unit/foot]
-      :weight   [:unit/kilogram :unit/pound :unit/pood :unit/bodyweight])))
-;; TODO add all unit families defaults
-
-(defn- check-movements-config!
-  [config]
-  (if (spec/valid? ::movement/movements-config config)
-    config
-    (throw
-      (ex-info "Bad movement config map"
-               {:error (spec/explain ::movement/movements-config config)}))))
-
-;; TODO move swhere else because also used by cfapp.api.domain.movement.grammar
-(def movements-config
-  (check-movements-config!
-    (edn/read-string
-      {:readers {'units units}}
-      (slurp (io/resource "movements.edn")))))
 
 (defn- visit-workout
   [this ctx]
@@ -200,9 +173,7 @@
 
 (defn- visit-movement
   [_this ctx]
-  (let [movement-id (parse-movement ctx)]
-    {:db/id         movement-id
-     :movement/name (get-in movements-config [movement-id :movement-name])}))
+  {:movement/id (parse-movement ctx)})
 
 (defn- visit-application-unit
   [_this ctx]
@@ -272,23 +243,26 @@
 ;; compulsory (keep whether or not it is compulsory in the movements-config
 ;; map)
 
-(defn default-application-unit* ;; TODO private
-  [movement-id]
+;; TODO Is taking the `first` really what I want?
+(defn- default-application-unit
+  [movements-config movement-id]
   (first (get-in movements-config [movement-id :valid-units])))
 
-(defn valid-units* ;; TODO private
-  [movement-id]
+(defn- valid-units
+  [movements-config movement-id]
   (set (get-in movements-config [movement-id :valid-units])))
 
-(def ^:private default-application-unit (memoize default-application-unit*))
-(def ^:private valid-units (memoize valid-units*))
+;; TODO
+;; (def ^:private default-application-unit (memoize default-application-unit*))
+;; (def ^:private valid-units (memoize valid-units*))
 
 (defn- with-default-application-unit
-  [{:exercise/keys [movement application] :as exercise}]
+  [movements-config {:exercise/keys [movement application] :as exercise}]
   (let [movement-id         (:db/id movement)
         provided-unit       (:exercise.application/unit application)
-        default-unit        (default-application-unit movement-id)
-        valid-unit?         (valid-units movement-id)
+        default-unit        (default-application-unit movements-config
+                                                      movement-id)
+        valid-unit?         (valid-units movements-config movement-id)
         user-provided-unit? (some? provided-unit)
         requires-unit?      (some? default-unit)]
     (condp = [user-provided-unit? requires-unit?]
@@ -297,12 +271,13 @@
                       exercise
                       [:exercise/application :exercise.application/unit]
                       default-unit)
-      (if (valid-unit? provided-unit)
-        exercise
-        (throw (ex-info "Bad unit for movement"
-                        {:movement-id   movement-id
-                         :provided-unit provided-unit
-                         :valid-units   valid-unit?}))))))
+      exercise))) ;; TODO re-enable checking for valid unit
+      ;; (if (valid-unit? provided-unit)
+      ;;   exercise
+      ;;   (throw (ex-info "Bad unit for movement"
+      ;;                   {:movement-id   movement-id
+      ;;                    :provided-unit provided-unit
+      ;;                    :valid-units   valid-unit?}))))))
 
 (defn- with-fixed-application-value
   [{:exercise/keys [application] :as exercise}]
@@ -316,12 +291,12 @@
       exercise)))
 
 (defn- with-default-application
-  "If user didn't provide any application and given movement has a default one
-  in the `movements-config` map, assign it to the exercise."
-  [{:exercise/keys [movement application] :as exercise}]
-  (let [movement-id     (:db/id movement)
-        def-application (get-in movements-config
-                                [movement-id :default-application])
+  "If user didn't provide any application, and given movement has a default one,
+  assign it to the exercise."
+  [db {:exercise/keys [movement application] :as exercise}]
+  (let [movement-id     (:movement/id movement)
+        def-application (-> (movement/by-id db movement-id)
+                            (get-in [movement-id :default-application]))
         {:exercise.application/keys [value unit]} application]
     (if (and (nil? value) (nil? unit) def-application)
       (merge exercise {:exercise/application def-application})
@@ -332,14 +307,14 @@
   - unit: user may not specify any ; then, if compulsory, assign the default one
   - value: may need to be turned into the correct unit (minutes or seconds into
     milliseconds)"
-  [exercise]
-  (-> exercise
-      with-default-application
-      with-default-application-unit
-      with-fixed-application-value))
+  [db exercise]
+  (->> exercise
+       ;; (with-default-application db) ;; TODO
+       (with-default-application-unit db)
+       with-fixed-application-value))
 
 (defn visit-exercise
-  [this ctx]
+  [this db ctx]
   (let [exercise (cond-> {:exercise/movement
                           (.visitMovement this (.movement ctx))}
                    (.application ctx)
@@ -348,9 +323,10 @@
                    (.repCount ctx)
                    (merge {:exercise/rep-count
                            (.visitRepCount this (.repCount ctx))}))]
-    (with-fixed-application exercise)))
+    (with-fixed-application db exercise)))
 
-(def workout-visitor
+(defn workout-visitor
+  [db]
   (proxy
     ;; FIXME should I use a base visitor or full visitor?
     [WorkoutBaseVisitor]
@@ -373,7 +349,7 @@
     (visitApplicationValue [ctx] (visit-application-value this ctx))
     (visitApplicationUnit [ctx] (visit-application-unit this ctx))
     (visitApplication [ctx] (visit-application this ctx))
-    (visitExercise [ctx] (visit-exercise this ctx))))
+    (visitExercise [ctx] (visit-exercise this db ctx))))
 
 (defn parser-dot-workout-name
   [parser]
@@ -432,6 +408,16 @@
   (proxy
     [BaseErrorListener]
     []
+    ;; (reportAmbiguity
+    ;;   [recognizer dfa startIndex stopIndex exactSet ambigAltsConfigSet
+    ;;   configs]
+    ;;   (log/warn "ANTLR reportAmbiguity"))
+    ;; (reportAttemptingFullContext
+    ;;   [​recognizer dfa startIndex stopIndexSet conflictingAlts configs]
+    ;;   (log/warn "ANTRL reportAttemptingFullContext"))
+    ;; (reportContextSensitivity
+    ;;   [recognizer dfa startIndex stopIndex prediction configs]
+    ;;   (log/warn "ANTLR reportContextSensitivity"))
     (syntaxError
       [recognizer offending-symbol line-nb char-pos message exception]
       (swap! !errors #(conj %
@@ -442,25 +428,104 @@
                              :message  message})))))
 
 (defn- with-error-listener
-  [instance !errors]
+  [instance listener]
   (doto instance
     (.removeErrorListeners)
-    (.addErrorListener (error-listener !errors))))
+    (.addErrorListener listener)))
+
+(defmethod ig/init-key :cfapp.api.domain.parse/workout-visitor
+  [_ {:keys [conn]}]
+  (log/info "starting …")
+  (workout-visitor (d/db conn)))
+
+(defmethod ig/halt-key! :cfapp.api.domain.parse/workout-visitor
+  [_ _]
+  (log/info "stopping … "))
 
 (defn parse
-  [input & {:keys [ctx-fn] :or {ctx-fn parser-dot-workout}}]
-  (let [!errors (atom [])
-        lexer   (with-error-listener
-                  (WorkoutLexer. (CharStreams/fromString input))
-                  !errors)
-        parser  (with-error-listener
-                  (WorkoutParser. (CommonTokenStream. lexer))
-                  !errors)
-        parsed  (.visit workout-visitor (ctx-fn parser))
-        errors  @!errors]
-    ;; (when (= ctx-fn parser-dot-workout)
-    ;;   (println (pprint parsed)))
+  [visitor input & {:keys [ctx-fn] :or {ctx-fn parser-dot-workout}}]
+  (let [!errors      (atom [])
+        err-listener (error-listener !errors)
+        lexer        (-> (WorkoutLexer. (CharStreams/fromString input))
+                         (with-error-listener err-listener))
+        parser       (-> (WorkoutParser. (CommonTokenStream. lexer))
+                         (with-error-listener err-listener))
+        parsed       (.visit visitor (ctx-fn parser))
+        errors       @!errors]
     (merge
       {:parsed parsed}
       (when (seq errors)
         {:errors errors}))))
+
+
+
+;; (s/def ::movement-name :util/non-blank-string)
+
+;; (s/def ::valid-unit
+;;   #{:unit/calorie
+;;     :unit/foot
+;;     :unit/meter
+;;     :unit/mile
+;;     :unit/minute
+;;     :unit/second
+;;     :unit/bodyweight
+;;     :unit/kilogram
+;;     :unit/pood
+;;     :unit/pound})
+;; (s/def ::valid-units
+;;   (s/coll-of ::valid-unit))
+
+;; (s/def ::default-application
+;;   ::workout/application)
+
+;; (s/def ::movement-config
+;;   (s/keys :req-un [::movement-name]
+;;           :opt-un [::valid-units
+;;                    ::default-application]))
+
+;; (s/def ::movements-config
+;;   (s/map-of :util/non-blank-string ::movement-config))
+
+
+;; (defn- units
+;;   [kw]
+;;   ;; Remember: these are valid and default units for user inputs but they
+;;   will
+;;   ;; be "fixed" later at the exercise level
+;;   (when (some? kw)
+;;     (if (sequential? kw)
+;;       (mapcat units kw)
+;;       (case kw
+;;         :duration [:unit/second :unit/minute]
+;;         :distance [:unit/meter :unit/mile :unit/foot]
+;;         :energy   [:unit/calorie] ;; TODO add watt?
+;;         :weight   [:unit/kilogram :unit/pound :unit/pood
+;;         :unit/bodyweight]))))
+
+;; (defn- check-movements-config-format!
+;;   [config]
+;;   (if (s/valid? ::movements-config config)
+;;     config
+;;     (throw
+;;       (ex-info "Wrong format for movement config map"
+;;                {:error (s/explain ::movements-config config)}))))
+
+;; (defn- check-no-duplicates!
+;;   [config]
+;;   (let [dups (->> (vals config)
+;;                   (group-by :movement-name)
+;;                   (map (fn [[movement-name occurences]]
+;;                          (when (> (count occurences) 1)
+;;                            [movement-name (count occurences)])))
+;;                   (remove nil?)
+;;                   (into {}))]
+;;     (if (empty? dups)
+;;       config
+;;       (throw
+;;         (ex-info "Duplicate movement names in movement config map"
+;;                  {:duplicates dups})))))
+
+;; (def ^:private check-movements-config!
+;;   (comp
+;;     check-movements-config-format!
+;;     check-no-duplicates!))

@@ -1,7 +1,7 @@
 (ns user
   (:require
-   [cfapp.api.core :as core]
-   [cfapp.api.db.bootstrap :as bootstrap]
+   [cfapp.api.core :refer [app-config]]
+   ;; [cfapp.api.db.bootstrap :as bootstrap]
    [cfapp.api.db.core :as db]
    [cfapp.api.test-util :as tutil]
    [clojure.tools.namespace.repl :refer [set-refresh-dirs]]
@@ -18,16 +18,16 @@
 ;; https://github.com/clojure-emacs/cider/issues/2686#issuecomment-532389499
 (set-refresh-dirs "dev" "src" "test")
 
-(defn bootstrap-db
-  []
-  (let [conn (-> integrant.repl.state/system
-                 :cfapp.api.db/conn)]
-    (db/install-schema conn)
-    (tutil/domain-add conn (bootstrap/gen-txes)))
-  nil);; Don't waste the REPL with output
+;; (defn bootstrap-db
+;;   []
+;;   (let [conn (-> integrant.repl.state/system
+;;                  :cfapp.api.db/conn)]
+;;     (db/install-schema conn)
+;;     (tutil/domain-add conn (bootstrap/gen-txes)))
+;;   nil);; Don't waste the REPL with output
 
 (def dev-config
-  (core/app-config :dev))
+  (app-config :dev))
 
 (defn reload-ig
   []

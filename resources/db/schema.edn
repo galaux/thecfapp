@@ -14,7 +14,7 @@
  ;; Movement
  {:db/doc         "Movement ID"
   :db/ident       :movement/id
-  :db/valueType   :db.type/uuid
+  :db/valueType   :db.type/keyword
   :db/cardinality :db.cardinality/one
   :db/unique      :db.unique/identity}
  {:db/doc         "Movement name"
@@ -68,6 +68,20 @@
  {:db/ident :score-type/duration}
  {:db/ident :score-type/rep-count}
 
+ ;; Repetitions Scheme
+ {:db/doc         "Repetitions scheme: first round repetitions count"
+  :db/ident       :workout.loop.rep-scheme/first-rep-count
+  :db/valueType   :db.type/long
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "Repetitions scheme: last round repetitions count (optional)"
+  :db/ident       :workout.loop.rep-scheme/last-rep-count
+  :db/valueType   :db.type/long
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "Repetitions scheme: step between round repetitions count"
+  :db/ident       :workout.loop.rep-scheme/step
+  :db/valueType   :db.type/long
+  :db/cardinality :db.cardinality/one}
+
  ;; Workout Loop
  {:db/doc         "Workout loop score type"
   :db/ident       :workout.loop/score-type
@@ -88,6 +102,11 @@
  {:db/doc         "Workout loop round count"
   :db/ident       :workout.loop/round-count
   :db/valueType   :db.type/long
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "Workout loop repetitions scheme"
+  :db/ident       :workout.loop/rep-scheme
+  :db/valueType   :db.type/ref
+  :db/isComponent true
   :db/cardinality :db.cardinality/one}
  {:db/doc         "List of exercises or other workout loops"
   :db/ident       :workout.loop/tasks

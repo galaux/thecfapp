@@ -8,8 +8,8 @@ fi
 for file in $(git diff --cached --name-only --diff-filter=ACM \
                 env/dev/clj/cfapp \
                 resources/db \
-                resources/graphql/* \
                 resources/movements.edn \
+                resources/graphql/* \
                 resources/system.edn \
                 src \
                 test \

@@ -4,16 +4,21 @@
    [clojure.spec.gen.alpha :as gen]
    [clojure.string :as str]
    [datomic.client.api :as d]
-   [cfapp.api.spec-util :refer [fake-data]])
+   [cfapp.api.spec-util :refer [fake-data]]
+   [clojure.edn :as edn]
+   [clojure.java.io :as io])
   (:import
    java.util.UUID))
 
 (s/def :workout/id :util/uuid)
 (s/def :workout/name :util/non-blank-string)
 
+(s/def :movement/id keyword?)
 (s/def :movement/name :util/non-blank-string)
 (s/def ::movement
-  (s/keys :req [:movement/name]))
+  (s/keys
+    :req [:movement/id]
+    :opt [:movement/name]))
 (s/def ::rep-count pos-int?)
 (s/def :exercise/movement ::movement)
 (s/def :exercise/rep-count ::rep-count)
@@ -77,10 +82,26 @@
         :for-time ::workout-loop-for-time
         :emom     ::workout-loop-emom))
 
+;; TODO We should probably mimic the strategy used in the Antlr grammar and
+;; have a loop be a parent-loop or a flat-loop so that a workout generator
+;; would only generate workouts with max depth of 2
 (s/def :workout/loop ::workout-loop)
+
+(def known-workouts
+  (->> (merge
+         (edn/read-string (slurp (io/resource "workouts/custom.edn")))
+         (edn/read-string (slurp (io/resource "workouts/named.edn"))))
+       vals
+       (map :db)
+       set))
+
 (s/def ::workout
-  (s/keys :req [:workout/loop]
-          :opt [:workout/name]))
+  (s/with-gen
+    (s/keys :req [:workout/loop]
+            :opt [:workout/name])
+    ;; TODO The spec for a workout is too "wide" it allows generating loops with
+    ;; infinite depths so we (temporarily?) make it return know workouts instead
+    #(s/gen known-workouts)))
 
 (def workout-gen (s/gen ::workout))
 

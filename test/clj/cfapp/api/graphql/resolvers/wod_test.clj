@@ -1,7 +1,6 @@
 (ns cfapp.api.graphql.resolvers.wod-test
   (:require
    [camel-snake-kebab.core :as csk]
-   [cfapp.api.db.core :as db]
    [cfapp.api.db.domain.community :as community]
    [cfapp.api.db.domain.score :as score]
    [cfapp.api.db.domain.user :as user]
@@ -34,7 +33,8 @@
 
 (deftest get-wod
   (let
-    [q "query WodWithScores($wodId: ID!) {
+    [q
+     "query WodWithScores($wodId: ID!) {
              wod(id: $wodId) {
                id
                date
@@ -82,9 +82,9 @@
                                      :description (:workout/description
                                                     workout-a)
                                      :scoringType
-                                       (-> workout-a
-                                           :workout/scoring-type
-                                           csk/->SCREAMING_SNAKE_CASE_STRING)}
+                                     (-> workout-a
+                                         :workout/scoring-type
+                                         csk/->SCREAMING_SNAKE_CASE_STRING)}
                            :scores  [{:id    (.toString (:score/id score-a))
                                       :value (:score/value score-a)
                                       :user  expected-user}
@@ -101,7 +101,8 @@
 
 (deftest user-wods
   (let
-    [q "query UserWods($userId: ID!) {
+    [q
+     "query UserWods($userId: ID!) {
              userWods(userId: $userId) {
                id
                date
@@ -127,17 +128,17 @@
      {:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
      user-a (assoc user-a :db/id "user-a")
      user-scores
-       (map
-         (fn [score wod]
-           (assoc score
-             :score/user user-a
-             :score/wod  (assoc wod
-                           :wod/community
-                             (gen/generate community/community-gen)
-                           :wod/workout   (gen/generate
-                                            workout/workout-gen))))
-         (gen/sample score/score-gen 3)
-         (gen/sample wod/wod-gen 3))
+     (map
+       (fn [score wod]
+         (assoc score
+           :score/user user-a
+           :score/wod  (assoc wod
+                         :wod/community
+                         (gen/generate community/community-gen)
+                         :wod/workout   (gen/generate
+                                          workout/workout-gen))))
+       (gen/sample score/score-gen 3)
+       (gen/sample wod/wod-gen 3))
      other-wods (gen/sample wod/wod-gen 3)
      variables {:userId (.toString (:user/id user-a))}
      gql-query (tutil/test-query q variables)]
@@ -147,29 +148,29 @@
                               :body
                               (json/read-str :key-fn keyword))
           expected-wods
-            (map
-              (fn [db-score]
-                (let [db-wod       (:score/wod db-score)
-                      db-workout   (-> db-wod
-                                       :wod/workout)
-                      db-community (-> db-wod
-                                       :wod/community)]
-                  {:id        (.toString (:wod/id db-wod))
-                   :date      (.format date-formatter (:wod/date db-wod))
-                   :scores    [{:id    (.toString (:score/id db-score))
-                                :value (:score/value db-score)
-                                :user  {:id (.toString (:user/id
-                                                         (:score/user
-                                                           db-score)))}}]
-                   :workout   {:id          (.toString (:workout/id db-workout))
-                               :name        (:workout/name db-workout)
-                               :description (:workout/description db-workout)
-                               :scoringType (csk/->SCREAMING_SNAKE_CASE_STRING
-                                              (:workout/scoring-type
-                                                db-workout))}
-                   :community {:id   (.toString (:community/id db-community))
-                               :name (:community/name db-community)}}))
-              user-scores)]
+          (map
+            (fn [db-score]
+              (let [db-wod       (:score/wod db-score)
+                    db-workout   (-> db-wod
+                                     :wod/workout)
+                    db-community (-> db-wod
+                                     :wod/community)]
+                {:id        (.toString (:wod/id db-wod))
+                 :date      (.format date-formatter (:wod/date db-wod))
+                 :scores    [{:id    (.toString (:score/id db-score))
+                              :value (:score/value db-score)
+                              :user  {:id (.toString (:user/id
+                                                       (:score/user
+                                                         db-score)))}}]
+                 :workout   {:id          (.toString (:workout/id db-workout))
+                             :name        (:workout/name db-workout)
+                             :description (:workout/description db-workout)
+                             :scoringType (csk/->SCREAMING_SNAKE_CASE_STRING
+                                            (:workout/scoring-type
+                                              db-workout))}
+                 :community {:id   (.toString (:community/id db-community))
+                             :name (:community/name db-community)}}))
+            user-scores)]
       (is (empty? (:errors parsed-response)))
       (is (= 200 (:status response)))
       (is (= expected-wods
@@ -180,7 +181,8 @@
 
 (deftest create-wod
   (let
-    [q "mutation CreateWod($communityId: ID!, $workoutId: ID!, $date: Date!) {
+    [q
+     "mutation CreateWod($communityId: ID!, $workoutId: ID!, $date: Date!) {
              createWod(
                input: { communityId: $communityId, workoutId: $workoutId, date: $date }
              ) {

@@ -1,15 +1,12 @@
 (ns cfapp.api.db.bootstrap
   (:require
-   [clojure.tools.logging :as log]
-   [datomic.client.api :as d]
-   [cfapp.api.db.domain.community :as community]
-   [cfapp.api.db.domain.score :as score]
    [cfapp.api.db.domain.user :as user]
    [cfapp.api.db.domain.wod :as wod]
-   [cfapp.api.db.domain.workout :as workout]
+   [clojure.edn :as edn]
    [clojure.java.io :as io]
    [clojure.spec.gen.alpha :as gen]
-   [clojure.edn :as edn])
+   [clojure.tools.logging :as log]
+   [datomic.client.api :as d])
   (:import
    (java.util UUID)))
 
@@ -67,6 +64,7 @@
   [_]
   (UUID/randomUUID))
 
+;; TODO we don't need those readers anymore
 (defn read-entities
   [e]
   (edn/read-string
@@ -74,14 +72,6 @@
     e))
 
 (def slurp-edn (comp read-entities slurp io/resource))
-
-(defn gen-movements
-  []
-  (->> (slurp-edn "movements.edn")
-       keys
-       (map (fn [movement-name]
-              {:movement/name movement-name
-               :movement/id   (UUID/randomUUID)}))))
 
 (defn gen-communities
   []
@@ -117,9 +107,13 @@
        (map #(assoc % :workout/id (UUID/randomUUID)))
        with-tmp-db-ids))
 
+;; TODO this might be the reason why starting the app looks like its pausing
+;; for some seconds
+(def movements (slurp-edn "movements.edn"))
+
 (defn gen-txes
   []
-  (let [movements   (gen-movements)
+  (let [movements   movements
         communities (gen-communities)
         users       (gen-users)
         wods        (gen-wods)

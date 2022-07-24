@@ -1,6 +1,6 @@
 grammar Workout ;
 
-import MovementLexer , MovementParser ;
+import Movement ;
 
 /*
  * Parser Rules

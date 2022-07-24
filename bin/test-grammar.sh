@@ -1,9 +1,15 @@
 #! /bin/bash
 
 # IMPORTANT:
-# remember that Parser rules don't end with EOF so in these unit tests,
-# we can't test for extraneous content in Parser rules!
+# Remember that individual parser rules don't end with EOF so in these unit
+# tests, we can't test for extraneous content in Parser rules!
+# Said differently: we can test that we can parse "clean" into a clean but when
+# we test movement individually, we can't check that "clean and garbage"
+# returns an error because the lexer stops after "clean". In any case, as the
+# "workout" parser rules ends with an EOF, extra content in a movement will
+# correctly fail the parsing.
 # https://github.com/antlr/antlr4/issues/839
+# https://github.com/antlr/antlr4/blob/master/doc/parser-rules.md
 
 # TODO instead of 'noDiagnostics', specify which warning we "expect"
 

@@ -1,15 +1,17 @@
-(ns cfapp.api.domain.workout.parse.core-test
+(ns cfapp.api.domain.parse.workout-visitor-test
   (:require
-   [cfapp.api.domain.workout.parse.core :as sut]
+   [cfapp.api.domain.parse.workout-visitor :as sut]
    [clojure.edn :as edn]
    [clojure.java.io :as io]
-   [clojure.test :refer [deftest is]]
-   [clojure.string :as s]))
+   [clojure.string :as s]
+   [clojure.test :refer [deftest is]]))
+
+(def ^:private test-visitor (sut/workout-visitor {}))
 
 (defn- parse-ok?
   [ctx-fn input expected]
   (let [{:keys [parsed errors]}
-        (sut/parse input :ctx-fn ctx-fn)]
+        (sut/parse test-visitor input :ctx-fn ctx-fn)]
     (is (empty? (meta parsed)))
     (is (empty? errors))
     (is (= expected parsed))))
@@ -127,14 +129,12 @@
       :workout.loop.rep-scheme/last-rep-count 9
       :workout.loop.rep-scheme/step -6}
      :workout.loop/tasks
-     [{:exercise/movement    {:db/id         :clean-and-jerk
-                              :movement/name "Clean & Jerk"}
+     [{:exercise/movement    {:movement/id :movement.id/clean-and-jerk}
        :exercise/application
        {:exercise.application/value {:exercise.application.value/men   50.0
                                      :exercise.application.value/women 40.0}
         :exercise.application/unit  :unit/kilogram}}
-      {:exercise/movement  {:db/id         :burpee
-                            :movement/name "Burpee"}
+      {:exercise/movement  {:movement/id :movement.id/burpee}
        :exercise/rep-count 5}]}))
 
 (deftest parse-header-amrap
@@ -284,19 +284,11 @@
       :exercise.application.value/women 10.0}
      :exercise.application/unit  :unit/kilogram}))
 
-(deftest parse-movement-sing-arm-kb-swing
-  (parse-ok?
-    sut/parser-dot-movement
-    "Single arm KB swing"
-    {:db/id         :single-arm-kb-swing
-     :movement/name "Kettlebell Swing"}))
-
 (deftest parse-exercise-with-rep-count
   (parse-ok?
     sut/parser-dot-exercise
     "5 kb swing @16Kg" ;; FIXME "5 kb swingeeeee" doesn't fail the test :(
-    {:exercise/movement    {:db/id         :single-arm-kb-swing
-                            :movement/name "Kettlebell Swing"}
+    {:exercise/movement    {:movement/id :movement.id/kettlebell-swings}
      :exercise/application
      {:exercise.application/value {:exercise.application.value/all 16.0}
       :exercise.application/unit  :unit/kilogram}
@@ -306,8 +298,7 @@
   (parse-ok?
     sut/parser-dot-exercise
     "kb swing @5kg"
-    {:exercise/movement    {:db/id         :single-arm-kb-swing
-                            :movement/name "Kettlebell Swing"}
+    {:exercise/movement    {:movement/id :movement.id/kettlebell-swings}
      :exercise/application
      {:exercise.application/value {:exercise.application.value/all 5.0}
       :exercise.application/unit  :unit/kilogram}}))
@@ -316,8 +307,7 @@
   (parse-ok?
     sut/parser-dot-exercise
     "kb swing (15kg)"
-    {:exercise/movement    {:db/id         :single-arm-kb-swing
-                            :movement/name "Kettlebell Swing"}
+    {:exercise/movement    {:movement/id :movement.id/kettlebell-swings}
      :exercise/application
      {:exercise.application/value {:exercise.application.value/all 15.0}
       :exercise.application/unit  :unit/kilogram}}))
@@ -326,8 +316,7 @@
   (parse-ok?
     sut/parser-dot-exercise
     "1' rest"
-    {:exercise/movement    {:db/id         :rest
-                            :movement/name "Rest"}
+    {:exercise/movement    {:movement/id :movement.id/rest}
      :exercise/application
      {:exercise.application/value {:exercise.application.value/all 60000.0}
       :exercise.application/unit  :unit/millisecond}}))
@@ -336,76 +325,177 @@
   (parse-ok?
     sut/parser-dot-exercise
     "10 20kg KB swing"
-    {:exercise/movement    {:db/id         :single-arm-kb-swing
-                            :movement/name "Kettlebell Swing"}
+    {:exercise/movement    {:movement/id :movement.id/kettlebell-swings}
      :exercise/rep-count   10
      :exercise/application
      {:exercise.application/value {:exercise.application.value/all 20.0}
       :exercise.application/unit  :unit/kilogram}}))
 
-(deftest parse-exercise-with-application-but-no-unit
-  (parse-ok?
-    sut/parser-dot-exercise
-    "KB swing (20/15))"
-    {:exercise/movement    {:db/id         :single-arm-kb-swing
-                            :movement/name "Kettlebell Swing"}
-     :exercise/application
-     {:exercise.application/value
-      {:exercise.application.value/men   20.0
-       :exercise.application.value/women 15.0}
-      :exercise.application/unit  :unit/kilogram}}))
+;; (deftest parse-exercise-with-application-but-no-unit ;; TODO
+;;   (parse-ok?
+;;     sut/parser-dot-exercise
+;;     "KB swing (20/15))"
+;;     {:exercise/movement    {:movement/id :movement.id/kettlebell-swings}
+;;      :exercise/application
+;;      {:exercise.application/value
+;;       {:exercise.application.value/men   20.0
+;;        :exercise.application.value/women 15.0}
+;;       :exercise.application/unit  :unit/kilogram}}))
 
 (deftest parse-exercise-with-bullet
   (parse-ok?
     sut/parser-dot-exercise
     "- 1' rest"
-    {:exercise/movement    {:db/id         :rest
-                            :movement/name "Rest"}
+    {:exercise/movement    {:movement/id :movement.id/rest}
      :exercise/application
      {:exercise.application/value
       {:exercise.application.value/all 60000.0}
       :exercise.application/unit  :unit/millisecond}}))
 
-(deftest parse-exercise-with-default-application
-  (parse-ok?
-    sut/parser-dot-exercise
-    "5 wall ball shots"
-    {:exercise/movement    {:db/id         :wall-ball
-                            :movement/name "Wall-ball"}
-     :exercise/application
-     {:exercise.application/value
-      {:exercise.application.value/men   9.0
-       :exercise.application.value/women 6.0}
-      :exercise.application/unit  :unit/kilogram}
-     :exercise/rep-count   5}))
+;; (deftest parse-exercise-with-default-application ;; TODO
+;;   (parse-ok?
+;;     sut/parser-dot-exercise
+;;     "5 wall ball shots"
+;;     {:exercise/movement    {:movement/id :movement.id/wall-ball}
+;;      :exercise/application
+;;      {:exercise.application/value
+;;       {:exercise.application.value/men   9.0
+;;        :exercise.application.value/women 6.0}
+;;       :exercise.application/unit  :unit/kilogram}
+;;      :exercise/rep-count   5}))
 
-(deftest parse-exercise-with-default-application-2
-  (parse-ok?
-    sut/parser-dot-exercise
-    "3 rope climbs"
-    {:exercise/movement    {:db/id         :rope-climb
-                            :movement/name "Rope Climb"}
-     :exercise/application
-     {:exercise.application/value
-      {:exercise.application.value/all 15.0}
-      :exercise.application/unit  :unit/foot}
-     :exercise/rep-count   3}))
+;; (deftest parse-exercise-with-default-application-2 ;; TODO
+;;   (parse-ok?
+;;     sut/parser-dot-exercise
+;;     "3 rope climbs"
+;;     {:exercise/movement    {:movement/id :movement.id/rope-climb}
+;;      :exercise/application
+;;      {:exercise.application/value
+;;       {:exercise.application.value/all 15.0}
+;;       :exercise.application/unit  :unit/foot}
+;;      :exercise/rep-count   3}))
 
 (deftest parse-flat-loop
   (parse-ok?
     sut/parser-dot-flat-loop
     "for time\n5 pull-up\n10 push-ups"
     {:workout.loop/tasks
-     [{:exercise/movement  {:db/id         :pull-up
-                            :movement/name "Pull-up"}
+     [{:exercise/movement  {:movement/id :movement.id/pull-ups}
        :exercise/rep-count 5}
-      {:exercise/movement  {:db/id         :push-up
-                            :movement/name "Push-up"}
+      {:exercise/movement  {:movement/id :movement.id/push-ups}
        :exercise/rep-count 10}]}))
 
+(deftest parse-movement-sing-arm-kb-swing
+  (parse-ok?
+    sut/parser-dot-movement
+    "Single arm KB swing"
+    {:movement/id :movement.id/single-arm-kettlebell-swings}))
+
+(deftest parse-movements
+  (let [expected-vs-input
+        {:movement.id/toes-to-bar
+         #{"t2b" "ttb" "toes-to-bar"}
+         :movement.id/double-kettlebell-walk
+         #{"farmer walk"}
+         :movement.id/jumping-jack
+         #{"Jumping-jack"}
+         :movement.id/man-maker
+         #{"Man maker"}
+         :movement.id/mountain-climber
+         #{"mountain-climber"}
+         :movement.id/ring-row
+         #{"ring-row"}
+         :movement.id/sandbag-carry
+         #{"Sand-bag carry"}
+         :movement.id/turkish-get-up
+         #{"turkish getup"}
+         :movement.id/row
+         #{"row"}
+         :movement.id/assault-bike
+         #{"assault bike"}
+         :movement.id/skierg
+         #{"skierg"
+           "ski-erg"
+           "ski erg"}
+         :movement.id/air-bike
+         #{"air-bike"}
+         :movement.id/run
+         #{"run"}
+         :movement.id/lunge
+         #{"lunge"}
+         :movement.id/push-ups
+         #{"push up"}
+         :movement.id/pull-ups
+         #{"pull up"}
+         :movement.id/deadlift
+         #{"DL"
+           "deadlift"}
+         :movement.id/kettlebell-sumo-deadlift
+         #{"Kettlebell Sumo Deadlift"}
+         :movement.id/jerk
+         #{"jerk"}
+         :movement.id/squat-clean
+         #{"squat clean"}
+         :movement.id/hang-power-clean-and-jerk
+         #{"hang power clean and jerk"}
+         :movement.id/power-clean-and-jerk
+         #{"power clean and jerk"}
+         :movement.id/squat-clean-and-jerk
+         #{"squat clean and jerk"}
+         :movement.id/clean-and-jerk ;; TODO
+         #{"C&j"
+           "Clean and Jerk"
+           "Clean & Jerk"}
+         :movement.id/single-arm-kettlebell-clean-and-jerk
+         #{"Single arm kb c&j"}
+         :movement.id/single-arm-dumbbell-clean-and-jerk
+         #{"Single arm db Clean & Jerk"}
+         :movement.id/hang-power-clean
+         #{"hang power clean"}
+         :movement.id/squat
+         #{"squat"}
+         :movement.id/clean
+         #{"clean"}
+         :movement.id/double-kettlebell-power-clean
+         #{"Double Kettlebell Power Clean"}
+         :movement.id/bench-press
+         #{"bench-press"}
+         :movement.id/burpee
+         #{"burpee"}
+         :movement.id/box-jump
+         #{"box jump"}
+         :movement.id/muscle-up
+         #{"muscle up"}
+         :movement.id/burpee-bar-muscle-up
+         #{"burpee bar muscle up"}
+         :movement.id/cluster
+         #{"cluster"}
+         :movement.id/burpee-box-jump-over
+         #{"Burpee box-jump Over"}
+         :movement.id/devil-press
+         #{"devil-press"}
+         :movement.id/double-under
+         #{"DU"}}]
+    (doseq [[expected-id inputs] expected-vs-input
+            input inputs]
+      (parse-ok?
+        sut/parser-dot-movement
+        input
+        {:movement/id expected-id}))))
+
 (deftest parse-unknown-movement
+  ;; IMPORTANT:
+  ;; Remember that individual parser rules don't end with EOF so in these unit
+  ;; tests, we can't test for extraneous content in Parser rules!
+  ;; Said differently: we can test that we can parse "clean" into a clean but
+  ;; when we test movement individually, we can't check that "clean and garbage"
+  ;; returns an error because the lexer stops after "clean". In any case, as the
+  ;; "workout" parser rules ends with an EOF, extra content in a movement will
+  ;; correctly fail the parsing.
+  ;; https://github.com/antlr/antlr4/issues/839
+  ;; https://github.com/antlr/antlr4/blob/master/doc/parser-rules.md
   (let [{:keys [_workout errors] :as actual}
-        (sut/parse "garbage" :ctx-fn sut/parser-dot-movement)
+        (sut/parse test-visitor "garbage" :ctx-fn sut/parser-dot-movement)
         {:keys [message] :as error} (last errors)]
     (is (empty? (meta actual)))
     (is (= [{:line-nb  1
@@ -434,15 +524,15 @@
 
 (deftest parse-all-named-workouts
   (doseq [{:keys [str db]} (vals named-workouts)]
-    (is (= {:parsed db} (sut/parse str)))))
+    (is (= {:parsed db} (sut/parse test-visitor str)))))
 
 (def ^:private custom-workouts
   (edn/read-string (slurp (io/resource "workouts/custom.edn"))))
 
 (deftest parse-all-custom-workouts
   (doseq [{:keys [str db]} (vals custom-workouts)]
-    (is (= {:parsed db} (sut/parse str)))))
+    (is (= {:parsed db} (sut/parse test-visitor str)))))
 
-(deftest parse-specific
-  (let [{:keys [str db]} (get custom-workouts :dansaert-2022-06-11)]
-    (is (= {:parsed db} (sut/parse str)))))
+;; (deftest parse-specific
+;;   (let [{:keys [str db]} (get named-workouts :karen)]
+;;     (is (= {:parsed db} (sut/parse test-visitor str)))))

@@ -1,13 +1,14 @@
 (ns cfapp.api.graphql.resolvers.workout
   (:require
    [cfapp.api.db.domain.workout :as workout]
-   [cfapp.api.domain.workout.parse.core :as workout-parse]
+   [cfapp.api.domain.parse.workout-visitor :as wvisitor]
    [cfapp.api.util :refer [ident->enum-value]]
    [com.walmartlabs.lacinia.schema :refer [tag-with-type]]
    [datomic.client.api :as d])
   (:import
    (java.util UUID)))
 
+;; TODO movement should have its own resolver !!
 (defn- shape-movement
   [{:movement/keys [id name]}]
   {:id   id
@@ -101,9 +102,10 @@
       {:workout (shape-workout workout)})))
 
 (defn parse
-  [{:keys [conn]} {:keys [workoutStr]} _]
+  [{:keys [conn workout-visitor]} {:keys [workoutStr]} _]
   (let [workout-id (UUID/randomUUID)
-        {:keys [parsed errors]} (workout-parse/parse workoutStr)]
+        {:keys [parsed errors]}
+        (wvisitor/parse workout-visitor workoutStr)]
     (if (seq errors)
       (shape-result nil errors)
       ;; TODO run parsed through Specs
