@@ -10,17 +10,20 @@
 ;;   :workout/loop
 ;;   {:workout.loop/score-type :score-type/duration
 ;;    :workout.loop/tasks
-;;    [{:exercise/movement  {:movement/name "Pistol"}
+;;    [{:exercise/movement  {:db/id :pistol
+;;                           :movement/name "Pistol"}
 ;;      :exercise/rep-count 12}
-;;     {:exercise/movement    {:movement/name "Russian Kettlebell Swing"}
+;;     {:exercise/movement    {:db/id :one-arm-russian-kb-swing
+;;                             :movement/name "Russian Kettlebell Swing"}
 ;;      :exercise/application
 ;;      {:exercise.application/value
 ;;       {:exercise.application.value/men   24.0
 ;;        :exercise.application.value/women 16.0}
 ;;       :exercise.application/unit  :unit/kilogram}
 ;;      :exercise/rep-count   24}
-;;     {:exercise/movement  {:movement/name "Double-Under"}
-;;      :exercise/rep-count 48}]}}
+;;     {:exercise/movement  {:db/id :double-under
+;;                           :movement/name "Double-Under"}
+;;      :exercise/rep-count 48}]}
 
  :dansaert-multi-amrap
  {:str "\"Dansaert multi-AMRAP\"\n\nAMRAP 5'\n20 Double Kettlebell Squat @20Kg/16kg\n40 Double-Under\n\n1' Rest\n\nAMRAP 5'\n20 Double Kettlebell Clean @20Kg/16Kg\n40 Double-Under\n\n1' Rest\n\nAMRAP 5'\n20 Double Kettlebell Thruster @20Kg/16Kg\n40 Double-Under"
@@ -31,46 +34,53 @@
     :workout.loop/tasks
     [{:workout.loop/duration 300000
       :workout.loop/tasks
-      [{:exercise/movement    {:movement/name "Double Kettlebell Squat"}
+      [{:exercise/movement    {:db/id :double-kb-squat
+                               :movement/name "Double Kettlebell Squat"}
         :exercise/application
         {:exercise.application/value
          {:exercise.application.value/men   20.0
           :exercise.application.value/women 16.0}
          :exercise.application/unit  :unit/kilogram}
         :exercise/rep-count   20}
-       {:exercise/movement  {:movement/name "Double Under"}
+       {:exercise/movement  {:db/id :double-under
+                             :movement/name "Double Under"}
         :exercise/rep-count 40}]}
-     {:exercise/movement    {:movement/name "Rest"}
+     {:exercise/movement    {:db/id :rest
+                             :movement/name "Rest"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/all 60000.0}
        :exercise.application/unit  :unit/millisecond}}
      {:workout.loop/duration 300000
       :workout.loop/tasks
-      [{:exercise/movement    {:movement/name "Double Kettlebell Clean"}
+      [{:exercise/movement    {:db/id :double-kb-clean
+                               :movement/name "Double Kettlebell Clean"}
         :exercise/application
         {:exercise.application/value
          {:exercise.application.value/men   20.0
           :exercise.application.value/women 16.0}
          :exercise.application/unit  :unit/kilogram}
         :exercise/rep-count   20}
-       {:exercise/movement  {:movement/name "Double Under"}
+       {:exercise/movement  {:db/id :double-under
+                             :movement/name "Double Under"}
         :exercise/rep-count 40}]}
-     {:exercise/movement    {:movement/name "Rest"}
+     {:exercise/movement    {:db/id :rest :movement/name "Rest"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/all 60000.0}
        :exercise.application/unit  :unit/millisecond}}
      {:workout.loop/duration 300000
       :workout.loop/tasks
-      [{:exercise/movement    {:movement/name "Double Kettlebell Thruster"}
+      [{:exercise/movement    {:db/id :double-kb-thruster
+                               :movement/name "Double Kettlebell Thruster"}
         :exercise/application
         {:exercise.application/value
          {:exercise.application.value/men   20.0
           :exercise.application.value/women 16.0}
          :exercise.application/unit  :unit/kilogram}
         :exercise/rep-count   20}
-       {:exercise/movement  {:movement/name "Double Under"}
+       {:exercise/movement  {:db/id :double-under
+                             :movement/name "Double Under"}
         :exercise/rep-count 40}]}]}}}
 
  :dansaert-2022-05-31
@@ -82,35 +92,41 @@
     :workout.loop/tasks
     [{:workout.loop/round-count 3
       :workout.loop/tasks
-      [{:exercise/movement    {:movement/name "Dumbbell Clean & Jerk"}
+      [{:exercise/movement    {:db/id :single-arm-db-clean-and-jerk
+                               :movement/name "Dumbbell Clean & Jerk"}
         :exercise/application
         {:exercise.application/value
          {:exercise.application.value/men   20.0
           :exercise.application.value/women 15.0}
          :exercise.application/unit  :unit/kilogram}
         :exercise/rep-count   6}
-       {:exercise/movement  {:movement/name "Handstand Push-up"}
+       {:exercise/movement  {:db/id :hspu
+                             :movement/name "Handstand Push-up"}
         :exercise/rep-count 6}]}
-     {:exercise/movement    {:movement/name "Rest"}
+     {:exercise/movement    {:db/id :rest
+                             :movement/name "Rest"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/all 60000.0}
        :exercise.application/unit  :unit/millisecond}}
      {:workout.loop/round-count 3
       :workout.loop/tasks
-      [{:exercise/movement    {:movement/name "Double Dumbbell Clean & Jerk"}
+      [{:exercise/movement    {:db/id :double-db-clean-and-jerk
+                               :movement/name "Double Dumbbell Clean & Jerk"}
         :exercise/application
         {:exercise.application/value
          {:exercise.application.value/men   20.0
           :exercise.application.value/women 15.0}
          :exercise.application/unit  :unit/kilogram}
         :exercise/rep-count   6}
-       {:exercise/movement    {:movement/name "Handstand Walk"}
+       {:exercise/movement    {:db/id :handstand-walk
+                               :movement/name "Handstand Walk"}
         :exercise/application
         {:exercise.application/value {:exercise.application.value/all 8.0}
          :exercise.application/unit  :unit/meter}
         :exercise/rep-count   6}]}
-     {:exercise/movement    {:movement/name "Rest"}
+     {:exercise/movement    {:db/id :rest
+                             :movement/name "Rest"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/all 60000.0}
@@ -156,16 +172,20 @@
        :workout.loop.rep-scheme/last-rep-count 9
        :workout.loop.rep-scheme/step -3}
       :workout.loop/tasks
-      [{:exercise/movement {:movement/name "Wall Climb"}}
-       {:exercise/movement    {:movement/name "Devil Press"}
+      [{:exercise/movement {:db/id :wall-climb
+                            :movement/name "Wall Climb"}}
+       {:exercise/movement    {:db/id :devil-press
+                               :movement/name "Devil Press"}
         :exercise/application {:exercise.application/value
                                {:exercise.application.value/men   30.0
                                 :exercise.application.value/women 22.5}
                                :exercise.application/unit :unit/kilogram}}]}
-     {:exercise/movement    {:movement/name "Rest"}
+     {:exercise/movement    {:db/id :rest
+                             :movement/name "Rest"}
       :exercise/application {:exercise.application/value {:exercise.application.value/all 120000.0}
                              :exercise.application/unit :unit/millisecond}}
-     {:exercise/movement    {:movement/name "Row"}
+     {:exercise/movement    {:db/id :row
+                             :movement/name "Row"}
       :exercise/application {:exercise.application/value
                              {:exercise.application.value/all 2000.0}
                              :exercise.application/unit :unit/meter}}]}}}}

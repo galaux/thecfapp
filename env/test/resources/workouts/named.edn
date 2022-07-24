@@ -5,13 +5,17 @@
    :workout/loop
    {:workout.loop/score-type :score-type/duration
     :workout.loop/tasks
-    [{:exercise/movement  {:movement/name "Pull-up"}
+    [{:exercise/movement  {:db/id :pull-up
+                           :movement/name "Pull-up"}
       :exercise/rep-count 100}
-     {:exercise/movement  {:movement/name "Push-up"}
+     {:exercise/movement  {:db/id :push-up
+                           :movement/name "Push-up"}
       :exercise/rep-count 100}
-     {:exercise/movement  {:movement/name "Sit-up"}
+     {:exercise/movement  {:db/id :sit-up
+                           :movement/name "Sit-up"}
       :exercise/rep-count 100}
-     {:exercise/movement  {:movement/name "Air Squat"}
+     {:exercise/movement  {:db/id :air-squat
+                           :movement/name "Air Squat"}
       :exercise/rep-count 100}]}}}
 
  :barbara
@@ -22,15 +26,20 @@
    {:workout.loop/round-count 5
     :workout.loop/score-type  :score-type/duration
     :workout.loop/tasks
-    [{:exercise/movement  {:movement/name "Pull-up"}
+    [{:exercise/movement  {:db/id :pull-up
+                           :movement/name "Pull-up"}
       :exercise/rep-count 20}
-     {:exercise/movement  {:movement/name "Push-up"}
+     {:exercise/movement  {:db/id :push-up
+                           :movement/name "Push-up"}
       :exercise/rep-count 30}
-     {:exercise/movement  {:movement/name "Sit-up"}
+     {:exercise/movement  {:db/id :sit-up
+                           :movement/name "Sit-up"}
       :exercise/rep-count 40}
-     {:exercise/movement  {:movement/name "Air Squat"}
+     {:exercise/movement  {:db/id :air-squat
+                           :movement/name "Air Squat"}
       :exercise/rep-count 50}
-     {:exercise/movement    {:movement/name "Rest"}
+     {:exercise/movement    {:db/id :rest
+                             :movement/name "Rest"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/all 180000.0}
@@ -44,11 +53,14 @@
    {:workout.loop/duration 1800000 ;; 30'
     :workout.loop/period   60000 ;; 1'
     :workout.loop/tasks
-    [{:exercise/movement  {:movement/name "Pull-up"}
+    [{:exercise/movement  {:db/id :pull-up
+                           :movement/name "Pull-up"}
       :exercise/rep-count 5}
-     {:exercise/movement  {:movement/name "Push-up"}
+     {:exercise/movement  {:db/id :push-up
+                           :movement/name "Push-up"}
       :exercise/rep-count 10}
-     {:exercise/movement  {:movement/name "Air Squat"}
+     {:exercise/movement  {:db/id :air-squat
+                           :movement/name "Air Squat"}
       :exercise/rep-count 15}]}}}
 
  :diane
@@ -62,13 +74,14 @@
      :workout.loop.rep-scheme/last-rep-count   9
      :workout.loop.rep-scheme/step            -6}
     :workout.loop/tasks
-    [{:exercise/movement    {:movement/name "Deadlift"}
+    [{:exercise/movement    {:db/id :deadlift
+                             :movement/name "Deadlift"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/men   225.0
         :exercise.application.value/women 155.0}
        :exercise.application/unit  :unit/pound}}
-     {:exercise/movement  {:movement/name "Handstand Push-up"}}]}}}
+     {:exercise/movement  {:db/id :hspu :movement/name "Handstand Push-up"}}]}}}
 
  :elizabeth
  {:str "\"Elizabeth\"\n\n21-15-9 For Time\nClean 135lbs/95lbs\nRing Dip"
@@ -81,13 +94,15 @@
      :workout.loop.rep-scheme/last-rep-count   9
      :workout.loop.rep-scheme/step            -6}
     :workout.loop/tasks
-    [{:exercise/movement    {:movement/name "Clean"}
+    [{:exercise/movement    {:db/id :clean
+                             :movement/name "Clean"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/men   135.0
         :exercise.application.value/women 95.0}
        :exercise.application/unit  :unit/pound}}
-     {:exercise/movement  {:movement/name "Ring Dip"}}]}}}
+     {:exercise/movement  {:db/id :ring-dip
+                           :movement/name "Ring Dip"}}]}}}
 
  :fran
  {:str "\"Fran\"\n\n21-15-9 For Time\nThruster @95lbs/65lbs\nPull-Up"
@@ -100,13 +115,15 @@
      :workout.loop.rep-scheme/last-rep-count 9
      :workout.loop.rep-scheme/step -6}
     :workout.loop/tasks
-    [{:exercise/movement    {:movement/name "Thruster"}
+    [{:exercise/movement    {:db/id :thruster
+                             :movement/name "Thruster"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/men   95.0
         :exercise.application.value/women 65.0}
        :exercise.application/unit  :unit/pound}}
-     {:exercise/movement  {:movement/name "Pull-up"}}]}}}
+     {:exercise/movement  {:db/id :pull-up
+                           :movement/name "Pull-up"}}]}}}
 
  :grace
  {:str "\"Grace\"\n\nFor Time\n30 Clean and Jerk (135/95 lb)"
@@ -115,7 +132,7 @@
    :workout/loop
    {:workout.loop/score-type :score-type/duration
     :workout.loop/tasks
-    [{:exercise/movement    {:movement/name "Clean & Jerk"}
+    [{:exercise/movement    {:db/id :clean-and-jerk :movement/name "Clean & Jerk"}
       :exercise/rep-count   30
       :exercise/application
       {:exercise.application/value
@@ -131,19 +148,21 @@
    {:workout.loop/round-count 3
     :workout.loop/score-type  :score-type/duration
     :workout.loop/tasks
-    [{:exercise/movement    {:movement/name "Run"}
+    [{:exercise/movement    {:db/id :run :movement/name "Run"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/all 400.0}
        :exercise.application/unit  :unit/meter}}
-     {:exercise/movement    {:movement/name "Kettlebell Swing"}
+     {:exercise/movement    {:db/id :single-arm-kb-swing
+                             :movement/name "Kettlebell Swing"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/men   1.5
         :exercise.application.value/women 1.0}
        :exercise.application/unit  :unit/pood}
       :exercise/rep-count   21}
-     {:exercise/movement  {:movement/name "Pull-up"}
+     {:exercise/movement  {:db/id :pull-up
+                           :movement/name "Pull-up"}
       :exercise/rep-count 12}]}}}
 
  :annie
@@ -157,8 +176,8 @@
      :workout.loop.rep-scheme/last-rep-count   10
      :workout.loop.rep-scheme/step             -10}
     :workout.loop/tasks
-    [{:exercise/movement  {:movement/name "Double Under"}}
-     {:exercise/movement  {:movement/name "Sit-up"}}]}}}
+    [{:exercise/movement  {:db/id :double-under :movement/name "Double Under"}}
+     {:exercise/movement  {:db/id :sit-up :movement/name "Sit-up"}}]}}}
 
  :eva
  {:str "\"Eva\"\n\n5 Rounds For Time\n800m Run\n30 Kettlebell Swing (2/1.5 pood)\n30 Pull-Up"
@@ -168,19 +187,21 @@
    {:workout.loop/score-type :score-type/duration
     :workout.loop/round-count 5
     :workout.loop/tasks
-    [{:exercise/movement    {:movement/name "Run"}
+    [{:exercise/movement    {:db/id :run :movement/name "Run"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/all 800.0}
        :exercise.application/unit  :unit/meter}}
-     {:exercise/movement    {:movement/name "Kettlebell Swing"}
+     {:exercise/movement    {:db/id :single-arm-kb-swing
+                             :movement/name "Kettlebell Swing"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/men   2.0
         :exercise.application.value/women 1.5}
        :exercise.application/unit  :unit/pood}
       :exercise/rep-count   30}
-     {:exercise/movement  {:movement/name "Pull-up"}
+     {:exercise/movement  {:db/id :pull-up
+                           :movement/name "Pull-up"}
       :exercise/rep-count 30}]}}}
 
  :isabel
@@ -190,7 +211,8 @@
    :workout/loop
    {:workout.loop/score-type :score-type/duration
     :workout.loop/tasks
-    [{:exercise/movement    {:movement/name "Snatch"}
+    [{:exercise/movement    {:db/id :snatch
+                             :movement/name "Snatch"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/men   135.0
@@ -205,19 +227,22 @@
    :workout/loop
    {:workout.loop/score-type :score-type/duration
     :workout.loop/tasks
-    [{:exercise/movement    {:movement/name "Row"}
+    [{:exercise/movement    {:db/id :row
+                             :movement/name "Row"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/all 1000.0}
        :exercise.application/unit  :unit/meter}}
-     {:exercise/movement    {:movement/name "Thruster"}
+     {:exercise/movement    {:db/id :thruster
+                             :movement/name "Thruster"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/men   45.0
         :exercise.application.value/women 35.0}
        :exercise.application/unit  :unit/pound}
       :exercise/rep-count   50}
-     {:exercise/movement  {:movement/name "Pull-up"}
+     {:exercise/movement  {:db/id :pull-up
+                           :movement/name "Pull-up"}
       :exercise/rep-count 30}]}}}
 
  :karen
@@ -227,7 +252,8 @@
    :workout/loop
    {:workout.loop/score-type :score-type/duration
     :workout.loop/tasks
-    [{:exercise/movement    {:movement/name "Wall-ball"}
+    [{:exercise/movement    {:db/id :wall-ball
+                             :movement/name "Wall-ball"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/men   20.0
@@ -246,15 +272,16 @@
      :workout.loop.rep-scheme/last-rep-count 1
      :workout.loop.rep-scheme/step -1}
     :workout.loop/tasks
-    [{:exercise/movement {:movement/name "Deadlift"}
+    [{:exercise/movement {:db/id :deadlift
+                          :movement/name "Deadlift"}
       :exercise/application
       {:exercise.application/value {:exercise.application.value/all 1.5}
        :exercise.application/unit :unit/bodyweight}}
-     {:exercise/movement {:movement/name "Bench Press"}
+     {:exercise/movement {:db/id :bench-press :movement/name "Bench Press"}
       :exercise/application
       {:exercise.application/value {:exercise.application.value/all 1.0}
        :exercise.application/unit :unit/bodyweight}}
-     {:exercise/movement {:movement/name "Clean"}
+     {:exercise/movement {:db/id :clean :movement/name "Clean"}
       :exercise/application
       {:exercise.application/value {:exercise.application.value/all 0.75}
        :exercise.application/unit :unit/bodyweight}}]}}}
@@ -267,11 +294,12 @@
    {:workout.loop/duration   1200000
     :workout.loop/score-type :score-type/rep-count
     :workout.loop/tasks
-    [{:exercise/movement  {:movement/name "Handstand Push-up"}
+    [{:exercise/movement  {:db/id :hspu :movement/name "Handstand Push-up"}
       :exercise/rep-count 5}
-     {:exercise/movement  {:movement/name "Pistol Squat"}
+     {:exercise/movement  {:db/id :pistol :movement/name "Pistol Squat"}
       :exercise/rep-count 10}
-     {:exercise/movement  {:movement/name "Pull-up"}
+     {:exercise/movement  {:db/id :pull-up
+                           :movement/name "Pull-up"}
       :exercise/rep-count 15}]}}}
 
  :nancy
@@ -282,12 +310,12 @@
    {:workout.loop/score-type :score-type/duration
     :workout.loop/round-count 5
     :workout.loop/tasks
-    [{:exercise/movement    {:movement/name "Run"}
+    [{:exercise/movement    {:db/id :run :movement/name "Run"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/all 400.0}
        :exercise.application/unit  :unit/meter}}
-     {:exercise/movement    {:movement/name "Overhead Squat"}
+     {:exercise/movement    {:db/id :overhead-squat :movement/name "Overhead Squat"}
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/men   95.0
@@ -303,7 +331,7 @@
    {:workout.loop/score-type :score-type/duration,
     :workout.loop/time-cap 480000,
     :workout.loop/tasks
-    ({:exercise/movement {:movement/name "Snatch"},
+    ({:exercise/movement {:db/id :snatch :movement/name "Snatch"},
       :exercise/application
       {:exercise.application/value
        {:exercise.application.value/men 35.0,

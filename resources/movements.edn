@@ -1,1 +1,439 @@
-{"Snatch Balance" {:applications [:weight]}, "Double Dumbbell Hang Power Snatch" {:applications [:weight]}, "Kettlebell Swing" {:applications [:weight]}, "Kettlebell Shoulder to Overhead" {:applications [:weight]}, "V-up" {:applications [nil]}, "Deficit Handstand Push-up" {:applications [nil :distance]}, "Weighted Sit-up" {:applications [:weight]}, "Double Kettlebell Clean" {:applications [:weight]}, "Triple Under" {:applications [nil]}, "Dumbell Walking Lunge" {:applications [:weight]}, "Double Under" {:applications [nil]}, "Double Kettlebell Snatch" {:applications [:weight]}, "Kettlebell Clean & Jerk" {:applications [:weight]}, "Double Kettlebell Walking Lunge" {:applications [:weight]}, "Dumbbell Hang Power Clean & Jerk" {:applications [:weight]}, "Double Dumbell Lunge" {:applications [:weight]}, "Run" {:applications [:distance]}, "Kettlebell Strict Press" {:applications [:weight]}, "Ring Muscle-up" {:applications [nil]}, "Overhead Dumbbell Lunge" {:applications [:weight]}, "Double Kettlebell Lunge" {:applications [:weight]}, "Box Jump Over" {:applications [nil :distance]}, "Kettlebell Hang Power Clean" {:applications [:weight]}, "Dumbbell Overhead Walking Lunge" {:applications [:weight]}, "Kettlebell Hang Squat Snatch" {:applications [:weight]}, "Kettlebell Overhead Walking Lunge" {:applications [:weight]}, "Double Dumbbell Hang Clean" {:applications [:weight]}, "Ring Row" {:applications [nil]}, "Double Kettlebell Hang Clean & Jerk" {:applications [:weight]}, "Kettlebell Hang Squat Clean" {:applications [:weight]}, "Farmer Walk" {:applications [:weight]}, "Bench Press" {:applications [:weight]}, "Double Dumbbell Hang Snatch" {:applications [:weight]}, "Kettlebell Clean" {:applications [:weight]}, "Hang Clean & Jerk" {:applications [:weight]}, "Sing Arm Dumbbell Power Snatch" {:applications [:weight]}, "Sled Push" {:applications [:distance]}, "Kettlebell Jerk" {:applications [:weight]}, "Gobelet Squat" {:applications [:weight]}, "Lunge" {:applications [:weight]}, "Battling Ropes" {:applications [nil]}, "Kettlebell Squat Clean" {:applications [:weight]}, "Dumbbell Clean & Jerk" {:applications [:weight]}, "Split Jerk" {:applications [:weight]}, "Double Dumbbell Hang Power Clean & Jerk" {:applications [:weight]}, "Russian Kettlebell Sing" {:applications [:weight]}, "Single Kettlebell Push Press" {:applications [:weight]}, "Kipping Pull-up" {:applications [nil]}, "Dumbbell Squat Clean" {:applications [:weight]}, "Ring Push-up" {:applications [nil]}, "Double Dumbell Walking Lunge" {:applications [:weight]}, "Kettlebell Lunge" {:applications [:weight]}, "Double Kettlebell Power Clean & Jerk" {:applications [:weight]}, "Double Kettlebell Overhead Walking Lunge" {:applications [:weight]}, "Bar-facing Burpee" {:applications [nil]}, "Double Dumbbell Jerk" {:applications [:weight]}, "Dumbbell Squat Snatch" {:applications [:weight]}, "Double Kettlebell Hang Squat Clean & Jerk" {:applications [:weight]}, "Legless Rope Climb" {:applications [nil :distance]}, "Bar Muscle-up" {:applications [nil]}, "Dumbbell Hang Power Clean" {:applications [:weight]}, "Double Kettlebell Push Press" {:applications [:weight]}, "Double Dumbbell Power Clean" {:applications [:weight]}, "Strict Ring Dip" {:applications [nil]}, "Kettlebell Squat" {:applications [:weight]}, "Leg Raise" {:applications [nil]}, "Kettlebell Sumo Deadlift High Pull" {:applications [:weight]}, "Kettlebell Hang Snatch" {:applications [:weight]}, "Double Kettlebell Dumbbell Walking Lunge" {:applications [:weight]}, "Dumbbell Clean" {:applications [:weight]}, "Ball Slam" {:applications [:weight]}, "Prowler Push" {:applications [:weight]}, "Jumping Jack" {:applications [nil]}, "Double Kettlebell Shoulder Press" {:applications [:weight]}, "Overhead Kettlebell Squat" {:applications [:weight]}, "Hang Snatch" {:applications [:weight]}, "Sing Arm Dumbbell Deadlift" {:applications [:weight]}, "Clean & Jerk" {:applications [:weight]}, "Double Dumbbell Hang Squat Clean & Jerk" {:applications [:weight]}, "Double Kettlebell Overhead Squat" {:applications [:weight]}, "Pistol Squat" {:applications [nil]}, "Parallette Handstand Push-up" {:applications [nil]}, "Russian Kettlebell Swing" {:applications [:weight]}, "Double Kettlebell Jerk" {:applications [:weight]}, "Power Clean" {:applications [:weight]}, "Hang Power Snatch" {:applications [:weight]}, "Double Dumbbell Deadlift" {:applications [:weight]}, "Kettlebell Power Clean" {:applications [:weight]}, "Kettlebell Power Clean & Jerk" {:applications [:weight]}, "Devil Press" {:applications [:weight]}, "Toes to Ring" {:applications [nil]}, "Sled Drag" {:applications [:distance]}, "Yoke Carry" {:applications [:weight]}, "Dumbbell Jerk" {:applications [:weight]}, "Kettlebell Hang Clean & Jerk" {:applications [:weight]}, "Clean Pull" {:applications [:weight]}, "Handstand Push-up" {:applications [nil]}, "Deadlift" {:applications [:weight]}, "Double Kettlebell Hang Snatch" {:applications [:weight]}, "Squat Clean & Jerk" {:applications [:weight]}, "Dumbbell Snatch" {:applications [:weight]}, "Hollow Rock" {:applications [nil]}, "Kipping Handstand Push-up" {:applications [nil]}, "Weighted Box Step-up" {:applications [nil :distance]}, "Crunch" {:applications [nil]}, "Kettlebell Hang Squat Clean & Jerk" {:applications [:weight]}, "Double Dumbbell Hang Squat Snatch" {:applications [:weight]}, "Double Russian Swing" {:applications [:weight]}, "Row" {:applications [:calories :distance]}, "Double Kettlebell Overhead Lunge" {:applications [:weight]}, "Squat" {:applications [:weight]}, "Double Kettlebell Squat" {:applications [:weight]}, "Double Kettlebell Deadlift" {:applications [:weight]}, "Double Dumbbell Squat Clean" {:applications [:weight]}, "Kettlebell Hang Power Snatch" {:applications [:weight]}, "Double Kettlebell Press" {:applications [:weight]}, "Overhead Dumbbell Squat" {:applications [:weight]}, "Single Under" {:applications [nil]}, "Hang Power Clean & Jerk" {:applications [:weight]}, "Box Step-up" {:applications [nil :distance]}, "Kettlebell Walking Lunge" {:applications [:weight]}, "Rest" {:applications [:duration]}, "Air Bike" {:applications [:calories :distance]}, "Turkish Get-up" {:applications [:weight]}, "Kettlebell Sumo Deadlift" {:applications [:weight]}, "Stiff Legged Deadlift" {:applications [:weight]}, "Hang Squat Clean" {:applications [:weight]}, "Peg Board" {:applications [nil]}, "Dumbbell Lunge" {:applications [:weight]}, "Squat Jump" {:applications [:weight]}, "Jumping Lunge" {:applications [:weight]}, "Back Squat" {:applications [:weight]}, "Thruster" {:applications [:weight]}, "Cluster" {:applications [:weight]}, "Kettlebell Push-up" {:applications [:weight]}, "Sumo Deadlift" {:applications [:weight]}, "Squat Snatch" {:applications [:weight]}, "Dumbbell Hang Clean" {:applications [:weight]}, "Dumbbell Power Clean & Jerk" {:applications [:weight]}, "Double Kettlebell Squat Clean" {:applications [:weight]}, "SkiErg" {:applications [:calories :distance]}, "Swim" {:applications [:distance]}, "Air Squat" {:applications [nil]}, "Box Jump" {:applications [:distance], :default-application #:exercise.application{:value #:exercise.application.value{:men 0.6, :women 0.5}, :unit :unit/meter}}, "Dumbbell Thruster" {:applications [:weight]}, "Double Dumbbell Hang Squat Clean" {:applications [:weight]}, "Dumbbell Power Snatch" {:applications [:weight]}, "Hand-release Push-up" {:applications [nil]}, "Shuttle Sprint" {:applications [:distance]}, "Jerk" {:applications [:weight]}, "Wall-ball" {:applications [:weight], :default-application #:exercise.application{:value #:exercise.application.value{:men 9.0, :women 6.0}, :unit :unit/kilogram}}, "Double Kettlebell Thruster" {:applications [:weight]}, "Dumbbell Push-up" {:applications [:weight]}, "Double Kettlebell Hang Power Clean & Jerk" {:applications [:weight]}, "Double Dumbbell Power Snatch" {:applications [:weight]}, "Dumbbell Hang Squat Clean" {:applications [:weight]}, "Sandbag Carry" {:applications [:weight]}, "Muscle-up" {:applications [nil]}, "Double Dumbbell Overhead Lunge" {:applications [:weight]}, "Knees to Elbows" {:applications [nil]}, "Double Kettlebell Push Jerk" {:applications [:weight]}, "Double Kettlebell Clean & Jerk" {:applications [:weight]}, "Man Maker" {:applications [:weight]}, "Double Dumbbell Hang Clean & Jerk" {:applications [:weight]}, "Power Snatch" {:applications [:weight]}, "Kettlebell Squat Clean & Jerk" {:applications [:weight]}, "Sumo Deadlift High Pull" {:applications [:weight]}, "Handstand Walk" {:applications [:distance]}, "Double Kettlebell Hang Squat Snatch" {:applications [:weight]}, "Front Squat" {:applications [:weight]}, "Burpee" {:applications [nil]}, "Dumbbell Hang Clean & Jerk" {:applications [:weight]}, "Muscle Snatch" {:applications [:weight]}, "Chest to Bar" {:applications [nil]}, "Power Clean & Jerk" {:applications [:weight]}, "Double Dumbbell Squat Clean & Jerk" {:applications [:weight]}, "Strict Muscle-up" {:applications [nil]}, "Rope Climb" {:applications [nil :distance]}, "Double Dumbbell Squat Snatch" {:applications [:weight]}, "Assault Bike" {:applications [:calories :distance]}, "Single Kettlebell Press" {:applications [:weight]}, "Double Kettlebell Squat Snatch" {:applications [:weight]}, "Dumbbell Squat" {:applications [:weight]}, "Snatch" {:applications [:weight]}, "Dumbbell Hang Power Snatch" {:applications [:weight]}, "Double Kettlebell Hang Power Snatch" {:applications [:weight]}, "Wall-ball Clean" {:applications [:weight]}, "Overhead Walk" {:applications [:weight]}, "Burpee Box Jump Over" {:applications [nil :distance]}, "Burpee Muscle-up" {:applications [nil]}, "Strict Handstand Push-up" {:applications [nil]}, "Double Kettlebell Squat Clean & Jerk" {:applications [:weight]}, "Double Dumbbell Clean & Jerk" {:applications [:weight]}, "Hang Squat Snatch" {:applications [:weight]}, "Front Rack Lunge" {:applications [:weight]}, "Jumping Chest to Bar" {:applications [nil]}, "Jumping Pull-up" {:applications [nil]}, "Kettlebell Thruster" {:applications [:weight]}, "Muscle Clean" {:applications [:weight]}, "Kettlebell Hang Power Clean & Jerk" {:applications [:weight]}, "Shoulder to Overhead" {:applications [:weight]}, "Burpee Bar Muscle-up" {:applications [nil]}, "Ring Handstand Push-up" {:applications [nil]}, "Press" {:applications [:weight]}, "Dumbbell Power Clean" {:applications [:weight]}, "Dumbbell Squat Clean & Jerk" {:applications [:weight]}, "Kipping Chest to Bar" {:applications [nil]}, "Double Dumbbell Overhead Squat" {:applications [:weight]}, "Double Kettlebell Hang Squat Clean" {:applications [:weight]}, "Toes to Bar" {:applications [nil]}, "Double Dumbbell Thruster" {:applications [:weight]}, "Double Kettlebell Shoulder to Overhead" {:applications [:weight]}, "Overhead Squat" {:applications [:weight]}, "Hang Clean" {:applications [:weight]}, "Hang Power Clean" {:applications [:weight]}, "Double Dumbbell Push Jerk" {:applications [:weight]}, "Squat Jerk" {:applications [:weight]}, "Double Dumbbell Snatch" {:applications [:weight]}, "Squat Clean" {:applications [:weight]}, "Wall Climb" {:applications [nil]}, "Chin-up" {:applications [nil]}, "Mountain Climber" {:applications [nil]}, "Sing Arm Kettlebell Deadlift" {:applications [:weight]}, "Push Jerk" {:applications [:weight]}, "Overhead Kettlebell Lunge" {:applications [:weight]}, "GHD Sit-up" {:applications [nil]}, "Double Dumbbell Hang Power Clean" {:applications [:weight]}, "Dumbbell Hang Squat Clean & Jerk" {:applications [:weight]}, "Double Dumbbell Power Clean & Jerk" {:applications [:weight]}, "Clean" {:applications [:weight]}, "Hang Squat Clean & Jerk" {:applications [:weight]}, "Double Kettlebell Hang Power Clean" {:applications [:weight]}, "Plank" {:applications [nil]}, "Kettlebell Hang Clean" {:applications [:weight]}, "Dumbbell Hang Snatch" {:applications [:weight]}, "Sing Arm Kettlebell Power Snatch" {:applications [:weight]}, "Ring Dip" {:applications [nil]}, "Double Kettlebell Swing" {:applications [:weight]}, "Snatch Pull" {:applications [:weight]}, "Sit-up" {:applications [nil]}, "Double Kettlebell Hang Clean" {:applications [:weight]}, "Double Kettlebell Power Snatch" {:applications [:weight]}, "Pull-up" {:applications [nil]}, "Double Dumbbell Squat" {:applications [:weight]}, "Double Kettlebell Power Clean" {:applications [:weight]}, "Burpee Pull-up" {:applications [nil]}, "Push-up" {:applications [nil]}, "Double Dumbbell Clean" {:applications [:weight]}, "Kettlebell Snatch" {:applications [:weight]}, "Dumbbell Hang Squat Snatch" {:applications [:weight]}}
+{:squat-jump {:movement-name "Squat Jump"}
+ :single-arm-kb-deadlift {:valid-units   #units :weight
+                          :movement-name "Sing Arm Kettlebell Deadlift"}
+ :hang-power-clean-and-jerk {:valid-units   #units :weight
+                             :movement-name "Hang Power Clean & Jerk"}
+ :hang-power-snatch {:valid-units   #units :weight
+                     :movement-name "Hang Power Snatch"}
+ :split-jerk {:valid-units #units :weight :movement-name "Split Jerk"}
+ :bar-facing-burpee {:movement-name "Bar-facing Burpee"}
+ :single-db-hang-power-snatch {:valid-units   #units :weight
+                               :movement-name "Dumbbell Hang Power Snatch"}
+ :ring-push-up {:movement-name "Ring Push-up"}
+ :kb-sumo-deadlift {:valid-units   #units :weight
+                    :movement-name "Kettlebell Sumo Deadlift"}
+ :ghd-sit-up {:movement-name "GHD Sit-up"}
+ :double-kb-shoulder-press {:valid-units   #units :weight
+                            :movement-name "Double Kettlebell Shoulder Press"}
+ :hang-snatch {:valid-units #units :weight :movement-name "Hang Snatch"}
+ :double-kb-squat-clean-and-jerk
+ {:valid-units   #units :weight
+  :movement-name "Double Kettlebell Squat Clean & Jerk"}
+ :double-kb-hang-squat-clean-and-jerk
+ {:valid-units   #units :weight
+  :movement-name "Double Kettlebell Hang Squat Clean & Jerk"}
+ :toes-to-ring {:movement-name "Toes to Ring"}
+ :single-arm-db-squat-clean-and-jerk
+ {:valid-units #units :weight :movement-name "Dumbbell Squat Clean & Jerk"}
+ :swim {:valid-units #units :distance :movement-name "Swim"}
+ :double-db-power-clean-and-jerk
+ {:valid-units   #units :weight
+  :movement-name "Double Dumbbell Power Clean & Jerk"}
+ :squat-snatch {:valid-units #units :weight :movement-name "Squat Snatch"}
+ :single-under {:movement-name "Single Under"}
+ :rope-climb
+ {:valid-units         [:unit/meter :unit/foot]
+  :movement-name       "Rope Climb"
+  :default-application
+  {:exercise.application/value {:exercise.application.value/all 15.0}
+   :exercise.application/unit  :unit/foot}}
+ :chin-up {:movement-name "Chin-up"}
+ :power-clean {:valid-units #units :weight :movement-name "Power Clean"}
+ :double-db-power-snatch {:valid-units   #units :weight
+                          :movement-name "Double Dumbbell Power Snatch"}
+ :weighted-sit-up {:valid-units #units :weight :movement-name "Weighted Sit-up"}
+ :single-arm-db-power-clean {:valid-units   #units :weight
+                             :movement-name "Dumbbell Power Clean"}
+ :kipping-hspu {:movement-name "Kipping Handstand Push-up"}
+ :double-kb-overhead-walking-lunge {:valid-units   #units :weight
+                                    :movement-name
+                                    "Double Kettlebell Overhead Walking Lunge"}
+ :snatch {:valid-units #units :weight :movement-name "Snatch"}
+ :single-arm-kb-hang-power-clean {:valid-units   #units :weight
+                                  :movement-name "Kettlebell Hang Power Clean"}
+ :stiff-legged-deadlift {:valid-units   #units :weight
+                         :movement-name "Stiff Legged Deadlift"}
+ :power-snatch {:valid-units #units :weight :movement-name "Power Snatch"}
+ :single-arm-db-clean {:valid-units   #units :weight
+                       :movement-name "Dumbbell Clean"}
+ :single-kb-hang-squat-snatch {:valid-units   #units :weight
+                               :movement-name "Kettlebell Hang Squat Snatch"}
+ :push-up {:movement-name "Push-up"}
+ :leg-less-rope-climb {:valid-units   #units :distance
+                       :movement-name "Legless Rope Climb"}
+ :double-kb-hang-squat-snatch
+ {:valid-units   #units :weight
+  :movement-name "Double Kettlebell Hang Squat Snatch"}
+ :single-arm-db-clean-and-jerk {:valid-units   #units :weight
+                                :movement-name "Dumbbell Clean & Jerk"}
+ :russian-kb-swing {:valid-units   #units :weight
+                    :movement-name "Russian Kettlebell Swing"}
+ :lunge {:valid-units #units :weight :movement-name "Lunge"}
+ :single-arm-db-hang-power-clean {:valid-units   #units :weight
+                                  :movement-name "Dumbbell Hang Power Clean"}
+ :front-squat {:valid-units #units :weight :movement-name "Front Squat"}
+ :hspu {:movement-name "Handstand Push-up"}
+ :triple-under {:movement-name "Triple Under"}
+ :run {:valid-units #units :distance :movement-name "Run"}
+ :single-arm-db-squat {:valid-units   #units :weight
+                       :movement-name "Dumbbell Squat"}
+ :double-kb-clean {:valid-units   #units :weight
+                   :movement-name "Double Kettlebell Clean"}
+ :kipping-pull-up {:movement-name "Kipping Pull-up"}
+ :double-kb-walking-lunge {:valid-units   #units :weight
+                           :movement-name "Double Kettlebell Walking Lunge"}
+ :single-arm-overhead-kb-lunge {:valid-units   #units :weight
+                                :movement-name "Overhead Kettlebell Lunge"}
+ :shoulder-to-overhead {:valid-units   #units :weight
+                        :movement-name "Shoulder to Overhead"}
+ :double-db-snatch {:valid-units   #units :weight
+                    :movement-name "Double Dumbbell Snatch"}
+ :sandbag-carry {:valid-units #units :weight :movement-name "Sandbag Carry"}
+ :single-arm-db-overhead-walking-lunge
+ {:valid-units #units :weight :movement-name "Dumbbell Overhead Walking Lunge"}
+ :v-up {:movement-name "V-up"}
+ :shuttle-sprint {:valid-units #units :distance :movement-name "Shuttle Sprint"}
+ :single-arm-db-hang-squat-clean {:valid-units   #units :weight
+                                  :movement-name "Dumbbell Hang Squat Clean"}
+ :leg-raise {:movement-name "Leg Raise"}
+ :wall-ball {:valid-units         #units :weight
+             :default-application
+             #:exercise.application{:value #:exercise.application.value{:men 9.0
+                                            :women
+                                                                        6.0}
+              :unit  :unit/kilogram}
+             :movement-name       "Wall-ball"}
+ :cluster {:valid-units #units :weight :movement-name "Cluster"}
+ :kb-sumo-deadlift-high-pull
+ {:valid-units   #units :weight
+  :movement-name "Kettlebell Sumo Deadlift High Pull"}
+ :single-arm-db-squat-clean {:valid-units   #units :weight
+                             :movement-name "Dumbbell Squat Clean"}
+ :double-kb-clean-and-jerk {:valid-units   #units :weight
+                            :movement-name "Double Kettlebell Clean & Jerk"}
+ :single-kb-hang-snatch {:valid-units   #units :weight
+                         :movement-name "Kettlebell Hang Snatch"}
+ :double-under {:movement-name "Double Under"}
+ :ring-dip {:movement-name "Ring Dip"}
+ :burpee-muscle-up {:movement-name "Burpee Muscle-up"}
+ :clean-and-jerk {:valid-units #units :weight :movement-name "Clean & Jerk"}
+ :single-arm-kb-squat {:valid-units   #units :weight
+                       :movement-name "Kettlebell Squat"}
+ :single-arm-kb-hang-clean {:valid-units   #units :weight
+                            :movement-name "Kettlebell Hang Clean"}
+ :double-kb-hang-power-snatch
+ {:valid-units   #units :weight
+  :movement-name "Double Kettlebell Hang Power Snatch"}
+ :air-squat {:movement-name "Air Squat"}
+ :burpee-box-jump-over {:valid-units   [:unit/meter :unit/foot]
+                        :movement-name "Burpee Box Jump Over"}
+ :prowler-push {:valid-units #units :weight :movement-name "Prowler Push"}
+ :single-arm-kb-power-clean-and-jerk
+ {:valid-units #units :weight :movement-name "Kettlebell Power Clean & Jerk"}
+ :power-clean-and-jerk {:valid-units   #units :weight
+                        :movement-name "Power Clean & Jerk"}
+ :single-kb-strict-press {:valid-units   #units :weight
+                          :movement-name "Kettlebell Strict Press"}
+ :double-russian-kb-swing {:valid-units   #units :weight
+                           :movement-name "Double Russian Swing"}
+ :squat-clean {:valid-units #units :weight :movement-name "Squat Clean"}
+ :single-arm-db-push-jerk {:valid-units   #units :weight
+                           :movement-name "Dumbbell Push-up"}
+ :double-kb-jerk {:valid-units   #units :weight
+                  :movement-name "Double Kettlebell Jerk"}
+ :parallette-hspu {:movement-name "Parallette Handstand Push-up"}
+ :double-db-hang-clean-and-jerk
+ {:valid-units   #units :weight
+  :movement-name "Double Dumbbell Hang Clean & Jerk"}
+ :single-kb-shoulder-to-overhead
+ {:valid-units #units :weight :movement-name "Kettlebell Shoulder to Overhead"}
+ :jerk {:valid-units #units :weight :movement-name "Jerk"}
+ :double-db-squat-clean-and-jerk
+ {:valid-units   #units :weight
+  :movement-name "Double Dumbbell Squat Clean & Jerk"}
+ :double-db-overhead-walking-lunge {:valid-units   #units :weight
+                                    :movement-name
+                                    "Double Kettlebell Dumbbell Walking Lunge"}
+ :double-kb-hang-power-clean-and-jerk
+ {:valid-units   #units :weight
+  :movement-name "Double Kettlebell Hang Power Clean & Jerk"}
+ :chest-to-bar-pull-up {:movement-name "Chest to Bar"}
+ :single-arm-kb-walking-lunge {:valid-units   #units :weight
+                               :movement-name "Kettlebell Walking Lunge"}
+ :jumping-jack {:movement-name "Jumping Jack"}
+ :front-rack-lunge {:valid-units   #units :weight
+                    :movement-name "Front Rack Lunge"}
+ :farmer-walk {:valid-units #units :weight :movement-name "Farmer Walk"}
+ :single-arm-russian-kb-swing {:valid-units   #units :weight
+                               :movement-name "Russian Kettlebell Sing"}
+ :single-arm-overhead-kb-squat {:valid-units   #units :weight
+                                :movement-name "Overhead Kettlebell Squat"}
+ :knees-to-elbows {:movement-name "Knees to Elbows"}
+ :bench-press {:valid-units #units :weight :movement-name "Bench Press"}
+ :toes-to-bar {:movement-name "Toes to Bar"}
+ :single-arm-db-hang-clean-and-jerk
+ {:valid-units #units :weight :movement-name "Dumbbell Hang Clean & Jerk"}
+ :bar-muscle-up {:movement-name "Bar Muscle-up"}
+ :double-kb-hang-clean {:valid-units   #units :weight
+                        :movement-name "Double Kettlebell Hang Clean"}
+ :wall-ball-clean {:valid-units #units :weight :movement-name "Wall-ball Clean"}
+ :squat {:valid-units #units :weight :movement-name "Squat"}
+ :single-arm-kb-squat-clean-and-jerk
+ {:valid-units #units :weight :movement-name "Kettlebell Squat Clean & Jerk"}
+ :double-kb-hang-clean-and-jerk
+ {:valid-units   #units :weight
+  :movement-name "Double Kettlebell Hang Clean & Jerk"}
+ :double-kb-power-clean-and-jerk
+ {:valid-units   #units :weight
+  :movement-name "Double Kettlebell Power Clean & Jerk"}
+ :squat-jerk {:valid-units #units :weight :movement-name "Squat Jerk"}
+ :peg-board {:movement-name "Peg Board"}
+ :double-kb-squat-clean {:valid-units   #units :weight
+                         :movement-name "Double Kettlebell Squat Clean"}
+ :double-db-jerk {:valid-units   #units :weight
+                  :movement-name "Double Dumbbell Jerk"}
+ :turkish-get-up {:valid-units #units :weight :movement-name "Turkish Get-up"}
+ :single-arm-kb-clean {:valid-units   #units :weight
+                       :movement-name "Kettlebell Clean"}
+ :single-db-power-snatch {:valid-units   #units :weight
+                          :movement-name "Dumbbell Squat Snatch"}
+ :double-db-hang-clean {:valid-units   #units :weight
+                        :movement-name "Double Dumbbell Hang Clean"}
+ :double-db-lunge {:valid-units   #units :weight
+                   :movement-name "Double Dumbell Lunge"}
+ :double-db-power-clean {:valid-units   #units :weight
+                         :movement-name "Double Dumbbell Power Clean"}
+ :hang-clean {:valid-units #units :weight :movement-name "Hang Clean"}
+ :ball-slam {:valid-units #units :weight :movement-name "Ball Slam"}
+ :double-db-overhead-squat {:valid-units   #units :weight
+                            :movement-name "Double Dumbbell Overhead Squat"}
+ :hang-squat-snatch {:valid-units   #units :weight
+                     :movement-name "Hang Squat Snatch"}
+ :muscle-up {:movement-name "Muscle-up"}
+ :jumping-chest-to-bar-pull-up {:movement-name "Jumping Chest to Bar"}
+ :muscle-clean {:valid-units #units :weight :movement-name "Muscle Clean"}
+ :overhead-squat {:valid-units #units :weight :movement-name "Overhead Squat"}
+ :single-arm-kb-hang-power-clean-and-jerk
+ {:valid-units   #units :weight
+  :movement-name "Kettlebell Hang Power Clean & Jerk"}
+ :overhead-walk {:valid-units #units :weight :movement-name "Overhead Walk"}
+ :single-arm-db-power-clean-and-jerk
+ {:valid-units #units :weight :movement-name "Dumbbell Power Clean & Jerk"}
+ :double-kb-deadlift {:valid-units   #units :weight
+                      :movement-name "Double Kettlebell Deadlift"}
+ :ring-hspu {:movement-name "Ring Handstand Push-up"}
+ :back-squat {:valid-units #units :weight :movement-name "Back Squat"}
+ :ring-muscle-up {:movement-name "Ring Muscle-up"}
+ :double-kb-snatch {:valid-units   #units :weight
+                    :movement-name "Double Kettlebell Snatch"}
+ :double-kb-shoulder-to-overhead {:valid-units   #units :weight
+                                  :movement-name
+                                  "Double Kettlebell Shoulder to Overhead"}
+ :snatch-balance {:valid-units #units :weight :movement-name "Snatch Balance"}
+ :burpee-pull-up {:movement-name "Burpee Pull-up"}
+ :double-db-hang-squat-clean {:valid-units   #units :weight
+                              :movement-name "Double Dumbbell Hang Squat Clean"}
+ :single-arm-kb-overhead-walking-lunge
+ {:valid-units   #units :weight
+  :movement-name "Kettlebell Overhead Walking Lunge"}
+ :single-kb-power-snatch {:valid-units   #units :weight
+                          :movement-name "Sing Arm Kettlebell Power Snatch"}
+ :double-kb-hang-power-clean
+ {:valid-units   #units :weight
+  :movement-name "Double Kettlebell Hang Power Clean"}
+ :double-kb-swing {:valid-units   #units :weight
+                   :movement-name "Double Kettlebell Swing"}
+ :double-db-walking-lunge {:valid-units   #units :weight
+                           :movement-name "Double Dumbell Walking Lunge"}
+ :double-kb-lunge {:valid-units   #units :weight
+                   :movement-name "Double Kettlebell Lunge"}
+ :single-kb-squat-snatch {:valid-units   #units :weight
+                          :movement-name "Sing Arm Dumbbell Power Snatch"}
+ :hang-squat-clean-and-jerk {:valid-units   #units :weight
+                             :movement-name "Hang Squat Clean & Jerk"}
+ :single-db-snatch {:valid-units   #units :weight
+                    :movement-name "Dumbbell Snatch"}
+ :deadlift {:valid-units #units :weight :movement-name "Deadlift"}
+ :push-jerk {:valid-units #units :weight :movement-name "Push Jerk"}
+ :crunch {:movement-name "Crunch"}
+ :sumo-deadlift {:valid-units #units :weight :movement-name "Sumo Deadlift"}
+ :single-arm-db-walking-lunge {:valid-units   #units :weight
+                               :movement-name "Dumbell Walking Lunge"}
+ :burpee-bar-muscle-up {:movement-name "Burpee Bar Muscle-up"}
+ :double-db-push-jerk {:valid-units   #units :weight
+                       :movement-name "Double Dumbbell Push Jerk"}
+ :gobelet-squat {:valid-units #units :weight :movement-name "Gobelet Squat"}
+ :single-kb-push-press {:valid-units   #units :weight
+                        :movement-name "Single Kettlebell Push Press"}
+ :single-arm-kb-clean-and-jerk {:valid-units   #units :weight
+                                :movement-name "Kettlebell Clean & Jerk"}
+ :hand-release-push-up {:movement-name "Hand-release Push-up"}
+ :single-arm-kb-hang-squat-clean-and-jerk
+ {:valid-units   #units :weight
+  :movement-name "Kettlebell Hang Squat Clean & Jerk"}
+ :box-step-up {:valid-units   [:unit/meter :unit/foot]
+               :movement-name "Box Step-up"}
+ :single-db-hang-squat-snatch {:valid-units   #units :weight
+                               :movement-name "Dumbbell Hang Squat Snatch"}
+ :deficit-hspu {:valid-units   [:unit/meter :unit/foot]
+                :movement-name "Deficit Handstand Push-up"}
+ :strict-muscle-up {:movement-name "Strict Muscle-up"}
+ :double-kb-squat-snatch {:valid-units   #units :weight
+                          :movement-name "Double Kettlebell Squat Snatch"}
+ :double-kb-thruster {:valid-units   #units :weight
+                      :movement-name "Double Kettlebell Thruster"}
+ :single-arm-kb-push-jerk {:valid-units   #units :weight
+                           :movement-name "Kettlebell Push-up"}
+ :yoke-carry {:valid-units #units :weight :movement-name "Yoke Carry"}
+ :single-arm-db-hang-squat-clean-and-jerk
+ {:valid-units   #units :weight
+  :movement-name "Dumbbell Hang Squat Clean & Jerk"}
+ :squat-clean-and-jerk {:valid-units   #units :weight
+                        :movement-name "Squat Clean & Jerk"}
+ :single-arm-kb-squat-clean {:valid-units   #units :weight
+                             :movement-name "Kettlebell Squat Clean"}
+ :double-kb-overhead-lunge {:valid-units   #units :weight
+                            :movement-name "Double Kettlebell Overhead Lunge"}
+ :single-arm-db-jerk {:valid-units   #units :weight
+                      :movement-name "Dumbbell Jerk"}
+ :double-db-hang-snatch {:valid-units   #units :weight
+                         :movement-name "Double Dumbbell Hang Snatch"}
+ :double-kb-power-clean {:valid-units   #units :weight
+                         :movement-name "Double Kettlebell Power Clean"}
+ :double-db-hang-power-snatch
+ {:valid-units   #units :weight
+  :movement-name "Double Dumbbell Hang Power Snatch"}
+ :double-db-squat {:valid-units   #units :weight
+                   :movement-name "Double Dumbbell Squat"}
+ :single-arm-db-lunge {:valid-units   #units :weight
+                       :movement-name "Dumbbell Lunge"}
+ :sled-push {:valid-units #units :distance :movement-name "Sled Push"}
+ :kipping-chest-to-bar-pull-up {:movement-name "Kipping Chest to Bar"}
+ :sled-drag {:valid-units #units :distance :movement-name "Sled Drag"}
+ :single-kb-press {:valid-units   #units :weight
+                   :movement-name "Single Kettlebell Press"}
+ :single-arm-kb-jerk {:valid-units   #units :weight
+                      :movement-name "Kettlebell Jerk"}
+ :box-jump {:valid-units         [:unit/meter :unit/foot]
+            :default-application
+            #:exercise.application{:value #:exercise.application.value{:men 0.6
+                                           :women
+                                                                       0.5}
+             :unit  :unit/meter}
+            :movement-name       "Box Jump"}
+ :single-arm-kb-lunge {:valid-units   #units :weight
+                       :movement-name "Kettlebell Lunge"}
+ :hang-power-clean {:valid-units   #units :weight
+                    :movement-name "Hang Power Clean"}
+ :thruster {:valid-units #units :weight :movement-name "Thruster"}
+ :sumo-deadlift-high-pull {:valid-units   #units :weight
+                           :movement-name "Sumo Deadlift High Pull"}
+ :single-arm-kb-swing {:valid-units   #units :weight
+                       :movement-name "Kettlebell Swing"}
+ :hollow-rock {:movement-name "Hollow Rock"}
+ :handstand-walk {:valid-units #units :distance :movement-name "Handstand Walk"}
+ :double-db-hang-power-clean-and-jerk
+ {:valid-units   #units :weight
+  :movement-name "Double Dumbbell Hang Power Clean & Jerk"}
+ :double-kb-power-snatch {:valid-units   #units :weight
+                          :movement-name "Double Kettlebell Power Snatch"}
+ :double-db-deadlift {:valid-units   #units :weight
+                      :movement-name "Double Dumbbell Deadlift"}
+ :double-db-hang-power-clean {:valid-units   #units :weight
+                              :movement-name "Double Dumbbell Hang Power Clean"}
+ :pull-up {:movement-name "Pull-up"}
+ :battling-ropes {:movement-name "Battling Ropes"}
+ :ring-row {:movement-name "Ring Row"}
+ :single-arm-overhead-db-squat {:valid-units   #units :weight
+                                :movement-name "Overhead Dumbbell Squat"}
+ :single-arm-db-hang-clean {:valid-units   #units :weight
+                            :movement-name "Dumbbell Hang Clean"}
+ :double-db-squat-snatch {:valid-units   #units :weight
+                          :movement-name "Double Dumbbell Squat Snatch"}
+ :plank {:movement-name "Plank"}
+ :mountain-climber {:movement-name "Mountain Climber"}
+ :weighted-box-step-up {:valid-units   #units :weight
+                        :movement-name "Weighted Box Step-up"}
+ :devil-press {:valid-units #units :weight :movement-name "Devil Press"}
+ :assault-bike {:valid-units   #units [:calories :distance]
+                :movement-name "Assault Bike"}
+ :strict-hspu {:movement-name "Strict Handstand Push-up"}
+ :single-kb-snatch {:valid-units   #units :weight
+                    :movement-name "Kettlebell Snatch"}
+ :double-db-squat-clean {:valid-units   #units :weight
+                         :movement-name "Double Dumbbell Squat Clean"}
+ :jumping-lunge {:valid-units #units :weight :movement-name "Jumping Lunge"}
+ :hang-squat-clean {:valid-units   #units :weight
+                    :movement-name "Hang Squat Clean"}
+ :double-db-overhead-lunge {:valid-units   #units :weight
+                            :movement-name "Double Dumbbell Overhead Lunge"}
+ :single-arm-overhead-db-lunge {:valid-units   #units :weight
+                                :movement-name "Overhead Dumbbell Lunge"}
+ :single-arm-kb-power-clean {:valid-units   #units :weight
+                             :movement-name "Kettlebell Power Clean"}
+ :double-db-hang-squat-snatch
+ {:valid-units   #units :weight
+  :movement-name "Double Dumbbell Hang Squat Snatch"}
+ :single-arm-db-deadlift {:valid-units   #units :weight
+                          :movement-name "Sing Arm Dumbbell Deadlift"}
+ :single-kb-thruster {:valid-units   #units :weight
+                      :movement-name "Kettlebell Thruster"}
+ :ski {:valid-units #units [:calories :distance] :movement-name "SkiErg"}
+ :man-maker {:valid-units #units :weight :movement-name "Man Maker"}
+ :double-kb-squat {:valid-units   #units :weight
+                   :movement-name "Double Kettlebell Squat"}
+ :double-kb-overhead-squat {:valid-units   #units :weight
+                            :movement-name "Double Kettlebell Overhead Squat"}
+ :muscle-snatch {:valid-units #units :weight :movement-name "Muscle Snatch"}
+ :air-bike {:valid-units #units [:calories :distance] :movement-name "Air Bike"}
+ :double-db-clean-and-jerk {:valid-units   #units :weight
+                            :movement-name "Double Dumbbell Clean & Jerk"}
+ :single-db-hang-snatch {:valid-units   #units :weight
+                         :movement-name "Dumbbell Hang Snatch"}
+ :double-db-hang-squat-clean-and-jerk
+ {:valid-units   #units :weight
+  :movement-name "Double Dumbbell Hang Squat Clean & Jerk"}
+ :pistol {:movement-name "Pistol Squat"}
+ :single-kb-hang-power-snatch {:valid-units   #units :weight
+                               :movement-name "Kettlebell Hang Power Snatch"}
+ :double-kb-hang-snatch {:valid-units   #units :weight
+                         :movement-name "Double Kettlebell Hang Snatch"}
+ :double-kb-push-press {:valid-units   #units :weight
+                        :movement-name "Double Kettlebell Push Press"}
+ :double-kb-press {:valid-units   #units :weight
+                   :movement-name "Double Kettlebell Press"}
+ :single-db-squat-snatch {:valid-units   #units :weight
+                          :movement-name "Dumbbell Power Snatch"}
+ :double-db-thruster {:valid-units   #units :weight
+                      :movement-name "Double Dumbbell Thruster"}
+ :jumping-pull-up {:movement-name "Jumping Pull-up"}
+ :hang-clean-and-jerk {:valid-units   #units :weight
+                       :movement-name "Hang Clean & Jerk"}
+ :double-kb-push-jerk {:valid-units   #units :weight
+                       :movement-name "Double Kettlebell Push Jerk"}
+ :snatch-pull {:valid-units #units :weight :movement-name "Snatch Pull"}
+ :burpee {:movement-name "Burpee"}
+ :box-jump-over {:valid-units   [:unit/meter :unit/foot]
+                 :movement-name "Box Jump Over"}
+ :clean-pull {:valid-units #units :weight :movement-name "Clean Pull"}
+ :strict-ring-dip {:movement-name "Strict Ring Dip"}
+ :rest {:valid-units #units :duration :movement-name "Rest"}
+ :sit-up {:movement-name "Sit-up"}
+ :single-db-thruster {:valid-units   #units :weight
+                      :movement-name "Dumbbell Thruster"}
+ :single-arm-db-hang-power-clean-and-jerk
+ {:valid-units   #units :weight
+  :movement-name "Dumbbell Hang Power Clean & Jerk"}
+ :double-kb-hang-squat-clean
+ {:valid-units   #units :weight
+  :movement-name "Double Kettlebell Hang Squat Clean"}
+ :double-db-clean {:valid-units   #units :weight
+                   :movement-name "Double Dumbbell Clean"}
+ :wall-climb {:movement-name "Wall Climb"}
+ :row {:valid-units #units [:calories :distance] :movement-name "Row"}
+ :single-arm-kb-hang-squat-clean {:valid-units   #units :weight
+                                  :movement-name "Kettlebell Hang Squat Clean"}
+ :press {:valid-units #units :weight :movement-name "Press"}
+ :clean {:valid-units #units :weight :movement-name "Clean"}
+ :single-arm-kb-hang-clean-and-jerk
+ {:valid-units #units :weight :movement-name "Kettlebell Hang Clean & Jerk"}}

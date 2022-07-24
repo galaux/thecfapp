@@ -127,12 +127,14 @@
       :workout.loop.rep-scheme/last-rep-count 9
       :workout.loop.rep-scheme/step -6}
      :workout.loop/tasks
-     [{:exercise/movement    {:movement/name "Clean & Jerk"}
+     [{:exercise/movement    {:db/id         :clean-and-jerk
+                              :movement/name "Clean & Jerk"}
        :exercise/application
        {:exercise.application/value {:exercise.application.value/men   50.0
                                      :exercise.application.value/women 40.0}
         :exercise.application/unit  :unit/kilogram}}
-      {:exercise/movement  {:movement/name "Burpee"}
+      {:exercise/movement  {:db/id         :burpee
+                            :movement/name "Burpee"}
        :exercise/rep-count 5}]}))
 
 (deftest parse-header-amrap
@@ -286,13 +288,15 @@
   (parse-ok?
     sut/parser-dot-movement
     "Single arm KB swing"
-    {:movement/name "Kettlebell Swing"}))
+    {:db/id         :single-arm-kb-swing
+     :movement/name "Kettlebell Swing"}))
 
 (deftest parse-exercise-with-rep-count
   (parse-ok?
     sut/parser-dot-exercise
     "5 kb swing @16Kg" ;; FIXME "5 kb swingeeeee" doesn't fail the test :(
-    {:exercise/movement    {:movement/name "Kettlebell Swing"}
+    {:exercise/movement    {:db/id         :single-arm-kb-swing
+                            :movement/name "Kettlebell Swing"}
      :exercise/application
      {:exercise.application/value {:exercise.application.value/all 16.0}
       :exercise.application/unit  :unit/kilogram}
@@ -302,7 +306,8 @@
   (parse-ok?
     sut/parser-dot-exercise
     "kb swing @5kg"
-    {:exercise/movement    {:movement/name "Kettlebell Swing"}
+    {:exercise/movement    {:db/id         :single-arm-kb-swing
+                            :movement/name "Kettlebell Swing"}
      :exercise/application
      {:exercise.application/value {:exercise.application.value/all 5.0}
       :exercise.application/unit  :unit/kilogram}}))
@@ -311,7 +316,8 @@
   (parse-ok?
     sut/parser-dot-exercise
     "kb swing (15kg)"
-    {:exercise/movement    {:movement/name "Kettlebell Swing"}
+    {:exercise/movement    {:db/id         :single-arm-kb-swing
+                            :movement/name "Kettlebell Swing"}
      :exercise/application
      {:exercise.application/value {:exercise.application.value/all 15.0}
       :exercise.application/unit  :unit/kilogram}}))
@@ -320,7 +326,8 @@
   (parse-ok?
     sut/parser-dot-exercise
     "1' rest"
-    {:exercise/movement    {:movement/name "Rest"}
+    {:exercise/movement    {:db/id         :rest
+                            :movement/name "Rest"}
      :exercise/application
      {:exercise.application/value {:exercise.application.value/all 60000.0}
       :exercise.application/unit  :unit/millisecond}}))
@@ -329,7 +336,8 @@
   (parse-ok?
     sut/parser-dot-exercise
     "10 20kg KB swing"
-    {:exercise/movement    {:movement/name "Kettlebell Swing"}
+    {:exercise/movement    {:db/id         :single-arm-kb-swing
+                            :movement/name "Kettlebell Swing"}
      :exercise/rep-count   10
      :exercise/application
      {:exercise.application/value {:exercise.application.value/all 20.0}
@@ -339,7 +347,8 @@
   (parse-ok?
     sut/parser-dot-exercise
     "KB swing (20/15))"
-    {:exercise/movement    {:movement/name "Kettlebell Swing"}
+    {:exercise/movement    {:db/id         :single-arm-kb-swing
+                            :movement/name "Kettlebell Swing"}
      :exercise/application
      {:exercise.application/value
       {:exercise.application.value/men   20.0
@@ -350,7 +359,8 @@
   (parse-ok?
     sut/parser-dot-exercise
     "- 1' rest"
-    {:exercise/movement    {:movement/name "Rest"}
+    {:exercise/movement    {:db/id         :rest
+                            :movement/name "Rest"}
      :exercise/application
      {:exercise.application/value
       {:exercise.application.value/all 60000.0}
@@ -360,7 +370,8 @@
   (parse-ok?
     sut/parser-dot-exercise
     "5 wall ball shots"
-    {:exercise/movement    {:movement/name "Wall-ball"}
+    {:exercise/movement    {:db/id         :wall-ball
+                            :movement/name "Wall-ball"}
      :exercise/application
      {:exercise.application/value
       {:exercise.application.value/men   9.0
@@ -368,14 +379,28 @@
       :exercise.application/unit  :unit/kilogram}
      :exercise/rep-count   5}))
 
+(deftest parse-exercise-with-default-application-2
+  (parse-ok?
+    sut/parser-dot-exercise
+    "3 rope climbs"
+    {:exercise/movement    {:db/id         :rope-climb
+                            :movement/name "Rope Climb"}
+     :exercise/application
+     {:exercise.application/value
+      {:exercise.application.value/all 15.0}
+      :exercise.application/unit  :unit/foot}
+     :exercise/rep-count   3}))
+
 (deftest parse-flat-loop
   (parse-ok?
     sut/parser-dot-flat-loop
     "for time\n5 pull-up\n10 push-ups"
     {:workout.loop/tasks
-     [{:exercise/movement  {:movement/name "Pull-up"}
+     [{:exercise/movement  {:db/id         :pull-up
+                            :movement/name "Pull-up"}
        :exercise/rep-count 5}
-      {:exercise/movement  {:movement/name "Push-up"}
+      {:exercise/movement  {:db/id         :push-up
+                            :movement/name "Push-up"}
        :exercise/rep-count 10}]}))
 
 (deftest parse-unknown-movement
@@ -419,5 +444,5 @@
     (is (= {:parsed db} (sut/parse str)))))
 
 (deftest parse-specific
-  (let [{:keys [str db]} (get named-workouts :annie)]
+  (let [{:keys [str db]} (get custom-workouts :dansaert-2022-06-11)]
     (is (= {:parsed db} (sut/parse str)))))

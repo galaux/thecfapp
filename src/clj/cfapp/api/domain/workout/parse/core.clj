@@ -6,11 +6,13 @@
    WorkoutParser$WorkoutContext
    (org.antlr.v4.runtime BaseErrorListener CharStreams CommonTokenStream))
   (:require
+   [cfapp.api.domain.movement.config :as movement]
    [clojure.string :as s]
    [cfapp.api.domain.workout.parse.movement :refer [parse-movement]]
    [clojure.edn :as edn]
    [clojure.java.io :as io]
-   [clojure.pprint :refer [pprint]]))
+   [clojure.pprint :refer [pprint]]
+   [clojure.spec.alpha :as spec]))
 
 (def ^:private one-second-in-ms
   1000)
@@ -18,9 +20,38 @@
 (def ^:private one-minute-in-ms
   60000)
 
+;; TODO move to utils?
 (defn- trim-double-quotes
   [s]
   (apply str (remove #(= \" %) s)))
+
+(defn- units
+  [kw]
+  ;; Remember these are valid and default units for user inputs but they will
+  ;; be "fixed" later at the exercise level
+  (if (sequential? kw)
+    (mapcat units kw)
+    (case kw
+      :calories [:unit/calorie] ;; TODO add watt? TODO rename to `energy`
+      :duration [:unit/second :unit/minute]
+      :distance [:unit/meter :unit/mile :unit/foot]
+      :weight   [:unit/kilogram :unit/pound :unit/pood :unit/bodyweight])))
+;; TODO add all unit families defaults
+
+(defn- check-movements-config!
+  [config]
+  (if (spec/valid? ::movement/movements-config config)
+    config
+    (throw
+      (ex-info "Bad movement config map"
+               {:error (spec/explain ::movement/movements-config config)}))))
+
+;; TODO move swhere else because also used by cfapp.api.domain.movement.grammar
+(def movements-config
+  (check-movements-config!
+    (edn/read-string
+      {:readers {'units units}}
+      (slurp (io/resource "movements.edn")))))
 
 (defn- visit-workout
   [this ctx]
@@ -169,8 +200,9 @@
 
 (defn- visit-movement
   [_this ctx]
-  (let [movement (parse-movement ctx)]
-    {:movement/name movement}))
+  (let [movement-id (parse-movement ctx)]
+    {:db/id         movement-id
+     :movement/name (get-in movements-config [movement-id :movement-name])}))
 
 (defn- visit-application-unit
   [_this ctx]
@@ -224,22 +256,7 @@
       (application-men-women this values units)
       (application-all this (first values) (first units)))))
 
-(def ^:private movements-config
-  (edn/read-string (slurp (io/resource "movements.edn"))))
-
-(def ^:private unit-family->unit
-  {:distance :unit/meter
-   :duration :unit/millisecond
-   :weight   :unit/kilogram})
-
-(defn- default-application-unit
-  [movement-name]
-  (-> movements-config
-      (get-in [movement-name :applications])
-      first
-      unit-family->unit))
-
-(defn fix-application-value
+(defn- fix-application-value
   [unit {:exercise.application.value/keys [all men women]}]
   (let [fix (fn [value]
               (case unit
@@ -255,18 +272,37 @@
 ;; compulsory (keep whether or not it is compulsory in the movements-config
 ;; map)
 
+(defn default-application-unit* ;; TODO private
+  [movement-id]
+  (first (get-in movements-config [movement-id :valid-units])))
+
+(defn valid-units* ;; TODO private
+  [movement-id]
+  (set (get-in movements-config [movement-id :valid-units])))
+
+(def ^:private default-application-unit (memoize default-application-unit*))
+(def ^:private valid-units (memoize valid-units*))
+
 (defn- with-default-application-unit
-  ;; TODO This function also needs to check if given unit is ok with the
-  ;; movement (ie "no kg for pull-up")
   [{:exercise/keys [movement application] :as exercise}]
-  (let [unit         (:exercise.application/unit application)
-        default-unit (default-application-unit (:movement/name movement))]
-    (if (and (nil? unit) default-unit)
-      (assoc-in
+  (let [movement-id         (:db/id movement)
+        provided-unit       (:exercise.application/unit application)
+        default-unit        (default-application-unit movement-id)
+        valid-unit?         (valid-units movement-id)
+        user-provided-unit? (some? provided-unit)
+        requires-unit?      (some? default-unit)]
+    (condp = [user-provided-unit? requires-unit?]
+      [false false] exercise
+      [false true]  (assoc-in
+                      exercise
+                      [:exercise/application :exercise.application/unit]
+                      default-unit)
+      (if (valid-unit? provided-unit)
         exercise
-        [:exercise/application :exercise.application/unit]
-        default-unit)
-      exercise)))
+        (throw (ex-info "Bad unit for movement"
+                        {:movement-id   movement-id
+                         :provided-unit provided-unit
+                         :valid-units   valid-unit?}))))))
 
 (defn- with-fixed-application-value
   [{:exercise/keys [application] :as exercise}]
@@ -283,9 +319,9 @@
   "If user didn't provide any application and given movement has a default one
   in the `movements-config` map, assign it to the exercise."
   [{:exercise/keys [movement application] :as exercise}]
-  (let [def-application (get-in movements-config
-                                [(:movement/name movement)
-                                 :default-application])
+  (let [movement-id     (:db/id movement)
+        def-application (get-in movements-config
+                                [movement-id :default-application])
         {:exercise.application/keys [value unit]} application]
     (if (and (nil? value) (nil? unit) def-application)
       (merge exercise {:exercise/application def-application})

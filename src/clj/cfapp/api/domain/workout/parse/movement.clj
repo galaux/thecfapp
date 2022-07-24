@@ -1,256 +1,258 @@
 ;; This file is generated, don't edit!
 (ns cfapp.api.domain.workout.parse.movement)
 
-(defn parse-movement
+(defn- parse-movement*
   [ctx]
   (cond
-    (.AIR_BIKE ctx) "Air Bike"
-    (.AIR_SQUAT ctx) "Air Squat"
-    (.ASSAULT_BIKE ctx) "Assault Bike"
-    (.BACK_SQUAT ctx) "Back Squat"
-    (.BALL_SLAM ctx) "Ball Slam"
-    (.BAR_FACING_BURPEE ctx) "Bar-facing Burpee"
-    (.BAR_MUSCLE_UP ctx) "Bar Muscle-up"
-    (.BATTLING_ROPES ctx) "Battling Ropes"
-    (.BENCH_PRESS ctx) "Bench Press"
-    (.BOX_JUMP ctx) "Box Jump"
-    (.BOX_JUMP_OVER ctx) "Box Jump Over"
-    (.BOX_STEP_UP ctx) "Box Step-up"
-    (.BURPEE ctx) "Burpee"
-    (.BURPEE_BAR_MUSCLE_UP ctx) "Burpee Bar Muscle-up"
-    (.BURPEE_BOX_JUMP_OVER ctx) "Burpee Box Jump Over"
-    (.BURPEE_MUSCLE_UP ctx) "Burpee Muscle-up"
-    (.BURPEE_PULL_UP ctx) "Burpee Pull-up"
-    (.CHEST_TO_BAR_PULL_UP ctx) "Chest to Bar"
-    (.CHIN_UP ctx) "Chin-up"
-    (.CLEAN ctx) "Clean"
-    (.CLEAN_AND_JERK ctx) "Clean & Jerk"
-    (.CLEAN_PULL ctx) "Clean Pull"
-    (.CLUSTER ctx) "Cluster"
-    (.CRUNCH ctx) "Crunch"
-    (.DEADLIFT ctx) "Deadlift"
-    (.DEFICIT_HSPU ctx) "Deficit Handstand Push-up"
-    (.DEVIL_PRESS ctx) "Devil Press"
-    (.DOUBLE_DB_CLEAN ctx) "Double Dumbbell Clean"
-    (.DOUBLE_DB_CLEAN_AND_JERK ctx) "Double Dumbbell Clean & Jerk"
-    (.DOUBLE_DB_DEADLIFT ctx) "Double Dumbbell Deadlift"
-    (.DOUBLE_DB_HANG_CLEAN ctx) "Double Dumbbell Hang Clean"
-    (.DOUBLE_DB_HANG_CLEAN_AND_JERK ctx) "Double Dumbbell Hang Clean & Jerk"
-    (.DOUBLE_DB_HANG_POWER_CLEAN ctx) "Double Dumbbell Hang Power Clean"
-    (.DOUBLE_DB_HANG_POWER_CLEAN_AND_JERK ctx) "Double Dumbbell Hang Power Clean & Jerk"
-    (.DOUBLE_DB_HANG_POWER_SNATCH ctx) "Double Dumbbell Hang Power Snatch"
-    (.DOUBLE_DB_HANG_SNATCH ctx) "Double Dumbbell Hang Snatch"
-    (.DOUBLE_DB_HANG_SQUAT_CLEAN ctx) "Double Dumbbell Hang Squat Clean"
-    (.DOUBLE_DB_HANG_SQUAT_CLEAN_AND_JERK ctx) "Double Dumbbell Hang Squat Clean & Jerk"
-    (.DOUBLE_DB_HANG_SQUAT_SNATCH ctx) "Double Dumbbell Hang Squat Snatch"
-    (.DOUBLE_DB_JERK ctx) "Double Dumbbell Jerk"
-    (.DOUBLE_DB_LUNGE ctx) "Double Dumbell Lunge"
-    (.DOUBLE_DB_OVERHEAD_LUNGE ctx) "Double Dumbbell Overhead Lunge"
-    (.DOUBLE_DB_OVERHEAD_SQUAT ctx) "Double Dumbbell Overhead Squat"
-    (.DOUBLE_DB_OVERHEAD_WALKING_LUNGE ctx) "Double Kettlebell Dumbbell Walking Lunge"
-    (.DOUBLE_DB_POWER_CLEAN ctx) "Double Dumbbell Power Clean"
-    (.DOUBLE_DB_POWER_CLEAN_AND_JERK ctx) "Double Dumbbell Power Clean & Jerk"
-    (.DOUBLE_DB_POWER_SNATCH ctx) "Double Dumbbell Power Snatch"
-    (.DOUBLE_DB_PUSH_JERK ctx) "Double Dumbbell Push Jerk"
-    (.DOUBLE_DB_SNATCH ctx) "Double Dumbbell Snatch"
-    (.DOUBLE_DB_SQUAT ctx) "Double Dumbbell Squat"
-    (.DOUBLE_DB_SQUAT_CLEAN ctx) "Double Dumbbell Squat Clean"
-    (.DOUBLE_DB_SQUAT_CLEAN_AND_JERK ctx) "Double Dumbbell Squat Clean & Jerk"
-    (.DOUBLE_DB_SQUAT_SNATCH ctx) "Double Dumbbell Squat Snatch"
-    (.DOUBLE_DB_THRUSTER ctx) "Double Dumbbell Thruster"
-    (.DOUBLE_DB_WALKING_LUNGE ctx) "Double Dumbell Walking Lunge"
-    (.DOUBLE_KB_CLEAN ctx) "Double Kettlebell Clean"
-    (.DOUBLE_KB_CLEAN_AND_JERK ctx) "Double Kettlebell Clean & Jerk"
-    (.DOUBLE_KB_DEADLIFT ctx) "Double Kettlebell Deadlift"
-    (.DOUBLE_KB_HANG_CLEAN ctx) "Double Kettlebell Hang Clean"
-    (.DOUBLE_KB_HANG_CLEAN_AND_JERK ctx) "Double Kettlebell Hang Clean & Jerk"
-    (.DOUBLE_KB_HANG_POWER_CLEAN ctx) "Double Kettlebell Hang Power Clean"
-    (.DOUBLE_KB_HANG_POWER_CLEAN_AND_JERK ctx) "Double Kettlebell Hang Power Clean & Jerk"
-    (.DOUBLE_KB_HANG_POWER_SNATCH ctx) "Double Kettlebell Hang Power Snatch"
-    (.DOUBLE_KB_HANG_SNATCH ctx) "Double Kettlebell Hang Snatch"
-    (.DOUBLE_KB_HANG_SQUAT_CLEAN ctx) "Double Kettlebell Hang Squat Clean"
-    (.DOUBLE_KB_HANG_SQUAT_CLEAN_AND_JERK ctx) "Double Kettlebell Hang Squat Clean & Jerk"
-    (.DOUBLE_KB_HANG_SQUAT_SNATCH ctx) "Double Kettlebell Hang Squat Snatch"
-    (.DOUBLE_KB_JERK ctx) "Double Kettlebell Jerk"
-    (.DOUBLE_KB_LUNGE ctx) "Double Kettlebell Lunge"
-    (.DOUBLE_KB_OVERHEAD_LUNGE ctx) "Double Kettlebell Overhead Lunge"
-    (.DOUBLE_KB_OVERHEAD_SQUAT ctx) "Double Kettlebell Overhead Squat"
-    (.DOUBLE_KB_OVERHEAD_WALKING_LUNGE ctx) "Double Kettlebell Overhead Walking Lunge"
-    (.DOUBLE_KB_POWER_CLEAN ctx) "Double Kettlebell Power Clean"
-    (.DOUBLE_KB_POWER_CLEAN_AND_JERK ctx) "Double Kettlebell Power Clean & Jerk"
-    (.DOUBLE_KB_POWER_SNATCH ctx) "Double Kettlebell Power Snatch"
-    (.DOUBLE_KB_PRESS ctx) "Double Kettlebell Press"
-    (.DOUBLE_KB_PUSH_JERK ctx) "Double Kettlebell Push Jerk"
-    (.DOUBLE_KB_PUSH_PRESS ctx) "Double Kettlebell Push Press"
-    (.DOUBLE_KB_SHOULDER_PRESS ctx) "Double Kettlebell Shoulder Press"
-    (.DOUBLE_KB_SHOULDER_TO_OVERHEAD ctx) "Double Kettlebell Shoulder to Overhead"
-    (.DOUBLE_KB_SNATCH ctx) "Double Kettlebell Snatch"
-    (.DOUBLE_KB_SQUAT ctx) "Double Kettlebell Squat"
-    (.DOUBLE_KB_SQUAT_CLEAN ctx) "Double Kettlebell Squat Clean"
-    (.DOUBLE_KB_SQUAT_CLEAN_AND_JERK ctx) "Double Kettlebell Squat Clean & Jerk"
-    (.DOUBLE_KB_SQUAT_SNATCH ctx) "Double Kettlebell Squat Snatch"
-    (.DOUBLE_KB_SWING ctx) "Double Kettlebell Swing"
-    (.DOUBLE_KB_THRUSTER ctx) "Double Kettlebell Thruster"
-    (.DOUBLE_KB_WALKING_LUNGE ctx) "Double Kettlebell Walking Lunge"
-    (.DOUBLE_RUSSIAN_KB_SWING ctx) "Double Russian Swing"
-    (.DOUBLE_UNDER ctx) "Double Under"
-    (.FARMER_WALK ctx) "Farmer Walk"
-    (.FRONT_RACK_LUNGE ctx) "Front Rack Lunge"
-    (.FRONT_SQUAT ctx) "Front Squat"
-    (.GHD_SIT_UP ctx) "GHD Sit-up"
-    (.GOBELET_SQUAT ctx) "Gobelet Squat"
-    (.HANDSTAND_WALK ctx) "Handstand Walk"
-    (.HAND_RELEASE_PUSH_UP ctx) "Hand-release Push-up"
-    (.HANG_CLEAN ctx) "Hang Clean"
-    (.HANG_CLEAN_AND_JERK ctx) "Hang Clean & Jerk"
-    (.HANG_POWER_CLEAN ctx) "Hang Power Clean"
-    (.HANG_POWER_CLEAN_AND_JERK ctx) "Hang Power Clean & Jerk"
-    (.HANG_POWER_SNATCH ctx) "Hang Power Snatch"
-    (.HANG_SNATCH ctx) "Hang Snatch"
-    (.HANG_SQUAT_CLEAN ctx) "Hang Squat Clean"
-    (.HANG_SQUAT_CLEAN_AND_JERK ctx) "Hang Squat Clean & Jerk"
-    (.HANG_SQUAT_SNATCH ctx) "Hang Squat Snatch"
-    (.HOLLOW_ROCK ctx) "Hollow Rock"
-    (.HSPU ctx) "Handstand Push-up"
-    (.JERK ctx) "Jerk"
-    (.JUMPING_CHEST_TO_BAR_PULL_UP ctx) "Jumping Chest to Bar"
-    (.JUMPING_JACK ctx) "Jumping Jack"
-    (.JUMPING_LUNGE ctx) "Jumping Lunge"
-    (.JUMPING_PULL_UP ctx) "Jumping Pull-up"
-    (.KB_SUMO_DEADLIFT ctx) "Kettlebell Sumo Deadlift"
-    (.KB_SUMO_DEADLIFT_HIGH_PULL ctx) "Kettlebell Sumo Deadlift High Pull"
-    (.KIPPING_CHEST_TO_BAR_PULL_UP ctx) "Kipping Chest to Bar"
-    (.KIPPING_HSPU ctx) "Kipping Handstand Push-up"
-    (.KIPPING_PULL_UP ctx) "Kipping Pull-up"
-    (.KNEES_TO_ELBOWS ctx) "Knees to Elbows"
-    (.LEG_LESS_ROPE_CLIMB ctx) "Legless Rope Climb"
-    (.LEG_RAISE ctx) "Leg Raise"
-    (.LUNGE ctx) "Lunge"
-    (.MAN_MAKER ctx) "Man Maker"
-    (.MOUNTAIN_CLIMBER ctx) "Mountain Climber"
-    (.MUSCLE_CLEAN ctx) "Muscle Clean"
-    (.MUSCLE_SNATCH ctx) "Muscle Snatch"
-    (.MUSCLE_UP ctx) "Muscle-up"
-    (.OVERHEAD_SQUAT ctx) "Overhead Squat"
-    (.OVERHEAD_WALK ctx) "Overhead Walk"
-    (.PARALLETTE_HSPU ctx) "Parallette Handstand Push-up"
-    (.PEG_BOARD ctx) "Peg Board"
-    (.PISTOL ctx) "Pistol Squat"
-    (.PLANK ctx) "Plank"
-    (.POWER_CLEAN ctx) "Power Clean"
-    (.POWER_CLEAN_AND_JERK ctx) "Power Clean & Jerk"
-    (.POWER_SNATCH ctx) "Power Snatch"
-    (.PRESS ctx) "Press"
-    (.PROWLER_PUSH ctx) "Prowler Push"
-    (.PULL_UP ctx) "Pull-up"
-    (.PUSH_JERK ctx) "Push Jerk"
-    (.PUSH_UP ctx) "Push-up"
-    (.REST ctx) "Rest"
-    (.RING_DIP ctx) "Ring Dip"
-    (.RING_HSPU ctx) "Ring Handstand Push-up"
-    (.RING_MUSCLE_UP ctx) "Ring Muscle-up"
-    (.RING_PUSH_UP ctx) "Ring Push-up"
-    (.RING_ROW ctx) "Ring Row"
-    (.ROPE_CLIMB ctx) "Rope Climb"
-    (.ROW ctx) "Row"
-    (.RUN ctx) "Run"
-    (.RUSSIAN_KB_SWING ctx) "Russian Kettlebell Swing"
-    (.SANDBAG_CARRY ctx) "Sandbag Carry"
-    (.SHOULDER_TO_OVERHEAD ctx) "Shoulder to Overhead"
-    (.SHUTTLE_SPRINT ctx) "Shuttle Sprint"
-    (.SINGLE_ARM_DB_CLEAN ctx) "Dumbbell Clean"
-    (.SINGLE_ARM_DB_CLEAN_AND_JERK ctx) "Dumbbell Clean & Jerk"
-    (.SINGLE_ARM_DB_DEADLIFT ctx) "Sing Arm Dumbbell Deadlift"
-    (.SINGLE_ARM_DB_HANG_CLEAN ctx) "Dumbbell Hang Clean"
-    (.SINGLE_ARM_DB_HANG_CLEAN_AND_JERK ctx) "Dumbbell Hang Clean & Jerk"
-    (.SINGLE_ARM_DB_HANG_POWER_CLEAN ctx) "Dumbbell Hang Power Clean"
-    (.SINGLE_ARM_DB_HANG_POWER_CLEAN_AND_JERK ctx) "Dumbbell Hang Power Clean & Jerk"
-    (.SINGLE_ARM_DB_HANG_SQUAT_CLEAN ctx) "Dumbbell Hang Squat Clean"
-    (.SINGLE_ARM_DB_HANG_SQUAT_CLEAN_AND_JERK ctx) "Dumbbell Hang Squat Clean & Jerk"
-    (.SINGLE_ARM_DB_JERK ctx) "Dumbbell Jerk"
-    (.SINGLE_ARM_DB_LUNGE ctx) "Dumbbell Lunge"
-    (.SINGLE_ARM_DB_OVERHEAD_WALKING_LUNGE ctx) "Dumbbell Overhead Walking Lunge"
-    (.SINGLE_ARM_DB_POWER_CLEAN ctx) "Dumbbell Power Clean"
-    (.SINGLE_ARM_DB_POWER_CLEAN_AND_JERK ctx) "Dumbbell Power Clean & Jerk"
-    (.SINGLE_ARM_DB_PUSH_JERK ctx) "Dumbbell Push-up"
-    (.SINGLE_ARM_DB_SQUAT ctx) "Dumbbell Squat"
-    (.SINGLE_ARM_DB_SQUAT_CLEAN ctx) "Dumbbell Squat Clean"
-    (.SINGLE_ARM_DB_SQUAT_CLEAN_AND_JERK ctx) "Dumbbell Squat Clean & Jerk"
-    (.SINGLE_ARM_DB_WALKING_LUNGE ctx) "Dumbell Walking Lunge"
-    (.SINGLE_ARM_KB_CLEAN ctx) "Kettlebell Clean"
-    (.SINGLE_ARM_KB_CLEAN_AND_JERK ctx) "Kettlebell Clean & Jerk"
-    (.SINGLE_ARM_KB_DEADLIFT ctx) "Sing Arm Kettlebell Deadlift"
-    (.SINGLE_ARM_KB_HANG_CLEAN ctx) "Kettlebell Hang Clean"
-    (.SINGLE_ARM_KB_HANG_CLEAN_AND_JERK ctx) "Kettlebell Hang Clean & Jerk"
-    (.SINGLE_ARM_KB_HANG_POWER_CLEAN ctx) "Kettlebell Hang Power Clean"
-    (.SINGLE_ARM_KB_HANG_POWER_CLEAN_AND_JERK ctx) "Kettlebell Hang Power Clean & Jerk"
-    (.SINGLE_ARM_KB_HANG_SQUAT_CLEAN ctx) "Kettlebell Hang Squat Clean"
-    (.SINGLE_ARM_KB_HANG_SQUAT_CLEAN_AND_JERK ctx) "Kettlebell Hang Squat Clean & Jerk"
-    (.SINGLE_ARM_KB_JERK ctx) "Kettlebell Jerk"
-    (.SINGLE_ARM_KB_LUNGE ctx) "Kettlebell Lunge"
-    (.SINGLE_ARM_KB_OVERHEAD_WALKING_LUNGE ctx) "Kettlebell Overhead Walking Lunge"
-    (.SINGLE_ARM_KB_POWER_CLEAN ctx) "Kettlebell Power Clean"
-    (.SINGLE_ARM_KB_POWER_CLEAN_AND_JERK ctx) "Kettlebell Power Clean & Jerk"
-    (.SINGLE_ARM_KB_PUSH_JERK ctx) "Kettlebell Push-up"
-    (.SINGLE_ARM_KB_SQUAT ctx) "Kettlebell Squat"
-    (.SINGLE_ARM_KB_SQUAT_CLEAN ctx) "Kettlebell Squat Clean"
-    (.SINGLE_ARM_KB_SQUAT_CLEAN_AND_JERK ctx) "Kettlebell Squat Clean & Jerk"
-    (.SINGLE_ARM_KB_SWING ctx) "Kettlebell Swing"
-    (.SINGLE_ARM_KB_WALKING_LUNGE ctx) "Kettlebell Walking Lunge"
-    (.SINGLE_ARM_OVERHEAD_DB_LUNGE ctx) "Overhead Dumbbell Lunge"
-    (.SINGLE_ARM_OVERHEAD_DB_SQUAT ctx) "Overhead Dumbbell Squat"
-    (.SINGLE_ARM_OVERHEAD_KB_LUNGE ctx) "Overhead Kettlebell Lunge"
-    (.SINGLE_ARM_OVERHEAD_KB_SQUAT ctx) "Overhead Kettlebell Squat"
-    (.SINGLE_ARM_RUSSIAN_KB_SWING ctx) "Russian Kettlebell Sing"
-    (.SINGLE_DB_HANG_POWER_SNATCH ctx) "Dumbbell Hang Power Snatch"
-    (.SINGLE_DB_HANG_SNATCH ctx) "Dumbbell Hang Snatch"
-    (.SINGLE_DB_HANG_SQUAT_SNATCH ctx) "Dumbbell Hang Squat Snatch"
-    (.SINGLE_DB_POWER_SNATCH ctx) "Dumbbell Squat Snatch"
-    (.SINGLE_DB_SNATCH ctx) "Dumbbell Snatch"
-    (.SINGLE_DB_SQUAT_SNATCH ctx) "Dumbbell Power Snatch"
-    (.SINGLE_DB_THRUSTER ctx) "Dumbbell Thruster"
-    (.SINGLE_KB_HANG_POWER_SNATCH ctx) "Kettlebell Hang Power Snatch"
-    (.SINGLE_KB_HANG_SNATCH ctx) "Kettlebell Hang Snatch"
-    (.SINGLE_KB_HANG_SQUAT_SNATCH ctx) "Kettlebell Hang Squat Snatch"
-    (.SINGLE_KB_POWER_SNATCH ctx) "Sing Arm Kettlebell Power Snatch"
-    (.SINGLE_KB_PRESS ctx) "Single Kettlebell Press"
-    (.SINGLE_KB_PUSH_PRESS ctx) "Single Kettlebell Push Press"
-    (.SINGLE_KB_SHOULDER_TO_OVERHEAD ctx) "Kettlebell Shoulder to Overhead"
-    (.SINGLE_KB_SNATCH ctx) "Kettlebell Snatch"
-    (.SINGLE_KB_SQUAT_SNATCH ctx) "Sing Arm Dumbbell Power Snatch"
-    (.SINGLE_KB_STRICT_PRESS ctx) "Kettlebell Strict Press"
-    (.SINGLE_KB_THRUSTER ctx) "Kettlebell Thruster"
-    (.SINGLE_UNDER ctx) "Single Under"
-    (.SIT_UP ctx) "Sit-up"
-    (.SKI ctx) "SkiErg"
-    (.SLED_DRAG ctx) "Sled Drag"
-    (.SLED_PUSH ctx) "Sled Push"
-    (.SNATCH ctx) "Snatch"
-    (.SNATCH_BALANCE ctx) "Snatch Balance"
-    (.SNATCH_PULL ctx) "Snatch Pull"
-    (.SPLIT_JERK ctx) "Split Jerk"
-    (.SQUAT ctx) "Squat"
-    (.SQUAT_CLEAN ctx) "Squat Clean"
-    (.SQUAT_CLEAN_AND_JERK ctx) "Squat Clean & Jerk"
-    (.SQUAT_JERK ctx) "Squat Jerk"
-    (.SQUAT_JUMP ctx) "Squat Jump"
-    (.SQUAT_SNATCH ctx) "Squat Snatch"
-    (.STIFF_LEGGED_DEADLIFT ctx) "Stiff Legged Deadlift"
-    (.STRICT_HSPU ctx) "Strict Handstand Push-up"
-    (.STRICT_MUSCLE_UP ctx) "Strict Muscle-up"
-    (.STRICT_RING_DIP ctx) "Strict Ring Dip"
-    (.SUMO_DEADLIFT ctx) "Sumo Deadlift"
-    (.SUMO_DEADLIFT_HIGH_PULL ctx) "Sumo Deadlift High Pull"
-    (.SWIM ctx) "Swim"
-    (.THRUSTER ctx) "Thruster"
-    (.TOES_TO_BAR ctx) "Toes to Bar"
-    (.TOES_TO_RING ctx) "Toes to Ring"
-    (.TRIPLE_UNDER ctx) "Triple Under"
-    (.TURKISH_GET_UP ctx) "Turkish Get-up"
-    (.V_UP ctx) "V-up"
-    (.WALL_BALL ctx) "Wall-ball"
-    (.WALL_BALL_CLEAN ctx) "Wall-ball Clean"
-    (.WALL_CLIMB ctx) "Wall Climb"
-    (.WEIGHTED_BOX_STEP_UP ctx) "Weighted Box Step-up"
-    (.WEIGHTED_SIT_UP ctx) "Weighted Sit-up"
-    (.YOKE_CARRY ctx) "Yoke Carry"))
+    (.AIR_BIKE ctx) :air-bike
+    (.AIR_SQUAT ctx) :air-squat
+    (.ASSAULT_BIKE ctx) :assault-bike
+    (.BACK_SQUAT ctx) :back-squat
+    (.BALL_SLAM ctx) :ball-slam
+    (.BAR_FACING_BURPEE ctx) :bar-facing-burpee
+    (.BAR_MUSCLE_UP ctx) :bar-muscle-up
+    (.BATTLING_ROPES ctx) :battling-ropes
+    (.BENCH_PRESS ctx) :bench-press
+    (.BOX_JUMP ctx) :box-jump
+    (.BOX_JUMP_OVER ctx) :box-jump-over
+    (.BOX_STEP_UP ctx) :box-step-up
+    (.BURPEE ctx) :burpee
+    (.BURPEE_BAR_MUSCLE_UP ctx) :burpee-bar-muscle-up
+    (.BURPEE_BOX_JUMP_OVER ctx) :burpee-box-jump-over
+    (.BURPEE_MUSCLE_UP ctx) :burpee-muscle-up
+    (.BURPEE_PULL_UP ctx) :burpee-pull-up
+    (.CHEST_TO_BAR_PULL_UP ctx) :chest-to-bar-pull-up
+    (.CHIN_UP ctx) :chin-up
+    (.CLEAN ctx) :clean
+    (.CLEAN_AND_JERK ctx) :clean-and-jerk
+    (.CLEAN_PULL ctx) :clean-pull
+    (.CLUSTER ctx) :cluster
+    (.CRUNCH ctx) :crunch
+    (.DEADLIFT ctx) :deadlift
+    (.DEFICIT_HSPU ctx) :deficit-hspu
+    (.DEVIL_PRESS ctx) :devil-press
+    (.DOUBLE_DB_CLEAN ctx) :double-db-clean
+    (.DOUBLE_DB_CLEAN_AND_JERK ctx) :double-db-clean-and-jerk
+    (.DOUBLE_DB_DEADLIFT ctx) :double-db-deadlift
+    (.DOUBLE_DB_HANG_CLEAN ctx) :double-db-hang-clean
+    (.DOUBLE_DB_HANG_CLEAN_AND_JERK ctx) :double-db-hang-clean-and-jerk
+    (.DOUBLE_DB_HANG_POWER_CLEAN ctx) :double-db-hang-power-clean
+    (.DOUBLE_DB_HANG_POWER_CLEAN_AND_JERK ctx) :double-db-hang-power-clean-and-jerk
+    (.DOUBLE_DB_HANG_POWER_SNATCH ctx) :double-db-hang-power-snatch
+    (.DOUBLE_DB_HANG_SNATCH ctx) :double-db-hang-snatch
+    (.DOUBLE_DB_HANG_SQUAT_CLEAN ctx) :double-db-hang-squat-clean
+    (.DOUBLE_DB_HANG_SQUAT_CLEAN_AND_JERK ctx) :double-db-hang-squat-clean-and-jerk
+    (.DOUBLE_DB_HANG_SQUAT_SNATCH ctx) :double-db-hang-squat-snatch
+    (.DOUBLE_DB_JERK ctx) :double-db-jerk
+    (.DOUBLE_DB_LUNGE ctx) :double-db-lunge
+    (.DOUBLE_DB_OVERHEAD_LUNGE ctx) :double-db-overhead-lunge
+    (.DOUBLE_DB_OVERHEAD_SQUAT ctx) :double-db-overhead-squat
+    (.DOUBLE_DB_OVERHEAD_WALKING_LUNGE ctx) :double-db-overhead-walking-lunge
+    (.DOUBLE_DB_POWER_CLEAN ctx) :double-db-power-clean
+    (.DOUBLE_DB_POWER_CLEAN_AND_JERK ctx) :double-db-power-clean-and-jerk
+    (.DOUBLE_DB_POWER_SNATCH ctx) :double-db-power-snatch
+    (.DOUBLE_DB_PUSH_JERK ctx) :double-db-push-jerk
+    (.DOUBLE_DB_SNATCH ctx) :double-db-snatch
+    (.DOUBLE_DB_SQUAT ctx) :double-db-squat
+    (.DOUBLE_DB_SQUAT_CLEAN ctx) :double-db-squat-clean
+    (.DOUBLE_DB_SQUAT_CLEAN_AND_JERK ctx) :double-db-squat-clean-and-jerk
+    (.DOUBLE_DB_SQUAT_SNATCH ctx) :double-db-squat-snatch
+    (.DOUBLE_DB_THRUSTER ctx) :double-db-thruster
+    (.DOUBLE_DB_WALKING_LUNGE ctx) :double-db-walking-lunge
+    (.DOUBLE_KB_CLEAN ctx) :double-kb-clean
+    (.DOUBLE_KB_CLEAN_AND_JERK ctx) :double-kb-clean-and-jerk
+    (.DOUBLE_KB_DEADLIFT ctx) :double-kb-deadlift
+    (.DOUBLE_KB_HANG_CLEAN ctx) :double-kb-hang-clean
+    (.DOUBLE_KB_HANG_CLEAN_AND_JERK ctx) :double-kb-hang-clean-and-jerk
+    (.DOUBLE_KB_HANG_POWER_CLEAN ctx) :double-kb-hang-power-clean
+    (.DOUBLE_KB_HANG_POWER_CLEAN_AND_JERK ctx) :double-kb-hang-power-clean-and-jerk
+    (.DOUBLE_KB_HANG_POWER_SNATCH ctx) :double-kb-hang-power-snatch
+    (.DOUBLE_KB_HANG_SNATCH ctx) :double-kb-hang-snatch
+    (.DOUBLE_KB_HANG_SQUAT_CLEAN ctx) :double-kb-hang-squat-clean
+    (.DOUBLE_KB_HANG_SQUAT_CLEAN_AND_JERK ctx) :double-kb-hang-squat-clean-and-jerk
+    (.DOUBLE_KB_HANG_SQUAT_SNATCH ctx) :double-kb-hang-squat-snatch
+    (.DOUBLE_KB_JERK ctx) :double-kb-jerk
+    (.DOUBLE_KB_LUNGE ctx) :double-kb-lunge
+    (.DOUBLE_KB_OVERHEAD_LUNGE ctx) :double-kb-overhead-lunge
+    (.DOUBLE_KB_OVERHEAD_SQUAT ctx) :double-kb-overhead-squat
+    (.DOUBLE_KB_OVERHEAD_WALKING_LUNGE ctx) :double-kb-overhead-walking-lunge
+    (.DOUBLE_KB_POWER_CLEAN ctx) :double-kb-power-clean
+    (.DOUBLE_KB_POWER_CLEAN_AND_JERK ctx) :double-kb-power-clean-and-jerk
+    (.DOUBLE_KB_POWER_SNATCH ctx) :double-kb-power-snatch
+    (.DOUBLE_KB_PRESS ctx) :double-kb-press
+    (.DOUBLE_KB_PUSH_JERK ctx) :double-kb-push-jerk
+    (.DOUBLE_KB_PUSH_PRESS ctx) :double-kb-push-press
+    (.DOUBLE_KB_SHOULDER_PRESS ctx) :double-kb-shoulder-press
+    (.DOUBLE_KB_SHOULDER_TO_OVERHEAD ctx) :double-kb-shoulder-to-overhead
+    (.DOUBLE_KB_SNATCH ctx) :double-kb-snatch
+    (.DOUBLE_KB_SQUAT ctx) :double-kb-squat
+    (.DOUBLE_KB_SQUAT_CLEAN ctx) :double-kb-squat-clean
+    (.DOUBLE_KB_SQUAT_CLEAN_AND_JERK ctx) :double-kb-squat-clean-and-jerk
+    (.DOUBLE_KB_SQUAT_SNATCH ctx) :double-kb-squat-snatch
+    (.DOUBLE_KB_SWING ctx) :double-kb-swing
+    (.DOUBLE_KB_THRUSTER ctx) :double-kb-thruster
+    (.DOUBLE_KB_WALKING_LUNGE ctx) :double-kb-walking-lunge
+    (.DOUBLE_RUSSIAN_KB_SWING ctx) :double-russian-kb-swing
+    (.DOUBLE_UNDER ctx) :double-under
+    (.FARMER_WALK ctx) :farmer-walk
+    (.FRONT_RACK_LUNGE ctx) :front-rack-lunge
+    (.FRONT_SQUAT ctx) :front-squat
+    (.GHD_SIT_UP ctx) :ghd-sit-up
+    (.GOBELET_SQUAT ctx) :gobelet-squat
+    (.HANDSTAND_WALK ctx) :handstand-walk
+    (.HAND_RELEASE_PUSH_UP ctx) :hand-release-push-up
+    (.HANG_CLEAN ctx) :hang-clean
+    (.HANG_CLEAN_AND_JERK ctx) :hang-clean-and-jerk
+    (.HANG_POWER_CLEAN ctx) :hang-power-clean
+    (.HANG_POWER_CLEAN_AND_JERK ctx) :hang-power-clean-and-jerk
+    (.HANG_POWER_SNATCH ctx) :hang-power-snatch
+    (.HANG_SNATCH ctx) :hang-snatch
+    (.HANG_SQUAT_CLEAN ctx) :hang-squat-clean
+    (.HANG_SQUAT_CLEAN_AND_JERK ctx) :hang-squat-clean-and-jerk
+    (.HANG_SQUAT_SNATCH ctx) :hang-squat-snatch
+    (.HOLLOW_ROCK ctx) :hollow-rock
+    (.HSPU ctx) :hspu
+    (.JERK ctx) :jerk
+    (.JUMPING_CHEST_TO_BAR_PULL_UP ctx) :jumping-chest-to-bar-pull-up
+    (.JUMPING_JACK ctx) :jumping-jack
+    (.JUMPING_LUNGE ctx) :jumping-lunge
+    (.JUMPING_PULL_UP ctx) :jumping-pull-up
+    (.KB_SUMO_DEADLIFT ctx) :kb-sumo-deadlift
+    (.KB_SUMO_DEADLIFT_HIGH_PULL ctx) :kb-sumo-deadlift-high-pull
+    (.KIPPING_CHEST_TO_BAR_PULL_UP ctx) :kipping-chest-to-bar-pull-up
+    (.KIPPING_HSPU ctx) :kipping-hspu
+    (.KIPPING_PULL_UP ctx) :kipping-pull-up
+    (.KNEES_TO_ELBOWS ctx) :knees-to-elbows
+    (.LEG_LESS_ROPE_CLIMB ctx) :leg-less-rope-climb
+    (.LEG_RAISE ctx) :leg-raise
+    (.LUNGE ctx) :lunge
+    (.MAN_MAKER ctx) :man-maker
+    (.MOUNTAIN_CLIMBER ctx) :mountain-climber
+    (.MUSCLE_CLEAN ctx) :muscle-clean
+    (.MUSCLE_SNATCH ctx) :muscle-snatch
+    (.MUSCLE_UP ctx) :muscle-up
+    (.OVERHEAD_SQUAT ctx) :overhead-squat
+    (.OVERHEAD_WALK ctx) :overhead-walk
+    (.PARALLETTE_HSPU ctx) :parallette-hspu
+    (.PEG_BOARD ctx) :peg-board
+    (.PISTOL ctx) :pistol
+    (.PLANK ctx) :plank
+    (.POWER_CLEAN ctx) :power-clean
+    (.POWER_CLEAN_AND_JERK ctx) :power-clean-and-jerk
+    (.POWER_SNATCH ctx) :power-snatch
+    (.PRESS ctx) :press
+    (.PROWLER_PUSH ctx) :prowler-push
+    (.PULL_UP ctx) :pull-up
+    (.PUSH_JERK ctx) :push-jerk
+    (.PUSH_UP ctx) :push-up
+    (.REST ctx) :rest
+    (.RING_DIP ctx) :ring-dip
+    (.RING_HSPU ctx) :ring-hspu
+    (.RING_MUSCLE_UP ctx) :ring-muscle-up
+    (.RING_PUSH_UP ctx) :ring-push-up
+    (.RING_ROW ctx) :ring-row
+    (.ROPE_CLIMB ctx) :rope-climb
+    (.ROW ctx) :row
+    (.RUN ctx) :run
+    (.RUSSIAN_KB_SWING ctx) :russian-kb-swing
+    (.SANDBAG_CARRY ctx) :sandbag-carry
+    (.SHOULDER_TO_OVERHEAD ctx) :shoulder-to-overhead
+    (.SHUTTLE_SPRINT ctx) :shuttle-sprint
+    (.SINGLE_ARM_DB_CLEAN ctx) :single-arm-db-clean
+    (.SINGLE_ARM_DB_CLEAN_AND_JERK ctx) :single-arm-db-clean-and-jerk
+    (.SINGLE_ARM_DB_DEADLIFT ctx) :single-arm-db-deadlift
+    (.SINGLE_ARM_DB_HANG_CLEAN ctx) :single-arm-db-hang-clean
+    (.SINGLE_ARM_DB_HANG_CLEAN_AND_JERK ctx) :single-arm-db-hang-clean-and-jerk
+    (.SINGLE_ARM_DB_HANG_POWER_CLEAN ctx) :single-arm-db-hang-power-clean
+    (.SINGLE_ARM_DB_HANG_POWER_CLEAN_AND_JERK ctx) :single-arm-db-hang-power-clean-and-jerk
+    (.SINGLE_ARM_DB_HANG_SQUAT_CLEAN ctx) :single-arm-db-hang-squat-clean
+    (.SINGLE_ARM_DB_HANG_SQUAT_CLEAN_AND_JERK ctx) :single-arm-db-hang-squat-clean-and-jerk
+    (.SINGLE_ARM_DB_JERK ctx) :single-arm-db-jerk
+    (.SINGLE_ARM_DB_LUNGE ctx) :single-arm-db-lunge
+    (.SINGLE_ARM_DB_OVERHEAD_WALKING_LUNGE ctx) :single-arm-db-overhead-walking-lunge
+    (.SINGLE_ARM_DB_POWER_CLEAN ctx) :single-arm-db-power-clean
+    (.SINGLE_ARM_DB_POWER_CLEAN_AND_JERK ctx) :single-arm-db-power-clean-and-jerk
+    (.SINGLE_ARM_DB_PUSH_JERK ctx) :single-arm-db-push-jerk
+    (.SINGLE_ARM_DB_SQUAT ctx) :single-arm-db-squat
+    (.SINGLE_ARM_DB_SQUAT_CLEAN ctx) :single-arm-db-squat-clean
+    (.SINGLE_ARM_DB_SQUAT_CLEAN_AND_JERK ctx) :single-arm-db-squat-clean-and-jerk
+    (.SINGLE_ARM_DB_WALKING_LUNGE ctx) :single-arm-db-walking-lunge
+    (.SINGLE_ARM_KB_CLEAN ctx) :single-arm-kb-clean
+    (.SINGLE_ARM_KB_CLEAN_AND_JERK ctx) :single-arm-kb-clean-and-jerk
+    (.SINGLE_ARM_KB_DEADLIFT ctx) :single-arm-kb-deadlift
+    (.SINGLE_ARM_KB_HANG_CLEAN ctx) :single-arm-kb-hang-clean
+    (.SINGLE_ARM_KB_HANG_CLEAN_AND_JERK ctx) :single-arm-kb-hang-clean-and-jerk
+    (.SINGLE_ARM_KB_HANG_POWER_CLEAN ctx) :single-arm-kb-hang-power-clean
+    (.SINGLE_ARM_KB_HANG_POWER_CLEAN_AND_JERK ctx) :single-arm-kb-hang-power-clean-and-jerk
+    (.SINGLE_ARM_KB_HANG_SQUAT_CLEAN ctx) :single-arm-kb-hang-squat-clean
+    (.SINGLE_ARM_KB_HANG_SQUAT_CLEAN_AND_JERK ctx) :single-arm-kb-hang-squat-clean-and-jerk
+    (.SINGLE_ARM_KB_JERK ctx) :single-arm-kb-jerk
+    (.SINGLE_ARM_KB_LUNGE ctx) :single-arm-kb-lunge
+    (.SINGLE_ARM_KB_OVERHEAD_WALKING_LUNGE ctx) :single-arm-kb-overhead-walking-lunge
+    (.SINGLE_ARM_KB_POWER_CLEAN ctx) :single-arm-kb-power-clean
+    (.SINGLE_ARM_KB_POWER_CLEAN_AND_JERK ctx) :single-arm-kb-power-clean-and-jerk
+    (.SINGLE_ARM_KB_PUSH_JERK ctx) :single-arm-kb-push-jerk
+    (.SINGLE_ARM_KB_SQUAT ctx) :single-arm-kb-squat
+    (.SINGLE_ARM_KB_SQUAT_CLEAN ctx) :single-arm-kb-squat-clean
+    (.SINGLE_ARM_KB_SQUAT_CLEAN_AND_JERK ctx) :single-arm-kb-squat-clean-and-jerk
+    (.SINGLE_ARM_KB_SWING ctx) :single-arm-kb-swing
+    (.SINGLE_ARM_KB_WALKING_LUNGE ctx) :single-arm-kb-walking-lunge
+    (.SINGLE_ARM_OVERHEAD_DB_LUNGE ctx) :single-arm-overhead-db-lunge
+    (.SINGLE_ARM_OVERHEAD_DB_SQUAT ctx) :single-arm-overhead-db-squat
+    (.SINGLE_ARM_OVERHEAD_KB_LUNGE ctx) :single-arm-overhead-kb-lunge
+    (.SINGLE_ARM_OVERHEAD_KB_SQUAT ctx) :single-arm-overhead-kb-squat
+    (.SINGLE_ARM_RUSSIAN_KB_SWING ctx) :single-arm-russian-kb-swing
+    (.SINGLE_DB_HANG_POWER_SNATCH ctx) :single-db-hang-power-snatch
+    (.SINGLE_DB_HANG_SNATCH ctx) :single-db-hang-snatch
+    (.SINGLE_DB_HANG_SQUAT_SNATCH ctx) :single-db-hang-squat-snatch
+    (.SINGLE_DB_POWER_SNATCH ctx) :single-db-power-snatch
+    (.SINGLE_DB_SNATCH ctx) :single-db-snatch
+    (.SINGLE_DB_SQUAT_SNATCH ctx) :single-db-squat-snatch
+    (.SINGLE_DB_THRUSTER ctx) :single-db-thruster
+    (.SINGLE_KB_HANG_POWER_SNATCH ctx) :single-kb-hang-power-snatch
+    (.SINGLE_KB_HANG_SNATCH ctx) :single-kb-hang-snatch
+    (.SINGLE_KB_HANG_SQUAT_SNATCH ctx) :single-kb-hang-squat-snatch
+    (.SINGLE_KB_POWER_SNATCH ctx) :single-kb-power-snatch
+    (.SINGLE_KB_PRESS ctx) :single-kb-press
+    (.SINGLE_KB_PUSH_PRESS ctx) :single-kb-push-press
+    (.SINGLE_KB_SHOULDER_TO_OVERHEAD ctx) :single-kb-shoulder-to-overhead
+    (.SINGLE_KB_SNATCH ctx) :single-kb-snatch
+    (.SINGLE_KB_SQUAT_SNATCH ctx) :single-kb-squat-snatch
+    (.SINGLE_KB_STRICT_PRESS ctx) :single-kb-strict-press
+    (.SINGLE_KB_THRUSTER ctx) :single-kb-thruster
+    (.SINGLE_UNDER ctx) :single-under
+    (.SIT_UP ctx) :sit-up
+    (.SKI ctx) :ski
+    (.SLED_DRAG ctx) :sled-drag
+    (.SLED_PUSH ctx) :sled-push
+    (.SNATCH ctx) :snatch
+    (.SNATCH_BALANCE ctx) :snatch-balance
+    (.SNATCH_PULL ctx) :snatch-pull
+    (.SPLIT_JERK ctx) :split-jerk
+    (.SQUAT ctx) :squat
+    (.SQUAT_CLEAN ctx) :squat-clean
+    (.SQUAT_CLEAN_AND_JERK ctx) :squat-clean-and-jerk
+    (.SQUAT_JERK ctx) :squat-jerk
+    (.SQUAT_JUMP ctx) :squat-jump
+    (.SQUAT_SNATCH ctx) :squat-snatch
+    (.STIFF_LEGGED_DEADLIFT ctx) :stiff-legged-deadlift
+    (.STRICT_HSPU ctx) :strict-hspu
+    (.STRICT_MUSCLE_UP ctx) :strict-muscle-up
+    (.STRICT_RING_DIP ctx) :strict-ring-dip
+    (.SUMO_DEADLIFT ctx) :sumo-deadlift
+    (.SUMO_DEADLIFT_HIGH_PULL ctx) :sumo-deadlift-high-pull
+    (.SWIM ctx) :swim
+    (.THRUSTER ctx) :thruster
+    (.TOES_TO_BAR ctx) :toes-to-bar
+    (.TOES_TO_RING ctx) :toes-to-ring
+    (.TRIPLE_UNDER ctx) :triple-under
+    (.TURKISH_GET_UP ctx) :turkish-get-up
+    (.V_UP ctx) :v-up
+    (.WALL_BALL ctx) :wall-ball
+    (.WALL_BALL_CLEAN ctx) :wall-ball-clean
+    (.WALL_CLIMB ctx) :wall-climb
+    (.WEIGHTED_BOX_STEP_UP ctx) :weighted-box-step-up
+    (.WEIGHTED_SIT_UP ctx) :weighted-sit-up
+    (.YOKE_CARRY ctx) :yoke-carry))
+
+(def parse-movement (memoize parse-movement*))
