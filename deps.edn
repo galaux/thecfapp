@@ -55,7 +55,8 @@
 
  :aliases
    {:env/cljs
-      {:extra-paths ["src/cljs"
+      {:extra-paths ["spec/cljs"
+                     "src/cljs"
                      "src/js"
                      "test/cljs"]
 
