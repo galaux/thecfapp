@@ -17,7 +17,8 @@
    [clojure.string :as s]
    [camel-snake-kebab.core :as csk]))
 
-(def all-list
+(defn ->all-movements
+  []
   (plus
     ;; Gymnastic
     gymnastic/all
@@ -33,14 +34,16 @@
     clean-and-jerk/all
     snatch/all))
 
-(let [movements (into {} (map (juxt :id :rule) all-list))
-      ancestors (reduce
-                  (fn [acc {:keys [ancestors]}] (merge acc ancestors))
-                  {}
-                  all-list)
-      [rules fragments in-both] (data/diff movements ancestors)]
-  (intern *ns* 'fragments fragments)
-  (intern *ns* 'rules (merge rules in-both)))
+(defn ->grammar-base
+  [movement-list]
+  (let [movements (into {} (map (juxt :id :rule) movement-list))
+        ancestors (reduce
+                    (fn [acc {:keys [ancestors]}] (merge acc ancestors))
+                    {}
+                    movement-list)
+        [rules fragments in-both] (data/diff movements ancestors)]
+    {:fragments fragments
+     :rules     (merge rules in-both)}))
 
 (defn- ->movement-id
   [id]
@@ -100,7 +103,7 @@ movement
           (->movement-id id)))
 
 (defn gen-movement-grammar!
-  []
+  [{:keys [fragments rules]}]
   (let [fragments-str    (s/join "\n" (sort (map ->fragment-line fragments)))
         lexer-rules-str  (s/join "\n" (sort (map ->lexer-rule-line rules)))
         parser-rules-str (s/join "\n  | "
@@ -109,7 +112,7 @@ movement
           (format template fragments-str lexer-rules-str parser-rules-str))))
 
 (defn gen-movement-parsing-fn!
-  []
+  [{:keys [rules]}]
   (let [parse-movement-lines
         (s/join "\n" (sort (map ->parse-movement-line rules)))]
     (spit "./src/clj/cfapp/api/domain/parse/movement.clj"
@@ -128,7 +131,7 @@ movement
      :movement/name movement-name}))
 
 (defn gen-datoms!
-  []
+  [{:keys [rules]}]
   (spit (io/resource "movements.edn")
         ;; Zprint doesn't properly indent the compact notation of ns'd maps
         ;; thus the local `binding`.
@@ -138,6 +141,7 @@ movement
 
 (defn gen!
   []
-  (gen-movement-grammar!)
-  (gen-movement-parsing-fn!)
-  (gen-datoms!))
+  (let [grammar-base (->grammar-base (->all-movements))]
+    (gen-movement-grammar! grammar-base)
+    (gen-movement-parsing-fn! grammar-base)
+    (gen-datoms! grammar-base)))
