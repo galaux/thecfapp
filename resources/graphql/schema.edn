@@ -95,7 +95,7 @@
             :unit  {:type (non-null :Unit)}}}
 
   :Movement
-  {:fields {:id   {:type (non-null :ID)}
+  {:fields {:id   {:type (non-null String)}
             :name {:type (non-null String)}}}
 
   :Exercise

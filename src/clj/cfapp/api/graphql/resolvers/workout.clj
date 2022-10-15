@@ -10,9 +10,10 @@
 
 ;; TODO movement should have its own resolver !!
 (defn- shape-movement
-  [{:movement/keys [id name]}]
-  {:id   id
-   :name name})
+  [{mvt-name       :movement/name
+    :movement/keys [id]}]
+  {:id   (name id)
+   :name mvt-name})
 
 (defn- shape-application-value
   [{:exercise.application.value/keys [all men women]}]

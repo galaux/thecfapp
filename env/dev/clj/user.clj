@@ -101,6 +101,21 @@
   []
   (d/q q-all-communities (get-db) community-pull-pattern))
 
+
+(def ^:private q-all-movements
+  '[:find (pull ?movement pull-pattern)
+    :in $ pull-pattern
+    :where
+    [?movement :movement/id]])
+
+(def ^:private movement-pull-pattern
+  '[:movement/id
+    :movement/name])
+
+(defn all-movements
+  []
+  (flatten (d/q q-all-movements (get-db) movement-pull-pattern)))
+
 ;; Find one element
 ;;   :find ?year .
 ;; Find a list
