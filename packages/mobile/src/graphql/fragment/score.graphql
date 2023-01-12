@@ -1,4 +1,0 @@
-fragment ScoreFields on Score {
-  id
-  value
-}

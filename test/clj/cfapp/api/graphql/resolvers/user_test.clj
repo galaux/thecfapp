@@ -17,23 +17,25 @@
    :communities []})
 (def community-a (gen/generate community/community-gen))
 
-(deftest list-users-not-used-by-mobile
-  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system}
-          (tutil/setup)]
+(def ^:private q-list-users
+  "query ListUsers {
+     users {
+       id name email
+       communities { id name }
+     }
+   }")
+
+(deftest list-users ;; not used by mobile
+  (let [{:keys [:cfapp.api.db/conn
+                :cfapp.api/handler]
+         :as   system}
+        (tutil/setup)]
     (tutil/domain-add conn [user-a])
-    (let
-      [graphql-q
-         "query ListUsers {
-              users {
-                id name email
-                communities { id name }
-              }
-            }"
-       gql-query       (tutil/test-query graphql-q [] nil)
-       response        (handler gql-query)
-       parsed-response (-> response
-                           :body
-                           (json/read-str :key-fn keyword))]
+    (let [gql-query       (tutil/test-query q-list-users nil)
+          response        (handler gql-query)
+          parsed-response (-> response
+                              :body
+                              (json/read-str :key-fn keyword))]
       (is (= 200 (:status response)))
       (is (empty? (:errors parsed-response)))
       (is (= [expected-user-a]
@@ -42,11 +44,20 @@
                  :users))))
     (ig/halt! system)))
 
+(def ^:private q-get-user
+  "query GetUser($userId: ID!) {
+     user(id: $userId) {
+       id
+       name
+     }
+   }")
+
 (deftest get-user
-  (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
-        gql-query (tutil/test-query :GetUser
-                                    [:User]
-                                    {:userId (.toString (:user/id user-a))})]
+  (let
+    [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
+     gql-query (tutil/test-query
+                 q-get-user
+                 {:userId (.toString (:user/id user-a))})]
     (tutil/domain-add conn [user-a])
     (let [response        (handler gql-query)
           parsed-response (-> response
@@ -61,11 +72,3 @@
                  :data
                  :user))))
     (ig/halt! system)))
-
-;; (deftest test-macro
-;;   (tutil/with-system [{:keys [:cfapp.api.db/client
-;;                               :cfapp.api.db/conn
-;;                               :cfapp.api/handler] :as system} (tutil/setup)]
-;;     (println "|| " system)
-;;     (is (= 1
-;;           1))))

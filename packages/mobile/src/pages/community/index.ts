@@ -1,7 +1,0 @@
-export * from './detail'
-export * from './find'
-export * from './join-community.generated'
-export * from './leave-community.generated'
-export * from './new'
-export * from './user-communities.generated'
-export * from './users'

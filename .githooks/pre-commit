@@ -1,0 +1,30 @@
+#!/bin/sh
+
+if [ "$CI" = "true" ]
+then
+  exit 0
+fi
+
+for file in $(git diff --cached --name-only --diff-filter=ACM \
+                env/dev/clj/cfapp \
+                resources/db \
+                resources/movements.edn \
+                resources/graphql/* \
+                resources/system.edn \
+                src \
+                test \
+                | grep -v src/clj/cfapp/api/domain/workout/parse/movement.clj)
+do
+  echo $file
+  if ! type zprint > /dev/null || ! test -f ~/.zprint.edn
+  then
+    echo 'Either the Zprint binary cannot be found in the path or config file "~/.zprint.edn" is missing.'
+    echo 'Please ensure Zprint is properly installed and "~/.zprint.edn" contains "{:search-config? true}"'
+    echo -e '\thttps://github.com/kkinnear/zprint'
+    echo ''
+    echo 'Aborting the commit!'
+    exit 1
+  fi
+  zprint --formatted-write "${file}"
+  git add "${file}"
+done

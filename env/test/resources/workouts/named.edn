@@ -1,0 +1,319 @@
+{:angie
+ {:str
+  "\"Angie\"\n\nFor Time\n100 Pull-Up\n100 Push-Up\n100 Sit-Up\n100 Air Squat"
+  :db
+  {:workout/name "Angie"
+   :workout/loop
+   {:workout.loop/score-type :score-type/duration
+    :workout.loop/tasks
+    [{:exercise/movement  {:movement/id :movement.id/pull-ups}
+      :exercise/rep-count 100}
+     {:exercise/movement  {:movement/id :movement.id/push-ups}
+      :exercise/rep-count 100}
+     {:exercise/movement  {:movement/id :movement.id/sit-up}
+      :exercise/rep-count 100}
+     {:exercise/movement  {:movement/id :movement.id/air-squat}
+      :exercise/rep-count 100}]}}}
+
+ :barbara
+ {:str
+  "\"Barbara\"\n\n5 Rounds For Time\n20 Pull-Up\n30 Push-Up\n40 Sit-Up\n50 Air Squat\n3' Rest"
+  :db
+  {:workout/name "Barbara"
+   :workout/loop
+   {:workout.loop/round-count 5
+    :workout.loop/score-type  :score-type/duration
+    :workout.loop/tasks
+    [{:exercise/movement  {:movement/id :movement.id/pull-ups}
+      :exercise/rep-count 20}
+     {:exercise/movement  {:movement/id :movement.id/push-ups}
+      :exercise/rep-count 30}
+     {:exercise/movement  {:movement/id :movement.id/sit-up}
+      :exercise/rep-count 40}
+     {:exercise/movement  {:movement/id :movement.id/air-squat}
+      :exercise/rep-count 50}
+     {:exercise/movement    {:movement/id :movement.id/rest}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/all 180000.0}
+       :exercise.application/unit  :unit/millisecond}}]}}}
+
+ :chelsea
+ {:str "\"Chelsea\"\n\nEMOM 30 minutes\n5 Pull-Up\n10 Push-Up\n15 Air Squat"
+  :db
+  {:workout/name "Chelsea"
+   :workout/loop
+   {:workout.loop/duration 1800000 ;; 30'
+    :workout.loop/period   60000 ;; 1'
+    :workout.loop/tasks
+    [{:exercise/movement  {:movement/id :movement.id/pull-ups}
+      :exercise/rep-count 5}
+     {:exercise/movement  {:movement/id :movement.id/push-ups}
+      :exercise/rep-count 10}
+     {:exercise/movement  {:movement/id :movement.id/air-squat}
+      :exercise/rep-count 15}]}}}
+
+ :diane
+ {:str
+  "\"Diane\"\n\nFor Time 21-15-9\nDeadlift @225lbs/155lbs\nHandstand Push-Up"
+  :db
+  {:workout/name "Diane"
+   :workout/loop
+   {:workout.loop/score-type :score-type/duration
+    :workout.loop/rep-scheme
+    {:workout.loop.rep-scheme/first-rep-count 21
+     :workout.loop.rep-scheme/last-rep-count 9
+     :workout.loop.rep-scheme/step -6}
+    :workout.loop/tasks
+    [{:exercise/movement    {:movement/id :movement.id/deadlift}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/men   225.0
+        :exercise.application.value/women 155.0}
+       :exercise.application/unit  :unit/pound}}
+     {:exercise/movement {:movement/id :movement.id/handstand-push-up}}]}}}
+
+ :elizabeth
+ {:str "\"Elizabeth\"\n\n21-15-9 For Time\nClean 135lbs/95lbs\nRing Dip"
+  :db
+  {:workout/name "Elizabeth"
+   :workout/loop
+   {:workout.loop/score-type :score-type/duration
+    :workout.loop/rep-scheme
+    {:workout.loop.rep-scheme/first-rep-count 21
+     :workout.loop.rep-scheme/last-rep-count 9
+     :workout.loop.rep-scheme/step -6}
+    :workout.loop/tasks
+    [{:exercise/movement    {:movement/id :movement.id/clean}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/men   135.0
+        :exercise.application.value/women 95.0}
+       :exercise.application/unit  :unit/pound}}
+     {:exercise/movement {:movement/id :movement.id/ring-dip}}]}}}
+
+ :fran
+ {:str "\"Fran\"\n\n21-15-9 For Time\nThruster @95lbs/65lbs\nPull-Up"
+  :db
+  {:workout/name "Fran"
+   :workout/loop
+   {:workout.loop/score-type :score-type/duration
+    :workout.loop/rep-scheme
+    {:workout.loop.rep-scheme/first-rep-count 21
+     :workout.loop.rep-scheme/last-rep-count 9
+     :workout.loop.rep-scheme/step -6}
+    :workout.loop/tasks
+    [{:exercise/movement    {:movement/id :movement.id/thruster}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/men   95.0
+        :exercise.application.value/women 65.0}
+       :exercise.application/unit  :unit/pound}}
+     {:exercise/movement {:movement/id :movement.id/pull-ups}}]}}}
+
+ :grace
+ {:str "\"Grace\"\n\nFor Time\n30 Clean and Jerk (135/95 lb)"
+  :db
+  {:workout/name "Grace"
+   :workout/loop
+   {:workout.loop/score-type :score-type/duration
+    :workout.loop/tasks
+    [{:exercise/movement    {:movement/id :movement.id/clean-and-jerk}
+      :exercise/rep-count   30
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/men   135.0
+        :exercise.application.value/women 95.0}
+       :exercise.application/unit  :unit/pound}}]}}}
+
+ :helen
+ {:str
+  "\"Helen\"\n\n3 Rounds For Time\n400m Run\n21 Kettlebell Swing @1.5 pood/1 pood\n12 Pull-Up"
+  :db
+  {:workout/name "Helen" ;; For time
+   :workout/loop
+   {:workout.loop/round-count 3
+    :workout.loop/score-type  :score-type/duration
+    :workout.loop/tasks
+    [{:exercise/movement    {:movement/id :movement.id/run}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/all 400.0}
+       :exercise.application/unit  :unit/meter}}
+     {:exercise/movement    {:movement/id :movement.id/kettlebell-swings}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/men   1.5
+        :exercise.application.value/women 1.0}
+       :exercise.application/unit  :unit/pood}
+      :exercise/rep-count   21}
+     {:exercise/movement  {:movement/id :movement.id/pull-ups}
+      :exercise/rep-count 12}]}}}
+
+ :annie
+ {:str "\"Annie\"\n\n50-40-30-20-10 for time\nDU\nSit-Up"
+  :db
+  {:workout/name "Annie"
+   :workout/loop
+   {:workout.loop/score-type :score-type/duration
+    :workout.loop/rep-scheme
+    {:workout.loop.rep-scheme/first-rep-count 50
+     :workout.loop.rep-scheme/last-rep-count 10
+     :workout.loop.rep-scheme/step -10}
+    :workout.loop/tasks
+    [{:exercise/movement {:movement/id :movement.id/double-under}}
+     {:exercise/movement {:movement/id :movement.id/sit-up}}]}}}
+
+ :eva
+ {:str
+  "\"Eva\"\n\n5 Rounds For Time\n800m Run\n30 Kettlebell Swing (2/1.5 pood)\n30 Pull-Up"
+  :db
+  {:workout/name "Eva"
+   :workout/loop
+   {:workout.loop/score-type  :score-type/duration
+    :workout.loop/round-count 5
+    :workout.loop/tasks
+    [{:exercise/movement    {:movement/id :movement.id/run}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/all 800.0}
+       :exercise.application/unit  :unit/meter}}
+     {:exercise/movement    {:movement/id :movement.id/kettlebell-swings}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/men   2.0
+        :exercise.application.value/women 1.5}
+       :exercise.application/unit  :unit/pood}
+      :exercise/rep-count   30}
+     {:exercise/movement  {:movement/id :movement.id/pull-ups}
+      :exercise/rep-count 30}]}}}
+
+ :isabel
+ {:str "\"Isabel\"\n\nFor Time\n30 Snatch (135/95 lb)"
+  :db
+  {:workout/name "Isabel"
+   :workout/loop
+   {:workout.loop/score-type :score-type/duration
+    :workout.loop/tasks
+    [{:exercise/movement    {:movement/id :movement.id/snatch}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/men   135.0
+        :exercise.application.value/women 95.0}
+       :exercise.application/unit  :unit/pound}
+      :exercise/rep-count   30}]}}}
+
+ :jackie
+ {:str "\"Jackie\"\n\nFor Time\n1000m Row\n50 Thruster (45/35 lbs)\n30 Pull-Up"
+  :db
+  {:workout/name "Jackie"
+   :workout/loop
+   {:workout.loop/score-type :score-type/duration
+    :workout.loop/tasks
+    [{:exercise/movement    {:movement/id :movement.id/row}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/all 1000.0}
+       :exercise.application/unit  :unit/meter}}
+     {:exercise/movement    {:movement/id :movement.id/thruster}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/men   45.0
+        :exercise.application.value/women 35.0}
+       :exercise.application/unit  :unit/pound}
+      :exercise/rep-count   50}
+     {:exercise/movement  {:movement/id :movement.id/pull-ups}
+      :exercise/rep-count 30}]}}}
+
+ :karen
+ {:str "\"Karen\"\n\nFor Time\n150 Wall Ball Shot (20/14 lb)"
+  :db
+  {:workout/name "Karen"
+   :workout/loop
+   {:workout.loop/score-type :score-type/duration
+    :workout.loop/tasks
+    [{:exercise/movement    {:movement/id :movement.id/wall-ball}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/men   20.0
+        :exercise.application.value/women 14.0}
+       :exercise.application/unit  :unit/pound}
+      :exercise/rep-count   150}]}}}
+
+ :linda
+ {:str
+  "\"Linda\"\n\n10-9-8-7-6-5-4-3-2-1 For Time\nDeadlift (1.5 bodyweight)\nBench Press (1 bodyweight)\nClean (0.75 bodyweight)"
+  :db
+  {:workout/name "Linda"
+   :workout/loop
+   {:workout.loop/score-type :score-type/duration
+    :workout.loop/rep-scheme
+    {:workout.loop.rep-scheme/first-rep-count 10
+     :workout.loop.rep-scheme/last-rep-count 1
+     :workout.loop.rep-scheme/step -1}
+    :workout.loop/tasks
+    [{:exercise/movement    {:movement/id :movement.id/deadlift}
+      :exercise/application
+      {:exercise.application/value {:exercise.application.value/all 1.5}
+       :exercise.application/unit  :unit/bodyweight}}
+     {:exercise/movement    {:movement/id :movement.id/bench-press}
+      :exercise/application
+      {:exercise.application/value {:exercise.application.value/all 1.0}
+       :exercise.application/unit  :unit/bodyweight}}
+     {:exercise/movement    {:movement/id :movement.id/clean}
+      :exercise/application
+      {:exercise.application/value {:exercise.application.value/all 0.75}
+       :exercise.application/unit  :unit/bodyweight}}]}}}
+
+ :mary
+ {:str
+  "\"Mary\"\n\nAMRAP 20 minutes\n5 Handstand Push-Up\n10 Pistol\n15 Pull-Up"
+  :db
+  {:workout/name "Mary"
+   :workout/loop
+   {:workout.loop/duration   1200000
+    :workout.loop/score-type :score-type/rep-count
+    :workout.loop/tasks
+    [{:exercise/movement  {:movement/id :movement.id/handstand-push-up}
+      :exercise/rep-count 5}
+     {:exercise/movement  {:movement/id :movement.id/pistol}
+      :exercise/rep-count 10}
+     {:exercise/movement  {:movement/id :movement.id/pull-ups}
+      :exercise/rep-count 15}]}}}
+
+ :nancy
+ {:str "\"Nancy\"\n\n5 Rounds For Time\n400m Run\n15 Overhead Squat (95/65 lb)"
+  :db
+  {:workout/name "Nancy"
+   :workout/loop
+   {:workout.loop/score-type  :score-type/duration
+    :workout.loop/round-count 5
+    :workout.loop/tasks
+    [{:exercise/movement    {:movement/id :movement.id/run}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/all 400.0}
+       :exercise.application/unit  :unit/meter}}
+     {:exercise/movement    {:movement/id :movement.id/overhead-squat}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/men   95.0
+        :exercise.application.value/women 65.0}
+       :exercise.application/unit  :unit/pound}
+      :exercise/rep-count   15}]}}}
+
+ :randy
+ {:str "\"Randy\"\n\nFor time (TC 8')\n75 snatch 35/25 Kg"
+  :db
+  {:workout/name "Randy"
+   :workout/loop
+   {:workout.loop/score-type :score-type/duration
+    :workout.loop/time-cap   480000
+    :workout.loop/tasks
+    ({:exercise/movement    {:movement/id :movement.id/snatch}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/men   35.0
+        :exercise.application.value/women 25.0}
+       :exercise.application/unit  :unit/kilogram}
+      :exercise/rep-count   75})}}}}

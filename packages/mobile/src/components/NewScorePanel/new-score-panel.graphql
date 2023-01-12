@@ -1,9 +1,0 @@
-fragment WodForNewScorePanel on Wod {
-  ...WodFields
-  scores {
-    ...ScoreFields
-  }
-  workout {
-    ...WorkoutFields
-  }
-}

@@ -1,144 +1,203 @@
 {:scalars
-   {:Date
-      {:parse     :parse-date
-       :serialize :serialize-date}
-    :ID
-      {:parse     :parse-uuid
-       :serialize :serialize-uuid}}
+ {:Date
+  {:parse     :parse-date
+   :serialize :serialize-date}
+  :ID
+  {:parse     :parse-uuid
+   :serialize :serialize-uuid}}
 
  :enums
-   {:ScoringType
-      {:description "The dimension used to evaluate a workout"
-       :values      [:DURATION_MS :REPETITIONS]}}
+ {:ScoreType
+  {:description "The dimension used to evaluate a workout"
+   :values      [:DURATION :REP_COUNT]}
+
+  :Unit
+  {:values
+   [:CALORIE
+    :MILLISECOND
+    :FOOT
+    :METER
+    :MILE
+    :BODYWEIGHT
+    :KILOGRAM
+    :POOD
+    :POUND]}}
+
+ :unions
+ {:Task
+  {:members [:Exercise :WorkoutLoop]}}
 
  :input-objects
-   {:AddUserToCommunityInput
-      {:fields {:userId      {:type (non-null :ID)}
-                :communityId {:type (non-null :ID)}}}
-    :NewCommunityInput
-      {:fields {:name    {:type (non-null String)}
-                :street  {:type String}
-                :zipCode {:type String}
-                :city    {:type String}
-                :country {:type String}}}
-    :NewScoreInput
-      {:fields {:userId {:type (non-null :ID)}
-                :value  {:type (non-null Int)}
-                :wodId  {:type (non-null :ID)}}}
-    :NewWodInput
-      {:fields {:communityId {:type (non-null :ID)}
-                :date        {:type (non-null :Date)}
-                :workoutId   {:type (non-null :ID)}}}
-    :RemoveUserFromCommunityInput
-      {:fields {:userId      {:type (non-null :ID)}
-                :communityId {:type (non-null :ID)}}}}
+ {:AddUserToCommunityInput
+  {:fields {:userId      {:type (non-null :ID)}
+            :communityId {:type (non-null :ID)}}}
+  :NewCommunityInput
+  {:fields {:name    {:type (non-null String)}
+            :street  {:type String}
+            :zipCode {:type String}
+            :city    {:type String}
+            :country {:type String}}}
+  :NewScoreInput
+  {:fields {:userId {:type (non-null :ID)}
+            :value  {:type (non-null Int)}
+            :wodId  {:type (non-null :ID)}}}
+  :NewWodInput
+  {:fields {:communityId {:type (non-null :ID)}
+            :date        {:type (non-null :Date)}
+            :workoutId   {:type (non-null :ID)}}}
+  :RemoveUserFromCommunityInput
+  {:fields {:userId      {:type (non-null :ID)}
+            :communityId {:type (non-null :ID)}}}}
 
  :objects
-   {:Address
-      {:fields {:street  {:type String}
-                :zipCode {:type String}
-                :city    {:type String}
-                :country {:type String}}}
+ {:Address
+  {:fields {:street  {:type String}
+            :zipCode {:type String}
+            :city    {:type String}
+            :country {:type String}}}
 
-    :Community
-      {:fields {:id          {:type (non-null :ID)}
-                :name        {:type (non-null String)}
-                :address     {:type :Address}
-                :isMember    {:type    (non-null :Boolean)
-                              :resolve :Community/member?
-                              :args    {:userId {:type (non-null :ID)}}}
-                :memberCount {:type    (non-null Int)
-                              :resolve :Community/member-count}
-                :wods        {:type    (non-null (list (non-null :Wod)))
-                              :resolve :Community/wods}}}
+  :Community
+  {:fields {:id          {:type (non-null :ID)}
+            :name        {:type (non-null String)}
+            :address     {:type :Address}
+            :isMember    {:type    (non-null :Boolean)
+                          :resolve :Community/member?
+                          :args    {:userId {:type (non-null :ID)}}}
+            :memberCount {:type    (non-null Int)
+                          :resolve :Community/member-count}
+            :wods        {:type    (non-null (list (non-null :Wod)))
+                          :resolve :Community/wods}}}
 
-    :User
-      {:fields {:id          {:type (non-null :ID)}
-                :name        {:type (non-null String)}
-                :email       {:type String}
-                :communities {:type    (non-null (list (non-null :Community)))
-                              :resolve :User/communities}}}
+  :User
+  {:fields {:id          {:type (non-null :ID)}
+            :name        {:type (non-null String)}
+            :email       {:type String}
+            :communities {:type    (non-null (list (non-null :Community)))
+                          :resolve :User/communities}}}
 
-    :Wod
-      {:fields {:id        {:type (non-null :ID)}
-                :date      {:type (non-null :Date)}
-                :community {:type    (non-null :Community)
-                            :resolve :Wod/community}
-                :workout   {:type    (non-null :Workout)
-                            :resolve :Wod/workout}
-                :scores    {:type    (non-null (list (non-null :Score)))
-                            :resolve :Wod/scores}}}
+  :Wod
+  {:fields {:id        {:type (non-null :ID)}
+            :date      {:type (non-null :Date)}
+            :community {:type    (non-null :Community)
+                        :resolve :Wod/community}
+            :workout   {:type    (non-null :Workout)
+                        :resolve :Wod/workout}
+            :scores    {:type    (non-null (list (non-null :Score)))
+                        :resolve :Wod/scores}}}
 
-    :Workout
-      {:fields {:id          {:type (non-null :ID)}
-                :name        {:type (non-null String)}
-                :description {:type (non-null String)}
-                :scoringType {:type (non-null :ScoringType)}}}
+  :ApplicationValue
+  {:fields {:all   {:type Float}
+            :men   {:type Float}
+            :women {:type Float}}}
 
-    :Score
-      {:fields {:id    {:type (non-null :ID)}
-                :user  {:type    (non-null :User)
-                        :resolve :Score/user}
-                :wod   {:type    (non-null :Wod)
-                        :resolve :Score/wod}
-                :value {:type (non-null Int)}}}}
+  :Application
+  {:fields {:value {:type (non-null :ApplicationValue)}
+            :unit  {:type (non-null :Unit)}}}
+
+  :Movement
+  {:fields {:id   {:type (non-null String)}
+            :name {:type (non-null String)}}}
+
+  :Exercise
+  {:fields {:movement    {:type (non-null :Movement)}
+            :application {:type :Application}
+            :repCount    {:type Int}}}
+
+  :WorkoutLoop
+  {:fields {:timeCap    {:type Int}
+            :duration   {:type Int}
+            :period     {:type Int}
+            :roundCount {:type Int}
+            :scoreType  {:type :ScoreType}
+            :tasks      {:type (non-null (list (non-null :Task)))}}}
+
+  :Workout
+  {:fields {:id   {:type (non-null :ID)}
+            :name {:type String}
+            :loop {:type (non-null :WorkoutLoop)}}}
+  ;; :scoringType {:type (non-null :ScoringType)}}}
+
+  :ParseWorkoutError
+  {:fields {:lineNb   {:type Int}
+            :charPos  {:type Int}
+            :offender {:type String}
+            :message  {:type String}}}
+
+  :ParseWorkoutResult
+  {:fields {:workout {:type :Workout}
+            :errors  {:type (list (non-null :ParseWorkoutError))}}}
+
+  :Score
+  {:fields {:id    {:type (non-null :ID)}
+            :user  {:type    (non-null :User)
+                    :resolve :Score/user}
+            :wod   {:type    (non-null :Wod)
+                    :resolve :Score/wod}
+            :value {:type (non-null Int)}}}}
 
  :queries
-   {:communities     {:description "Not used by mobile"
-                      :type        (non-null (list (non-null :Community)))
-                      :resolve     :Query/list-communities}
-    :community       {:args    {:id {:type (non-null :ID)}}
-                      :type    (non-null :Community)
-                      :resolve :Query/get-community}
-    :findCommunities {:args    {:name {:type (non-null :String)}}
-                      :type    (non-null (list (non-null :Community)))
-                      :resolve :Query/find-communities}
+ {:communities     {:description "Not used by mobile"
+                    :type        (non-null (list (non-null :Community)))
+                    :resolve     :Query/list-communities}
+  :community       {:args    {:id {:type (non-null :ID)}}
+                    :type    (non-null :Community)
+                    :resolve :Query/get-community}
+  :findCommunities {:args    {:name {:type (non-null :String)}}
+                    :type    (non-null (list (non-null :Community)))
+                    :resolve :Query/find-communities}
 
-    :users           {:description "Not used by mobile"
-                      :type        (non-null (list :User))
-                      :resolve     :Query/list-users}
-    :user            {:args    {:id {:type (non-null :ID)}}
-                      :type    (non-null :User)
-                      :resolve :Query/get-user}
-    :userCommunities {:args    {:userId {:type (non-null :ID)}}
-                      :type    (non-null (list (non-null :Community)))
-                      :resolve :Query/user-communities}
-    :userWods        {:args    {:userId {:type (non-null :ID)}}
-                      :type    (non-null (list (non-null :Wod)))
-                      :resolve :Query/user-wods}
-    :userWorkouts    {:description "Not used by mobile"
-                      :args        {:id {:type (non-null :ID)}}
-                      :type        (list :Workout)
-                      :resolve     :Query/user-workouts}
+  :users           {:description "Not used by mobile"
+                    :type        (non-null (list :User))
+                    :resolve     :Query/list-users}
+  :user            {:args    {:id {:type (non-null :ID)}}
+                    :type    (non-null :User)
+                    :resolve :Query/get-user}
+  :userCommunities {:args    {:userId {:type (non-null :ID)}}
+                    :type    (non-null (list (non-null :Community)))
+                    :resolve :Query/user-communities}
+  :userWods        {:args    {:userId {:type (non-null :ID)}}
+                    :type    (non-null (list (non-null :Wod)))
+                    :resolve :Query/user-wods}
+  :userWorkouts    {:description "Not used by mobile"
+                    :args        {:id {:type (non-null :ID)}}
+                    :type        (list :Workout)
+                    :resolve     :Query/user-workouts}
 
-    :wod             {:args    {:id {:type (non-null :ID)}}
-                      :type    (non-null :Wod)
-                      :resolve :Query/get-wod}
-    :workouts        {:type    (non-null (list (non-null :Workout)))
-                      :resolve :Query/list-workouts}}
+  :wod             {:args    {:id {:type (non-null :ID)}}
+                    :type    (non-null :Wod)
+                    :resolve :Query/get-wod}
+  :wodScores       {:args    {:id {:type (non-null :ID)}}
+                    :type    (non-null (list (non-null :Score)))
+                    :resolve :Query/wod-scores}
+
+  :parseWorkout    {:args    {:workoutStr {:type (non-null :String)}}
+                    :type    (non-null :ParseWorkoutResult)
+                    :resolve :Query/parse-workout}
+  :workouts        {:type    (non-null (list (non-null :Workout)))
+                    :resolve :Query/list-workouts}}
 
  :mutations
-   {:createCommunity         {:args    {:creatorId {:type (non-null :ID)}
-                                        :input     {:type
-                                                      (non-null
-                                                        :NewCommunityInput)}}
-                              :type    (non-null :Community)
-                              :resolve :Mutation/new-community}
-    :createScore             {:args    {:input {:type (non-null
-                                                        :NewScoreInput)}}
-                              :type    (non-null :Score)
-                              :resolve :Mutation/new-score}
-    :createWod               {:args    {:input {:type (non-null :NewWodInput)}}
-                              :type    (non-null :Wod)
-                              :resolve :Mutation/new-wod}
-    :addUserToCommunity      {:args    {:input {:type
-                                                  (non-null
-                                                    :AddUserToCommunityInput)}}
-                              :type    (non-null :Community)
-                              :resolve :Mutation/join-community}
-    :removeUserFromCommunity {:args    {:input
-                                          {:type
+ {:createCommunity    {:args    {:creatorId {:type (non-null :ID)}
+                                 :input     {:type
                                              (non-null
-                                               :RemoveUserFromCommunityInput)}}
-                              :type    (non-null :ID)
-                              :resolve :Mutation/leave-community}}}
+                                               :NewCommunityInput)}}
+                       :type    (non-null :Community)
+                       :resolve :Mutation/new-community}
+  :createScore        {:args    {:input {:type (non-null
+                                                 :NewScoreInput)}}
+                       :type    (non-null :Score)
+                       :resolve :Mutation/new-score}
+  :createWod          {:args    {:input {:type (non-null :NewWodInput)}}
+                       :type    (non-null :Wod)
+                       :resolve :Mutation/new-wod}
+  :addUserToCommunity {:args    {:input {:type
+                                         (non-null
+                                           :AddUserToCommunityInput)}}
+                       :type    (non-null :Community)
+                       :resolve :Mutation/join-community}
+  :removeUserFromCommunity {:args    {:input
+                                      {:type
+                                       (non-null
+                                         :RemoveUserFromCommunityInput)}}
+                            :type    (non-null :Community)
+                            :resolve :Mutation/leave-community}}}

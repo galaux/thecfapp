@@ -1,8 +1,0 @@
-fragment CommunityCard on Community {
-  ...CommunityFields
-  address {
-    ...CommunityAddressFields
-  }
-  isMember(userId: $userId)
-  memberCount
-}

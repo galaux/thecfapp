@@ -1,5 +1,5 @@
 {
-  "name": "TheCFApp",
+  "name": "CFApp",
   "description": "Important! The `buildpacks` order matters: first Java with an empty `pom.xml` that does nothing but ensure the JDK is installed for later, then NodeJS that first builds the Views then then Mobile (which needs the previously installed JDK) and finally Clojure which build requires the result of the NodeJS one.",
   "buildpacks": [
     {

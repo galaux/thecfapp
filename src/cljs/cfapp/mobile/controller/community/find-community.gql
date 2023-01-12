@@ -1,0 +1,14 @@
+query FindCommunity($name: String!, $userId: ID!) {
+  findCommunities(name: $name) {
+    id
+    name
+    memberCount
+    address {
+      street
+      zipCode
+      city
+      country
+    }
+    isMember(userId: $userId)
+  }
+}

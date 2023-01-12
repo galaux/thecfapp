@@ -1,6 +1,0 @@
-fragment WorkoutFields on Workout {
-  id
-  name
-  description
-  scoringType
-}

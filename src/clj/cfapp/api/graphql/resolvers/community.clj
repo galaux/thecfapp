@@ -69,16 +69,16 @@
 
 (defn user-join
   [{:keys [conn]} {:keys [input]} _value]
-  (let [{:keys [db-after] :as res} (community/user-join conn
-                                                        (kebab-keys input))]
+  (let [{:keys [community-id] :as input} (kebab-keys input)
+        {:keys [db-after] :as res}       (community/user-join conn input)]
     (if (anomaly? res)
       (resolve-as false (anomaly->error res))
-      (->> (d/pull db-after '[*] [:community/id (:communityId input)])
-           shape-community))))
+      (shape-community (community/by-id db-after community-id)))))
 
 (defn leave-community
-  "Returns the communityId (FIXME that doesn't really make sense.
-   Return sthing more meaningful like the user or the community
-   depending on what mobile could need)"
   [{:keys [conn]} {:keys [input]} _value]
-  (community/user-leave conn (kebab-keys input)))
+  (let [{:keys [community-id] :as input} (kebab-keys input)
+        {:keys [db-after] :as result}    (community/user-leave conn input)]
+    (if (anomaly? result)
+      (resolve-as nil (anomaly->error result))
+      (shape-community (community/by-id db-after community-id)))))

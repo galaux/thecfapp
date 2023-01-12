@@ -1,0 +1,13 @@
+mutation JoinCommunity($userId: ID!, $communityId: ID!) {
+  addUserToCommunity(input: { userId: $userId, communityId: $communityId }) {
+    id
+    name
+    memberCount
+    address {
+      city
+      country
+      street
+      zipCode
+    }
+  }
+}

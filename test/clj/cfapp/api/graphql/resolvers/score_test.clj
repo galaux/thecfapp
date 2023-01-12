@@ -11,17 +11,24 @@
   (:import
    java.util.UUID))
 
+(def ^:private q-create-score
+  "mutation CreateScore($userId: ID!, $wodId: ID!, $value: Int!) {
+     createScore(input: { value: $value, userId: $userId, wodId: $wodId }) {
+       id
+       value
+     }
+  }")
+
 (deftest create-score
   (let [{:keys [:cfapp.api.db/conn :cfapp.api/handler] :as system} (tutil/setup)
-        fragments [:Score]
-        user-a (gen/generate user/user-gen)
+        user-a    (gen/generate user/user-gen)
         workout-a (gen/generate workout/workout-gen)
-        wod-a (assoc (gen/generate wod/wod-gen)
-                :wod/workout workout-a)
+        wod-a     (assoc (gen/generate wod/wod-gen)
+                    :wod/workout workout-a)
         variables {:userId (.toString (:user/id user-a))
                    :wodId  (.toString (:wod/id wod-a))
                    :value  (inc (rand-int 5000))}
-        gql-query (tutil/test-query :CreateScore fragments variables)]
+        gql-query (tutil/test-query q-create-score variables)]
     (tutil/domain-add conn [user-a wod-a])
     (let [response        (handler gql-query)
           parsed-response (-> response

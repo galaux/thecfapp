@@ -1,0 +1,173 @@
+{:dansaert-multi-amrap
+ {:str
+  "\"Dansaert multi-AMRAP\"\n\nAMRAP 5'\n20 Double Kettlebell Squat @20Kg/16kg\n40 Double-Under\n\n1' Rest\n\nAMRAP 5'\n20 Double Kettlebell Clean @20Kg/16Kg\n40 Double-Under\n\n1' Rest\n\nAMRAP 5'\n20 Double Kettlebell Thruster @20Kg/16Kg\n40 Double-Under"
+  :db
+  {:workout/name "Dansaert multi-AMRAP"
+   :workout/loop
+   {;:workout.loop/score-type :score-type/rep-count
+    :workout.loop/tasks
+    [{:workout.loop/duration 300000
+      :workout.loop/tasks
+      [{:exercise/movement    {:movement/id
+                               :movement.id/double-kettlebell-squat}
+        :exercise/application
+        {:exercise.application/value
+         {:exercise.application.value/men   20.0
+          :exercise.application.value/women 16.0}
+         :exercise.application/unit  :unit/kilogram}
+        :exercise/rep-count   20}
+       {:exercise/movement  {:movement/id :movement.id/double-under}
+        :exercise/rep-count 40}]}
+     {:exercise/movement    {:movement/id :movement.id/rest}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/all 60000.0}
+       :exercise.application/unit  :unit/millisecond}}
+     {:workout.loop/duration 300000
+      :workout.loop/tasks
+      [{:exercise/movement    {:movement/id
+                               :movement.id/double-kettlebell-clean}
+        :exercise/application
+        {:exercise.application/value
+         {:exercise.application.value/men   20.0
+          :exercise.application.value/women 16.0}
+         :exercise.application/unit  :unit/kilogram}
+        :exercise/rep-count   20}
+       {:exercise/movement  {:movement/id :movement.id/double-under}
+        :exercise/rep-count 40}]}
+     {:exercise/movement    {:movement/id :movement.id/rest}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/all 60000.0}
+       :exercise.application/unit  :unit/millisecond}}
+     {:workout.loop/duration 300000
+      :workout.loop/tasks
+      [{:exercise/movement    {:movement/id
+                               :movement.id/double-kettlebell-thruster}
+        :exercise/application
+        {:exercise.application/value
+         {:exercise.application.value/men   20.0
+          :exercise.application.value/women 16.0}
+         :exercise.application/unit  :unit/kilogram}
+        :exercise/rep-count   20}
+       {:exercise/movement  {:movement/id :movement.id/double-under}
+        :exercise/rep-count 40}]}]}}}
+
+ :dansaert-2022-05-23
+ {:str
+  "3 Rounds For Time (time cap 10')\n12 pistol\n24 Russian kettlebell swings (24/16Kg)\n48 DU"
+  :db
+  {;:workout/name        "dansaert 23-05-2022"
+   :workout/loop
+   {:workout.loop/score-type  :score-type/duration
+    :workout.loop/round-count 3
+    :workout.loop/time-cap    600000
+    :workout.loop/tasks
+    [{:exercise/movement  {:movement/id :movement.id/pistol}
+      :exercise/rep-count 12}
+     {:exercise/movement    {:movement/id
+                             :movement.id/russian-kettlebell-swings}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/men   24.0
+        :exercise.application.value/women 16.0}
+       :exercise.application/unit  :unit/kilogram}
+      :exercise/rep-count   24}
+     {:exercise/movement  {:movement/id :movement.id/double-under}
+      :exercise/rep-count 48}]}}}
+
+ :dansaert-2022-05-31
+ {:str
+  "2 rounds for time\n\n3 rounds for time\n6 Single arm dumbbell Clean & Jerk @20Kg/15Kg\n6 Handstand Push-Up\n\n1' Rest\n\n3 rounds for time\n6 Double dumbbell Clean & Jerk @20Kg/15Kg\n6 Handstand Walk (8m)\n\n1' Rest\n"
+  :db
+  {:workout/loop
+   {:workout.loop/round-count 2
+    :workout.loop/score-type  :score-type/duration
+    :workout.loop/tasks
+    [{:workout.loop/round-count 3
+      :workout.loop/tasks
+      [{:exercise/movement    {:movement/id
+                               :movement.id/single-arm-dumbbell-clean-and-jerk}
+        :exercise/application
+        {:exercise.application/value
+         {:exercise.application.value/men   20.0
+          :exercise.application.value/women 15.0}
+         :exercise.application/unit  :unit/kilogram}
+        :exercise/rep-count   6}
+       {:exercise/movement  {:movement/id :movement.id/handstand-push-up}
+        :exercise/rep-count 6}]}
+     {:exercise/movement    {:movement/id :movement.id/rest}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/all 60000.0}
+       :exercise.application/unit  :unit/millisecond}}
+     {:workout.loop/round-count 3
+      :workout.loop/tasks
+      [{:exercise/movement    {:movement/id
+                               :movement.id/double-dumbbell-clean-and-jerk}
+        :exercise/application
+        {:exercise.application/value
+         {:exercise.application.value/men   20.0
+          :exercise.application.value/women 15.0}
+         :exercise.application/unit  :unit/kilogram}
+        :exercise/rep-count   6}
+       {:exercise/movement    {:movement/id :movement.id/handstand-walk}
+        :exercise/application
+        {:exercise.application/value {:exercise.application.value/all 8.0}
+         :exercise.application/unit  :unit/meter}
+        :exercise/rep-count   6}]}
+     {:exercise/movement    {:movement/id :movement.id/rest}
+      :exercise/application
+      {:exercise.application/value
+       {:exercise.application.value/all 60000.0}
+       :exercise.application/unit  :unit/millisecond}}]}}}
+
+ ;; :shittiest-workout-ever
+ ;; {:str "for time TC 25'\n2 rounds\n20 Burpee box jump over\n10 one arm devil
+ ;; press\n40m one arm overhead lunge (22.5/15)\n20 pull-ups\n60 wall ball
+ ;; shots\n30 push-ups"
+ ;;  ;; Team wod
+ ;;  ;; TODO support team wods
+ ;;  :db
+ ;;  {}}}
+
+ ;; {:db/id "crossfit dansaert 2022-06-07"}
+ ;; For time
+ ;; Time cap 17'
+ ;; 3 rounds
+ ;;   10 snatches
+ ;;   10 push-ups
+ ;; 3 rounds
+ ;;   10 snatches
+ ;;   10 chest to bar pull-ups
+ ;; 3 rounds
+ ;;   10 snatches
+ ;;   10 muscle ups
+
+ :dansaert-2022-06-11
+ {:str
+  "For time, time cap 12'\n\n15-12-9 for time\nWall Climb\nDevil Press @30Kg/22.5Kg\n\n2' Rest\n2000m Row"
+  :db
+  {:workout/loop
+   {:workout.loop/score-type :score-type/duration
+    :workout.loop/time-cap   720000
+    :workout.loop/tasks
+    [{:workout.loop/rep-scheme
+      {:workout.loop.rep-scheme/first-rep-count 15
+       :workout.loop.rep-scheme/last-rep-count 9
+       :workout.loop.rep-scheme/step -3}
+      :workout.loop/tasks
+      [{:exercise/movement {:movement/id :movement.id/wall-climb}}
+       {:exercise/movement    {:movement/id :movement.id/devil-press}
+        :exercise/application {:exercise.application/value
+                               {:exercise.application.value/men   30.0
+                                :exercise.application.value/women 22.5}
+                               :exercise.application/unit  :unit/kilogram}}]}
+     {:exercise/movement    {:movement/id :movement.id/rest}
+      :exercise/application {:exercise.application/value
+                             {:exercise.application.value/all 120000.0}
+                             :exercise.application/unit :unit/millisecond}}
+     {:exercise/movement    {:movement/id :movement.id/row}
+      :exercise/application {:exercise.application/value
+                             {:exercise.application.value/all 2000.0}
+                             :exercise.application/unit  :unit/meter}}]}}}}

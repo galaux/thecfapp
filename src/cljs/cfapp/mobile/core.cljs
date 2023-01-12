@@ -1,17 +1,18 @@
 (ns cfapp.mobile.core
   (:require
-   [cfapp.mobile.auth.core :as auth]
+   [cfapp.mobile.controller.auth.core :as auth]
    [cfapp.mobile.config :as config]
-   [cfapp.mobile.main-panel.events :as events]
-   [cfapp.mobile.main-panel.views :refer [main-panel]]
-   [cfapp.mobile.routing.core :as routing]
-   cfapp.mobile.theme
+   [cfapp.mobile.ui.main-panel.event :as event]
+   [cfapp.mobile.controller.score.event]
+   [cfapp.mobile.ui.main-panel.view :refer [main-panel]]
+   [cfapp.mobile.controller.routing.core :as routing]
+   cfapp.mobile.ui.style.global
    re-promise.core
    [re-frame.core :as re-frame]
    [re-graph.core :as re-graph]
    [reagent.core :as r]
    [reagent.dom :as rdom]
-   [cfapp.mobile.auth.db]))
+   [cfapp.mobile.controller.auth.db]))
 
 (defn dev-setup
   []
@@ -37,6 +38,8 @@
   []
   (js/console.log "Start …")
   (re-frame/clear-subscription-cache!)
+  (re-frame/dispatch [::re-graph/init config/gql])
+  (routing/start-browser-history-handler!)
   (let [root-el (.getElementById js/document "root")]
     (rdom/unmount-component-at-node root-el)
     (rdom/render [err-boundary [main-panel]] root-el)))
@@ -49,9 +52,7 @@
 
 (defn init
   []
-  (re-frame/dispatch-sync [::events/initialize-db])
+  (re-frame/dispatch-sync [::event/initialize-db])
   (auth/init! config/auth)
-  (re-frame/dispatch [::re-graph/init config/gql])
-  (routing/start-browser-history-handler!)
   (dev-setup)
   (mount-root))

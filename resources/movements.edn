@@ -1,0 +1,1409 @@
+({:movement/id :movement.id/air-bike :movement/name "Air Bike"}
+ {:movement/id :movement.id/air-squat :movement/name "Air Squat"}
+ {:movement/id   :movement.id/american-kettlebell-swings
+  :movement/name "American Kettlebell Swings"}
+ {:movement/id :movement.id/assault-bike :movement/name "Assault Bike"}
+ {:movement/id   :movement.id/back-barbell-lunge
+  :movement/name "Back Barbell Lunge"}
+ {:movement/id   :movement.id/back-barbell-squat
+  :movement/name "Back Barbell Squat"}
+ {:movement/id   :movement.id/back-barbell-walking-lunge
+  :movement/name "Back Barbell Walking Lunge"}
+ {:movement/id :movement.id/ball-slam :movement/name "Ball Slam"}
+ {:movement/id :movement.id/banded-ring-dip :movement/name "Banded Ring Dip"}
+ {:movement/id :movement.id/banded-ring-row :movement/name "Banded Ring Row"}
+ {:movement/id   :movement.id/bar-facing-burpee-over-the-bar
+  :movement/name "Bar Facing Burpee Over The Bar"}
+ {:movement/id :movement.id/bar-muscle-up :movement/name "Bar Muscle Up"}
+ {:movement/id :movement.id/bar-pull-ups :movement/name "Bar Pull Ups"}
+ {:movement/id :movement.id/barbell-clean :movement/name "Barbell Clean"}
+ {:movement/id   :movement.id/barbell-clean-and-jerk
+  :movement/name "Barbell Clean And Jerk"}
+ {:movement/id   :movement.id/barbell-clean-and-power-jerk
+  :movement/name "Barbell Clean And Power Jerk"}
+ {:movement/id   :movement.id/barbell-clean-and-push-jerk
+  :movement/name "Barbell Clean And Push Jerk"}
+ {:movement/id   :movement.id/barbell-clean-and-split-jerk
+  :movement/name "Barbell Clean And Split Jerk"}
+ {:movement/id   :movement.id/barbell-clean-and-squat-jerk
+  :movement/name "Barbell Clean And Squat Jerk"}
+ {:movement/id :movement.id/barbell-deadlift :movement/name "Barbell Deadlift"}
+ {:movement/id   :movement.id/barbell-deadlift-high-pull
+  :movement/name "Barbell Deadlift High Pull"}
+ {:movement/id   :movement.id/barbell-hang-clean
+  :movement/name "Barbell Hang Clean"}
+ {:movement/id   :movement.id/barbell-hang-clean-and-jerk
+  :movement/name "Barbell Hang Clean And Jerk"}
+ {:movement/id   :movement.id/barbell-hang-clean-and-power-jerk
+  :movement/name "Barbell Hang Clean And Power Jerk"}
+ {:movement/id   :movement.id/barbell-hang-clean-and-push-jerk
+  :movement/name "Barbell Hang Clean And Push Jerk"}
+ {:movement/id   :movement.id/barbell-hang-clean-and-split-jerk
+  :movement/name "Barbell Hang Clean And Split Jerk"}
+ {:movement/id   :movement.id/barbell-hang-clean-and-squat-jerk
+  :movement/name "Barbell Hang Clean And Squat Jerk"}
+ {:movement/id   :movement.id/barbell-hang-power-clean
+  :movement/name "Barbell Hang Power Clean"}
+ {:movement/id   :movement.id/barbell-hang-power-clean-and-jerk
+  :movement/name "Barbell Hang Power Clean And Jerk"}
+ {:movement/id   :movement.id/barbell-hang-power-clean-and-power-jerk
+  :movement/name "Barbell Hang Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/barbell-hang-power-clean-and-push-jerk
+  :movement/name "Barbell Hang Power Clean And Push Jerk"}
+ {:movement/id   :movement.id/barbell-hang-power-clean-and-split-jerk
+  :movement/name "Barbell Hang Power Clean And Split Jerk"}
+ {:movement/id   :movement.id/barbell-hang-power-clean-and-squat-jerk
+  :movement/name "Barbell Hang Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/barbell-hang-power-snatch
+  :movement/name "Barbell Hang Power Snatch"}
+ {:movement/id   :movement.id/barbell-hang-snatch
+  :movement/name "Barbell Hang Snatch"}
+ {:movement/id   :movement.id/barbell-hang-squat-clean
+  :movement/name "Barbell Hang Squat Clean"}
+ {:movement/id   :movement.id/barbell-hang-squat-clean-and-jerk
+  :movement/name "Barbell Hang Squat Clean And Jerk"}
+ {:movement/id   :movement.id/barbell-hang-squat-clean-and-power-jerk
+  :movement/name "Barbell Hang Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/barbell-hang-squat-clean-and-push-jerk
+  :movement/name "Barbell Hang Squat Clean And Push Jerk"}
+ {:movement/id   :movement.id/barbell-hang-squat-clean-and-split-jerk
+  :movement/name "Barbell Hang Squat Clean And Split Jerk"}
+ {:movement/id   :movement.id/barbell-hang-squat-clean-and-squat-jerk
+  :movement/name "Barbell Hang Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/barbell-hang-squat-snatch
+  :movement/name "Barbell Hang Squat Snatch"}
+ {:movement/id :movement.id/barbell-jerk :movement/name "Barbell Jerk"}
+ {:movement/id   :movement.id/barbell-power-clean
+  :movement/name "Barbell Power Clean"}
+ {:movement/id   :movement.id/barbell-power-clean-and-jerk
+  :movement/name "Barbell Power Clean And Jerk"}
+ {:movement/id   :movement.id/barbell-power-clean-and-power-jerk
+  :movement/name "Barbell Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/barbell-power-clean-and-push-jerk
+  :movement/name "Barbell Power Clean And Push Jerk"}
+ {:movement/id   :movement.id/barbell-power-clean-and-split-jerk
+  :movement/name "Barbell Power Clean And Split Jerk"}
+ {:movement/id   :movement.id/barbell-power-clean-and-squat-jerk
+  :movement/name "Barbell Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/barbell-power-jerk
+  :movement/name "Barbell Power Jerk"}
+ {:movement/id   :movement.id/barbell-power-press
+  :movement/name "Barbell Power Press"}
+ {:movement/id   :movement.id/barbell-power-snatch
+  :movement/name "Barbell Power Snatch"}
+ {:movement/id :movement.id/barbell-press :movement/name "Barbell Press"}
+ {:movement/id   :movement.id/barbell-push-jerk
+  :movement/name "Barbell Push Jerk"}
+ {:movement/id   :movement.id/barbell-push-press
+  :movement/name "Barbell Push Press"}
+ {:movement/id   :movement.id/barbell-shoulder-to-overhead
+  :movement/name "Barbell Shoulder To Overhead"}
+ {:movement/id :movement.id/barbell-snatch :movement/name "Barbell Snatch"}
+ {:movement/id   :movement.id/barbell-split-jerk
+  :movement/name "Barbell Split Jerk"}
+ {:movement/id   :movement.id/barbell-squat-clean
+  :movement/name "Barbell Squat Clean"}
+ {:movement/id   :movement.id/barbell-squat-clean-and-jerk
+  :movement/name "Barbell Squat Clean And Jerk"}
+ {:movement/id   :movement.id/barbell-squat-clean-and-power-jerk
+  :movement/name "Barbell Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/barbell-squat-clean-and-push-jerk
+  :movement/name "Barbell Squat Clean And Push Jerk"}
+ {:movement/id   :movement.id/barbell-squat-clean-and-split-jerk
+  :movement/name "Barbell Squat Clean And Split Jerk"}
+ {:movement/id   :movement.id/barbell-squat-clean-and-squat-jerk
+  :movement/name "Barbell Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/barbell-squat-jerk
+  :movement/name "Barbell Squat Jerk"}
+ {:movement/id   :movement.id/barbell-squat-snatch
+  :movement/name "Barbell Squat Snatch"}
+ {:movement/id   :movement.id/barbell-stiff-legged-deadlift
+  :movement/name "Barbell Stiff Legged Deadlift"}
+ {:movement/id   :movement.id/barbell-stiff-legged-deadlift-high-pull
+  :movement/name "Barbell Stiff Legged Deadlift High Pull"}
+ {:movement/id   :movement.id/barbell-strict-press
+  :movement/name "Barbell Strict Press"}
+ {:movement/id   :movement.id/barbell-sumo-deadlift
+  :movement/name "Barbell Sumo Deadlift"}
+ {:movement/id   :movement.id/barbell-sumo-deadlift-high-pull
+  :movement/name "Barbell Sumo Deadlift High Pull"}
+ {:movement/id :movement.id/barbell-thruster :movement/name "Barbell Thruster"}
+ {:movement/id :movement.id/battling-ropes :movement/name "Battling Ropes"}
+ {:movement/id :movement.id/bench-press :movement/name "Bench Press"}
+ {:movement/id :movement.id/box-jump :movement/name "Box Jump"}
+ {:movement/id :movement.id/box-jump-over :movement/name "Box Jump Over"}
+ {:movement/id :movement.id/box-step-over :movement/name "Box Step Over"}
+ {:movement/id :movement.id/box-step-up :movement/name "Box Step Up"}
+ {:movement/id :movement.id/burpee :movement/name "Burpee"}
+ {:movement/id   :movement.id/burpee-bar-muscle-up
+  :movement/name "Burpee Bar Muscle Up"}
+ {:movement/id   :movement.id/burpee-bar-pull-ups
+  :movement/name "Burpee Bar Pull Ups"}
+ {:movement/id :movement.id/burpee-box-jump :movement/name "Burpee Box Jump"}
+ {:movement/id   :movement.id/burpee-box-jump-over
+  :movement/name "Burpee Box Jump Over"}
+ {:movement/id   :movement.id/burpee-box-step-over
+  :movement/name "Burpee Box Step Over"}
+ {:movement/id   :movement.id/burpee-box-step-up
+  :movement/name "Burpee Box Step Up"}
+ {:movement/id   :movement.id/burpee-chest-to-bar
+  :movement/name "Burpee Chest To Bar"}
+ {:movement/id   :movement.id/burpee-chest-to-ring
+  :movement/name "Burpee Chest To Ring"}
+ {:movement/id   :movement.id/burpee-double-dumbbell-box-step-over
+  :movement/name "Burpee Double Dumbbell Box Step Over"}
+ {:movement/id   :movement.id/burpee-double-dumbbell-box-step-up
+  :movement/name "Burpee Double Dumbbell Box Step Up"}
+ {:movement/id   :movement.id/burpee-double-kettlebell-box-step-over
+  :movement/name "Burpee Double Kettlebell Box Step Over"}
+ {:movement/id   :movement.id/burpee-double-kettlebell-box-step-up
+  :movement/name "Burpee Double Kettlebell Box Step Up"}
+ {:movement/id   :movement.id/burpee-dumbbell-box-step-over
+  :movement/name "Burpee Dumbbell Box Step Over"}
+ {:movement/id   :movement.id/burpee-dumbbell-box-step-up
+  :movement/name "Burpee Dumbbell Box Step Up"}
+ {:movement/id   :movement.id/burpee-kettlebell-box-step-over
+  :movement/name "Burpee Kettlebell Box Step Over"}
+ {:movement/id   :movement.id/burpee-kettlebell-box-step-up
+  :movement/name "Burpee Kettlebell Box Step Up"}
+ {:movement/id :movement.id/burpee-muscle-up :movement/name "Burpee Muscle Up"}
+ {:movement/id   :movement.id/burpee-over-the-bar
+  :movement/name "Burpee Over The Bar"}
+ {:movement/id :movement.id/burpee-pull-ups :movement/name "Burpee Pull Ups"}
+ {:movement/id   :movement.id/burpee-ring-muscle-up
+  :movement/name "Burpee Ring Muscle Up"}
+ {:movement/id   :movement.id/burpee-ring-pull-ups
+  :movement/name "Burpee Ring Pull Ups"}
+ {:movement/id   :movement.id/burpee-single-arm-dumbbell-box-step-over
+  :movement/name "Burpee Single Arm Dumbbell Box Step Over"}
+ {:movement/id   :movement.id/burpee-single-arm-dumbbell-box-step-up
+  :movement/name "Burpee Single Arm Dumbbell Box Step Up"}
+ {:movement/id   :movement.id/burpee-single-arm-kettlebell-box-step-over
+  :movement/name "Burpee Single Arm Kettlebell Box Step Over"}
+ {:movement/id   :movement.id/burpee-single-arm-kettlebell-box-step-up
+  :movement/name "Burpee Single Arm Kettlebell Box Step Up"}
+ {:movement/id   :movement.id/burpee-toes-to-bar
+  :movement/name "Burpee Toes To Bar"}
+ {:movement/id   :movement.id/burpee-toes-to-ring
+  :movement/name "Burpee Toes To Ring"}
+ {:movement/id :movement.id/chest-to-bar :movement/name "Chest To Bar"}
+ {:movement/id :movement.id/chest-to-ring :movement/name "Chest To Ring"}
+ {:movement/id :movement.id/chin-up :movement/name "Chin Up"}
+ {:movement/id :movement.id/clean :movement/name "Clean"}
+ {:movement/id :movement.id/clean-and-jerk :movement/name "Clean And Jerk"}
+ {:movement/id   :movement.id/clean-and-power-jerk
+  :movement/name "Clean And Power Jerk"}
+ {:movement/id   :movement.id/clean-and-push-jerk
+  :movement/name "Clean And Push Jerk"}
+ {:movement/id   :movement.id/clean-and-split-jerk
+  :movement/name "Clean And Split Jerk"}
+ {:movement/id   :movement.id/clean-and-squat-jerk
+  :movement/name "Clean And Squat Jerk"}
+ {:movement/id :movement.id/clean-high-pull :movement/name "Clean High Pull"}
+ {:movement/id :movement.id/clean-pull :movement/name "Clean Pull"}
+ {:movement/id :movement.id/cluster :movement/name "Cluster"}
+ {:movement/id :movement.id/crunch :movement/name "Crunch"}
+ {:movement/id :movement.id/deadlift :movement/name "Deadlift"}
+ {:movement/id   :movement.id/deadlift-high-pull
+  :movement/name "Deadlift High Pull"}
+ {:movement/id   :movement.id/deficit-handstand-push-up
+  :movement/name "Deficit Handstand Push Up"}
+ {:movement/id :movement.id/devil-press :movement/name "Devil Press"}
+ {:movement/id   :movement.id/double-american-kettlebell-swings
+  :movement/name "Double American Kettlebell Swings"}
+ {:movement/id   :movement.id/double-dumbbell-bench-press
+  :movement/name "Double Dumbbell Bench Press"}
+ {:movement/id   :movement.id/double-dumbbell-box-step-over
+  :movement/name "Double Dumbbell Box Step Over"}
+ {:movement/id   :movement.id/double-dumbbell-box-step-up
+  :movement/name "Double Dumbbell Box Step Up"}
+ {:movement/id   :movement.id/double-dumbbell-clean
+  :movement/name "Double Dumbbell Clean"}
+ {:movement/id   :movement.id/double-dumbbell-clean-and-jerk
+  :movement/name "Double Dumbbell Clean And Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-clean-and-power-jerk
+  :movement/name "Double Dumbbell Clean And Power Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-clean-and-push-jerk
+  :movement/name "Double Dumbbell Clean And Push Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-clean-and-split-jerk
+  :movement/name "Double Dumbbell Clean And Split Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-clean-and-squat-jerk
+  :movement/name "Double Dumbbell Clean And Squat Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-deadlift
+  :movement/name "Double Dumbbell Deadlift"}
+ {:movement/id   :movement.id/double-dumbbell-deadlift-high-pull
+  :movement/name "Double Dumbbell Deadlift High Pull"}
+ {:movement/id   :movement.id/double-dumbbell-hang-clean
+  :movement/name "Double Dumbbell Hang Clean"}
+ {:movement/id   :movement.id/double-dumbbell-hang-clean-and-jerk
+  :movement/name "Double Dumbbell Hang Clean And Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-hang-clean-and-power-jerk
+  :movement/name "Double Dumbbell Hang Clean And Power Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-hang-clean-and-push-jerk
+  :movement/name "Double Dumbbell Hang Clean And Push Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-hang-clean-and-split-jerk
+  :movement/name "Double Dumbbell Hang Clean And Split Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-hang-clean-and-squat-jerk
+  :movement/name "Double Dumbbell Hang Clean And Squat Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-hang-power-clean
+  :movement/name "Double Dumbbell Hang Power Clean"}
+ {:movement/id   :movement.id/double-dumbbell-hang-power-clean-and-jerk
+  :movement/name "Double Dumbbell Hang Power Clean And Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-hang-power-clean-and-power-jerk
+  :movement/name "Double Dumbbell Hang Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-hang-power-clean-and-push-jerk
+  :movement/name "Double Dumbbell Hang Power Clean And Push Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-hang-power-clean-and-split-jerk
+  :movement/name "Double Dumbbell Hang Power Clean And Split Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-hang-power-clean-and-squat-jerk
+  :movement/name "Double Dumbbell Hang Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-hang-power-snatch
+  :movement/name "Double Dumbbell Hang Power Snatch"}
+ {:movement/id   :movement.id/double-dumbbell-hang-snatch
+  :movement/name "Double Dumbbell Hang Snatch"}
+ {:movement/id   :movement.id/double-dumbbell-hang-squat-clean
+  :movement/name "Double Dumbbell Hang Squat Clean"}
+ {:movement/id   :movement.id/double-dumbbell-hang-squat-clean-and-jerk
+  :movement/name "Double Dumbbell Hang Squat Clean And Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-hang-squat-clean-and-power-jerk
+  :movement/name "Double Dumbbell Hang Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-hang-squat-clean-and-push-jerk
+  :movement/name "Double Dumbbell Hang Squat Clean And Push Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-hang-squat-clean-and-split-jerk
+  :movement/name "Double Dumbbell Hang Squat Clean And Split Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-hang-squat-clean-and-squat-jerk
+  :movement/name "Double Dumbbell Hang Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-hang-squat-snatch
+  :movement/name "Double Dumbbell Hang Squat Snatch"}
+ {:movement/id   :movement.id/double-dumbbell-jerk
+  :movement/name "Double Dumbbell Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-lunge
+  :movement/name "Double Dumbbell Lunge"}
+ {:movement/id   :movement.id/double-dumbbell-overhead-lunge
+  :movement/name "Double Dumbbell Overhead Lunge"}
+ {:movement/id   :movement.id/double-dumbbell-overhead-squat
+  :movement/name "Double Dumbbell Overhead Squat"}
+ {:movement/id   :movement.id/double-dumbbell-overhead-walk
+  :movement/name "Double Dumbbell Overhead Walk"}
+ {:movement/id   :movement.id/double-dumbbell-overhead-walking-lunge
+  :movement/name "Double Dumbbell Overhead Walking Lunge"}
+ {:movement/id   :movement.id/double-dumbbell-power-clean
+  :movement/name "Double Dumbbell Power Clean"}
+ {:movement/id   :movement.id/double-dumbbell-power-clean-and-jerk
+  :movement/name "Double Dumbbell Power Clean And Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-power-clean-and-power-jerk
+  :movement/name "Double Dumbbell Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-power-clean-and-push-jerk
+  :movement/name "Double Dumbbell Power Clean And Push Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-power-clean-and-split-jerk
+  :movement/name "Double Dumbbell Power Clean And Split Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-power-clean-and-squat-jerk
+  :movement/name "Double Dumbbell Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-power-jerk
+  :movement/name "Double Dumbbell Power Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-power-press
+  :movement/name "Double Dumbbell Power Press"}
+ {:movement/id   :movement.id/double-dumbbell-power-snatch
+  :movement/name "Double Dumbbell Power Snatch"}
+ {:movement/id   :movement.id/double-dumbbell-press
+  :movement/name "Double Dumbbell Press"}
+ {:movement/id   :movement.id/double-dumbbell-push-jerk
+  :movement/name "Double Dumbbell Push Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-push-press
+  :movement/name "Double Dumbbell Push Press"}
+ {:movement/id   :movement.id/double-dumbbell-shoulder-to-overhead
+  :movement/name "Double Dumbbell Shoulder To Overhead"}
+ {:movement/id   :movement.id/double-dumbbell-snatch
+  :movement/name "Double Dumbbell Snatch"}
+ {:movement/id   :movement.id/double-dumbbell-split-jerk
+  :movement/name "Double Dumbbell Split Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-squat
+  :movement/name "Double Dumbbell Squat"}
+ {:movement/id   :movement.id/double-dumbbell-squat-clean
+  :movement/name "Double Dumbbell Squat Clean"}
+ {:movement/id   :movement.id/double-dumbbell-squat-clean-and-jerk
+  :movement/name "Double Dumbbell Squat Clean And Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-squat-clean-and-power-jerk
+  :movement/name "Double Dumbbell Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-squat-clean-and-push-jerk
+  :movement/name "Double Dumbbell Squat Clean And Push Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-squat-clean-and-split-jerk
+  :movement/name "Double Dumbbell Squat Clean And Split Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-squat-clean-and-squat-jerk
+  :movement/name "Double Dumbbell Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-squat-jerk
+  :movement/name "Double Dumbbell Squat Jerk"}
+ {:movement/id   :movement.id/double-dumbbell-squat-snatch
+  :movement/name "Double Dumbbell Squat Snatch"}
+ {:movement/id   :movement.id/double-dumbbell-stiff-legged-deadlift
+  :movement/name "Double Dumbbell Stiff Legged Deadlift"}
+ {:movement/id   :movement.id/double-dumbbell-stiff-legged-deadlift-high-pull
+  :movement/name "Double Dumbbell Stiff Legged Deadlift High Pull"}
+ {:movement/id   :movement.id/double-dumbbell-strict-press
+  :movement/name "Double Dumbbell Strict Press"}
+ {:movement/id   :movement.id/double-dumbbell-sumo-deadlift
+  :movement/name "Double Dumbbell Sumo Deadlift"}
+ {:movement/id   :movement.id/double-dumbbell-sumo-deadlift-high-pull
+  :movement/name "Double Dumbbell Sumo Deadlift High Pull"}
+ {:movement/id   :movement.id/double-dumbbell-thruster
+  :movement/name "Double Dumbbell Thruster"}
+ {:movement/id   :movement.id/double-dumbbell-walk
+  :movement/name "Double Dumbbell Walk"}
+ {:movement/id   :movement.id/double-dumbbell-walking-lunge
+  :movement/name "Double Dumbbell Walking Lunge"}
+ {:movement/id   :movement.id/double-kettlebell-bench-press
+  :movement/name "Double Kettlebell Bench Press"}
+ {:movement/id   :movement.id/double-kettlebell-box-step-over
+  :movement/name "Double Kettlebell Box Step Over"}
+ {:movement/id   :movement.id/double-kettlebell-box-step-up
+  :movement/name "Double Kettlebell Box Step Up"}
+ {:movement/id   :movement.id/double-kettlebell-clean
+  :movement/name "Double Kettlebell Clean"}
+ {:movement/id   :movement.id/double-kettlebell-clean-and-jerk
+  :movement/name "Double Kettlebell Clean And Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-clean-and-power-jerk
+  :movement/name "Double Kettlebell Clean And Power Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-clean-and-push-jerk
+  :movement/name "Double Kettlebell Clean And Push Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-clean-and-split-jerk
+  :movement/name "Double Kettlebell Clean And Split Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-clean-and-squat-jerk
+  :movement/name "Double Kettlebell Clean And Squat Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-deadlift
+  :movement/name "Double Kettlebell Deadlift"}
+ {:movement/id   :movement.id/double-kettlebell-deadlift-high-pull
+  :movement/name "Double Kettlebell Deadlift High Pull"}
+ {:movement/id   :movement.id/double-kettlebell-devil-press
+  :movement/name "Double Kettlebell Devil Press"}
+ {:movement/id   :movement.id/double-kettlebell-hang-clean
+  :movement/name "Double Kettlebell Hang Clean"}
+ {:movement/id   :movement.id/double-kettlebell-hang-clean-and-jerk
+  :movement/name "Double Kettlebell Hang Clean And Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-hang-clean-and-power-jerk
+  :movement/name "Double Kettlebell Hang Clean And Power Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-hang-clean-and-push-jerk
+  :movement/name "Double Kettlebell Hang Clean And Push Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-hang-clean-and-split-jerk
+  :movement/name "Double Kettlebell Hang Clean And Split Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-hang-clean-and-squat-jerk
+  :movement/name "Double Kettlebell Hang Clean And Squat Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-hang-power-clean
+  :movement/name "Double Kettlebell Hang Power Clean"}
+ {:movement/id   :movement.id/double-kettlebell-hang-power-clean-and-jerk
+  :movement/name "Double Kettlebell Hang Power Clean And Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-hang-power-clean-and-power-jerk
+  :movement/name "Double Kettlebell Hang Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-hang-power-clean-and-push-jerk
+  :movement/name "Double Kettlebell Hang Power Clean And Push Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-hang-power-clean-and-split-jerk
+  :movement/name "Double Kettlebell Hang Power Clean And Split Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-hang-power-clean-and-squat-jerk
+  :movement/name "Double Kettlebell Hang Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-hang-power-snatch
+  :movement/name "Double Kettlebell Hang Power Snatch"}
+ {:movement/id   :movement.id/double-kettlebell-hang-snatch
+  :movement/name "Double Kettlebell Hang Snatch"}
+ {:movement/id   :movement.id/double-kettlebell-hang-squat-clean
+  :movement/name "Double Kettlebell Hang Squat Clean"}
+ {:movement/id   :movement.id/double-kettlebell-hang-squat-clean-and-jerk
+  :movement/name "Double Kettlebell Hang Squat Clean And Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-hang-squat-clean-and-power-jerk
+  :movement/name "Double Kettlebell Hang Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-hang-squat-clean-and-push-jerk
+  :movement/name "Double Kettlebell Hang Squat Clean And Push Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-hang-squat-clean-and-split-jerk
+  :movement/name "Double Kettlebell Hang Squat Clean And Split Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-hang-squat-clean-and-squat-jerk
+  :movement/name "Double Kettlebell Hang Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-hang-squat-snatch
+  :movement/name "Double Kettlebell Hang Squat Snatch"}
+ {:movement/id   :movement.id/double-kettlebell-jerk
+  :movement/name "Double Kettlebell Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-lunge
+  :movement/name "Double Kettlebell Lunge"}
+ {:movement/id   :movement.id/double-kettlebell-man-maker
+  :movement/name "Double Kettlebell Man Maker"}
+ {:movement/id   :movement.id/double-kettlebell-overhead-lunge
+  :movement/name "Double Kettlebell Overhead Lunge"}
+ {:movement/id   :movement.id/double-kettlebell-overhead-squat
+  :movement/name "Double Kettlebell Overhead Squat"}
+ {:movement/id   :movement.id/double-kettlebell-overhead-walk
+  :movement/name "Double Kettlebell Overhead Walk"}
+ {:movement/id   :movement.id/double-kettlebell-overhead-walking-lunge
+  :movement/name "Double Kettlebell Overhead Walking Lunge"}
+ {:movement/id   :movement.id/double-kettlebell-power-clean
+  :movement/name "Double Kettlebell Power Clean"}
+ {:movement/id   :movement.id/double-kettlebell-power-clean-and-jerk
+  :movement/name "Double Kettlebell Power Clean And Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-power-clean-and-power-jerk
+  :movement/name "Double Kettlebell Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-power-clean-and-push-jerk
+  :movement/name "Double Kettlebell Power Clean And Push Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-power-clean-and-split-jerk
+  :movement/name "Double Kettlebell Power Clean And Split Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-power-clean-and-squat-jerk
+  :movement/name "Double Kettlebell Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-power-jerk
+  :movement/name "Double Kettlebell Power Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-power-press
+  :movement/name "Double Kettlebell Power Press"}
+ {:movement/id   :movement.id/double-kettlebell-power-snatch
+  :movement/name "Double Kettlebell Power Snatch"}
+ {:movement/id   :movement.id/double-kettlebell-press
+  :movement/name "Double Kettlebell Press"}
+ {:movement/id   :movement.id/double-kettlebell-push-jerk
+  :movement/name "Double Kettlebell Push Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-push-press
+  :movement/name "Double Kettlebell Push Press"}
+ {:movement/id   :movement.id/double-kettlebell-shoulder-to-overhead
+  :movement/name "Double Kettlebell Shoulder To Overhead"}
+ {:movement/id   :movement.id/double-kettlebell-snatch
+  :movement/name "Double Kettlebell Snatch"}
+ {:movement/id   :movement.id/double-kettlebell-split-jerk
+  :movement/name "Double Kettlebell Split Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-squat
+  :movement/name "Double Kettlebell Squat"}
+ {:movement/id   :movement.id/double-kettlebell-squat-clean
+  :movement/name "Double Kettlebell Squat Clean"}
+ {:movement/id   :movement.id/double-kettlebell-squat-clean-and-jerk
+  :movement/name "Double Kettlebell Squat Clean And Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-squat-clean-and-power-jerk
+  :movement/name "Double Kettlebell Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-squat-clean-and-push-jerk
+  :movement/name "Double Kettlebell Squat Clean And Push Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-squat-clean-and-split-jerk
+  :movement/name "Double Kettlebell Squat Clean And Split Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-squat-clean-and-squat-jerk
+  :movement/name "Double Kettlebell Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-squat-jerk
+  :movement/name "Double Kettlebell Squat Jerk"}
+ {:movement/id   :movement.id/double-kettlebell-squat-snatch
+  :movement/name "Double Kettlebell Squat Snatch"}
+ {:movement/id   :movement.id/double-kettlebell-stiff-legged-deadlift
+  :movement/name "Double Kettlebell Stiff Legged Deadlift"}
+ {:movement/id   :movement.id/double-kettlebell-stiff-legged-deadlift-high-pull
+  :movement/name "Double Kettlebell Stiff Legged Deadlift High Pull"}
+ {:movement/id   :movement.id/double-kettlebell-strict-press
+  :movement/name "Double Kettlebell Strict Press"}
+ {:movement/id   :movement.id/double-kettlebell-sumo-deadlift
+  :movement/name "Double Kettlebell Sumo Deadlift"}
+ {:movement/id   :movement.id/double-kettlebell-sumo-deadlift-high-pull
+  :movement/name "Double Kettlebell Sumo Deadlift High Pull"}
+ {:movement/id   :movement.id/double-kettlebell-swings
+  :movement/name "Double Kettlebell Swings"}
+ {:movement/id   :movement.id/double-kettlebell-thruster
+  :movement/name "Double Kettlebell Thruster"}
+ {:movement/id   :movement.id/double-kettlebell-walk
+  :movement/name "Double Kettlebell Walk"}
+ {:movement/id   :movement.id/double-kettlebell-walking-lunge
+  :movement/name "Double Kettlebell Walking Lunge"}
+ {:movement/id   :movement.id/double-russian-kettlebell-swings
+  :movement/name "Double Russian Kettlebell Swings"}
+ {:movement/id :movement.id/double-under :movement/name "Double Under"}
+ {:movement/id   :movement.id/dumbbell-box-step-over
+  :movement/name "Dumbbell Box Step Over"}
+ {:movement/id   :movement.id/dumbbell-box-step-up
+  :movement/name "Dumbbell Box Step Up"}
+ {:movement/id :movement.id/dumbbell-clean :movement/name "Dumbbell Clean"}
+ {:movement/id   :movement.id/dumbbell-clean-and-jerk
+  :movement/name "Dumbbell Clean And Jerk"}
+ {:movement/id   :movement.id/dumbbell-clean-and-power-jerk
+  :movement/name "Dumbbell Clean And Power Jerk"}
+ {:movement/id   :movement.id/dumbbell-clean-and-push-jerk
+  :movement/name "Dumbbell Clean And Push Jerk"}
+ {:movement/id   :movement.id/dumbbell-clean-and-split-jerk
+  :movement/name "Dumbbell Clean And Split Jerk"}
+ {:movement/id   :movement.id/dumbbell-clean-and-squat-jerk
+  :movement/name "Dumbbell Clean And Squat Jerk"}
+ {:movement/id   :movement.id/dumbbell-deadlift
+  :movement/name "Dumbbell Deadlift"}
+ {:movement/id   :movement.id/dumbbell-deadlift-high-pull
+  :movement/name "Dumbbell Deadlift High Pull"}
+ {:movement/id   :movement.id/dumbbell-hang-clean
+  :movement/name "Dumbbell Hang Clean"}
+ {:movement/id   :movement.id/dumbbell-hang-clean-and-jerk
+  :movement/name "Dumbbell Hang Clean And Jerk"}
+ {:movement/id   :movement.id/dumbbell-hang-clean-and-power-jerk
+  :movement/name "Dumbbell Hang Clean And Power Jerk"}
+ {:movement/id   :movement.id/dumbbell-hang-clean-and-push-jerk
+  :movement/name "Dumbbell Hang Clean And Push Jerk"}
+ {:movement/id   :movement.id/dumbbell-hang-clean-and-split-jerk
+  :movement/name "Dumbbell Hang Clean And Split Jerk"}
+ {:movement/id   :movement.id/dumbbell-hang-clean-and-squat-jerk
+  :movement/name "Dumbbell Hang Clean And Squat Jerk"}
+ {:movement/id   :movement.id/dumbbell-hang-power-clean
+  :movement/name "Dumbbell Hang Power Clean"}
+ {:movement/id   :movement.id/dumbbell-hang-power-clean-and-jerk
+  :movement/name "Dumbbell Hang Power Clean And Jerk"}
+ {:movement/id   :movement.id/dumbbell-hang-power-clean-and-power-jerk
+  :movement/name "Dumbbell Hang Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/dumbbell-hang-power-clean-and-push-jerk
+  :movement/name "Dumbbell Hang Power Clean And Push Jerk"}
+ {:movement/id   :movement.id/dumbbell-hang-power-clean-and-split-jerk
+  :movement/name "Dumbbell Hang Power Clean And Split Jerk"}
+ {:movement/id   :movement.id/dumbbell-hang-power-clean-and-squat-jerk
+  :movement/name "Dumbbell Hang Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/dumbbell-hang-power-snatch
+  :movement/name "Dumbbell Hang Power Snatch"}
+ {:movement/id   :movement.id/dumbbell-hang-snatch
+  :movement/name "Dumbbell Hang Snatch"}
+ {:movement/id   :movement.id/dumbbell-hang-squat-clean
+  :movement/name "Dumbbell Hang Squat Clean"}
+ {:movement/id   :movement.id/dumbbell-hang-squat-clean-and-jerk
+  :movement/name "Dumbbell Hang Squat Clean And Jerk"}
+ {:movement/id   :movement.id/dumbbell-hang-squat-clean-and-power-jerk
+  :movement/name "Dumbbell Hang Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/dumbbell-hang-squat-clean-and-push-jerk
+  :movement/name "Dumbbell Hang Squat Clean And Push Jerk"}
+ {:movement/id   :movement.id/dumbbell-hang-squat-clean-and-split-jerk
+  :movement/name "Dumbbell Hang Squat Clean And Split Jerk"}
+ {:movement/id   :movement.id/dumbbell-hang-squat-clean-and-squat-jerk
+  :movement/name "Dumbbell Hang Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/dumbbell-hang-squat-snatch
+  :movement/name "Dumbbell Hang Squat Snatch"}
+ {:movement/id :movement.id/dumbbell-jerk :movement/name "Dumbbell Jerk"}
+ {:movement/id :movement.id/dumbbell-lunge :movement/name "Dumbbell Lunge"}
+ {:movement/id   :movement.id/dumbbell-overhead-lunge
+  :movement/name "Dumbbell Overhead Lunge"}
+ {:movement/id   :movement.id/dumbbell-overhead-squat
+  :movement/name "Dumbbell Overhead Squat"}
+ {:movement/id   :movement.id/dumbbell-overhead-walk
+  :movement/name "Dumbbell Overhead Walk"}
+ {:movement/id   :movement.id/dumbbell-overhead-walking-lunge
+  :movement/name "Dumbbell Overhead Walking Lunge"}
+ {:movement/id   :movement.id/dumbbell-power-clean
+  :movement/name "Dumbbell Power Clean"}
+ {:movement/id   :movement.id/dumbbell-power-clean-and-jerk
+  :movement/name "Dumbbell Power Clean And Jerk"}
+ {:movement/id   :movement.id/dumbbell-power-clean-and-power-jerk
+  :movement/name "Dumbbell Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/dumbbell-power-clean-and-push-jerk
+  :movement/name "Dumbbell Power Clean And Push Jerk"}
+ {:movement/id   :movement.id/dumbbell-power-clean-and-split-jerk
+  :movement/name "Dumbbell Power Clean And Split Jerk"}
+ {:movement/id   :movement.id/dumbbell-power-clean-and-squat-jerk
+  :movement/name "Dumbbell Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/dumbbell-power-jerk
+  :movement/name "Dumbbell Power Jerk"}
+ {:movement/id   :movement.id/dumbbell-power-press
+  :movement/name "Dumbbell Power Press"}
+ {:movement/id   :movement.id/dumbbell-power-snatch
+  :movement/name "Dumbbell Power Snatch"}
+ {:movement/id :movement.id/dumbbell-press :movement/name "Dumbbell Press"}
+ {:movement/id   :movement.id/dumbbell-push-jerk
+  :movement/name "Dumbbell Push Jerk"}
+ {:movement/id   :movement.id/dumbbell-push-press
+  :movement/name "Dumbbell Push Press"}
+ {:movement/id   :movement.id/dumbbell-shoulder-to-overhead
+  :movement/name "Dumbbell Shoulder To Overhead"}
+ {:movement/id :movement.id/dumbbell-snatch :movement/name "Dumbbell Snatch"}
+ {:movement/id   :movement.id/dumbbell-split-jerk
+  :movement/name "Dumbbell Split Jerk"}
+ {:movement/id :movement.id/dumbbell-squat :movement/name "Dumbbell Squat"}
+ {:movement/id   :movement.id/dumbbell-squat-clean
+  :movement/name "Dumbbell Squat Clean"}
+ {:movement/id   :movement.id/dumbbell-squat-clean-and-jerk
+  :movement/name "Dumbbell Squat Clean And Jerk"}
+ {:movement/id   :movement.id/dumbbell-squat-clean-and-power-jerk
+  :movement/name "Dumbbell Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/dumbbell-squat-clean-and-push-jerk
+  :movement/name "Dumbbell Squat Clean And Push Jerk"}
+ {:movement/id   :movement.id/dumbbell-squat-clean-and-split-jerk
+  :movement/name "Dumbbell Squat Clean And Split Jerk"}
+ {:movement/id   :movement.id/dumbbell-squat-clean-and-squat-jerk
+  :movement/name "Dumbbell Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/dumbbell-squat-jerk
+  :movement/name "Dumbbell Squat Jerk"}
+ {:movement/id   :movement.id/dumbbell-squat-snatch
+  :movement/name "Dumbbell Squat Snatch"}
+ {:movement/id   :movement.id/dumbbell-stiff-legged-deadlift
+  :movement/name "Dumbbell Stiff Legged Deadlift"}
+ {:movement/id   :movement.id/dumbbell-stiff-legged-deadlift-high-pull
+  :movement/name "Dumbbell Stiff Legged Deadlift High Pull"}
+ {:movement/id   :movement.id/dumbbell-strict-press
+  :movement/name "Dumbbell Strict Press"}
+ {:movement/id   :movement.id/dumbbell-sumo-deadlift
+  :movement/name "Dumbbell Sumo Deadlift"}
+ {:movement/id   :movement.id/dumbbell-sumo-deadlift-high-pull
+  :movement/name "Dumbbell Sumo Deadlift High Pull"}
+ {:movement/id   :movement.id/dumbbell-thruster
+  :movement/name "Dumbbell Thruster"}
+ {:movement/id :movement.id/dumbbell-walk :movement/name "Dumbbell Walk"}
+ {:movement/id   :movement.id/dumbbell-walking-lunge
+  :movement/name "Dumbbell Walking Lunge"}
+ {:movement/id   :movement.id/front-barbell-lunge
+  :movement/name "Front Barbell Lunge"}
+ {:movement/id   :movement.id/front-barbell-squat
+  :movement/name "Front Barbell Squat"}
+ {:movement/id   :movement.id/front-barbell-walking-lunge
+  :movement/name "Front Barbell Walking Lunge"}
+ {:movement/id :movement.id/ghd-sit-up :movement/name "Ghd Sit Up"}
+ {:movement/id :movement.id/gobelet-squat :movement/name "Gobelet Squat"}
+ {:movement/id   :movement.id/hand-release-push-ups
+  :movement/name "Hand Release Push Ups"}
+ {:movement/id   :movement.id/handstand-push-up
+  :movement/name "Handstand Push Up"}
+ {:movement/id :movement.id/handstand-walk :movement/name "Handstand Walk"}
+ {:movement/id :movement.id/hang-clean :movement/name "Hang Clean"}
+ {:movement/id   :movement.id/hang-clean-and-jerk
+  :movement/name "Hang Clean And Jerk"}
+ {:movement/id   :movement.id/hang-clean-and-power-jerk
+  :movement/name "Hang Clean And Power Jerk"}
+ {:movement/id   :movement.id/hang-clean-and-push-jerk
+  :movement/name "Hang Clean And Push Jerk"}
+ {:movement/id   :movement.id/hang-clean-and-split-jerk
+  :movement/name "Hang Clean And Split Jerk"}
+ {:movement/id   :movement.id/hang-clean-and-squat-jerk
+  :movement/name "Hang Clean And Squat Jerk"}
+ {:movement/id :movement.id/hang-power-clean :movement/name "Hang Power Clean"}
+ {:movement/id   :movement.id/hang-power-clean-and-jerk
+  :movement/name "Hang Power Clean And Jerk"}
+ {:movement/id   :movement.id/hang-power-clean-and-power-jerk
+  :movement/name "Hang Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/hang-power-clean-and-push-jerk
+  :movement/name "Hang Power Clean And Push Jerk"}
+ {:movement/id   :movement.id/hang-power-clean-and-split-jerk
+  :movement/name "Hang Power Clean And Split Jerk"}
+ {:movement/id   :movement.id/hang-power-clean-and-squat-jerk
+  :movement/name "Hang Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/hang-power-snatch
+  :movement/name "Hang Power Snatch"}
+ {:movement/id :movement.id/hang-snatch :movement/name "Hang Snatch"}
+ {:movement/id :movement.id/hang-squat-clean :movement/name "Hang Squat Clean"}
+ {:movement/id   :movement.id/hang-squat-clean-and-jerk
+  :movement/name "Hang Squat Clean And Jerk"}
+ {:movement/id   :movement.id/hang-squat-clean-and-power-jerk
+  :movement/name "Hang Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/hang-squat-clean-and-push-jerk
+  :movement/name "Hang Squat Clean And Push Jerk"}
+ {:movement/id   :movement.id/hang-squat-clean-and-split-jerk
+  :movement/name "Hang Squat Clean And Split Jerk"}
+ {:movement/id   :movement.id/hang-squat-clean-and-squat-jerk
+  :movement/name "Hang Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/hang-squat-snatch
+  :movement/name "Hang Squat Snatch"}
+ {:movement/id :movement.id/hollow-rock :movement/name "Hollow Rock"}
+ {:movement/id :movement.id/jerk :movement/name "Jerk"}
+ {:movement/id   :movement.id/jumping-bar-muscle-up
+  :movement/name "Jumping Bar Muscle Up"}
+ {:movement/id   :movement.id/jumping-bar-pull-ups
+  :movement/name "Jumping Bar Pull Ups"}
+ {:movement/id   :movement.id/jumping-chest-to-bar
+  :movement/name "Jumping Chest To Bar"}
+ {:movement/id   :movement.id/jumping-chest-to-ring
+  :movement/name "Jumping Chest To Ring"}
+ {:movement/id :movement.id/jumping-jack :movement/name "Jumping Jack"}
+ {:movement/id :movement.id/jumping-lunge :movement/name "Jumping Lunge"}
+ {:movement/id   :movement.id/jumping-muscle-up
+  :movement/name "Jumping Muscle Up"}
+ {:movement/id :movement.id/jumping-pull-ups :movement/name "Jumping Pull Ups"}
+ {:movement/id   :movement.id/jumping-ring-muscle-up
+  :movement/name "Jumping Ring Muscle Up"}
+ {:movement/id   :movement.id/jumping-ring-pull-ups
+  :movement/name "Jumping Ring Pull Ups"}
+ {:movement/id   :movement.id/jumping-toes-to-bar
+  :movement/name "Jumping Toes To Bar"}
+ {:movement/id   :movement.id/jumping-toes-to-ring
+  :movement/name "Jumping Toes To Ring"}
+ {:movement/id   :movement.id/kettlebell-box-step-over
+  :movement/name "Kettlebell Box Step Over"}
+ {:movement/id   :movement.id/kettlebell-box-step-up
+  :movement/name "Kettlebell Box Step Up"}
+ {:movement/id :movement.id/kettlebell-clean :movement/name "Kettlebell Clean"}
+ {:movement/id   :movement.id/kettlebell-clean-and-jerk
+  :movement/name "Kettlebell Clean And Jerk"}
+ {:movement/id   :movement.id/kettlebell-clean-and-power-jerk
+  :movement/name "Kettlebell Clean And Power Jerk"}
+ {:movement/id   :movement.id/kettlebell-clean-and-push-jerk
+  :movement/name "Kettlebell Clean And Push Jerk"}
+ {:movement/id   :movement.id/kettlebell-clean-and-split-jerk
+  :movement/name "Kettlebell Clean And Split Jerk"}
+ {:movement/id   :movement.id/kettlebell-clean-and-squat-jerk
+  :movement/name "Kettlebell Clean And Squat Jerk"}
+ {:movement/id   :movement.id/kettlebell-deadlift
+  :movement/name "Kettlebell Deadlift"}
+ {:movement/id   :movement.id/kettlebell-deadlift-high-pull
+  :movement/name "Kettlebell Deadlift High Pull"}
+ {:movement/id   :movement.id/kettlebell-hang-clean
+  :movement/name "Kettlebell Hang Clean"}
+ {:movement/id   :movement.id/kettlebell-hang-clean-and-jerk
+  :movement/name "Kettlebell Hang Clean And Jerk"}
+ {:movement/id   :movement.id/kettlebell-hang-clean-and-power-jerk
+  :movement/name "Kettlebell Hang Clean And Power Jerk"}
+ {:movement/id   :movement.id/kettlebell-hang-clean-and-push-jerk
+  :movement/name "Kettlebell Hang Clean And Push Jerk"}
+ {:movement/id   :movement.id/kettlebell-hang-clean-and-split-jerk
+  :movement/name "Kettlebell Hang Clean And Split Jerk"}
+ {:movement/id   :movement.id/kettlebell-hang-clean-and-squat-jerk
+  :movement/name "Kettlebell Hang Clean And Squat Jerk"}
+ {:movement/id   :movement.id/kettlebell-hang-power-clean
+  :movement/name "Kettlebell Hang Power Clean"}
+ {:movement/id   :movement.id/kettlebell-hang-power-clean-and-jerk
+  :movement/name "Kettlebell Hang Power Clean And Jerk"}
+ {:movement/id   :movement.id/kettlebell-hang-power-clean-and-power-jerk
+  :movement/name "Kettlebell Hang Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/kettlebell-hang-power-clean-and-push-jerk
+  :movement/name "Kettlebell Hang Power Clean And Push Jerk"}
+ {:movement/id   :movement.id/kettlebell-hang-power-clean-and-split-jerk
+  :movement/name "Kettlebell Hang Power Clean And Split Jerk"}
+ {:movement/id   :movement.id/kettlebell-hang-power-clean-and-squat-jerk
+  :movement/name "Kettlebell Hang Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/kettlebell-hang-power-snatch
+  :movement/name "Kettlebell Hang Power Snatch"}
+ {:movement/id   :movement.id/kettlebell-hang-snatch
+  :movement/name "Kettlebell Hang Snatch"}
+ {:movement/id   :movement.id/kettlebell-hang-squat-clean
+  :movement/name "Kettlebell Hang Squat Clean"}
+ {:movement/id   :movement.id/kettlebell-hang-squat-clean-and-jerk
+  :movement/name "Kettlebell Hang Squat Clean And Jerk"}
+ {:movement/id   :movement.id/kettlebell-hang-squat-clean-and-power-jerk
+  :movement/name "Kettlebell Hang Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/kettlebell-hang-squat-clean-and-push-jerk
+  :movement/name "Kettlebell Hang Squat Clean And Push Jerk"}
+ {:movement/id   :movement.id/kettlebell-hang-squat-clean-and-split-jerk
+  :movement/name "Kettlebell Hang Squat Clean And Split Jerk"}
+ {:movement/id   :movement.id/kettlebell-hang-squat-clean-and-squat-jerk
+  :movement/name "Kettlebell Hang Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/kettlebell-hang-squat-snatch
+  :movement/name "Kettlebell Hang Squat Snatch"}
+ {:movement/id :movement.id/kettlebell-jerk :movement/name "Kettlebell Jerk"}
+ {:movement/id :movement.id/kettlebell-lunge :movement/name "Kettlebell Lunge"}
+ {:movement/id   :movement.id/kettlebell-overhead-lunge
+  :movement/name "Kettlebell Overhead Lunge"}
+ {:movement/id   :movement.id/kettlebell-overhead-squat
+  :movement/name "Kettlebell Overhead Squat"}
+ {:movement/id   :movement.id/kettlebell-overhead-walk
+  :movement/name "Kettlebell Overhead Walk"}
+ {:movement/id   :movement.id/kettlebell-overhead-walking-lunge
+  :movement/name "Kettlebell Overhead Walking Lunge"}
+ {:movement/id   :movement.id/kettlebell-power-clean
+  :movement/name "Kettlebell Power Clean"}
+ {:movement/id   :movement.id/kettlebell-power-clean-and-jerk
+  :movement/name "Kettlebell Power Clean And Jerk"}
+ {:movement/id   :movement.id/kettlebell-power-clean-and-power-jerk
+  :movement/name "Kettlebell Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/kettlebell-power-clean-and-push-jerk
+  :movement/name "Kettlebell Power Clean And Push Jerk"}
+ {:movement/id   :movement.id/kettlebell-power-clean-and-split-jerk
+  :movement/name "Kettlebell Power Clean And Split Jerk"}
+ {:movement/id   :movement.id/kettlebell-power-clean-and-squat-jerk
+  :movement/name "Kettlebell Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/kettlebell-power-jerk
+  :movement/name "Kettlebell Power Jerk"}
+ {:movement/id   :movement.id/kettlebell-power-press
+  :movement/name "Kettlebell Power Press"}
+ {:movement/id   :movement.id/kettlebell-power-snatch
+  :movement/name "Kettlebell Power Snatch"}
+ {:movement/id :movement.id/kettlebell-press :movement/name "Kettlebell Press"}
+ {:movement/id   :movement.id/kettlebell-push-jerk
+  :movement/name "Kettlebell Push Jerk"}
+ {:movement/id   :movement.id/kettlebell-push-press
+  :movement/name "Kettlebell Push Press"}
+ {:movement/id   :movement.id/kettlebell-shoulder-to-overhead
+  :movement/name "Kettlebell Shoulder To Overhead"}
+ {:movement/id   :movement.id/kettlebell-snatch
+  :movement/name "Kettlebell Snatch"}
+ {:movement/id   :movement.id/kettlebell-split-jerk
+  :movement/name "Kettlebell Split Jerk"}
+ {:movement/id :movement.id/kettlebell-squat :movement/name "Kettlebell Squat"}
+ {:movement/id   :movement.id/kettlebell-squat-clean
+  :movement/name "Kettlebell Squat Clean"}
+ {:movement/id   :movement.id/kettlebell-squat-clean-and-jerk
+  :movement/name "Kettlebell Squat Clean And Jerk"}
+ {:movement/id   :movement.id/kettlebell-squat-clean-and-power-jerk
+  :movement/name "Kettlebell Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/kettlebell-squat-clean-and-push-jerk
+  :movement/name "Kettlebell Squat Clean And Push Jerk"}
+ {:movement/id   :movement.id/kettlebell-squat-clean-and-split-jerk
+  :movement/name "Kettlebell Squat Clean And Split Jerk"}
+ {:movement/id   :movement.id/kettlebell-squat-clean-and-squat-jerk
+  :movement/name "Kettlebell Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/kettlebell-squat-jerk
+  :movement/name "Kettlebell Squat Jerk"}
+ {:movement/id   :movement.id/kettlebell-squat-snatch
+  :movement/name "Kettlebell Squat Snatch"}
+ {:movement/id   :movement.id/kettlebell-stiff-legged-deadlift
+  :movement/name "Kettlebell Stiff Legged Deadlift"}
+ {:movement/id   :movement.id/kettlebell-stiff-legged-deadlift-high-pull
+  :movement/name "Kettlebell Stiff Legged Deadlift High Pull"}
+ {:movement/id   :movement.id/kettlebell-strict-press
+  :movement/name "Kettlebell Strict Press"}
+ {:movement/id   :movement.id/kettlebell-sumo-deadlift
+  :movement/name "Kettlebell Sumo Deadlift"}
+ {:movement/id   :movement.id/kettlebell-sumo-deadlift-high-pull
+  :movement/name "Kettlebell Sumo Deadlift High Pull"}
+ {:movement/id   :movement.id/kettlebell-swings
+  :movement/name "Kettlebell Swings"}
+ {:movement/id   :movement.id/kettlebell-thruster
+  :movement/name "Kettlebell Thruster"}
+ {:movement/id :movement.id/kettlebell-walk :movement/name "Kettlebell Walk"}
+ {:movement/id   :movement.id/kettlebell-walking-lunge
+  :movement/name "Kettlebell Walking Lunge"}
+ {:movement/id   :movement.id/kipping-bar-muscle-up
+  :movement/name "Kipping Bar Muscle Up"}
+ {:movement/id   :movement.id/kipping-bar-pull-ups
+  :movement/name "Kipping Bar Pull Ups"}
+ {:movement/id   :movement.id/kipping-chest-to-bar
+  :movement/name "Kipping Chest To Bar"}
+ {:movement/id   :movement.id/kipping-chest-to-ring
+  :movement/name "Kipping Chest To Ring"}
+ {:movement/id   :movement.id/kipping-handstand-push-up
+  :movement/name "Kipping Handstand Push Up"}
+ {:movement/id   :movement.id/kipping-muscle-up
+  :movement/name "Kipping Muscle Up"}
+ {:movement/id :movement.id/kipping-pull-ups :movement/name "Kipping Pull Ups"}
+ {:movement/id   :movement.id/kipping-ring-muscle-up
+  :movement/name "Kipping Ring Muscle Up"}
+ {:movement/id   :movement.id/kipping-ring-pull-ups
+  :movement/name "Kipping Ring Pull Ups"}
+ {:movement/id   :movement.id/kipping-toes-to-bar
+  :movement/name "Kipping Toes To Bar"}
+ {:movement/id   :movement.id/kipping-toes-to-ring
+  :movement/name "Kipping Toes To Ring"}
+ {:movement/id :movement.id/knees-push-ups :movement/name "Knees Push Ups"}
+ {:movement/id :movement.id/knees-to-elbow :movement/name "Knees To Elbow"}
+ {:movement/id   :movement.id/leg-less-rope-climb
+  :movement/name "Leg Less Rope Climb"}
+ {:movement/id :movement.id/leg-raise :movement/name "Leg Raise"}
+ {:movement/id :movement.id/lunge :movement/name "Lunge"}
+ {:movement/id :movement.id/man-maker :movement/name "Man Maker"}
+ {:movement/id :movement.id/mountain-climber :movement/name "Mountain Climber"}
+ {:movement/id :movement.id/muscle-snatch :movement/name "Muscle Snatch"}
+ {:movement/id :movement.id/muscle-up :movement/name "Muscle Up"}
+ {:movement/id   :movement.id/overhead-barbell-lunge
+  :movement/name "Overhead Barbell Lunge"}
+ {:movement/id   :movement.id/overhead-barbell-squat
+  :movement/name "Overhead Barbell Squat"}
+ {:movement/id   :movement.id/overhead-barbell-walking-lunge
+  :movement/name "Overhead Barbell Walking Lunge"}
+ {:movement/id :movement.id/overhead-lunge :movement/name "Overhead Lunge"}
+ {:movement/id :movement.id/overhead-squat :movement/name "Overhead Squat"}
+ {:movement/id :movement.id/overhead-walk :movement/name "Overhead Walk"}
+ {:movement/id   :movement.id/overhead-walking-lunge
+  :movement/name "Overhead Walking Lunge"}
+ {:movement/id   :movement.id/overhead-wall-ball-lunge
+  :movement/name "Overhead Wall Ball Lunge"}
+ {:movement/id   :movement.id/overhead-wall-ball-squat
+  :movement/name "Overhead Wall Ball Squat"}
+ {:movement/id   :movement.id/overhead-wall-ball-walking-lunge
+  :movement/name "Overhead Wall Ball Walking Lunge"}
+ {:movement/id   :movement.id/parallette-handstand-push-up
+  :movement/name "Parallette Handstand Push Up"}
+ {:movement/id :movement.id/peg-board :movement/name "Peg Board"}
+ {:movement/id :movement.id/pistol :movement/name "Pistol"}
+ {:movement/id :movement.id/plank :movement/name "Plank"}
+ {:movement/id :movement.id/power-clean :movement/name "Power Clean"}
+ {:movement/id   :movement.id/power-clean-and-jerk
+  :movement/name "Power Clean And Jerk"}
+ {:movement/id   :movement.id/power-clean-and-power-jerk
+  :movement/name "Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/power-clean-and-push-jerk
+  :movement/name "Power Clean And Push Jerk"}
+ {:movement/id   :movement.id/power-clean-and-split-jerk
+  :movement/name "Power Clean And Split Jerk"}
+ {:movement/id   :movement.id/power-clean-and-squat-jerk
+  :movement/name "Power Clean And Squat Jerk"}
+ {:movement/id :movement.id/power-jerk :movement/name "Power Jerk"}
+ {:movement/id :movement.id/power-press :movement/name "Power Press"}
+ {:movement/id :movement.id/power-snatch :movement/name "Power Snatch"}
+ {:movement/id :movement.id/press :movement/name "Press"}
+ {:movement/id :movement.id/pull-ups :movement/name "Pull Ups"}
+ {:movement/id :movement.id/push-jerk :movement/name "Push Jerk"}
+ {:movement/id :movement.id/push-press :movement/name "Push Press"}
+ {:movement/id :movement.id/push-ups :movement/name "Push Ups"}
+ {:movement/id :movement.id/rest :movement/name "Rest"}
+ {:movement/id :movement.id/ring-dip :movement/name "Ring Dip"}
+ {:movement/id   :movement.id/ring-handstand-push-up
+  :movement/name "Ring Handstand Push Up"}
+ {:movement/id :movement.id/ring-muscle-up :movement/name "Ring Muscle Up"}
+ {:movement/id :movement.id/ring-pull-ups :movement/name "Ring Pull Ups"}
+ {:movement/id :movement.id/ring-push-ups :movement/name "Ring Push Ups"}
+ {:movement/id :movement.id/ring-row :movement/name "Ring Row"}
+ {:movement/id :movement.id/rope-climb :movement/name "Rope Climb"}
+ {:movement/id :movement.id/row :movement/name "Row"}
+ {:movement/id :movement.id/run :movement/name "Run"}
+ {:movement/id   :movement.id/russian-kettlebell-swings
+  :movement/name "Russian Kettlebell Swings"}
+ {:movement/id :movement.id/sandbag-carry :movement/name "Sandbag Carry"}
+ {:movement/id   :movement.id/shoulder-to-overhead
+  :movement/name "Shoulder To Overhead"}
+ {:movement/id :movement.id/shuttle-sprint :movement/name "Shuttle Sprint"}
+ {:movement/id   :movement.id/single-arm-american-kettlebell-swings
+  :movement/name "Single Arm American Kettlebell Swings"}
+ {:movement/id   :movement.id/single-arm-dumbbell-box-step-over
+  :movement/name "Single Arm Dumbbell Box Step Over"}
+ {:movement/id   :movement.id/single-arm-dumbbell-box-step-up
+  :movement/name "Single Arm Dumbbell Box Step Up"}
+ {:movement/id   :movement.id/single-arm-dumbbell-clean
+  :movement/name "Single Arm Dumbbell Clean"}
+ {:movement/id   :movement.id/single-arm-dumbbell-clean-and-jerk
+  :movement/name "Single Arm Dumbbell Clean And Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-clean-and-power-jerk
+  :movement/name "Single Arm Dumbbell Clean And Power Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-clean-and-push-jerk
+  :movement/name "Single Arm Dumbbell Clean And Push Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-clean-and-split-jerk
+  :movement/name "Single Arm Dumbbell Clean And Split Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-clean-and-squat-jerk
+  :movement/name "Single Arm Dumbbell Clean And Squat Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-deadlift
+  :movement/name "Single Arm Dumbbell Deadlift"}
+ {:movement/id   :movement.id/single-arm-dumbbell-deadlift-high-pull
+  :movement/name "Single Arm Dumbbell Deadlift High Pull"}
+ {:movement/id   :movement.id/single-arm-dumbbell-hang-clean
+  :movement/name "Single Arm Dumbbell Hang Clean"}
+ {:movement/id   :movement.id/single-arm-dumbbell-hang-clean-and-jerk
+  :movement/name "Single Arm Dumbbell Hang Clean And Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-hang-clean-and-power-jerk
+  :movement/name "Single Arm Dumbbell Hang Clean And Power Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-hang-clean-and-push-jerk
+  :movement/name "Single Arm Dumbbell Hang Clean And Push Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-hang-clean-and-split-jerk
+  :movement/name "Single Arm Dumbbell Hang Clean And Split Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-hang-clean-and-squat-jerk
+  :movement/name "Single Arm Dumbbell Hang Clean And Squat Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-hang-power-clean
+  :movement/name "Single Arm Dumbbell Hang Power Clean"}
+ {:movement/id   :movement.id/single-arm-dumbbell-hang-power-clean-and-jerk
+  :movement/name "Single Arm Dumbbell Hang Power Clean And Jerk"}
+ {:movement/id :movement.id/single-arm-dumbbell-hang-power-clean-and-power-jerk
+  :movement/name "Single Arm Dumbbell Hang Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-hang-power-clean-and-push-jerk
+  :movement/name "Single Arm Dumbbell Hang Power Clean And Push Jerk"}
+ {:movement/id :movement.id/single-arm-dumbbell-hang-power-clean-and-split-jerk
+  :movement/name "Single Arm Dumbbell Hang Power Clean And Split Jerk"}
+ {:movement/id :movement.id/single-arm-dumbbell-hang-power-clean-and-squat-jerk
+  :movement/name "Single Arm Dumbbell Hang Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-hang-power-snatch
+  :movement/name "Single Arm Dumbbell Hang Power Snatch"}
+ {:movement/id   :movement.id/single-arm-dumbbell-hang-snatch
+  :movement/name "Single Arm Dumbbell Hang Snatch"}
+ {:movement/id   :movement.id/single-arm-dumbbell-hang-squat-clean
+  :movement/name "Single Arm Dumbbell Hang Squat Clean"}
+ {:movement/id   :movement.id/single-arm-dumbbell-hang-squat-clean-and-jerk
+  :movement/name "Single Arm Dumbbell Hang Squat Clean And Jerk"}
+ {:movement/id :movement.id/single-arm-dumbbell-hang-squat-clean-and-power-jerk
+  :movement/name "Single Arm Dumbbell Hang Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-hang-squat-clean-and-push-jerk
+  :movement/name "Single Arm Dumbbell Hang Squat Clean And Push Jerk"}
+ {:movement/id :movement.id/single-arm-dumbbell-hang-squat-clean-and-split-jerk
+  :movement/name "Single Arm Dumbbell Hang Squat Clean And Split Jerk"}
+ {:movement/id :movement.id/single-arm-dumbbell-hang-squat-clean-and-squat-jerk
+  :movement/name "Single Arm Dumbbell Hang Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-hang-squat-snatch
+  :movement/name "Single Arm Dumbbell Hang Squat Snatch"}
+ {:movement/id   :movement.id/single-arm-dumbbell-jerk
+  :movement/name "Single Arm Dumbbell Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-lunge
+  :movement/name "Single Arm Dumbbell Lunge"}
+ {:movement/id   :movement.id/single-arm-dumbbell-overhead-lunge
+  :movement/name "Single Arm Dumbbell Overhead Lunge"}
+ {:movement/id   :movement.id/single-arm-dumbbell-overhead-squat
+  :movement/name "Single Arm Dumbbell Overhead Squat"}
+ {:movement/id   :movement.id/single-arm-dumbbell-overhead-walk
+  :movement/name "Single Arm Dumbbell Overhead Walk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-overhead-walking-lunge
+  :movement/name "Single Arm Dumbbell Overhead Walking Lunge"}
+ {:movement/id   :movement.id/single-arm-dumbbell-power-clean
+  :movement/name "Single Arm Dumbbell Power Clean"}
+ {:movement/id   :movement.id/single-arm-dumbbell-power-clean-and-jerk
+  :movement/name "Single Arm Dumbbell Power Clean And Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-power-clean-and-power-jerk
+  :movement/name "Single Arm Dumbbell Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-power-clean-and-push-jerk
+  :movement/name "Single Arm Dumbbell Power Clean And Push Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-power-clean-and-split-jerk
+  :movement/name "Single Arm Dumbbell Power Clean And Split Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-power-clean-and-squat-jerk
+  :movement/name "Single Arm Dumbbell Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-power-jerk
+  :movement/name "Single Arm Dumbbell Power Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-power-press
+  :movement/name "Single Arm Dumbbell Power Press"}
+ {:movement/id   :movement.id/single-arm-dumbbell-power-snatch
+  :movement/name "Single Arm Dumbbell Power Snatch"}
+ {:movement/id   :movement.id/single-arm-dumbbell-press
+  :movement/name "Single Arm Dumbbell Press"}
+ {:movement/id   :movement.id/single-arm-dumbbell-push-jerk
+  :movement/name "Single Arm Dumbbell Push Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-push-press
+  :movement/name "Single Arm Dumbbell Push Press"}
+ {:movement/id   :movement.id/single-arm-dumbbell-shoulder-to-overhead
+  :movement/name "Single Arm Dumbbell Shoulder To Overhead"}
+ {:movement/id   :movement.id/single-arm-dumbbell-snatch
+  :movement/name "Single Arm Dumbbell Snatch"}
+ {:movement/id   :movement.id/single-arm-dumbbell-split-jerk
+  :movement/name "Single Arm Dumbbell Split Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-squat
+  :movement/name "Single Arm Dumbbell Squat"}
+ {:movement/id   :movement.id/single-arm-dumbbell-squat-clean
+  :movement/name "Single Arm Dumbbell Squat Clean"}
+ {:movement/id   :movement.id/single-arm-dumbbell-squat-clean-and-jerk
+  :movement/name "Single Arm Dumbbell Squat Clean And Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-squat-clean-and-power-jerk
+  :movement/name "Single Arm Dumbbell Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-squat-clean-and-push-jerk
+  :movement/name "Single Arm Dumbbell Squat Clean And Push Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-squat-clean-and-split-jerk
+  :movement/name "Single Arm Dumbbell Squat Clean And Split Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-squat-clean-and-squat-jerk
+  :movement/name "Single Arm Dumbbell Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-squat-jerk
+  :movement/name "Single Arm Dumbbell Squat Jerk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-squat-snatch
+  :movement/name "Single Arm Dumbbell Squat Snatch"}
+ {:movement/id   :movement.id/single-arm-dumbbell-stiff-legged-deadlift
+  :movement/name "Single Arm Dumbbell Stiff Legged Deadlift"}
+ {:movement/id :movement.id/single-arm-dumbbell-stiff-legged-deadlift-high-pull
+  :movement/name "Single Arm Dumbbell Stiff Legged Deadlift High Pull"}
+ {:movement/id   :movement.id/single-arm-dumbbell-strict-press
+  :movement/name "Single Arm Dumbbell Strict Press"}
+ {:movement/id   :movement.id/single-arm-dumbbell-sumo-deadlift
+  :movement/name "Single Arm Dumbbell Sumo Deadlift"}
+ {:movement/id   :movement.id/single-arm-dumbbell-sumo-deadlift-high-pull
+  :movement/name "Single Arm Dumbbell Sumo Deadlift High Pull"}
+ {:movement/id   :movement.id/single-arm-dumbbell-thruster
+  :movement/name "Single Arm Dumbbell Thruster"}
+ {:movement/id   :movement.id/single-arm-dumbbell-walk
+  :movement/name "Single Arm Dumbbell Walk"}
+ {:movement/id   :movement.id/single-arm-dumbbell-walking-lunge
+  :movement/name "Single Arm Dumbbell Walking Lunge"}
+ {:movement/id   :movement.id/single-arm-kettlebell-box-step-over
+  :movement/name "Single Arm Kettlebell Box Step Over"}
+ {:movement/id   :movement.id/single-arm-kettlebell-box-step-up
+  :movement/name "Single Arm Kettlebell Box Step Up"}
+ {:movement/id   :movement.id/single-arm-kettlebell-clean
+  :movement/name "Single Arm Kettlebell Clean"}
+ {:movement/id   :movement.id/single-arm-kettlebell-clean-and-jerk
+  :movement/name "Single Arm Kettlebell Clean And Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-clean-and-power-jerk
+  :movement/name "Single Arm Kettlebell Clean And Power Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-clean-and-push-jerk
+  :movement/name "Single Arm Kettlebell Clean And Push Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-clean-and-split-jerk
+  :movement/name "Single Arm Kettlebell Clean And Split Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-clean-and-squat-jerk
+  :movement/name "Single Arm Kettlebell Clean And Squat Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-deadlift
+  :movement/name "Single Arm Kettlebell Deadlift"}
+ {:movement/id   :movement.id/single-arm-kettlebell-deadlift-high-pull
+  :movement/name "Single Arm Kettlebell Deadlift High Pull"}
+ {:movement/id   :movement.id/single-arm-kettlebell-devil-press
+  :movement/name "Single Arm Kettlebell Devil Press"}
+ {:movement/id   :movement.id/single-arm-kettlebell-hang-clean
+  :movement/name "Single Arm Kettlebell Hang Clean"}
+ {:movement/id   :movement.id/single-arm-kettlebell-hang-clean-and-jerk
+  :movement/name "Single Arm Kettlebell Hang Clean And Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-hang-clean-and-power-jerk
+  :movement/name "Single Arm Kettlebell Hang Clean And Power Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-hang-clean-and-push-jerk
+  :movement/name "Single Arm Kettlebell Hang Clean And Push Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-hang-clean-and-split-jerk
+  :movement/name "Single Arm Kettlebell Hang Clean And Split Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-hang-clean-and-squat-jerk
+  :movement/name "Single Arm Kettlebell Hang Clean And Squat Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-hang-power-clean
+  :movement/name "Single Arm Kettlebell Hang Power Clean"}
+ {:movement/id   :movement.id/single-arm-kettlebell-hang-power-clean-and-jerk
+  :movement/name "Single Arm Kettlebell Hang Power Clean And Jerk"}
+ {:movement/id
+  :movement.id/single-arm-kettlebell-hang-power-clean-and-power-jerk
+  :movement/name "Single Arm Kettlebell Hang Power Clean And Power Jerk"}
+ {:movement/id :movement.id/single-arm-kettlebell-hang-power-clean-and-push-jerk
+  :movement/name "Single Arm Kettlebell Hang Power Clean And Push Jerk"}
+ {:movement/id
+  :movement.id/single-arm-kettlebell-hang-power-clean-and-split-jerk
+  :movement/name "Single Arm Kettlebell Hang Power Clean And Split Jerk"}
+ {:movement/id
+  :movement.id/single-arm-kettlebell-hang-power-clean-and-squat-jerk
+  :movement/name "Single Arm Kettlebell Hang Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-hang-power-snatch
+  :movement/name "Single Arm Kettlebell Hang Power Snatch"}
+ {:movement/id   :movement.id/single-arm-kettlebell-hang-snatch
+  :movement/name "Single Arm Kettlebell Hang Snatch"}
+ {:movement/id   :movement.id/single-arm-kettlebell-hang-squat-clean
+  :movement/name "Single Arm Kettlebell Hang Squat Clean"}
+ {:movement/id   :movement.id/single-arm-kettlebell-hang-squat-clean-and-jerk
+  :movement/name "Single Arm Kettlebell Hang Squat Clean And Jerk"}
+ {:movement/id
+  :movement.id/single-arm-kettlebell-hang-squat-clean-and-power-jerk
+  :movement/name "Single Arm Kettlebell Hang Squat Clean And Power Jerk"}
+ {:movement/id :movement.id/single-arm-kettlebell-hang-squat-clean-and-push-jerk
+  :movement/name "Single Arm Kettlebell Hang Squat Clean And Push Jerk"}
+ {:movement/id
+  :movement.id/single-arm-kettlebell-hang-squat-clean-and-split-jerk
+  :movement/name "Single Arm Kettlebell Hang Squat Clean And Split Jerk"}
+ {:movement/id
+  :movement.id/single-arm-kettlebell-hang-squat-clean-and-squat-jerk
+  :movement/name "Single Arm Kettlebell Hang Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-hang-squat-snatch
+  :movement/name "Single Arm Kettlebell Hang Squat Snatch"}
+ {:movement/id   :movement.id/single-arm-kettlebell-jerk
+  :movement/name "Single Arm Kettlebell Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-lunge
+  :movement/name "Single Arm Kettlebell Lunge"}
+ {:movement/id   :movement.id/single-arm-kettlebell-man-maker
+  :movement/name "Single Arm Kettlebell Man Maker"}
+ {:movement/id   :movement.id/single-arm-kettlebell-overhead-lunge
+  :movement/name "Single Arm Kettlebell Overhead Lunge"}
+ {:movement/id   :movement.id/single-arm-kettlebell-overhead-squat
+  :movement/name "Single Arm Kettlebell Overhead Squat"}
+ {:movement/id   :movement.id/single-arm-kettlebell-overhead-walk
+  :movement/name "Single Arm Kettlebell Overhead Walk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-overhead-walking-lunge
+  :movement/name "Single Arm Kettlebell Overhead Walking Lunge"}
+ {:movement/id   :movement.id/single-arm-kettlebell-power-clean
+  :movement/name "Single Arm Kettlebell Power Clean"}
+ {:movement/id   :movement.id/single-arm-kettlebell-power-clean-and-jerk
+  :movement/name "Single Arm Kettlebell Power Clean And Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-power-clean-and-power-jerk
+  :movement/name "Single Arm Kettlebell Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-power-clean-and-push-jerk
+  :movement/name "Single Arm Kettlebell Power Clean And Push Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-power-clean-and-split-jerk
+  :movement/name "Single Arm Kettlebell Power Clean And Split Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-power-clean-and-squat-jerk
+  :movement/name "Single Arm Kettlebell Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-power-jerk
+  :movement/name "Single Arm Kettlebell Power Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-power-press
+  :movement/name "Single Arm Kettlebell Power Press"}
+ {:movement/id   :movement.id/single-arm-kettlebell-power-snatch
+  :movement/name "Single Arm Kettlebell Power Snatch"}
+ {:movement/id   :movement.id/single-arm-kettlebell-press
+  :movement/name "Single Arm Kettlebell Press"}
+ {:movement/id   :movement.id/single-arm-kettlebell-push-jerk
+  :movement/name "Single Arm Kettlebell Push Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-push-press
+  :movement/name "Single Arm Kettlebell Push Press"}
+ {:movement/id   :movement.id/single-arm-kettlebell-shoulder-to-overhead
+  :movement/name "Single Arm Kettlebell Shoulder To Overhead"}
+ {:movement/id   :movement.id/single-arm-kettlebell-snatch
+  :movement/name "Single Arm Kettlebell Snatch"}
+ {:movement/id   :movement.id/single-arm-kettlebell-split-jerk
+  :movement/name "Single Arm Kettlebell Split Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-squat
+  :movement/name "Single Arm Kettlebell Squat"}
+ {:movement/id   :movement.id/single-arm-kettlebell-squat-clean
+  :movement/name "Single Arm Kettlebell Squat Clean"}
+ {:movement/id   :movement.id/single-arm-kettlebell-squat-clean-and-jerk
+  :movement/name "Single Arm Kettlebell Squat Clean And Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-squat-clean-and-power-jerk
+  :movement/name "Single Arm Kettlebell Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-squat-clean-and-push-jerk
+  :movement/name "Single Arm Kettlebell Squat Clean And Push Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-squat-clean-and-split-jerk
+  :movement/name "Single Arm Kettlebell Squat Clean And Split Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-squat-clean-and-squat-jerk
+  :movement/name "Single Arm Kettlebell Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-squat-jerk
+  :movement/name "Single Arm Kettlebell Squat Jerk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-squat-snatch
+  :movement/name "Single Arm Kettlebell Squat Snatch"}
+ {:movement/id   :movement.id/single-arm-kettlebell-stiff-legged-deadlift
+  :movement/name "Single Arm Kettlebell Stiff Legged Deadlift"}
+ {:movement/id
+  :movement.id/single-arm-kettlebell-stiff-legged-deadlift-high-pull
+  :movement/name "Single Arm Kettlebell Stiff Legged Deadlift High Pull"}
+ {:movement/id   :movement.id/single-arm-kettlebell-strict-press
+  :movement/name "Single Arm Kettlebell Strict Press"}
+ {:movement/id   :movement.id/single-arm-kettlebell-sumo-deadlift
+  :movement/name "Single Arm Kettlebell Sumo Deadlift"}
+ {:movement/id   :movement.id/single-arm-kettlebell-sumo-deadlift-high-pull
+  :movement/name "Single Arm Kettlebell Sumo Deadlift High Pull"}
+ {:movement/id   :movement.id/single-arm-kettlebell-swings
+  :movement/name "Single Arm Kettlebell Swings"}
+ {:movement/id   :movement.id/single-arm-kettlebell-thruster
+  :movement/name "Single Arm Kettlebell Thruster"}
+ {:movement/id   :movement.id/single-arm-kettlebell-walk
+  :movement/name "Single Arm Kettlebell Walk"}
+ {:movement/id   :movement.id/single-arm-kettlebell-walking-lunge
+  :movement/name "Single Arm Kettlebell Walking Lunge"}
+ {:movement/id   :movement.id/single-arm-russian-kettlebell-swings
+  :movement/name "Single Arm Russian Kettlebell Swings"}
+ {:movement/id :movement.id/single-under :movement/name "Single Under"}
+ {:movement/id :movement.id/sit-up :movement/name "Sit Up"}
+ {:movement/id :movement.id/skierg :movement/name "Skierg"}
+ {:movement/id :movement.id/sled-drag :movement/name "Sled Drag"}
+ {:movement/id :movement.id/sled-pull :movement/name "Sled Pull"}
+ {:movement/id :movement.id/sled-push :movement/name "Sled Push"}
+ {:movement/id :movement.id/snatch :movement/name "Snatch"}
+ {:movement/id :movement.id/snatch-balance :movement/name "Snatch Balance"}
+ {:movement/id :movement.id/snatch-high-pull :movement/name "Snatch High Pull"}
+ {:movement/id :movement.id/snatch-pull :movement/name "Snatch Pull"}
+ {:movement/id :movement.id/split-jerk :movement/name "Split Jerk"}
+ {:movement/id :movement.id/squat :movement/name "Squat"}
+ {:movement/id :movement.id/squat-clean :movement/name "Squat Clean"}
+ {:movement/id   :movement.id/squat-clean-and-jerk
+  :movement/name "Squat Clean And Jerk"}
+ {:movement/id   :movement.id/squat-clean-and-power-jerk
+  :movement/name "Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/squat-clean-and-push-jerk
+  :movement/name "Squat Clean And Push Jerk"}
+ {:movement/id   :movement.id/squat-clean-and-split-jerk
+  :movement/name "Squat Clean And Split Jerk"}
+ {:movement/id   :movement.id/squat-clean-and-squat-jerk
+  :movement/name "Squat Clean And Squat Jerk"}
+ {:movement/id :movement.id/squat-jerk :movement/name "Squat Jerk"}
+ {:movement/id :movement.id/squat-jump :movement/name "Squat Jump"}
+ {:movement/id :movement.id/squat-snatch :movement/name "Squat Snatch"}
+ {:movement/id   :movement.id/stiff-legged-deadlift
+  :movement/name "Stiff Legged Deadlift"}
+ {:movement/id   :movement.id/stiff-legged-deadlift-high-pull
+  :movement/name "Stiff Legged Deadlift High Pull"}
+ {:movement/id   :movement.id/strict-bar-muscle-up
+  :movement/name "Strict Bar Muscle Up"}
+ {:movement/id   :movement.id/strict-bar-pull-ups
+  :movement/name "Strict Bar Pull Ups"}
+ {:movement/id   :movement.id/strict-chest-to-bar
+  :movement/name "Strict Chest To Bar"}
+ {:movement/id   :movement.id/strict-chest-to-ring
+  :movement/name "Strict Chest To Ring"}
+ {:movement/id   :movement.id/strict-handstand-push-up
+  :movement/name "Strict Handstand Push Up"}
+ {:movement/id :movement.id/strict-muscle-up :movement/name "Strict Muscle Up"}
+ {:movement/id :movement.id/strict-press :movement/name "Strict Press"}
+ {:movement/id :movement.id/strict-pull-ups :movement/name "Strict Pull Ups"}
+ {:movement/id :movement.id/strict-ring-dip :movement/name "Strict Ring Dip"}
+ {:movement/id   :movement.id/strict-ring-muscle-up
+  :movement/name "Strict Ring Muscle Up"}
+ {:movement/id   :movement.id/strict-ring-pull-ups
+  :movement/name "Strict Ring Pull Ups"}
+ {:movement/id :movement.id/strict-ring-row :movement/name "Strict Ring Row"}
+ {:movement/id   :movement.id/strict-toes-to-bar
+  :movement/name "Strict Toes To Bar"}
+ {:movement/id   :movement.id/strict-toes-to-ring
+  :movement/name "Strict Toes To Ring"}
+ {:movement/id :movement.id/sumo-deadlift :movement/name "Sumo Deadlift"}
+ {:movement/id   :movement.id/sumo-deadlift-high-pull
+  :movement/name "Sumo Deadlift High Pull"}
+ {:movement/id :movement.id/swim :movement/name "Swim"}
+ {:movement/id :movement.id/thruster :movement/name "Thruster"}
+ {:movement/id :movement.id/toes-to-bar :movement/name "Toes To Bar"}
+ {:movement/id :movement.id/toes-to-ring :movement/name "Toes To Ring"}
+ {:movement/id :movement.id/triple-under :movement/name "Triple Under"}
+ {:movement/id :movement.id/turkish-get-up :movement/name "Turkish Get Up"}
+ {:movement/id :movement.id/v-up :movement/name "V Up"}
+ {:movement/id :movement.id/walk :movement/name "Walk"}
+ {:movement/id :movement.id/walking-lunge :movement/name "Walking Lunge"}
+ {:movement/id :movement.id/wall-ball :movement/name "Wall Ball"}
+ {:movement/id :movement.id/wall-ball-clean :movement/name "Wall Ball Clean"}
+ {:movement/id   :movement.id/wall-ball-clean-and-jerk
+  :movement/name "Wall Ball Clean And Jerk"}
+ {:movement/id   :movement.id/wall-ball-clean-and-power-jerk
+  :movement/name "Wall Ball Clean And Power Jerk"}
+ {:movement/id   :movement.id/wall-ball-clean-and-push-jerk
+  :movement/name "Wall Ball Clean And Push Jerk"}
+ {:movement/id   :movement.id/wall-ball-clean-and-split-jerk
+  :movement/name "Wall Ball Clean And Split Jerk"}
+ {:movement/id   :movement.id/wall-ball-clean-and-squat-jerk
+  :movement/name "Wall Ball Clean And Squat Jerk"}
+ {:movement/id   :movement.id/wall-ball-deadlift
+  :movement/name "Wall Ball Deadlift"}
+ {:movement/id   :movement.id/wall-ball-deadlift-high-pull
+  :movement/name "Wall Ball Deadlift High Pull"}
+ {:movement/id   :movement.id/wall-ball-hang-clean
+  :movement/name "Wall Ball Hang Clean"}
+ {:movement/id   :movement.id/wall-ball-hang-clean-and-jerk
+  :movement/name "Wall Ball Hang Clean And Jerk"}
+ {:movement/id   :movement.id/wall-ball-hang-clean-and-power-jerk
+  :movement/name "Wall Ball Hang Clean And Power Jerk"}
+ {:movement/id   :movement.id/wall-ball-hang-clean-and-push-jerk
+  :movement/name "Wall Ball Hang Clean And Push Jerk"}
+ {:movement/id   :movement.id/wall-ball-hang-clean-and-split-jerk
+  :movement/name "Wall Ball Hang Clean And Split Jerk"}
+ {:movement/id   :movement.id/wall-ball-hang-clean-and-squat-jerk
+  :movement/name "Wall Ball Hang Clean And Squat Jerk"}
+ {:movement/id   :movement.id/wall-ball-hang-power-clean
+  :movement/name "Wall Ball Hang Power Clean"}
+ {:movement/id   :movement.id/wall-ball-hang-power-clean-and-jerk
+  :movement/name "Wall Ball Hang Power Clean And Jerk"}
+ {:movement/id   :movement.id/wall-ball-hang-power-clean-and-power-jerk
+  :movement/name "Wall Ball Hang Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/wall-ball-hang-power-clean-and-push-jerk
+  :movement/name "Wall Ball Hang Power Clean And Push Jerk"}
+ {:movement/id   :movement.id/wall-ball-hang-power-clean-and-split-jerk
+  :movement/name "Wall Ball Hang Power Clean And Split Jerk"}
+ {:movement/id   :movement.id/wall-ball-hang-power-clean-and-squat-jerk
+  :movement/name "Wall Ball Hang Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/wall-ball-hang-power-snatch
+  :movement/name "Wall Ball Hang Power Snatch"}
+ {:movement/id   :movement.id/wall-ball-hang-snatch
+  :movement/name "Wall Ball Hang Snatch"}
+ {:movement/id   :movement.id/wall-ball-hang-squat-clean
+  :movement/name "Wall Ball Hang Squat Clean"}
+ {:movement/id   :movement.id/wall-ball-hang-squat-clean-and-jerk
+  :movement/name "Wall Ball Hang Squat Clean And Jerk"}
+ {:movement/id   :movement.id/wall-ball-hang-squat-clean-and-power-jerk
+  :movement/name "Wall Ball Hang Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/wall-ball-hang-squat-clean-and-push-jerk
+  :movement/name "Wall Ball Hang Squat Clean And Push Jerk"}
+ {:movement/id   :movement.id/wall-ball-hang-squat-clean-and-split-jerk
+  :movement/name "Wall Ball Hang Squat Clean And Split Jerk"}
+ {:movement/id   :movement.id/wall-ball-hang-squat-clean-and-squat-jerk
+  :movement/name "Wall Ball Hang Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/wall-ball-hang-squat-snatch
+  :movement/name "Wall Ball Hang Squat Snatch"}
+ {:movement/id :movement.id/wall-ball-jerk :movement/name "Wall Ball Jerk"}
+ {:movement/id :movement.id/wall-ball-lunge :movement/name "Wall Ball Lunge"}
+ {:movement/id   :movement.id/wall-ball-power-clean
+  :movement/name "Wall Ball Power Clean"}
+ {:movement/id   :movement.id/wall-ball-power-clean-and-jerk
+  :movement/name "Wall Ball Power Clean And Jerk"}
+ {:movement/id   :movement.id/wall-ball-power-clean-and-power-jerk
+  :movement/name "Wall Ball Power Clean And Power Jerk"}
+ {:movement/id   :movement.id/wall-ball-power-clean-and-push-jerk
+  :movement/name "Wall Ball Power Clean And Push Jerk"}
+ {:movement/id   :movement.id/wall-ball-power-clean-and-split-jerk
+  :movement/name "Wall Ball Power Clean And Split Jerk"}
+ {:movement/id   :movement.id/wall-ball-power-clean-and-squat-jerk
+  :movement/name "Wall Ball Power Clean And Squat Jerk"}
+ {:movement/id   :movement.id/wall-ball-power-jerk
+  :movement/name "Wall Ball Power Jerk"}
+ {:movement/id   :movement.id/wall-ball-power-press
+  :movement/name "Wall Ball Power Press"}
+ {:movement/id   :movement.id/wall-ball-power-snatch
+  :movement/name "Wall Ball Power Snatch"}
+ {:movement/id :movement.id/wall-ball-press :movement/name "Wall Ball Press"}
+ {:movement/id   :movement.id/wall-ball-push-jerk
+  :movement/name "Wall Ball Push Jerk"}
+ {:movement/id   :movement.id/wall-ball-push-press
+  :movement/name "Wall Ball Push Press"}
+ {:movement/id   :movement.id/wall-ball-shoulder-to-overhead
+  :movement/name "Wall Ball Shoulder To Overhead"}
+ {:movement/id :movement.id/wall-ball-snatch :movement/name "Wall Ball Snatch"}
+ {:movement/id   :movement.id/wall-ball-split-jerk
+  :movement/name "Wall Ball Split Jerk"}
+ {:movement/id :movement.id/wall-ball-squat :movement/name "Wall Ball Squat"}
+ {:movement/id   :movement.id/wall-ball-squat-clean
+  :movement/name "Wall Ball Squat Clean"}
+ {:movement/id   :movement.id/wall-ball-squat-clean-and-jerk
+  :movement/name "Wall Ball Squat Clean And Jerk"}
+ {:movement/id   :movement.id/wall-ball-squat-clean-and-power-jerk
+  :movement/name "Wall Ball Squat Clean And Power Jerk"}
+ {:movement/id   :movement.id/wall-ball-squat-clean-and-push-jerk
+  :movement/name "Wall Ball Squat Clean And Push Jerk"}
+ {:movement/id   :movement.id/wall-ball-squat-clean-and-split-jerk
+  :movement/name "Wall Ball Squat Clean And Split Jerk"}
+ {:movement/id   :movement.id/wall-ball-squat-clean-and-squat-jerk
+  :movement/name "Wall Ball Squat Clean And Squat Jerk"}
+ {:movement/id   :movement.id/wall-ball-squat-jerk
+  :movement/name "Wall Ball Squat Jerk"}
+ {:movement/id   :movement.id/wall-ball-squat-snatch
+  :movement/name "Wall Ball Squat Snatch"}
+ {:movement/id   :movement.id/wall-ball-stiff-legged-deadlift
+  :movement/name "Wall Ball Stiff Legged Deadlift"}
+ {:movement/id   :movement.id/wall-ball-stiff-legged-deadlift-high-pull
+  :movement/name "Wall Ball Stiff Legged Deadlift High Pull"}
+ {:movement/id   :movement.id/wall-ball-strict-press
+  :movement/name "Wall Ball Strict Press"}
+ {:movement/id   :movement.id/wall-ball-sumo-deadlift
+  :movement/name "Wall Ball Sumo Deadlift"}
+ {:movement/id   :movement.id/wall-ball-sumo-deadlift-high-pull
+  :movement/name "Wall Ball Sumo Deadlift High Pull"}
+ {:movement/id   :movement.id/wall-ball-thruster
+  :movement/name "Wall Ball Thruster"}
+ {:movement/id   :movement.id/wall-ball-walking-lunge
+  :movement/name "Wall Ball Walking Lunge"}
+ {:movement/id :movement.id/wall-climb :movement/name "Wall Climb"}
+ {:movement/id :movement.id/yoke-carry :movement/name "Yoke Carry"})

@@ -6,7 +6,9 @@
       {:url "https://dev-tools.cognitect.com/maven/releases/"}}
 
  :paths
-   ["src/clj"
+   ["classes/movement"
+    "classes/workout"
+    "src/clj"
     "src/cljc"
     "resources"]
 
@@ -32,6 +34,7 @@
     ;; TODO may need to hand pick https://github.com/metosin/reitit#main-modules
     metosin/reitit                                      #:mvn{:version "0.5.13"}
     metosin/ring-http-response                          {:mvn/version "0.9.2"}
+    org.antlr/antlr4-runtime                            {:mvn/version "4.9.3"}
     ;; Reguired by spring-security-crypto
     org.bouncycastle/bcpkix-jdk15on                     {:mvn/version "1.65"}
     org.clojure/clojure                                 #:mvn{:version "1.10.3"}
@@ -52,7 +55,8 @@
 
  :aliases
    {:env/cljs
-      {:extra-paths ["src/cljs"
+      {:extra-paths ["spec/cljs"
+                     "src/cljs"
                      "src/js"
                      "test/cljs"]
 
@@ -65,6 +69,7 @@
           bidi/bidi             {:mvn/version "2.1.6"}
           clj-commons/pushy     {:mvn/version "0.3.10"}
           re-promise/re-promise {:mvn/version "0.1.1"}
+          town.lilac/pyramid    {:mvn/version "3.2.0"}
 
           ;; TODO move these dev dependencies
           binaryage/devtools   {:mvn/version "1.0.4"}
@@ -78,12 +83,13 @@
 
     :env/dev
       {:extra-paths ["env/dev/clj" "env/dev/resources"]
-       :extra-deps  {ring/ring-devel {:mvn/version "1.9.2"}}}
+       :extra-deps  {ring/ring-devel {:mvn/version "1.9.2"}}
+       :jvm-opts ["-XX:-OmitStackTraceInFastThrow"]}
 
     :env/test
       {:extra-paths ["test/clj" "env/test/resources"]
        :extra-deps  {buddy/buddy-core       {:mvn/version "1.10.1"}
-                     org.clojure/test.check {:mvn/version "1.1.0"}
+                     ; org.clojure/test.check {:mvn/version "1.1.0"}
                      ring/ring-mock         {:mvn/version "0.4.0"}}}
 
     :build
@@ -94,8 +100,9 @@
     :start-api
       {:main-opts ["-m" "cfapp.api.core" "--dev"]}
 
+    ;; Run with `clj -M:env/test:test -n cfapp.api.domain.workout.parse-test`
     :test
-      {:extra-deps {com.cognitect/test-runner
-                      {:git/url "https://github.com/cognitect-labs/test-runner"
-                       :sha     "b6b3193fcc42659d7e46ecd1884a228993441182"}}
-       :main-opts  ["-m" "cognitect.test-runner"]}}}
+      {:extra-deps {io.github.cognitect-labs/test-runner
+                    {:git/tag "v0.5.1" :git/sha "dfb30dd"}}
+       :main-opts ["-m" "cognitect.test-runner"]
+       :exec-fn cognitect.test-runner.api/test}}}

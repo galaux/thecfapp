@@ -1,9 +1,0 @@
-fragment NewScore on Score {
-  ...ScoreFields
-}
-
-mutation CreateScore($userId: ID!, $wodId: ID!, $value: Int!) {
-  createScore(input: { value: $value, userId: $userId, wodId: $wodId }) {
-    ...NewScore
-  }
-}

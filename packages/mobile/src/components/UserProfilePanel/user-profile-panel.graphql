@@ -1,3 +1,0 @@
-fragment UserProfilePanel on User {
-  ...UserFields
-}

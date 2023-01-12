@@ -1,4 +1,0 @@
-fragment WodFields on Wod {
-  id
-  date
-}

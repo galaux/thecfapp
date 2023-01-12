@@ -1,6 +1,6 @@
 (ns cfapp.api.db.conn
   (:require
-   [cfapp.api.db.bootstrap :refer [bootstrap-tx]]
+   [cfapp.api.db.bootstrap :as bootstrap]
    [cfapp.api.db.core :refer [db-empty? install-schema schema-missing?]]
    [clojure.tools.logging :as log]
    [datomic.client.api :as d]
@@ -18,8 +18,7 @@
       (install-schema conn))
     (when (and bootstrap-if-empty?
                (db-empty? (d/db conn)))
-      (log/info "DB empty: bootstrapping some fake data")
-      (d/transact conn {:tx-data (bootstrap-tx)}))
+      (bootstrap/go conn))
     (log/info "done.")
     conn))
 

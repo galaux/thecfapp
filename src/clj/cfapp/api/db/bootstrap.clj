@@ -1,13 +1,14 @@
 (ns cfapp.api.db.bootstrap
   (:require
-   [cfapp.api.db.domain.community :as community]
-   [cfapp.api.db.domain.score :as score]
    [cfapp.api.db.domain.user :as user]
    [cfapp.api.db.domain.wod :as wod]
-   [cfapp.api.db.domain.workout :as workout]
-   [clojure.spec.gen.alpha :as gen])
+   [clojure.edn :as edn]
+   [clojure.java.io :as io]
+   [clojure.spec.gen.alpha :as gen]
+   [clojure.tools.logging :as log]
+   [datomic.client.api :as d])
   (:import
-   java.util.UUID))
+   (java.util UUID)))
 
 (defn- many-to-many-links
   [attr link-count entities-a entities-b]
@@ -59,28 +60,79 @@
                    :user/email (format know-user-email i)))
                (better-sample user/user-gen (count known-user-ids))))
 
-(defn bootstrap-tx
+(defn rand-id
+  [_]
+  (UUID/randomUUID))
+
+;; TODO we don't need those readers anymore
+(defn read-entities
+  [e]
+  (edn/read-string
+    {:readers {'rand-id rand-id}}
+    e))
+
+(def slurp-edn (comp read-entities slurp io/resource))
+
+(defn gen-communities
   []
-  (let [communities (-> (better-sample community/community-gen 10)
-                        with-tmp-db-ids)
-        scores      (-> (gen/sample score/score-gen 300)
-                        with-tmp-db-ids)
-        users       (-> (concat (better-sample user/user-gen 40)
-                                (gen-known-users))
-                        with-tmp-db-ids)
-        wods        (-> (better-sample wod/wod-gen 100)
-                        with-tmp-db-ids)
-        workouts    (-> (better-sample workout/workout-gen 100)
-                        with-tmp-db-ids)]
-    (concat communities
-            scores
+  ;; (-> (better-sample community/community-gen 10)
+  ;;     with-tmp-db-ids)
+  (slurp-edn "communities.edn"))
+
+;; (defn gen-scores
+;;   []
+;;   (-> (gen/sample score/score-gen 300)
+;;       with-tmp-db-ids))
+
+(defn gen-users
+  []
+  (-> (concat (better-sample user/user-gen 40)
+              (gen-known-users))
+      with-tmp-db-ids))
+
+(defn gen-wods
+  []
+  (-> (better-sample wod/wod-gen 100)
+      with-tmp-db-ids))
+
+(defn gen-workouts
+  []
+  ;; (-> (better-sample workout/workout-gen 100)
+  ;;     with-tmp-db-ids))
+  (->> (concat
+         (slurp-edn "workouts/named.edn")
+         (slurp-edn "workouts/custom.edn"))
+       vals
+       (map :db)
+       (map #(assoc % :workout/id (UUID/randomUUID)))
+       with-tmp-db-ids))
+
+;; TODO this might be the reason why starting the app looks like its pausing
+;; for some seconds
+(def movements (slurp-edn "movements.edn"))
+
+(defn gen-txes
+  []
+  (let [movements   movements
+        communities (gen-communities)
+        users       (gen-users)
+        wods        (gen-wods)
+        workouts    (gen-workouts)]
+    (concat movements
+            communities
+            ;; scores
             users
             workouts
             wods
             (many-to-many-links :community.privs/member 50 users communities)
             (compulsory-1-to-1-links :wod/community wods communities)
-            (compulsory-1-to-1-links :wod/workout wods workouts)
-            ;; TODO improve this because it currently makes users do wods
-            ;; for communities they might not belong to
-            (compulsory-1-to-1-links :score/user scores users)
-            (compulsory-1-to-1-links :score/wod scores wods))))
+            (compulsory-1-to-1-links :wod/workout wods workouts))))
+           ;; TODO improve this because it currently makes users do wods
+           ;; for communities they might not belong to
+           ;; (compulsory-1-to-1-links :score/user scores users)
+           ;; (compulsory-1-to-1-links :score/wod scores wods))))
+
+(defn go
+  [conn]
+  (log/info "DB empty: bootstrapping some fake data")
+  (d/transact conn {:tx-data (gen-txes)}))

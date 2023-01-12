@@ -1,0 +1,13 @@
+query UserCommunities($userId: ID!) {
+  userCommunities(userId: $userId) {
+    id
+    name
+    memberCount
+    address {
+      street
+      zipCode
+      city
+      country
+    }
+  }
+}

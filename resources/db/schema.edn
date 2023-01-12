@@ -1,27 +1,153 @@
-[
- ;; User
- {:db/doc         "User ID"
-  :db/ident       :user/id
+[;; Units
+ {:db/ident :unit/calorie}
+ {:db/ident :unit/millisecond}
+
+ {:db/ident :unit/foot}
+ {:db/ident :unit/meter}
+ {:db/ident :unit/mile}
+
+ {:db/ident :unit/bodyweight}
+ {:db/ident :unit/kilogram}
+ {:db/ident :unit/pood}
+ {:db/ident :unit/pound}
+
+ ;; Movement
+ {:db/doc         "Movement ID"
+  :db/ident       :movement/id
+  :db/valueType   :db.type/keyword
+  :db/cardinality :db.cardinality/one
+  :db/unique      :db.unique/identity}
+ {:db/doc         "Movement name"
+  :db/ident       :movement/name
+  :db/valueType   :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique      :db.unique/identity}
+
+ ;; Exercise
+ {:db/doc         "Exercise movement"
+  :db/ident       :exercise/movement
+  :db/valueType   :db.type/ref
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "Exercise repetitions count"
+  :db/ident       :exercise/rep-count
+  :db/valueType   :db.type/long
+  :db/cardinality :db.cardinality/one}
+ {:db/doc
+  "Exercise application (weight for weighted squat, meters for a run, …)"
+  :db/ident       :exercise/application
+  :db/valueType   :db.type/ref
+  :db/isComponent true
+  :db/cardinality :db.cardinality/one}
+
+ ;; Exercise application value
+ {:db/doc         "Exercise application value"
+  :db/ident       :exercise.application/value
+  :db/valueType   :db.type/ref
+  :db/isComponent true
+  :db/cardinality :db.cardinality/one}
+
+ ;; Exercise application
+ {:db/doc         "Exercise application value for all"
+  :db/ident       :exercise.application.value/all
+  :db/valueType   :db.type/double
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "Exercise application value for men"
+  :db/ident       :exercise.application.value/men
+  :db/valueType   :db.type/double
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "Exercise application value for women"
+  :db/ident       :exercise.application.value/women
+  :db/valueType   :db.type/double
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "Exercise application unit"
+  :db/ident       :exercise.application/unit
+  :db/valueType   :db.type/ref
+  :db/cardinality :db.cardinality/one}
+
+ ;; Score Types
+ {:db/ident :score-type/duration}
+ {:db/ident :score-type/rep-count}
+
+ ;; Repetitions Scheme
+ {:db/doc         "Repetitions scheme: first round repetitions count"
+  :db/ident       :workout.loop.rep-scheme/first-rep-count
+  :db/valueType   :db.type/long
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "Repetitions scheme: last round repetitions count (optional)"
+  :db/ident       :workout.loop.rep-scheme/last-rep-count
+  :db/valueType   :db.type/long
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "Repetitions scheme: step between round repetitions count"
+  :db/ident       :workout.loop.rep-scheme/step
+  :db/valueType   :db.type/long
+  :db/cardinality :db.cardinality/one}
+
+ ;; Workout Loop
+ {:db/doc         "Workout loop score type"
+  :db/ident       :workout.loop/score-type
+  :db/valueType   :db.type/ref
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "Workout loop time cap"
+  :db/ident       :workout.loop/time-cap
+  :db/valueType   :db.type/long
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "Workout loop duration"
+  :db/ident       :workout.loop/duration
+  :db/valueType   :db.type/long
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "Workout loop period"
+  :db/ident       :workout.loop/period
+  :db/valueType   :db.type/long
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "Workout loop round count"
+  :db/ident       :workout.loop/round-count
+  :db/valueType   :db.type/long
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "Workout loop repetitions scheme"
+  :db/ident       :workout.loop/rep-scheme
+  :db/valueType   :db.type/ref
+  :db/isComponent true
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "List of exercises or other workout loops"
+  :db/ident       :workout.loop/tasks
+  :db/valueType   :db.type/ref
+  :db/isComponent true
+  :db/cardinality :db.cardinality/many}
+
+ ;; Workout
+ {:db/doc         "Workout ID"
+  :db/ident       :workout/id
   :db/valueType   :db.type/uuid
   :db/cardinality :db.cardinality/one
   :db/unique      :db.unique/identity}
- {:db/doc         "User password"
-  :db/ident       :user/password
+ {:db/doc         "Workout name"
+  :db/ident       :workout/name
   :db/valueType   :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique      :db.unique/identity}
+ {:db/doc         "Workout loop"
+  :db/ident       :workout/loop
+  :db/valueType   :db.type/ref
+  :db/isComponent true
   :db/cardinality :db.cardinality/one}
- {:db/doc         "User screen name"
-  :db/ident       :user/screen-name
-  :db/valueType   :db.type/string
+
+ ;; WoD
+ {:db/doc         "WoD ID"
+  :db/ident       :wod/id
+  :db/valueType   :db.type/uuid
   :db/cardinality :db.cardinality/one
   :db/unique      :db.unique/identity}
- {:db/doc         "User email"
-  :db/ident       :user/email
-  :db/valueType   :db.type/string
-  :db/cardinality :db.cardinality/one
-  :db/unique      :db.unique/identity}
- {:db/doc         "Whether or not the user email was verified"
-  :db/ident       :user/email-verified?
-  :db/valueType   :db.type/boolean
+ {:db/doc         "WoD date"
+  :db/ident       :wod/date
+  :db/valueType   :db.type/instant
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "The community a WoD belongs to"
+  :db/ident       :wod/community
+  :db/valueType   :db.type/ref
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "Workout performed during this WoD"
+  :db/ident       :wod/workout
+  :db/valueType   :db.type/ref
   :db/cardinality :db.cardinality/one}
 
  ;; Community
@@ -53,6 +179,31 @@
   :db/valueType   :db.type/string
   :db/cardinality :db.cardinality/one}
 
+ ;; User
+ {:db/doc         "User ID"
+  :db/ident       :user/id
+  :db/valueType   :db.type/uuid
+  :db/cardinality :db.cardinality/one
+  :db/unique      :db.unique/identity}
+ {:db/doc         "User password"
+  :db/ident       :user/password
+  :db/valueType   :db.type/string
+  :db/cardinality :db.cardinality/one}
+ {:db/doc         "User screen name"
+  :db/ident       :user/screen-name
+  :db/valueType   :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique      :db.unique/identity}
+ {:db/doc         "User email"
+  :db/ident       :user/email
+  :db/valueType   :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/unique      :db.unique/identity}
+ {:db/doc         "Whether or not the user email was verified"
+  :db/ident       :user/email-verified?
+  :db/valueType   :db.type/boolean
+  :db/cardinality :db.cardinality/one}
+
  ;; User/Community
  {:db/doc         "Owner privileges over a community"
   :db/ident       :community.privs/owner
@@ -67,48 +218,9 @@
   :db/valueType   :db.type/ref
   :db/cardinality :db.cardinality/many}
 
- ;; Workout
- {:db/doc         "Workout ID"
-  :db/ident       :workout/id
-  :db/valueType   :db.type/uuid
-  :db/cardinality :db.cardinality/one
-  :db/unique      :db.unique/identity}
- {:db/doc         "Workout name"
-  :db/ident       :workout/name
-  :db/valueType   :db.type/string
-  :db/cardinality :db.cardinality/one
-  :db/unique      :db.unique/identity}
- {:db/doc         "Workout description"
-  :db/ident       :workout/description
-  :db/valueType   :db.type/string
-  :db/cardinality :db.cardinality/one}
- {:db/ident :workout.scoring-type/duration-ms}
- {:db/ident :workout.scoring-type/repetitions}
- {:db/doc         "Workout scoring type"
-  :db/ident       :workout/scoring-type
-  :db/valueType   :db.type/ref
-  :db/cardinality :db.cardinality/one}
-
- ;; WoD
- {:db/doc         "WoD ID"
-  :db/ident       :wod/id
-  :db/valueType   :db.type/uuid
-  :db/cardinality :db.cardinality/one
-  :db/unique      :db.unique/identity}
- {:db/doc         "WoD date"
-  :db/ident       :wod/date
-  :db/valueType   :db.type/instant
-  :db/cardinality :db.cardinality/one}
- {:db/doc         "The community a WoD belongs to"
-  :db/ident       :wod/community
-  :db/valueType   :db.type/ref
-  :db/cardinality :db.cardinality/one}
- {:db/doc         "Workout performed during this WoD"
-  :db/ident       :wod/workout
-  :db/valueType   :db.type/ref
-  :db/cardinality :db.cardinality/one}
-
  ;; Score
+ ;; TODO In the future, add :score/type
+ ;; TODO In the future, add link to the workout actually performed
  {:db/doc         "Score ID"
   :db/ident       :score/id
   :db/valueType   :db.type/uuid
@@ -118,7 +230,7 @@
   :db/ident       :score/user
   :db/valueType   :db.type/ref
   :db/cardinality :db.cardinality/one}
- {:db/doc         "WoD this score is for"
+ {:db/doc         "WoD this score is related to"
   :db/ident       :score/wod
   :db/valueType   :db.type/ref
   :db/cardinality :db.cardinality/one}
